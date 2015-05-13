@@ -10,18 +10,6 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
---alter table dbo.[Order] drop constraint FK_Person_Order_PersonID
---GO
-
---Truncate table dbo.[Order]
---GO
-
---Truncate table dbo.[Person]
---GO
-
---alter table dbo.[Order] add CONSTRAINT FK_Person_Order_PersonID FOREIGN KEY (PersonId) REFERENCES Person(PersonId)
---GO
-
 Insert into dbo.[Person] values ('Brett'),('Neil')
 GO
 
