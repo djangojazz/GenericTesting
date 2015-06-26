@@ -10,7 +10,7 @@ namespace GenericTesting
     {
         public class Thing
         {
-
+            // THis was me
             public string Name { get; set; }
             public string Code { get; set; }
         }
