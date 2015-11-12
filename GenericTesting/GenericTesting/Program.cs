@@ -31,7 +31,16 @@ namespace GenericTesting
             StringBoxingAndUnboxingToADictionary boxer = new StringBoxingAndUnboxingToADictionary();
             var str = boxer.ReturnAStringFromADictionary(boxer.DictionaryBoxing);
 
-            //var items = strToWorkWith.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+            var items = str.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < items.Length; i++)
+            {
+                var cols = items[i].Split(new[] {","}, StringSplitOptions.RemoveEmptyEntries);
+                for (int j = 0; j < cols.Length; j++)
+                {
+                    Console.WriteLine($"{i}{j} {cols[j]}");
+                }
+            }
 
             Console.ReadLine();
         }
