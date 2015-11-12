@@ -28,21 +28,11 @@ namespace GenericTesting
 
         static void Main(string[] args)
         {
-            var things = CreateThings();
-            string s = "";
+            StringBoxingAndUnboxingToADictionary boxer = new StringBoxingAndUnboxingToADictionary();
+            var str = boxer.ReturnAStringFromADictionary(boxer.DictionaryBoxing);
 
-            var first = things.Where(x => (new string[] { "1", "30" }).Contains(x.Code)).Select(x => new KeyValuePair<int, Thing>(1, x)).ToList();
-            var second = things.Where(x => !(new string[] { "1", "30" }).Contains(x.Code)).Select(x => new KeyValuePair<int, Thing>(2, x)).ToList();
+            //var items = strToWorkWith.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 
-            var combined = first.Union(second);
-
-            combined
-                .OrderByDescending(x => x.Key)
-                .ThenByDescending(x => x.Value.Code)
-                .ToList()
-                .ForEach(x => s += "Key: " + x.Key + "\tName: " + x.Value.Name + "\tCode: " + x.Value.Code + Environment.NewLine);
-
-            Console.WriteLine(s);
             Console.ReadLine();
         }
     }
