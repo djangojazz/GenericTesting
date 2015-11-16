@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,19 +31,10 @@ namespace GenericTesting
         static void Main(string[] args)
         {
             StringBoxingAndUnboxingToADictionary boxer = new StringBoxingAndUnboxingToADictionary();
-            var str = boxer.ReturnAStringFromADictionary(boxer.DictionaryBoxing);
+            var str = boxer.ReturnAStringFromADictionary(boxer.DictionaryBoxingMulti);
 
-            var items = str.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-
-            for (int i = 0; i < items.Length; i++)
-            {
-                var cols = items[i].Split(new[] {","}, StringSplitOptions.RemoveEmptyEntries);
-                for (int j = 0; j < cols.Length; j++)
-                {
-                    Console.WriteLine($"{i}{j} {cols[j]}");
-                }
-            }
-
+            var dic = boxer.ReturnADictionaryFromAString(str);
+            
             Console.ReadLine();
         }
     }

@@ -60,5 +60,44 @@ namespace GenericTesting
 
             return sb.ToString();
         }
+
+        public Dictionary<string, List<string>> ReturnADictionaryFromAString(string inputString)
+        {
+            var items = inputString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+            var dictionary = new Dictionary<string, List<string>>();
+            var listing = new List<Tuple<int, int, string>>();
+
+            for (int i = 0; i < items.Length; i++)
+            {
+                var cols = items[i].Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                for (int j = 0; j < cols.Length; j++)
+                {
+                    listing.Add(new Tuple<int, int, string>(i, j, cols[j]));
+                }
+            }
+
+            foreach (var col in listing.Select(x => x.Item2).Distinct())
+            {
+                var header = string.Empty;
+                var lines = new List<string>();
+
+                foreach (var row in listing.Select(x => x.Item1).Distinct())
+                {
+                    if (row == 0)
+                    {
+                        header = listing.FirstOrDefault(x => x.Item1 == row && x.Item2 == col)?.Item3 ?? string.Empty;
+                    }
+                    else
+                    {
+                        lines.Add(listing.FirstOrDefault(x => x.Item1 == row && x.Item2 == col)?.Item3);
+                    }
+                }
+
+                dictionary.Add(header, lines.Distinct().ToList());
+            }
+
+            return dictionary;
+        }
     }
 }
