@@ -15,7 +15,7 @@ namespace GenericTesting
             // THis was me
             public string Name { get; set; }
             public string Code { get; set; }
-        }
+        } 
 
         public static List<Thing> CreateThings()
         {
@@ -30,11 +30,15 @@ namespace GenericTesting
 
         static void Main(string[] args)
         {
+            var list = new List<string> {"A", "B", "C"};
+            var list2 = new List<string> { "A", "B", "C" };
+            var listing = new List<List<string>> {list, list2};
+            
             StringBoxingAndUnboxingToADictionary boxer = new StringBoxingAndUnboxingToADictionary();
-            var str = boxer.ReturnAStringFromADictionary(boxer.DictionaryBoxingMulti);
+            var str = boxer.ReturnAStringFromADictionary(boxer.DictionaryBoxing);
 
             var dic = boxer.ReturnADictionaryFromAString(str);
-            
+
             Console.ReadLine();
         }
     }

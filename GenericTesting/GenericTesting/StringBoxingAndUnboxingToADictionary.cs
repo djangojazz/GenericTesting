@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -61,7 +63,7 @@ namespace GenericTesting
             return sb.ToString();
         }
 
-        public Dictionary<string, List<string>> ReturnADictionaryFromAString(string inputString)
+        public Dictionary<string, List<string>> ReturnAMultiLineDictionaryFromAString(string inputString)
         {
             var items = inputString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -70,7 +72,7 @@ namespace GenericTesting
 
             for (int i = 0; i < items.Length; i++)
             {
-                var cols = items[i].Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                var cols = items[i].Split(new[] { "," }, StringSplitOptions.None);
                 for (int j = 0; j < cols.Length; j++)
                 {
                     listing.Add(new Tuple<int, int, string>(i, j, cols[j]));
@@ -90,13 +92,42 @@ namespace GenericTesting
                     }
                     else
                     {
-                        lines.Add(listing.FirstOrDefault(x => x.Item1 == row && x.Item2 == col)?.Item3);
+                        lines.Add(listing.FirstOrDefault(x => x.Item1 == row && x.Item2 == col)?.Item3 ?? string.Empty);
                     }
                 }
 
                 dictionary.Add(header, lines.Distinct().ToList());
             }
 
+            return dictionary;
+        }
+
+        public Dictionary<string, string> ReturnADictionaryFromAString(string inputString)
+        {
+            var items = inputString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Split(new [] { ","}, StringSplitOptions.None).ToList()).ToList();
+            var cols = items[0].Select(x => x).Count();
+            var lines = items.Count;
+
+            var dictionary = new Dictionary<string, string>();
+
+            for (int i = 0; i < cols; i++)
+            {
+                string header = string.Empty;
+                string line = string.Empty;
+
+                for (int j = 0; j < lines; j++)
+                {                    
+                    if (j == 0)
+                        header = (items[j])[i];
+                    else
+                    {
+                        line = (items[j])[i];
+                    }
+                }
+
+                dictionary.Add(header, line);
+            }
+            
             return dictionary;
         }
     }
