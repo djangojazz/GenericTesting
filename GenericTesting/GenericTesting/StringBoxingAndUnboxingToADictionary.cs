@@ -105,7 +105,7 @@ namespace GenericTesting
         public Dictionary<string, string> ReturnADictionaryFromAString(string inputString)
         {
             var items = inputString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Split(new [] { ","}, StringSplitOptions.None).ToList()).ToList();
-            var cols = items[0].Select(x => x).Count();
+            var cols = (items[0]).Count;
             var lines = items.Count;
 
             var dictionary = new Dictionary<string, string>();
