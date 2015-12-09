@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace GenericTesting
 {
-    public sealed class StringBoxingAndUnboxingToADictionary
+    public static class StringBoxingAndUnboxingToADictionary
     {
-        public Dictionary<string, List<string>> DictionaryBoxingMulti { get; set; }
-        public Dictionary<string, string> DictionaryBoxing { get; set; }
+        public static Dictionary<string, List<string>> DictionaryBoxingMulti { get; set; }
+        public static Dictionary<string, string> DictionaryBoxing { get; set; }
         
-        public StringBoxingAndUnboxingToADictionary()
+        static StringBoxingAndUnboxingToADictionary()
         {
             DictionaryBoxingMulti = new Dictionary< string, List < string >>
             {
@@ -30,7 +30,7 @@ namespace GenericTesting
             };
         }
 
-        public string ReturnAStringFromADictionary(Dictionary<string, List<string>> dictionary, string containerDesignation = "\"", string delimeter = ",")
+        public static string ReturnAStringFromADictionary(this Dictionary<string, List<string>> dictionary, string containerDesignation = "\"", string delimeter = ",")
         {
             StringBuilder sb = new StringBuilder();
 
@@ -53,7 +53,7 @@ namespace GenericTesting
             return sb.ToString();
         }
 
-        public string ReturnAStringFromADictionary(Dictionary<string, string> dictionary, string containerDesignation = "\"", string delimeter = ",")
+        public static string ReturnAStringFromADictionary(this Dictionary<string, string> dictionary, string containerDesignation = "\"", string delimeter = ",")
         {
             StringBuilder sb = new StringBuilder();
 
@@ -63,7 +63,7 @@ namespace GenericTesting
             return sb.ToString();
         }
 
-        public Dictionary<string, List<string>> ReturnAMultiLineDictionaryFromAString(string inputString)
+        public static Dictionary<string, List<string>> ReturnAMultiLineDictionaryFromAString(this string inputString)
         {
             var items = inputString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -102,7 +102,7 @@ namespace GenericTesting
             return dictionary;
         }
 
-        public Dictionary<string, string> ReturnADictionaryFromAString(string inputString)
+        public static Dictionary<string, string> ReturnADictionaryFromAString(this string inputString)
         {
             var items = inputString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Split(new [] { ","}, StringSplitOptions.None).ToList()).ToList();
             var cols = (items[0]).Count;

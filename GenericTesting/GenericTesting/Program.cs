@@ -10,35 +10,16 @@ namespace GenericTesting
 {
     class Program
     {
-        public class Thing
-        {
-            // THis was me
-            public string Name { get; set; }
-            public string Code { get; set; }
-        } 
-
-        public static List<Thing> CreateThings()
-        {
-            return new List<Thing>
-            {
-                new Thing { Name = "First", Code = "1" },
-                new Thing { Name = "Second", Code = "24" },
-                new Thing { Name = "Third", Code = "30" },
-                new Thing { Name = "Fourth", Code = "98" },
-            };
-        }
-
         static void Main(string[] args)
         {
-            var list = new List<string> {"A", "B", "C"};
-            var list2 = new List<string> { "A", "B", "C" };
-            var listing = new List<List<string>> {list, list2};
+            var dicsl = StringBoxingAndUnboxingToADictionary.DictionaryBoxing;
+            var str = dicsl.ReturnAStringFromADictionary();
+            var dic = str.ReturnADictionaryFromAString();
+
+            var dicsm = StringBoxingAndUnboxingToADictionary.DictionaryBoxingMulti;
+            var strm = dicsm.ReturnAStringFromADictionary();
+            var dicm = strm.ReturnAMultiLineDictionaryFromAString();
             
-            StringBoxingAndUnboxingToADictionary boxer = new StringBoxingAndUnboxingToADictionary();
-            var str = boxer.ReturnAStringFromADictionary(boxer.DictionaryBoxing);
-
-            var dic = boxer.ReturnADictionaryFromAString(str);
-
             Console.ReadLine();
         }
     }
