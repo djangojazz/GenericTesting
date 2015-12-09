@@ -63,9 +63,12 @@ namespace GenericTesting
             return sb.ToString();
         }
 
-        public static Dictionary<string, List<string>> ReturnAMultiLineDictionaryFromAString(this string inputString)
+        public static Dictionary<string, List<string>> ReturnAMultiLineDictionaryFromAString(this string inputString, string splitter = null)
         {
-            var items = inputString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            if (splitter == null)
+                splitter = Environment.NewLine;
+
+            var items = inputString.Split(new[] { splitter }, StringSplitOptions.RemoveEmptyEntries);
 
             var dictionary = new Dictionary<string, List<string>>();
             var listing = new List<Tuple<int, int, string>>();
@@ -102,9 +105,12 @@ namespace GenericTesting
             return dictionary;
         }
 
-        public static Dictionary<string, string> ReturnADictionaryFromAString(this string inputString)
+        public static Dictionary<string, string> ReturnADictionaryFromAString(this string inputString, string splitter = null)
         {
-            var items = inputString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Split(new [] { ","}, StringSplitOptions.None).ToList()).ToList();
+            if (splitter == null)
+                splitter = Environment.NewLine;
+
+            var items = inputString.Split(new[] { splitter }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Split(new [] { ","}, StringSplitOptions.None).ToList()).ToList();
             var cols = (items[0]).Count;
             var lines = items.Count;
 
