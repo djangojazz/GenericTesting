@@ -63,7 +63,7 @@ namespace GenericTesting
             return sb.ToString();
         }
 
-        public static Dictionary<string, List<string>> ReturnAMultiLineDictionaryFromAString(this string inputString, string splitter = null)
+        public static Dictionary<string, List<string>> ReturnAMultiLineDictionaryFromAString(this string inputString, string splitter = null, string delimeter = ",")
         {
             if (splitter == null)
                 splitter = Environment.NewLine;
@@ -75,7 +75,7 @@ namespace GenericTesting
 
             for (int i = 0; i < items.Length; i++)
             {
-                var cols = items[i].Split(new[] { "," }, StringSplitOptions.None);
+                var cols = items[i].Split(new[] { delimeter }, StringSplitOptions.None);
                 for (int j = 0; j < cols.Length; j++)
                 {
                     listing.Add(new Tuple<int, int, string>(i, j, cols[j]));
@@ -105,12 +105,12 @@ namespace GenericTesting
             return dictionary;
         }
 
-        public static Dictionary<string, string> ReturnADictionaryFromAString(this string inputString, string splitter = null)
+        public static Dictionary<string, string> ReturnADictionaryFromAString(this string inputString, string splitter = null, string delimeter = ",")
         {
             if (splitter == null)
                 splitter = Environment.NewLine;
 
-            var items = inputString.Split(new[] { splitter }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Split(new [] { ","}, StringSplitOptions.None).ToList()).ToList();
+            var items = inputString.Split(new[] { splitter }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Split(new [] { delimeter }, StringSplitOptions.None).ToList()).ToList();
             var cols = (items[0]).Count;
             var lines = items.Count;
 
