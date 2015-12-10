@@ -18,7 +18,7 @@ namespace GenericTesting
             DictionaryBoxingMulti = new Dictionary< string, List < string >>
             {
                 { "Person", new List<string> { "John", "Jenny", "Robert" }},
-                { "Order", new List<string> { "A", "B", "C" }},
+                { "Order", new List<string> { "A", "B", "" }},
                 { "Address", new List<string> { "123 Somewhere", "456 Somewhere Else", "789 Yet again" }},
             };
 

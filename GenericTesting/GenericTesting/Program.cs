@@ -12,14 +12,20 @@ namespace GenericTesting
     {
         static void Main(string[] args)
         {
-            var dicsl = StringBoxingAndUnboxingToADictionary.DictionaryBoxing;
-            var str = dicsl.ReturnAStringFromADictionary();
-            var dic = str.ReturnADictionaryFromAString();
+            var appointmentDate = "2013-06-13T00:00:00";
+            var pstTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
 
-            var dicsm = StringBoxingAndUnboxingToADictionary.DictionaryBoxingMulti;
-            var strm = dicsm.ReturnAStringFromADictionary();
-            var dicm = strm.ReturnAMultiLineDictionaryFromAString();
-            
+            var pstDate = pstTimeZone.ConvertDateFromTimeZoneToUTCElseDefaultUTCNow(appointmentDate);
+            Console.WriteLine(pstDate);
+
+            //var dicsl = StringBoxingAndUnboxingToADictionary.DictionaryBoxing;
+            //var str = dicsl.ReturnAStringFromADictionary();
+            //var dic = str.ReturnADictionaryFromAString();
+
+            //var dicsm = StringBoxingAndUnboxingToADictionary.DictionaryBoxingMulti;
+            //var strm = dicsm.ReturnAStringFromADictionary();
+            //var dicm = strm.ReturnAMultiLineDictionaryFromAString();
+
             Console.ReadLine();
         }
     }
