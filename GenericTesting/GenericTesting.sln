@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityTesting", "EntityTest
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VBConsoleTesting", "VBConsoleTesting\VBConsoleTesting.vbproj", "{918652DC-2577-40A6-AB7C-A9D275E4779C}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CodeRunner", "CodeRunner\CodeRunner.vbproj", "{09D20F73-967C-492D-81DE-E8DBB02C4799}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{918652DC-2577-40A6-AB7C-A9D275E4779C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{918652DC-2577-40A6-AB7C-A9D275E4779C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{918652DC-2577-40A6-AB7C-A9D275E4779C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09D20F73-967C-492D-81DE-E8DBB02C4799}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09D20F73-967C-492D-81DE-E8DBB02C4799}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09D20F73-967C-492D-81DE-E8DBB02C4799}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09D20F73-967C-492D-81DE-E8DBB02C4799}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
