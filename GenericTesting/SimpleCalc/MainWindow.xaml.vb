@@ -1,9 +1,6 @@
-﻿Class MainWindow
+﻿Imports CodeRunner.Utilities
 
-    Const ADD As String = "Add"
-    Const SUBTRACT As String = "Subtract"
-    Const MULTIPLY As String = "Multiply"
-    Const DIVIDE As String = "Divide"
+Class MainWindow
 
     Sub Calculate(operation As String)
 
@@ -20,23 +17,25 @@
             Return
         End If
 
-        Dim result As Double
+        Dim calc = New CalcUtility(dbl1, dbl2)
+
         Select Case operation
-            Case ADD
-                result = dbl1 + dbl2
-            Case SUBTRACT
-                result = dbl1 - dbl2
-            Case MULTIPLY
-                result = dbl1 * dbl2
-            Case DIVIDE
-                result = dbl1 / dbl2
-                If Double.IsPositiveInfinity(result) Or
-                    Double.IsNegativeInfinity(result) Then
-                    DisplayError("Divide by zero")
-                    Return
-                End If
+            Case CalcUtility.ADD
+                calc.AddValues()
+            Case CalcUtility.SUBTRACT
+                calc.SubtractValues()
+            Case CalcUtility.MULTIPLY
+                calc.MultiplyValues()
+            Case CalcUtility.DIVIDE
+                calc.DivideValues()
         End Select
-        DisplayResult(result)
+        If Double.IsPositiveInfinity(calc.result) Or
+                    Double.IsNegativeInfinity(calc.result) Then
+            DisplayError("Divide by zero")
+            Return
+        End If
+
+        DisplayResult(calc.result)
     End Sub
 
     Sub DisplayResult(result As Double)
@@ -49,19 +48,19 @@
     End Sub
 
     Private Sub btnSubtract_Click(sender As Object, e As RoutedEventArgs)
-        Calculate(SUBTRACT)
+        Calculate(CalcUtility.SUBTRACT)
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As RoutedEventArgs) Handles btnAdd.Click
-        Calculate(ADD)
+        Calculate(CalcUtility.ADD)
     End Sub
 
     Private Sub btnMultiply_Click(sender As Object, e As RoutedEventArgs) Handles btnMultiply.Click
-        Calculate(MULTIPLY)
+        Calculate(CalcUtility.MULTIPLY)
     End Sub
 
     Private Sub btnDivide_Click(sender As Object, e As RoutedEventArgs) Handles btnDivide.Click
-        Calculate(DIVIDE)
+        Calculate(CalcUtility.DIVIDE)
     End Sub
 
     Private Sub DisplayError(message As String)
