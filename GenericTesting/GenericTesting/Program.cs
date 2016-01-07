@@ -23,7 +23,7 @@ namespace GenericTesting
         static void Main(string[] args)
         {
             var pocos = GetPOCOs();
-            var ints = new[] { 1, 2, 3 };
+            var ints = new[] { 1, 3 };
 
             var exists = pocos.All(x => ints.Contains(x.Id));
             Console.WriteLine(exists);

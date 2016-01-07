@@ -6,6 +6,13 @@
 
     Sub RunCode(sender As Object, e As RoutedEventArgs)
         'Add code here
+        Dim item1 As String = "Hello"
+        Dim item2 As String = "There"
+        Dim format = String.Format("{0} {1}", item1, item2)
+        Dim stringInterpolate = $"{item1} {item2}"
+
+        Output(format)
+        Output(stringInterpolate)
 
     End Sub
 

@@ -13,6 +13,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VBConsoleTesting", "VBConso
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CodeRunner", "CodeRunner\CodeRunner.vbproj", "{09D20F73-967C-492D-81DE-E8DBB02C4799}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SimpleCalc", "SimpleCalc\SimpleCalc.vbproj", "{DD82534D-C26E-4CC5-987A-48E1A5B88232}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{09D20F73-967C-492D-81DE-E8DBB02C4799}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09D20F73-967C-492D-81DE-E8DBB02C4799}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09D20F73-967C-492D-81DE-E8DBB02C4799}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD82534D-C26E-4CC5-987A-48E1A5B88232}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD82534D-C26E-4CC5-987A-48E1A5B88232}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD82534D-C26E-4CC5-987A-48E1A5B88232}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD82534D-C26E-4CC5-987A-48E1A5B88232}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
