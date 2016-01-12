@@ -50,6 +50,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnnonymousDelegates.cs" />
+    <Compile Include="BasicDelegates.cs" />
+    <Compile Include="ComposableDelegates2.cs" />
+    <Compile Include="ComposableDelegates.cs" />
     <Compile Include="InheritanceExample.cs" />
     <Compile Include="POCO.cs" />
     <Compile Include="Program.cs" />
