@@ -50,10 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnnonymousDelegates.cs" />
-    <Compile Include="BasicDelegates.cs" />
-    <Compile Include="ComposableDelegates2.cs" />
-    <Compile Include="ComposableDelegates.cs" />
+    <Compile Include="Delegates\AnnonymousDelegates.cs" />
+    <Compile Include="Delegates\BasicDelegates.cs" />
+    <Compile Include="Delegates\ComposableDelegates2.cs" />
+    <Compile Include="Delegates\ComposableDelegates.cs" />
+    <Compile Include="Delegates\JoesChallenge.cs" />
     <Compile Include="InheritanceExample.cs" />
     <Compile Include="POCO.cs" />
     <Compile Include="Program.cs" />
@@ -64,6 +65,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Events\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

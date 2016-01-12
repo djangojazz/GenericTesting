@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GenericTesting
 {
-  public class ComposableDelegates
+  public class ComposableDelegates.Delegates
   {
     public delegate void MyDelegate(int arg1, int arg2);
 

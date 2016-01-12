@@ -22,7 +22,7 @@ namespace GenericTesting
         
     static void Main(string[] args)
     {
-      var bd = new ComposableDelegates2();
+      var bd = new JoesChallenge();
 
       bd.ReturnData();
 

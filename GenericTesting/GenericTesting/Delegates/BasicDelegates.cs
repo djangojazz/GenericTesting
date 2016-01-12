@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GenericTesting
 {
-  public class BasicDelegates
+  public class BasicDelegates.Delegates
   {
     public delegate string MyDelegate(int arg1, int arg2);
 
