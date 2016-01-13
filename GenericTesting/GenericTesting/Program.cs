@@ -22,11 +22,11 @@ namespace GenericTesting
         
     static void Main(string[] args)
     {
-      var bd = new JoesChallenge();
-
-      bd.ReturnData();
+      new Events.JoesChallenge().DoIt();
 
       Console.ReadLine();
     }
+
+
   }
 }

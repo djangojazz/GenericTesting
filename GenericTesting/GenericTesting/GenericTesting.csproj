@@ -55,6 +55,10 @@
     <Compile Include="Delegates\ComposableDelegates2.cs" />
     <Compile Include="Delegates\ComposableDelegates.cs" />
     <Compile Include="Delegates\JoesChallenge.cs" />
+    <Compile Include="Delegates\Test.cs" />
+    <Compile Include="Events\BasicEvents.cs" />
+    <Compile Include="Events\JoesChallenge.cs" />
+    <Compile Include="Events\ChainedEvents.cs" />
     <Compile Include="InheritanceExample.cs" />
     <Compile Include="POCO.cs" />
     <Compile Include="Program.cs" />
@@ -66,9 +70,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Events\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

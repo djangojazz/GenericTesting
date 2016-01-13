@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericTesting
+namespace GenericTesting.Delegates
 {
-  public class ComposableDelegates.Delegates
+  public class ComposableDelegates
   {
     public delegate void MyDelegate(int arg1, int arg2);
 

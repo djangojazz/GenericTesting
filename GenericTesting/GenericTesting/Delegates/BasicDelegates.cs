@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericTesting
+namespace GenericTesting.Delegates
 {
-  public class BasicDelegates.Delegates
+  public class BasicDelegates
   {
     public delegate string MyDelegate(int arg1, int arg2);
 
