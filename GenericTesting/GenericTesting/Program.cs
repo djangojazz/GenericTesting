@@ -22,11 +22,10 @@ namespace GenericTesting
         
     static void Main(string[] args)
     {
-      new Events.JoesChallenge().DoIt();
+      var data = new DataAccess.SQLTalker().Reader("Select top 10 * From Person", ",", true);
+      Console.WriteLine(data);
 
       Console.ReadLine();
     }
-
-
   }
 }

@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\SQLTalker.cs" />
     <Compile Include="Delegates\AnnonymousDelegates.cs" />
     <Compile Include="Delegates\BasicDelegates.cs" />
     <Compile Include="Delegates\ComposableDelegates2.cs" />
