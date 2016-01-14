@@ -22,8 +22,7 @@ namespace GenericTesting
         
     static void Main(string[] args)
     {
-      var data = new DataAccess.SQLTalker().Reader("Select top 10 * From Person", ",", true);
-      Console.WriteLine(data);
+      new Lambdas.LambdaEvents().DoIt();
 
       Console.ReadLine();
     }

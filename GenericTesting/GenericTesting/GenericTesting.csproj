@@ -61,6 +61,8 @@
     <Compile Include="Events\JoesChallenge.cs" />
     <Compile Include="Events\ChainedEvents.cs" />
     <Compile Include="InheritanceExample.cs" />
+    <Compile Include="Lambdas\LambdaEvents.cs" />
+    <Compile Include="Lambdas\BasicLambdas.cs" />
     <Compile Include="POCO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
