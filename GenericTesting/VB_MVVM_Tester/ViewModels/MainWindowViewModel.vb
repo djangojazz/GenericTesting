@@ -1,7 +1,7 @@
-﻿Imports System.ComponentModel
+﻿
 
 Public Class MainWindowViewModel
-  Implements INotifyPropertyChanged
+  Inherits BaseViewModel
 
   Private _address As String
   Private _locationAddress As String
@@ -60,11 +60,5 @@ Public Class MainWindowViewModel
     '  Location = New Location(Latitude, Longitude)
     '  PinVisible = Visibility.Visible
     'End Using
-  End Sub
-
-  Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
-
-  Private Sub OnPropertyChanged(ByVal info As String)
-    RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(info))
   End Sub
 End Class

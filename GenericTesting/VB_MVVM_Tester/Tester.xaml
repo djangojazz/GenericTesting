@@ -1,4 +1,4 @@
-﻿<Window x:Class="MainWindow"
+﻿<Window x:Class="Tester"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,7 +10,7 @@
     <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="0" >
       <TextBox x:Name="txtAddress" MinWidth="250" Text="{Binding Address}" />
       <Button Content="Map It" IsDefault="True" Command="{Binding GeocodeAddressCommand}"/>
-      <TextBox x:Name="txtAddressResult" MinWidth="250" Text="{Binding LocationAddress, UpdateSourceTrigger=PropertyChanged}" />
+      <TextBox x:Name="txtAddressResult" MinWidth="250" Text="{Binding LocationAddress}" />
     </StackPanel>
   </Grid>
 </Window>

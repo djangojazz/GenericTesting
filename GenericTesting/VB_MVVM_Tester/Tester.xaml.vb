@@ -1,4 +1,4 @@
-﻿Class MainWindow
+﻿Class Tester
   Sub New()
     InitializeComponent()
     DataContext = New MainWindowViewModel()
