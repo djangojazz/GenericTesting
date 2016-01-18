@@ -15,6 +15,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CodeRunner", "CodeRunner\Co
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SimpleCalc", "SimpleCalc\SimpleCalc.vbproj", "{DD82534D-C26E-4CC5-987A-48E1A5B88232}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VB_MVVM_Tester", "VB_MVVM_Tester\VB_MVVM_Tester.vbproj", "{1D899537-DFD0-4180-A121-6BF4AEE4CC01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{DD82534D-C26E-4CC5-987A-48E1A5B88232}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD82534D-C26E-4CC5-987A-48E1A5B88232}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD82534D-C26E-4CC5-987A-48E1A5B88232}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D899537-DFD0-4180-A121-6BF4AEE4CC01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D899537-DFD0-4180-A121-6BF4AEE4CC01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D899537-DFD0-4180-A121-6BF4AEE4CC01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D899537-DFD0-4180-A121-6BF4AEE4CC01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
