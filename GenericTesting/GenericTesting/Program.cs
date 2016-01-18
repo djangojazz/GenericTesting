@@ -21,20 +21,21 @@ namespace GenericTesting
           new POCO { Id = 3, Name = "Joey", Description = "advanced" }
       };
     }
-
     
-//It's not, if you understand what it means :) Basically you've applied a default namespace URI of "http://schemas.microsoft.com/developer/msbuild/2003" to all elements.So when querying, you need to specify that namespace too.Fortunately, LINQ to XML makes that really simple:
+    public class Poc { public int Id { get; set; } public string Value { get; set; }}
 
-//XNamespace ns = "http://schemas.microsoft.com/developer/msbuild/2003";
-//  XDocument doc = XDocument.Parse(xml2);
-//foreach (XElement element in doc.Descendants(ns + "ItemGroup"))
-//{
-//    Console.WriteLine(element);
-//}
-
-  static void Main(string[] args)
+    static void Main(string[] args)
     {
-      new Lambdas.LambdaEvents().DoIt();
+      var pocs = new List<Poc>
+      {
+        new Poc { Id = 1, Value = "A" },
+        new Poc { Id = 2, Value = "B" },
+        new Poc { Id = 3, Value = "C" },
+      };
+
+      pocs.ForEach(x => Console.WriteLine($"{x.Id} {x.Value}"));
+
+      //new Lambdas.LambdaEvents().DoIt();
 
       Console.ReadLine();
     }
