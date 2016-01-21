@@ -56,7 +56,6 @@
     <Compile Include="Delegates\ComposableDelegates2.cs" />
     <Compile Include="Delegates\ComposableDelegates.cs" />
     <Compile Include="Delegates\JoesChallenge.cs" />
-    <Compile Include="Delegates\Test.cs" />
     <Compile Include="Events\BasicEvents.cs" />
     <Compile Include="Events\JoesChallenge.cs" />
     <Compile Include="Events\ChainedEvents.cs" />

@@ -10,16 +10,18 @@
   End Class
 
   Sub Main()
-    'Dim ships = New List(Of Ship)() From
-    '{
-    '  New Ship() With {.MMSI = 1, .ShipName = "Alpha"},
-    '  New Ship() With {.MMSI = 2, .ShipName = "Beta"}
-    '}
+    Dim ships = New List(Of Ship)() From
+    {
+      New Ship() With {.MMSI = 1, .ShipName = "Alpha"},
+      New Ship() With {.MMSI = 2, .ShipName = "Beta"},
+      New Ship() With {.MMSI = 3, .ShipName = "Zeta"},
+      New Ship() With {.MMSI = 4, .ShipName = "Theta"}
+    }
 
-    'ships.OrderByDescending(Function(x) x.MMSI).Take(2).ToList().ForEach(Sub(x) Console.WriteLine($"{x.MMSI} {x.ShipName}"))
+    ships.OrderByDescending(Function(x) x.MMSI).Take(2).ToList().ForEach(Sub(x) Console.WriteLine($"{x.MMSI} {x.ShipName}"))
 
-    Dim data = DataConverter.ConvertTo(Of Ship)(New SQLTalker().GetData("EXEC dbo.pGetAllShips"))
-    Dim firstShip = data.FirstOrDefault(Function(x) x.MMSI = "316023833")
+    'Dim data = DataConverter.ConvertTo(Of Ship)(New SQLTalker().GetData("EXEC dbo.pGetAllShips")).ToList()
+    'data.ForEach(Sub(x) Console.WriteLine($"{x.MMSI} {x.ShipName}"))
 
     Console.ReadLine()
   End Sub
