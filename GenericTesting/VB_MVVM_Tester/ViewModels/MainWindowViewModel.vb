@@ -1,10 +1,13 @@
 ﻿
 
+Imports System.Collections.ObjectModel
+
 Public Class MainWindowViewModel
   Inherits BaseViewModel
 
   Private _address As String
   Private _locationAddress As String
+  Private _stuff As ObservableCollection(Of Stuff)
 
   Public Property LocationAddress() As String
     Get
@@ -26,6 +29,16 @@ Public Class MainWindowViewModel
     End Set
   End Property
 
+  Public Property Stuff() As ObservableCollection(Of Stuff)
+    Get
+      Return _stuff
+    End Get
+    Set(ByVal value As ObservableCollection(Of Stuff))
+      _stuff = value
+      OnPropertyChanged(NameOf(Stuff))
+    End Set
+  End Property
+
   Public Property GeocodeAddressCommand() As ICommand
     Get
       Return m_GeocodeAddressCommand
@@ -37,28 +50,12 @@ Public Class MainWindowViewModel
   Private m_GeocodeAddressCommand As ICommand
 
   Sub New()
-    Address = "7560 SW Lara St., Portland OR"
-    LocationAddress = "Not there yet"
-
-    GeocodeAddressCommand = New DelegateCommand(Of String)(AddressOf GeocodeAddress)
+    Stuff = New ObservableCollection(Of Stuff)(New List(Of Stuff)({New Stuff With {.Id = 1, .Value = "Stuff"}, New Stuff With {.Id = 2, .Value = "More Stuff"}}))
+    GeocodeAddressCommand = New DelegateCommand(Of String)(AddressOf DoIt)
   End Sub
 
-  Private Sub GeocodeAddress(input As String)
+  Private Sub DoIt(input As String)
     LocationAddress = "Done"
     Address = "Done"
-    'Using client As New GeocodeService.GeocodeServiceClient("CustomBinding_IGeocodeService")
-    '  Dim request As New GeocodeService.GeocodeRequest()
-    '  request.Credentials = New Credentials() With {
-    '      .ApplicationId = TryCast(Application.Current.Resources("BingCredentials"), ApplicationIdCredentialsProvider).ApplicationId
-    '    }
-    '  request.Query = Address
-    '  GeocodeResult = client.Geocode(request).Results(0)
-
-    '  LocationAddress = GeocodeResult.Address.FormattedAddress
-    '  Latitude = GeocodeResult.Locations(0).Latitude
-    '  Longitude = GeocodeResult.Locations(0).Longitude
-    '  Location = New Location(Latitude, Longitude)
-    '  PinVisible = Visibility.Visible
-    'End Using
   End Sub
 End Class

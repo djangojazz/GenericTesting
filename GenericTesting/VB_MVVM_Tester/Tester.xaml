@@ -5,12 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VB_MVVM_Tester"
         mc:Ignorable="d"
-        Title="MainWindow" Height="100" Width="525">
-    <Grid>
-    <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="0" >
-      <TextBox x:Name="txtAddress" MinWidth="250" Text="{Binding Address}" />
-      <Button Content="Map It" IsDefault="True" Command="{Binding GeocodeAddressCommand}"/>
-      <TextBox x:Name="txtAddressResult" MinWidth="250" Text="{Binding LocationAddress}" />
-    </StackPanel>
-  </Grid>
+        Title="MainWindow" Height="300" Width="525"
+        Background="{StaticResource brushMainBoard}">
+  <Window.Resources>
+    <Style TargetType="{x:Type DataGridColumnHeader}">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+    <Style TargetType="{x:Type DataGridRowHeader}">
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+  </Window.Resources>
+  <StackPanel>
+    <Border>
+      <Grid Margin="5">
+        <Border x:Name="BDRounded" CornerRadius="15" Background="{StaticResource brushMainBoard}" />
+        <DataGrid Grid.Row="1" x:Name="ShipDetails" ItemsSource="{Binding Stuff}" Height="100" Foreground="{StaticResource brushMainText}"      BorderThickness="0"              
+                 Background="Transparent" RowBackground="Transparent"   GridLinesVisibility="None" 
+                 IsReadOnly="True" HorizontalAlignment="Center" FontSize="20">
+        </DataGrid>
+      </Grid>
+    </Border>
+  </StackPanel>
 </Window>

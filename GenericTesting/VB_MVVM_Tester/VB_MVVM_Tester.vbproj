@@ -9,9 +9,10 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>VB_MVVM_Tester</RootNamespace>
     <AssemblyName>VB_MVVM_Tester</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MyType>Custom</MyType>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -77,6 +78,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Business\DelegateCommand.vb" />
+    <Compile Include="Model\Stuff.vb" />
     <Compile Include="Tester.xaml.vb">
       <DependentUpon>Tester.xaml</DependentUpon>
       <SubType>Code</SubType>
