@@ -23,10 +23,7 @@ namespace GenericTesting
           new POCO { Id = 3, Name = "Joey", Description = "advanced" }
       };
     }
-
-    //Dim timer As New Timer(refreshDuration)
-    //AddHandler timer.Elapsed, AddressOf RefreshShipsAndResetMap
-    //timer.Enabled = True
+    
 
     public delegate void ProcessTimer(object sender, ElapsedEventArgs e);
 

@@ -11,7 +11,21 @@ Module Module1
     Public Property Longitude() As Double
   End Class
 
+  Enum Tester
+    Hello = 1
+    There = 2
+    Buddy = 3
+  End Enum
+
   Sub Main()
+
+    Dim value As Integer = 3
+
+    Dim e = DirectCast(value, Tester)
+
+    Console.WriteLine($"{e}")
+    Console.ReadLine()
+
     'Dim ships = New List(Of Ship)() From
     '{
     '  New Ship() With {.MMSI = 1, .ShipName = "Alpha"},
@@ -21,7 +35,9 @@ Module Module1
     '}
 
     'ships.OrderByDescending(Function(x) x.MMSI).Take(2).ToList().ForEach(Sub(x) Console.WriteLine($"{x.MMSI} {x.ShipName}"))
+  End Sub
 
+  Private Sub WriteOutRandomizer()
     Dim rand As New Random()
     Dim memNum As New HashSet(Of Ship)
     Dim memName As New HashSet(Of String)

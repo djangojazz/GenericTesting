@@ -9,6 +9,34 @@ Public Class MainWindowViewModel
   Private _locationAddress As String
   Private _stuff As ObservableCollection(Of Stuff)
 
+  Enum ShipTyper
+    Owned = 1
+    Contractor = 2
+    Other = 3
+  End Enum
+
+  'Public ReadOnly Property MyEnums As IEnumerable(Of Enums.ShipType)
+  '  Get
+  '    Return GetEnums()
+  '  End Get
+  'End Property
+
+  'Private Shared Function GetEnums() As IEnumerable(Of Enums.ShipType)
+  '  Dim things = [Enum].GetValues(GetType(Enums.ShipType)).Cast(Of Enums.ShipType)
+  '  Return things
+  'End Function
+
+  'Private _enums As Enums.ShipType
+  'Public Property Enums As Enums.ShipType
+  '  Get
+  '    Return _enums
+  '  End Get
+  '  Set(ByVal value As Enums.ShipType)
+  '    _enums = value
+  '    OnPropertyChanged(NameOf(Enums))
+  '  End Set
+  'End Property
+
   Public Property LocationAddress() As String
     Get
       Return _locationAddress

@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VB_MVVM_Tester"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="300" Width="325"
+        Title="MainWindow" Height="300" Width="525"
         Background="{StaticResource brushMainBoard}">
   <Window.Resources>
     <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -19,9 +20,11 @@
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
-    <local:CustomDataGrid Grid.Row="0" Height="100" Width="200" HorizontalAlignment="Center" />
+    <ComboBox Grid.Row="1" ItemsSource="{Binding Source={local:EnumBindingSource {x:Type local:ShipType}}}"/>
+    <local:CustomDataGrid Grid.Row="2" Height="400" Width="500" HorizontalAlignment="Center" />
     <Canvas>
       <Image />
     </Canvas>

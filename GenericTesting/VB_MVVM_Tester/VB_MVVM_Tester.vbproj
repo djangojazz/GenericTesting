@@ -82,6 +82,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Business\DelegateCommand.vb" />
+    <Compile Include="Business\EnumBindingSourceExtension.vb" />
+    <Compile Include="Model\Enums.vb" />
     <Compile Include="Views\CustomDataGrid.xaml.vb">
       <DependentUpon>CustomDataGrid.xaml</DependentUpon>
     </Compile>
