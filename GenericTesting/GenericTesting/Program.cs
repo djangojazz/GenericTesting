@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Timers;
+using System.IO;
 
 namespace GenericTesting
 {
@@ -81,16 +82,20 @@ namespace GenericTesting
 
     static void Main(string[] args)
     {
-      //CreateGenericTimer(new TimeSpan(0, 0, 1), (x, y) => { Console.WriteLine($"Hello at {DateTime.Now}"); });
-      TimerGeneric(1000, async () => { Console.WriteLine("Passed in Task is: " + DateTime.Now); });
+      using (System.IO.StreamWriter sw = new StreamWriter("Test.txt"))
+      {
+        sw.Write("Hello");
+      }
 
-      //Works just as expected and refreshes every second for the 'Refresh()' method.
-      //TimerSetupWithRefresh(1000);
+        //TimerGeneric(1000, async () => { Console.WriteLine("Passed in Task is: " + DateTime.Now); });
 
-      //Below does not work yet I would expect a Task passed in via signature with near same method would behave the same.
-      //TimerGeneric(1000, new Task(() => { Console.WriteLine("Passed in Task is: " + DateTime.Now); }));
+        //Works just as expected and refreshes every second for the 'Refresh()' method.
+        //TimerSetupWithRefresh(1000);
 
-      Console.ReadLine();
+        //Below does not work yet I would expect a Task passed in via signature with near same method would behave the same.
+        //TimerGeneric(1000, new Task(() => { Console.WriteLine("Passed in Task is: " + DateTime.Now); }));
+
+        Console.ReadLine();
     }
   }
 }

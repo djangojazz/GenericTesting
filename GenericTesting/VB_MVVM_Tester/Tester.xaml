@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VB_MVVM_Tester"
         mc:Ignorable="d"
-        Title="MainWindow" Height="300" Width="525"
+        Title="MainWindow" Height="300" Width="325"
         Background="{StaticResource brushMainBoard}">
   <Window.Resources>
     <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -16,15 +16,24 @@
       <Setter Property="Background" Value="Transparent" />
     </Style>
   </Window.Resources>
-  <StackPanel>
-    <Border>
-      <Grid Margin="5">
-        <Border x:Name="BDRounded" CornerRadius="15" Background="{StaticResource brushMainBoard}" />
-        <DataGrid Grid.Row="1" x:Name="ShipDetails" ItemsSource="{Binding Stuff}" Height="100" Foreground="{StaticResource brushMainText}"      BorderThickness="0"              
-                 Background="Transparent" RowBackground="Transparent"   GridLinesVisibility="None" 
-                 IsReadOnly="True" HorizontalAlignment="Center" FontSize="20">
-        </DataGrid>
-      </Grid>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <local:CustomDataGrid Grid.Row="0" Height="100" Width="200" HorizontalAlignment="Center" />
+    <Canvas>
+      <Image />
+    </Canvas>
+  </Grid>
+  <!--<StackPanel>
+    <Border x:Name="BDRounded" CornerRadius="15" Background="{StaticResource brushMainBoard}">
+      <Border.BitmapEffect>
+        <DropShadowBitmapEffect/>
+      </Border.BitmapEffect>
+      <DataGrid Grid.Row="1" x:Name="ShipDetails" ItemsSource="{Binding Stuff}" Height="100" Foreground="{StaticResource brushMainText}" BorderThickness="0"              
+                 Background="Transparent" RowBackground="Transparent"   GridLinesVisibility="None" IsReadOnly="True" HorizontalAlignment="Center" FontSize="20">
+      </DataGrid>
     </Border>
-  </StackPanel>
+  </StackPanel>-->
 </Window>

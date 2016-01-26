@@ -85,6 +85,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="DataConverter.vb" />
+    <Compile Include="RandomHelper.vb" />
     <Compile Include="SqlTalker.vb" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="BlackGlassBoat" Width="682.581" Height="682.581" Clip="F1 M 0,0L 682.581,0L 682.581,682.581L 0,682.581L 0,0">
+  <Canvas Height="512" Width="512">
+    <Image Source="image0.png" Width="512" Height="512" Canvas.Left="-8" Canvas.Top="-8">
+      <Image.RenderTransform>
+        <TransformGroup>
+          <MatrixTransform Matrix="1.33317,0,0,1.33317,0,0"/>
+        </TransformGroup>
+      </Image.RenderTransform>
+    </Image>
+  </Canvas>
+</Canvas>
