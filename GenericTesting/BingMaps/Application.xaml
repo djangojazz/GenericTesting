@@ -1,0 +1,10 @@
+﻿<Application x:Class="Application"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:BingMaps"
+    xmlns:bing="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+    StartupUri="MapEvents.xaml">
+    <Application.Resources>
+    <bing:ApplicationIdCredentialsProvider x:Key="BingCredentials" ApplicationId="4wwABwPqJTIzweS04zqN~Il7hqTmhmXUplRUI47C2UA~AuSnma8mpsiLLyo_IExmgJ9dSs4YN5rYzyPA7tbrnFeNLLLEopgviL2b9oZpFHUu" />
+  </Application.Resources>
+</Application>
