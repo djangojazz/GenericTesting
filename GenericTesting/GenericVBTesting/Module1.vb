@@ -18,13 +18,13 @@ Module Module1
   End Enum
 
   Sub Main()
+    Dim values As Long() = {1, 2, 4, 1, 5, 2}
+    values.ToList().ForEach(Sub(x) Console.WriteLine($"{x}"))
 
-    Dim value As Integer = 3
+    BubbleSort.BubbleSort(values)
 
-    Dim e = DirectCast(value, Tester)
-
-    Console.WriteLine($"{e}")
-    Console.ReadLine()
+    Console.WriteLine("AFTER")
+    values.ToList().ForEach(Sub(x) Console.WriteLine($"{x}"))
 
     'Dim ships = New List(Of Ship)() From
     '{
@@ -35,6 +35,7 @@ Module Module1
     '}
 
     'ships.OrderByDescending(Function(x) x.MMSI).Take(2).ToList().ForEach(Sub(x) Console.WriteLine($"{x.MMSI} {x.ShipName}"))
+    Console.ReadLine()
   End Sub
 
   Private Sub WriteOutRandomizer()
@@ -58,6 +59,8 @@ Module Module1
 
       memNum.Add(New Ship With {.MMSI = randomNum, .ShipName = New RandomHelper().ReturnRandomName(rand, 6), .Latitude = randomLat, .Longitude = randomLong})
     End While
+
+    
 
     'TODO write to disk
 
