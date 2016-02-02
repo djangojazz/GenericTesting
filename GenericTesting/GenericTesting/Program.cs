@@ -24,7 +24,6 @@ namespace GenericTesting
       };
     }
     
-
     public delegate void ProcessTimer(object sender, ElapsedEventArgs e);
 
     private static List<Timer> TimerList = new List<Timer>();
@@ -79,20 +78,19 @@ namespace GenericTesting
 
     static void Main(string[] args)
     {
-      using (System.IO.StreamWriter sw = new StreamWriter("Test.txt"))
-      {
-        sw.Write("Hello");
-      }
+      Func<string, string> stringRunner = (x) => { return x; };
+
+      Console.WriteLine(stringRunner("Hello"));
 
         //TimerGeneric(1000, async () => { Console.WriteLine("Passed in Task is: " + DateTime.Now); });
 
-        //Works just as expected and refreshes every second for the 'Refresh()' method.
-        //TimerSetupWithRefresh(1000);
+      //Works just as expected and refreshes every second for the 'Refresh()' method.
+      //TimerSetupWithRefresh(1000);
 
-        //Below does not work yet I would expect a Task passed in via signature with near same method would behave the same.
-        //TimerGeneric(1000, new Task(() => { Console.WriteLine("Passed in Task is: " + DateTime.Now); }));
+      //Below does not work yet I would expect a Task passed in via signature with near same method would behave the same.
+      //TimerGeneric(1000, new Task(() => { Console.WriteLine("Passed in Task is: " + DateTime.Now); }));
 
-        Console.ReadLine();
+      Console.ReadLine();
     }
   }
 }

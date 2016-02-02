@@ -1,15 +1,11 @@
-﻿Imports System.Text
+﻿Imports System.Collections.ObjectModel
+Imports System.Text
+Imports GenericVBTesting.BoatTesting
+Imports Microsoft.Maps.MapControl.WPF
 
 Module Module1
 
-  Class Ship
-    'Public Property ShipId() As Integer
-    Public Property MMSI() As Integer
-    Public Property ShipName() As String
-    'Public Property Location() As String
-    Public Property Latitude() As Double
-    Public Property Longitude() As Double
-  End Class
+  Dim _ships = New List(Of ShipModel)
 
   Enum Tester
     Hello = 1
@@ -17,30 +13,48 @@ Module Module1
     Buddy = 3
   End Enum
 
+  Private Sub UpdateShipsInformation()
+    Dim bt = New BoatTesting(2)
+    _ships = bt.TestLoadShipLocations()
+
+    'Dim shipGroupingModels = New List(Of ShipGroupingModel)
+    'Dim maxGroupFromShips As Func(Of Integer) = Function() _ships.ToList().Select(Function(X) X.Group).ToList().OrderByDescending(Function(x) x).FirstOrDefault()
+    'Dim shipGroupAlreadyExists As Func(Of ShipModel, Boolean) = Function(x) shipGroupingModels.Select(Function(y) y.Ships).ToList().Exists(Function(x) x.)
+
+    Dim groupings = New List(Of ShipGroupingModel)
+
+    Dim CollectionToEmpty As New Collection(Of ShipModel)(_ships)
+    'Dim iCurrentIteration As Integer = 1
+    Do While CollectionToEmpty.Count > 0
+      Dim currentGroup As New ShipGroupingModel With {.Ships = New List(Of ShipModel)} 'Just do the first Lat Long instead of a Key
+      'With { .Group = iCurrentIteration}
+      currentGroup.Ships.Add(CollectionToEmpty(0))
+      CollectionToEmpty.RemoveAt(0)
+
+      For i As Integer = CollectionToEmpty.Count - 1 To 0 Step -1
+        If bt.DetectCollision(CollectionToEmpty(0).Location, CollectionToEmpty(i).Location) Then
+          currentGroup.Ships.Add(CollectionToEmpty(i))
+          CollectionToEmpty.RemoveAt(i)
+        End If
+      Next
+
+      groupings.Add(currentGroup)
+    Loop
+
+    Dim modelGroup = groupings
+
+  End Sub
+
+
   Sub Main()
-    Dim values As Long() = {1, 2, 4, 1, 5, 2}
-    values.ToList().ForEach(Sub(x) Console.WriteLine($"{x}"))
 
-    BubbleSort.BubbleSort(values)
 
-    Console.WriteLine("AFTER")
-    values.ToList().ForEach(Sub(x) Console.WriteLine($"{x}"))
-
-    'Dim ships = New List(Of Ship)() From
-    '{
-    '  New Ship() With {.MMSI = 1, .ShipName = "Alpha"},
-    '  New Ship() With {.MMSI = 2, .ShipName = "Beta"},
-    '  New Ship() With {.MMSI = 3, .ShipName = "Zeta"},
-    '  New Ship() With {.MMSI = 4, .ShipName = "Theta"}
-    '}
-
-    'ships.OrderByDescending(Function(x) x.MMSI).Take(2).ToList().ForEach(Sub(x) Console.WriteLine($"{x.MMSI} {x.ShipName}"))
     Console.ReadLine()
   End Sub
 
   Private Sub WriteOutRandomizer()
     Dim rand As New Random()
-    Dim memNum As New HashSet(Of Ship)
+    Dim memNum As New HashSet(Of ShipModel)
     Dim memName As New HashSet(Of String)
     Dim randomNum As Integer
     Dim randomName As String
@@ -57,10 +71,10 @@ Module Module1
       randomLat += randomExt
       randomLong += randomExt
 
-      memNum.Add(New Ship With {.MMSI = randomNum, .ShipName = New RandomHelper().ReturnRandomName(rand, 6), .Latitude = randomLat, .Longitude = randomLong})
+      memNum.Add(New ShipModel With {.MMSI = randomNum, .ShipName = New RandomHelper().ReturnRandomName(rand, 6), .Location = New Location With {.Latitude = randomLat, .Longitude = randomLong}})
     End While
 
-    
+
 
     'TODO write to disk
 
@@ -68,7 +82,7 @@ Module Module1
     'data.ForEach(Sub(x) Console.WriteLine($"{x.MMSI} {x.ShipName}"))
 
     Using sw As IO.StreamWriter = New IO.StreamWriter("Inserts.txt")
-      memNum.ToList().ForEach(Sub(x) sw.WriteLine($"({x.MMSI}, '{x.ShipName}', {x.Latitude}, { x.Longitude}),"))
+      memNum.ToList().ForEach(Sub(x) sw.WriteLine($"({x.MMSI}, '{x.ShipName}', {x.Location.Latitude}, { x.Location.Longitude}),"))
     End Using
   End Sub
 
