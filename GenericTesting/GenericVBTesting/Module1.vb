@@ -18,10 +18,11 @@ Module Module1
     Dim bt = New BoatTesting(2)
     _ships = bt.TestLoadShipLocations().ToList()
 
-    'Dim shipGroupingModels = New List(Of ShipGroupingModel)
-    'Dim maxGroupFromShips As Func(Of Integer) = Function() _ships.ToList().Select(Function(X) X.Group).ToList().OrderByDescending(Function(x) x).FirstOrDefault()
-    'Dim shipGroupAlreadyExists As Func(Of ShipModel, Boolean) = Function(x) shipGroupingModels.Select(Function(y) y.Ships).ToList().Exists(Function(x) x.)
-    SortingMethod(bt)
+    _ships.ForEach(Sub(x) Console.WriteLine($"{x.ShipName} {x.Location.Latitude}"))
+
+    _ships.ForEach(Sub(x) x.Location.Latitude -= 2)
+
+    _ships.ForEach(Sub(x) Console.WriteLine($"{x.ShipName} {x.Location.Latitude}"))
 
   End Sub
 

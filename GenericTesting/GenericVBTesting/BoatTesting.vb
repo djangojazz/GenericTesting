@@ -32,12 +32,13 @@ Public Class BoatTesting
   Public Function TestLoadShipLocations() As IList(Of ShipModel)
     Return {
       MakeABoat(1, "Brett Home", ShipType.Contractor, 45.457302, -122.754326),
-      MakeABoat(2, "Thai Roses", ShipType.Other, 45.486155, -122.747739),
-      MakeABoat(3, "Brett Neighbor", ShipType.Owned, 45.4573, -122.75432),
-      MakeABoat(4, "Another Neighbor", ShipType.Owned, 45.45725, -122.75431),
-      MakeABoat(5, "Seattle", ShipType.Contractor, 47.6149942, -122.4759882),
-      MakeABoat(6, "Seattle Neighbor", ShipType.Owned, 47.6149932, -122.4759882)
+      MakeABoat(2, "Thai Roses", ShipType.Other, 45.486155, -122.747739)
     }
+
+    'MakeABoat(3, "Brett Neighbor", ShipType.Owned, 45.4573, -122.75432),
+    '  MakeABoat(4, "Another Neighbor", ShipType.Owned, 45.45725, -122.75431),
+    '  MakeABoat(5, "Seattle", ShipType.Contractor, 47.6149942, -122.4759882),
+    '  MakeABoat(6, "Seattle Neighbor", ShipType.Owned, 47.6149932, -122.4759882)
   End Function
 
   Private Function MakeABoat(mmsi As Integer, shipName As String, shipType As ShipType, latitude As Double, longitude As Double) As ShipModel
