@@ -5,27 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFCSharpTesting"
         mc:Ignorable="d"
-        Title="Hello WPF" Height="350" Width="525">
-    <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="*" />
-      <RowDefinition />
-      <RowDefinition Height="2*"/>
-      <RowDefinition Height="2*"/>
-      <RowDefinition />
-      <RowDefinition />
-    </Grid.RowDefinitions>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="2*" />
-    </Grid.ColumnDefinitions>
-    <Rectangle Fill="Red" Grid.Row="0" />
-    <Rectangle Fill="Orange" Grid.Row="1" Grid.Column="1" />
-    <Rectangle Fill="Yellow" Grid.Row="2" />
-    <Rectangle Fill="Green" Grid.Row="3" />
-    <Rectangle Fill="Blue" Grid.Row="4" />
-    <Rectangle Fill="Indigo" Grid.Row="5" />
-    <Rectangle Fill="Violet" Grid.Row="6" />
-    <Rectangle Fill="Black" Grid.Row="7" />
-  </Grid>
+        Title="Test WPF" Height="350" Width="525">
+  <Canvas>
+    <Rectangle Canvas.Left="25" Canvas.Top="25" Width="50" Height="40" Fill="Red" />
+    <Rectangle Canvas.Left="100" Canvas.Top="25" Width="50" Height="40" Fill="Orange" />
+    <Rectangle Canvas.Left="125" Canvas.Top="40" Width="50" Height="40" Fill="Blue" />
+  </Canvas>
 </Window>
