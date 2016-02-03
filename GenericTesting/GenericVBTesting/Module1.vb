@@ -2,10 +2,11 @@
 Imports System.Text
 Imports GenericVBTesting.BoatTesting
 Imports Microsoft.Maps.MapControl.WPF
+Imports System.Linq
 
 Module Module1
 
-  Dim _ships = New List(Of ShipModel)
+  Dim _ships As List(Of ShipModel) = New List(Of ShipModel)
 
   Enum Tester
     Hello = 1
@@ -15,25 +16,39 @@ Module Module1
 
   Private Sub UpdateShipsInformation()
     Dim bt = New BoatTesting(2)
-    _ships = bt.TestLoadShipLocations()
+    _ships = bt.TestLoadShipLocations().ToList()
 
     'Dim shipGroupingModels = New List(Of ShipGroupingModel)
     'Dim maxGroupFromShips As Func(Of Integer) = Function() _ships.ToList().Select(Function(X) X.Group).ToList().OrderByDescending(Function(x) x).FirstOrDefault()
     'Dim shipGroupAlreadyExists As Func(Of ShipModel, Boolean) = Function(x) shipGroupingModels.Select(Function(y) y.Ships).ToList().Exists(Function(x) x.)
+    SortingMethod(bt)
+
+  End Sub
+
+  Private Sub SortingMethod(bt As BoatTesting)
+    Dim ReturnPriorityBoat As Func(Of ShipModel, ShipModel, ShipModel) = Function(x, y) If(x.ShipType <= y.ShipType, x, y)
+
+    'Dim ship = ReturnPriorityBoat(_ships(0), _ships(1))
 
     Dim groupings = New List(Of ShipGroupingModel)
 
-    Dim CollectionToEmpty As New Collection(Of ShipModel)(_ships)
-    'Dim iCurrentIteration As Integer = 1
+    Dim CollectionToEmpty = _ships.ToList()
     Do While CollectionToEmpty.Count > 0
-      Dim currentGroup As New ShipGroupingModel With {.Ships = New List(Of ShipModel)} 'Just do the first Lat Long instead of a Key
-      'With { .Group = iCurrentIteration}
-      currentGroup.Ships.Add(CollectionToEmpty(0))
+      Dim currentShip = CollectionToEmpty(0)
+      Dim currentGroup As New ShipGroupingModel With {.Location = currentShip.Location, .ShipType = currentShip.ShipType, .Ships = New List(Of ShipModel)({currentShip})} 'Just do the first Lat Long instead of a Key
+      'currentGroup.Ships.Add(currentShip)
       CollectionToEmpty.RemoveAt(0)
 
       For i As Integer = CollectionToEmpty.Count - 1 To 0 Step -1
-        If bt.DetectCollision(CollectionToEmpty(0).Location, CollectionToEmpty(i).Location) Then
-          currentGroup.Ships.Add(CollectionToEmpty(i))
+        Dim shipToCompare = CollectionToEmpty(i)
+        If bt.DetectCollision(currentShip.Location, shipToCompare.Location) Then
+          If (currentGroup.ShipType > shipToCompare.ShipType) Then
+            Dim priorityShip = ReturnPriorityBoat(currentShip, shipToCompare)
+            currentGroup.Location = priorityShip.Location
+            currentGroup.ShipType = priorityShip.ShipType
+          End If
+
+          currentGroup.Ships.Add(shipToCompare)
           CollectionToEmpty.RemoveAt(i)
         End If
       Next
@@ -42,13 +57,11 @@ Module Module1
     Loop
 
     Dim modelGroup = groupings
-
   End Sub
 
-
   Sub Main()
-
-
+    UpdateShipsInformation()
+    Console.WriteLine("Done")
     Console.ReadLine()
   End Sub
 
