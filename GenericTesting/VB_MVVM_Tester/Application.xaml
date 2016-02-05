@@ -20,5 +20,35 @@
       <GradientStop Color="#FFFFEBC6" Offset="0.813"/>
       <GradientStop Color="#E5F1EADE"/>
     </LinearGradientBrush>
+
+    <DataTemplate x:Key ="marqueeControl">
+      <StackPanel Orientation="Horizontal" x:Name="stack">
+        <StackPanel.Resources>
+          <local:NegatingConverter x:Key="NegatingConverter" />
+          <Storyboard x:Key="slide">
+            <DoubleAnimation From="0" To="{Binding Width, ElementName=canvas, Converter={StaticResource NegatingConverter}}" Duration="{Binding MarqueeTimeSpan}"
+                      Storyboard.TargetProperty="X"
+                      Storyboard.TargetName="thing"
+                      RepeatBehavior="Forever"/>
+          </Storyboard>
+        </StackPanel.Resources>
+        <StackPanel.RenderTransform>
+          <TranslateTransform x:Name="thing" />
+        </StackPanel.RenderTransform>
+        <StackPanel.Triggers>
+          <EventTrigger RoutedEvent="StackPanel.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource slide}" />
+          </EventTrigger>
+          <EventTrigger RoutedEvent="StackPanel.SizeChanged">
+            <BeginStoryboard Storyboard="{StaticResource slide}" />
+          </EventTrigger>
+        </StackPanel.Triggers>
+        <Canvas x:Name="canvas" Width="{Binding ActualWidth, ElementName=stack}">
+          <TextBlock Text="{Binding MarqueeText}" FontSize="25"  x:Name="textToScroll" Canvas.Left="0"/>
+          <TextBlock Text="{Binding Text, ElementName=textToScroll}" FontSize="25" Canvas.Left="{Binding Width, ElementName=canvas}"/>
+        </Canvas>
+      </StackPanel>
+    </DataTemplate>
   </Application.Resources>
+  
 </Application>

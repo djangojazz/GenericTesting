@@ -16,14 +16,13 @@ using System.Windows.Shapes;
 namespace WPFCSharpTesting
 {
   /// <summary>
-  /// Interaction logic for MainWindow.xaml
+  /// Interaction logic for CustomMarqueeControl.xaml
   /// </summary>
-  public partial class MainWindow : Window
+  public partial class CustomMarqueeControl : UserControl
   {
-    public MainWindow()
+    public CustomMarqueeControl()
     {
       InitializeComponent();
-      DataContext = new MainWindowViewModel();
     }
   }
 }

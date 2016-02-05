@@ -6,9 +6,5 @@
         xmlns:local="clr-namespace:WPFCSharpTesting"
         mc:Ignorable="d"
         Title="Test WPF" Height="350" Width="525">
-  <Canvas>
-    <Rectangle Canvas.Left="25" Canvas.Top="25" Width="50" Height="40" Fill="Red" />
-    <Rectangle Canvas.Left="100" Canvas.Top="25" Width="50" Height="40" Fill="Orange" />
-    <Rectangle Canvas.Left="125" Canvas.Top="40" Width="50" Height="40" Fill="Blue" />
-  </Canvas>
+  <local:CustomMarqueeControl />
 </Window>

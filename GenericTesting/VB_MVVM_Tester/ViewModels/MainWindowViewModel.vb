@@ -1,5 +1,4 @@
 ﻿
-
 Imports System.Collections.ObjectModel
 
 Public Class MainWindowViewModel
@@ -15,27 +14,30 @@ Public Class MainWindowViewModel
     Other = 3
   End Enum
 
-  'Public ReadOnly Property MyEnums As IEnumerable(Of Enums.ShipType)
-  '  Get
-  '    Return GetEnums()
-  '  End Get
-  'End Property
+  Private _marqueeViewModel As MarqueeViewModel
 
-  'Private Shared Function GetEnums() As IEnumerable(Of Enums.ShipType)
-  '  Dim things = [Enum].GetValues(GetType(Enums.ShipType)).Cast(Of Enums.ShipType)
-  '  Return things
-  'End Function
+  Public Property MarqueeViewModel() As MarqueeViewModel
+    Get
+      Return _marqueeViewModel
+    End Get
+    Set(ByVal value As MarqueeViewModel)
+      _marqueeViewModel = value
+      OnPropertyChanged(NameOf(MarqueeViewModel))
+    End Set
+  End Property
 
-  'Private _enums As Enums.ShipType
-  'Public Property Enums As Enums.ShipType
-  '  Get
-  '    Return _enums
-  '  End Get
-  '  Set(ByVal value As Enums.ShipType)
-  '    _enums = value
-  '    OnPropertyChanged(NameOf(Enums))
-  '  End Set
-  'End Property
+  Private _marqueeText As String
+
+  Public Property MarqueeText As String
+    Get
+      Return _marqueeText
+    End Get
+    Set(ByVal value As String)
+      _marqueeText = value
+      MarqueeViewModel.MarqueeText = _marqueeText
+      OnPropertyChanged(NameOf(MarqueeText))
+    End Set
+  End Property
 
   Public Property LocationAddress() As String
     Get
@@ -78,6 +80,8 @@ Public Class MainWindowViewModel
   Private m_GeocodeAddressCommand As ICommand
 
   Sub New()
+    MarqueeViewModel = New MarqueeViewModel("made up", New Duration(New TimeSpan(0, 0, 5)))
+    MarqueeText = "(MMSI 111111111) (ShipName Anne Sleuth) (ShipType Owned) (Location 47.356129,-128.818148,0) ; (MMSI 111112211) (ShipName Bon Voyage) (ShipType Contractor) (Location 48.376129,-129.818148,0) ; (MMSI 111111111) (ShipName Anne Sleuth) (ShipType Owned) (Location 47.356129,-128.818148,0) ; (MMSI 111112211) (ShipName Bon Voyage) (ShipType Contractor) (Location 48.376129,-129.818148,0) ; "
     Stuff = New ObservableCollection(Of Stuff)(New List(Of Stuff)({New Stuff With {.Id = 1, .Value = "Stuff"}, New Stuff With {.Id = 2, .Value = "More Stuff"}}))
     GeocodeAddressCommand = New DelegateCommand(Of String)(AddressOf DoIt)
   End Sub

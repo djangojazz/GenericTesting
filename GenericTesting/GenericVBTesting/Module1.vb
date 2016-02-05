@@ -18,15 +18,9 @@ Module Module1
     Dim bt = New BoatTesting(2)
     _ships = bt.TestLoadShipLocations().ToList()
 
-    _ships.ForEach(Sub(x) Console.WriteLine($"{x.ShipName} {x.Location.Latitude}"))
-
-    _ships.ForEach(Sub(x) x.Location.Latitude -= 2)
-
-    _ships.ForEach(Sub(x) Console.WriteLine($"{x.ShipName} {x.Location.Latitude}"))
-
-  End Sub
-
-  Private Sub SortingMethod(bt As BoatTesting)
+    'Dim shipGroupingModels = New List(Of ShipGroupingModel)
+    'Dim maxGroupFromShips As Func(Of Integer) = Function() _ships.ToList().Select(Function(X) X.Group).ToList().OrderByDescending(Function(x) x).FirstOrDefault()
+    'Dim shipGroupAlreadyExists As Func(Of ShipModel, Boolean) = Function(x) shipGroupingModels.Select(Function(y) y.Ships).ToList().Exists(Function(x) x.)
     Dim ReturnPriorityBoat As Func(Of ShipModel, ShipModel, ShipModel) = Function(x, y) If(x.ShipType <= y.ShipType, x, y)
 
     'Dim ship = ReturnPriorityBoat(_ships(0), _ships(1))
@@ -36,7 +30,7 @@ Module Module1
     Dim CollectionToEmpty = _ships.ToList()
     Do While CollectionToEmpty.Count > 0
       Dim currentShip = CollectionToEmpty(0)
-      Dim currentGroup As New ShipGroupingModel With {.Location = currentShip.Location, .ShipType = currentShip.ShipType, .Ships = New List(Of ShipModel)({currentShip})} 'Just do the first Lat Long instead of a Key
+      Dim currentGroup As New ShipGroupingModel With {.Location = currentShip.Location, .ShipType = currentShip.ShipType, .Ships = New List(Of ShipModel)({currentShip})}
       'currentGroup.Ships.Add(currentShip)
       CollectionToEmpty.RemoveAt(0)
 
@@ -58,7 +52,9 @@ Module Module1
     Loop
 
     Dim modelGroup = groupings
+
   End Sub
+
 
   Sub Main()
     UpdateShipsInformation()
