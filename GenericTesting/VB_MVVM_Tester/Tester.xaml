@@ -16,18 +16,7 @@
     </Style>
     
   </Window.Resources>
-  <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="*"/>
-      <RowDefinition Height="*"/>
-    </Grid.RowDefinitions>
-    <StackPanel Grid.Row="0"  Orientation="Horizontal">
-      <TextBox Width="200" Text="{Binding MarqueeText}"/>
-      <TextBox Width="200" />
-    </StackPanel>
-
-    <local:CustomMarqueeControl Grid.Row="1" Height="50" DataContext="{Binding MarqueeViewModel}" />
-  </Grid>
+  <local:DynamicTemplate Height="100" Width="200" />
   <!--<StackPanel>
     <Border x:Name="BDRounded" CornerRadius="15" Background="{StaticResource brushMainBoard}">
       <Border.BitmapEffect>

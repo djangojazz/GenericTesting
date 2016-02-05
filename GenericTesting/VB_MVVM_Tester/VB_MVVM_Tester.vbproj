@@ -70,9 +70,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Business\Converters\NegatingConverter.vb" />
+    <Compile Include="Business\TemplateSelectors.vb" />
     <Compile Include="ViewModels\MarqueeViewModel.vb" />
     <Compile Include="Views\CustomMarqueeControl.xaml.vb">
       <DependentUpon>CustomMarqueeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DynamicTemplate.xaml.vb">
+      <DependentUpon>DynamicTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TestUserControl.xaml.vb">
       <DependentUpon>TestUserControl.xaml</DependentUpon>
@@ -101,6 +105,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\CustomMarqueeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DynamicTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
