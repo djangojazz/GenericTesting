@@ -57,7 +57,27 @@ Module Module1
 
 
   Sub Main()
-    UpdateShipsInformation()
+    Dim dBships = New List(Of ShipDb)({
+                                   New ShipDb With {.ShipId = 1, .MMSI = 1, .ShipName = "Test", .Latitude = 57.639259, .Longitude = -118.535018, .ShipVolumeId = 1, .BoatHale = 3500, .ExpectedVolume = 4000, .CatchTypeID = 5},
+                                   New ShipDb With {.ShipId = 1, .MMSI = 1, .ShipName = "Test", .Latitude = 57.639259, .Longitude = -118.535018, .ShipVolumeId = 2, .BoatHale = 8000, .ExpectedVolume = 20000, .CatchTypeID = 3}
+                                   }).ToList()
+
+    Dim shipsG = dBships.GroupBy(Function(x) x.ShipId)
+
+    'Dim dBships = DataConverter.ConvertTo(Of ShipDb)(New SQLTalker().GetData("EXEC Ships.pShipsMockService 's', 100000"))
+    Dim ships = dBships.GroupBy(Function(x) x.ShipId).Select(Function(x) New ShipModel With
+                          {
+                          .MMSI = x.Key,
+                          .ShipName = x.ElementAt(0).ShipName,
+                          .ShipType = DirectCast(x.ElementAt(0).ShipTypeId, ShipType),
+                          .Location = New Location() With {.Latitude = x.ElementAt(0).Latitude, .Longitude = x.ElementAt(0).Longitude},
+                          .BoatHale = x.Select(Function(y) New BoatHale With {.BoatHale = y.BoatHale, .ExpectedVolume = y.ExpectedVolume, .CatchTypeID = DirectCast(y.CatchTypeID, CatchType)}).ToList()
+                          }).ToList()
+
+    '.ExpectedVolume = x.Select(Function(y) y.ExpectedVolume).ToList(),
+    '                      .Catches = x.Select(Function(y) DirectCast(y.CatchTypeID, CatchType)).ToList()
+    'Dim shipsG = dBships.GroupBy(Function(x) x.MMSI & x.ShipName).Distinct().ToList()
+
     Console.WriteLine("Done")
     Console.ReadLine()
   End Sub
@@ -83,7 +103,6 @@ Module Module1
 
       memNum.Add(New ShipModel With {.MMSI = randomNum, .ShipName = New RandomHelper().ReturnRandomName(rand, 6), .Location = New Location With {.Latitude = randomLat, .Longitude = randomLong}})
     End While
-
 
 
     'TODO write to disk

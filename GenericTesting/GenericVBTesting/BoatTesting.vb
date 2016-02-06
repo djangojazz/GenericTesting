@@ -14,6 +14,14 @@ Public Class BoatTesting
     Other = 3
   End Enum
 
+  Public Enum CatchType
+    Rockfish = 1
+    Shrimp = 2
+    Salmon = 3
+    Crab = 4
+    DoverSole = 5
+  End Enum
+
   Public Class ShipGroupingModel
     Public Property Location As Location
     Public Property ShipType As ShipType
@@ -25,8 +33,26 @@ Public Class BoatTesting
     Public Property ShipName As String
     Public Property ShipType As ShipType
     Public Property Location As Location
-    Public Property Collision As Boolean
-    Public Property Group As Integer
+    Public Property BoatHale As IList(Of BoatHale)
+  End Class
+
+  Public Class ShipDb
+    Public Property ShipId As Integer
+    Public Property MMSI As Integer
+    Public Property ShipName As String
+    Public Property Latitude As Double
+    Public Property Longitude As Double
+    Public Property ShipTypeId As Integer
+    Public Property ShipVolumeId As Integer
+    Public Property BoatHale As Double
+    Public Property ExpectedVolume As Double
+    Public Property CatchTypeID As Integer
+  End Class
+
+  Public Class BoatHale
+    Public Property BoatHale As Double
+    Public Property ExpectedVolume As Double
+    Public Property CatchTypeID As CatchType
   End Class
 
   Public Function TestLoadShipLocations() As IList(Of ShipModel)
