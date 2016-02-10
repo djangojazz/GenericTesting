@@ -57,7 +57,7 @@ Module Module1
 
 
   Sub Main()
-    Dim sqlTalker = New SQLTalker(".", "Tester", "sqluser", "pa55word")
+    Dim sqlTalker = New SQLTalker(".", "Tester", "sqluser", "")
     'sqlTalker.Cnx = "Server=.;Database=Tester;User Id=sqluser;Password=pa55word"
     Const sqlCommand As String = "Select Count(*) From Ships.teShipDetail"
     Dim countOfShips = sqlTalker.GetData(sqlCommand)(0)(0)
