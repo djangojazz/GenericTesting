@@ -57,29 +57,33 @@ Module Module1
 
 
   Sub Main()
-    Dim dBships = New List(Of ShipDb)({
-                                   New ShipDb With {.ShipId = 1, .MMSI = 1, .ShipName = "Test", .Latitude = 57.639259, .Longitude = -118.535018, .ShipVolumeId = 1, .BoatHale = 3500, .ExpectedVolume = 4000, .CatchTypeID = 5},
-                                   New ShipDb With {.ShipId = 1, .MMSI = 1, .ShipName = "Test", .Latitude = 57.639259, .Longitude = -118.535018, .ShipVolumeId = 2, .BoatHale = 8000, .ExpectedVolume = 20000, .CatchTypeID = 3}
-                                   }).ToList()
-
-    Dim shipsG = dBships.GroupBy(Function(x) x.ShipId)
-
-    'Dim dBships = DataConverter.ConvertTo(Of ShipDb)(New SQLTalker().GetData("EXEC Ships.pShipsMockService 's', 100000"))
-    Dim ships = dBships.GroupBy(Function(x) x.ShipId).Select(Function(x) New ShipModel With
-                          {
-                          .MMSI = x.Key,
-                          .ShipName = x.ElementAt(0).ShipName,
-                          .ShipType = DirectCast(x.ElementAt(0).ShipTypeId, ShipType),
-                          .Location = New Location() With {.Latitude = x.ElementAt(0).Latitude, .Longitude = x.ElementAt(0).Longitude},
-                          .BoatHale = x.Select(Function(y) New BoatHale With {.BoatHale = y.BoatHale, .ExpectedVolume = y.ExpectedVolume, .CatchTypeID = DirectCast(y.CatchTypeID, CatchType)}).ToList()
-                          }).ToList()
-
-    '.ExpectedVolume = x.Select(Function(y) y.ExpectedVolume).ToList(),
-    '                      .Catches = x.Select(Function(y) DirectCast(y.CatchTypeID, CatchType)).ToList()
-    'Dim shipsG = dBships.GroupBy(Function(x) x.MMSI & x.ShipName).Distinct().ToList()
+    Dim sqlTalker = New SQLTalker(".", "Tester", "sqluser", "pa55word")
+    'sqlTalker.Cnx = "Server=.;Database=Tester;User Id=sqluser;Password=pa55word"
+    Const sqlCommand As String = "Select Count(*) From Ships.teShipDetail"
+    Dim countOfShips = sqlTalker.GetData(sqlCommand)(0)(0)
+    'Reader(sqlCommand, ",", False)
 
     Console.WriteLine("Done")
     Console.ReadLine()
+  End Sub
+
+  Private Sub FunWithGrouping()
+    Dim dBships = New List(Of ShipDb)({
+                                       New ShipDb With {.ShipId = 1, .MMSI = 1, .ShipName = "Test", .Latitude = 57.639259, .Longitude = -118.535018, .ShipVolumeId = 1, .BoatHale = 3500, .ExpectedVolume = 4000, .CatchTypeID = 5},
+                                       New ShipDb With {.ShipId = 1, .MMSI = 1, .ShipName = "Test", .Latitude = 57.639259, .Longitude = -118.535018, .ShipVolumeId = 2, .BoatHale = 8000, .ExpectedVolume = 20000, .CatchTypeID = 3}
+                                       }).ToList()
+
+    'Dim shipsG = dBships.GroupBy(Function(x) New With {Key x.ShipId, Key x.MMSI})
+
+    'Dim dBships = DataConverter.ConvertTo(Of ShipDb)(New SQLTalker().GetData("EXEC Ships.pShipsMockService 's', 100000"))
+    Dim ships = dBships.GroupBy(Function(x) New With {Key x.ShipId, Key x.MMSI, Key x.ShipName, Key x.ShipTypeId, Key x.Latitude, Key x.Longitude}).Select(Function(x) New ShipModel With
+                          {
+                          .MMSI = x.Key.MMSI,
+                          .ShipName = x.Key.ShipName,
+                          .ShipType = DirectCast(x.Key.ShipTypeId, ShipType),
+                          .Location = New Location() With {.Latitude = x.Key.Latitude, .Longitude = x.Key.Longitude},
+                          .BoatHale = x.Select(Function(y) New BoatHale With {.BoatHale = y.BoatHale, .ExpectedVolume = y.ExpectedVolume, .CatchTypeID = DirectCast(y.CatchTypeID, CatchType)}).ToList()
+                          }).ToList()
   End Sub
 
   Private Sub WriteOutRandomizer()

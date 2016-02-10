@@ -7,10 +7,10 @@ Public Class SQLTalker
   Private Property Database() As String
   Public Property Cnx() As String
 
-  Public Sub New(Optional server As String = "(local)", Optional database As String = "Tester")
+  Public Sub New(Optional server As String = "(local)", Optional database As String = "Tester", Optional user As String = Nothing, Optional password As String = Nothing)
     Me.Server = server
     Me.Database = database
-    Cnx = $"Integrated Security=SSPI;Persist Security Info=False;Data Source ={server};Initial Catalog={database}"
+    Cnx = If(user?.Length > 0 & password?.Length > 0, $"Server={server};Database={database};User Id={user};Password={password}", $"Server ={server};Database={database};Trusted_Connection=True;")
   End Sub
 
 #Region "String Readers To populate a sql query from a sql file."
