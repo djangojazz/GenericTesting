@@ -36,6 +36,12 @@ Public Class BoatTesting
     Public Property BoatHale As IList(Of BoatHale)
   End Class
 
+  <Serializable>
+  Public Class ShipsDb
+    Public Property Ships As List(Of ShipDb)
+  End Class
+
+  <Serializable>
   Public Class ShipDb
     Public Property ShipId As Integer
     Public Property MMSI As Integer

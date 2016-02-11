@@ -3,6 +3,7 @@ Imports System.Text
 Imports GenericVBTesting.BoatTesting
 Imports Microsoft.Maps.MapControl.WPF
 Imports System.Linq
+Imports System.Xml.Serialization
 
 Module Module1
 
@@ -57,13 +58,29 @@ Module Module1
 
 
   Sub Main()
-    Dim sqlTalker = New SQLTalker(".", "Tester", "sqluser", "")
-    'sqlTalker.Cnx = "Server=.;Database=Tester;User Id=sqluser;Password=pa55word"
-    Const sqlCommand As String = "Select Count(*) From Ships.teShipDetail"
-    Dim countOfShips = sqlTalker.GetData(sqlCommand)(0)(0)
-    'Reader(sqlCommand, ",", False)
+    Dim ship = New ShipDb With {.ShipId = 1, .MMSI = 1, .ShipName = "Test", .Latitude = 57.639259, .Longitude = -118.535018}
 
-    Console.WriteLine("Done")
+    Dim dBships = New ShipsDb With {.Ships =
+      New List(Of ShipDb)({
+                                       New ShipDb With {.ShipId = 1, .MMSI = 1, .ShipName = "Test", .Latitude = 57.639259, .Longitude = -118.535018},
+                                       New ShipDb With {.ShipId = 1, .MMSI = 1, .ShipName = "Test", .Latitude = 57.639259, .Longitude = -118.535018}
+                                       }).ToList()
+                                       }
+
+    Dim xml = dBships.SerializeToXml()
+
+    'Dim x As New XmlSerializer(ship.GetType())
+    'Dim x2 As New XmlSerializer(dBships.GetType())
+    'Dim ns = New XmlSerializerNamespaces()
+    'ns.Add("", "")
+    'Dim sw As New IO.StringWriter()
+    'Dim sw2 As New IO.StringWriter()
+    'x.Serialize(sw, ship, ns)
+    'x2.Serialize(sw2, dBships, ns)
+
+    'Console.WriteLine(sw.ToString())
+    'Console.WriteLine(sw2.ToString())
+    Console.WriteLine(xml)
     Console.ReadLine()
   End Sub
 
