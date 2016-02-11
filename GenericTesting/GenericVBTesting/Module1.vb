@@ -60,12 +60,12 @@ Module Module1
   Sub Main()
     Dim ship = New ShipDb With {.ShipId = 1, .MMSI = 1, .ShipName = "Test", .Latitude = 57.639259, .Longitude = -118.535018}
 
-    Dim dBships = New ShipsDb With {.Ships =
+    Dim dBships =
       New List(Of ShipDb)({
                                        New ShipDb With {.ShipId = 1, .MMSI = 1, .ShipName = "Test", .Latitude = 57.639259, .Longitude = -118.535018},
-                                       New ShipDb With {.ShipId = 1, .MMSI = 1, .ShipName = "Test", .Latitude = 57.639259, .Longitude = -118.535018}
+                                       New ShipDb With {.ShipId = 2, .MMSI = 2, .ShipName = "AnotherTest", .Latitude = 58.091823, .Longitude = -128.535518}
                                        }).ToList()
-                                       }
+    '}
 
     Dim xml = dBships.SerializeToXml()
 

@@ -1,4 +1,5 @@
-﻿Imports Microsoft.Maps.MapControl.WPF
+﻿Imports System.Xml.Serialization
+Imports Microsoft.Maps.MapControl.WPF
 
 Public Class BoatTesting
 
@@ -36,18 +37,20 @@ Public Class BoatTesting
     Public Property BoatHale As IList(Of BoatHale)
   End Class
 
-  <Serializable>
-  Public Class ShipsDb
-    Public Property Ships As List(Of ShipDb)
-  End Class
 
   <Serializable>
   Public Class ShipDb
+    <XmlAttribute>
     Public Property ShipId As Integer
+    <XmlAttribute>
     Public Property MMSI As Integer
+    <XmlAttribute>
     Public Property ShipName As String
+    <XmlAttribute>
     Public Property Latitude As Double
+    <XmlAttribute>
     Public Property Longitude As Double
+    <XmlAttribute>
     Public Property ShipTypeId As Integer
     Public Property ShipVolumeId As Integer
     Public Property BoatHale As Double
