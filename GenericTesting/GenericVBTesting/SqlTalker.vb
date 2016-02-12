@@ -5,7 +5,7 @@ Imports System.Text
 Public Class SQLTalker
   Private _cnx As String
 
-  Public Sub New(Optional server As String = "(local)", Optional database As String = "Tester", Optional user As String = Nothing, Optional password As String = Nothing)
+  Public Sub New(Optional server As String = "(local)", Optional database As String = "Ships", Optional user As String = Nothing, Optional password As String = Nothing)
     _cnx = If(user?.Length > 0 AndAlso password?.Length > 0, $"Server={server};Database={database};User Id={user};Password={password}", $"Server ={server};Database={database};Trusted_Connection=True;")
   End Sub
 
@@ -184,6 +184,42 @@ Public Class SQLTalker
         End If
 
         cn.Close()
+        Return sb.ToString()
+      End Using
+    End Using
+  End Function
+
+  Public Function BlockLoadXMLShipData(duration As Integer, xmlBlob As String) As String
+    Using cn As New SqlConnection(_cnx)
+      Using cmd As New SqlCommand("Ships.pBulkXmlShipLoader", cn)
+        cmd.CommandType = CommandType.StoredProcedure
+        cmd.CommandTimeout = 60
+        Dim sb = New StringBuilder()
+
+        cmd.Parameters.AddWithValue("@Increment", duration)
+        cmd.Parameters.AddWithValue("@Xml", xmlBlob)
+
+        Dim outputParameter = New SqlParameter()
+        outputParameter.ParameterName = "@Output"
+        outputParameter.SqlDbType = SqlDbType.VarChar
+        outputParameter.Size = 1024
+        outputParameter.Direction = ParameterDirection.Output
+        cmd.Parameters.Add(outputParameter)
+
+        Dim rtn As SqlParameter = cmd.Parameters.Add("return", SqlDbType.Int)
+        rtn.Direction = ParameterDirection.ReturnValue
+
+        cn.Open()
+
+        cmd.ExecuteNonQuery()
+        If CInt(rtn.Value) = 0 Then
+          sb.Append(outputParameter.Value)
+        Else
+          sb.Append("Result:" & vbTab & vbTab & "Failure!")
+        End If
+
+        cn.Close()
+
         Return sb.ToString()
       End Using
     End Using

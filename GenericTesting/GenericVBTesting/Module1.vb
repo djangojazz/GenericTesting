@@ -62,25 +62,15 @@ Module Module1
 
     Dim dBships =
       New List(Of ShipDb)({
-                                       New ShipDb With {.ShipId = 1, .MMSI = 1, .ShipName = "Test", .Latitude = 57.639259, .Longitude = -118.535018},
-                                       New ShipDb With {.ShipId = 2, .MMSI = 2, .ShipName = "AnotherTest", .Latitude = 58.091823, .Longitude = -128.535518}
+                                       New ShipDb With {.MMSI = 1, .ShipName = "Test", .Latitude = 57.639259, .Longitude = -118.535018, .ShipTypeId = 1},
+                                       New ShipDb With {.MMSI = 2, .ShipName = "AnotherTest", .Latitude = 58.091823, .Longitude = -128.535518, .ShipTypeId = 2}
                                        }).ToList()
-    '}
 
     Dim xml = dBships.SerializeToXml()
+    Dim sqlTalker = New SQLTalker()
+    Dim results = sqlTalker.BlockLoadXMLShipData(1, xml)
 
-    'Dim x As New XmlSerializer(ship.GetType())
-    'Dim x2 As New XmlSerializer(dBships.GetType())
-    'Dim ns = New XmlSerializerNamespaces()
-    'ns.Add("", "")
-    'Dim sw As New IO.StringWriter()
-    'Dim sw2 As New IO.StringWriter()
-    'x.Serialize(sw, ship, ns)
-    'x2.Serialize(sw2, dBships, ns)
-
-    'Console.WriteLine(sw.ToString())
-    'Console.WriteLine(sw2.ToString())
-    Console.WriteLine(xml)
+    Console.WriteLine(results)
     Console.ReadLine()
   End Sub
 
