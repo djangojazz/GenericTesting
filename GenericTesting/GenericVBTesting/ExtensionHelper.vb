@@ -1,4 +1,5 @@
-﻿Imports System.Runtime.CompilerServices
+﻿Imports System.IO
+Imports System.Runtime.CompilerServices
 Imports System.Xml
 Imports System.Xml.Serialization
 
@@ -15,5 +16,14 @@ Module ExtensionHelper
     End Using
 
     Return sw.ToString()
+  End Function
+
+  <Extension>
+  Public Function DeserializeXml(Of T)(xmlToDeserialize As String) As T
+    Dim serializer = New XmlSerializer(GetType(T))
+
+    Using reader As TextReader = New StringReader(xmlToDeserialize)
+      Return DirectCast(serializer.Deserialize(reader), T)
+    End Using
   End Function
 End Module

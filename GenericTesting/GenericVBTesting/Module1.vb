@@ -3,6 +3,8 @@ Imports GenericVBTesting.BoatTesting
 Imports Microsoft.Maps.MapControl.WPF
 Imports System.Net
 Imports System.Net.Mail
+Imports System.Xml.Serialization
+Imports System.IO
 
 Module Module1
 
@@ -68,12 +70,27 @@ Module Module1
     Public Property longitude As Double
   End Class
 
+  'Private Sub DeserializeObject(xml As String)
+  '  Dim serializer = New XmlSerializer(GetType(Chart()))
+  '  Dim result As Chart()
+
+  '  Using reader As TextReader = New StringReader(xml)
+  '    result = DirectCast(serializer.Deserialize(reader), Chart())
+  '  End Using
+  'End Sub
 
   Sub Main()
-    Dim lic = "51984-ZQWNRQQQZTQETCQCA8UBX6SF22EXHBSRX88LXBAW3BKLNMAVDEAQQSQS2Q6WTNW3GL9SUSDQ3Q".ToLower
-    Dim lic2 = "JUV4KARP45DNHNTTP8BL5YUBSHU6WTNH88KNDQQNMABLUY4QQWGADA6EQL5".ToLower
+    'Dim charts = {New ShipDb With {.MMSI = 111111111, .ShipName = "Anne Sleuth", .ShipTypeId = 1, .Latitude = 46.851859, .Longitude = -129.322418},
+    '  New ShipDb With {.MMSI = 367197230, .ShipName = "Buck & Ann", .ShipTypeId = 1, .Latitude = 46.451859, .Longitude = -124.322418}}
+    Dim chart = New Chart With {.ChartName = "Test", .MapRefreshInMinutes = 1, .ShipDetailsRefreshInSeconds = 4}
 
+    Dim charts = {chart}
 
+    Dim xmler = charts.SerializeToXml()
+
+    Console.WriteLine($"{xmler}")
+
+    Dim items = xmler.DeserializeXml(Of Chart())
 
     Console.ReadLine()
   End Sub

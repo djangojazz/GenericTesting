@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Timers;
 using System.IO;
+using System.Xml.Serialization;
 
 namespace GenericTesting
 {
@@ -75,14 +76,23 @@ namespace GenericTesting
     }
 
     public class Poc { public int Id { get; set; } public string Value { get; set; }}
-
+    
     static void Main(string[] args)
     {
-      Func<string, string> stringRunner = (x) => { return x; };
+      string xml = "<StatusDocumentItem xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"><DataUrl/><LastUpdated>2013-02-01T12:35:29.9517061Z</LastUpdated><Message>Job put in queue</Message><State>0</State><StateName>Waiting to be processed</StateName></StatusDocumentItem>";
+      var serializer = new XmlSerializer(typeof(StatusDocumentItem));
+      StatusDocumentItem result;
 
-      Console.WriteLine(stringRunner("Hello"));
+      StatusDocumentItem[] things = new StatusDocumentItem[1];
 
-        //TimerGeneric(1000, async () => { Console.WriteLine("Passed in Task is: " + DateTime.Now); });
+      using (TextReader reader = new StringReader(xml))
+      {
+        result = (StatusDocumentItem)serializer.Deserialize(reader);
+      }
+
+      Console.WriteLine(result.Message);
+
+      //TimerGeneric(1000, async () => { Console.WriteLine("Passed in Task is: " + DateTime.Now); });
 
       //Works just as expected and refreshes every second for the 'Refresh()' method.
       //TimerSetupWithRefresh(1000);

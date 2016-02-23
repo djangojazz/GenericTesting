@@ -58,10 +58,26 @@ Public Class BoatTesting
     Public Property CatchTypeID As Integer
   End Class
 
+
   Public Class BoatHale
     Public Property BoatHale As Double
     Public Property ExpectedVolume As Double
     Public Property CatchTypeID As CatchType
+  End Class
+
+  <Serializable>
+  Public Class Chart
+    <XmlAttribute>
+    Public Property ChartName As String
+    <XmlAttribute>
+    Public Property MapRefreshInMinutes As Integer
+    <XmlAttribute>
+    Public Property ShipDetailsRefreshInSeconds As Integer
+
+    Public Overrides Function Equals(obj As Object) As Boolean
+      Return TypeOf obj Is Chart AndAlso DirectCast(obj, Chart).ChartName = Me.ChartName
+    End Function
+
   End Class
 
   Public Function TestLoadShipLocations() As IList(Of ShipModel)
