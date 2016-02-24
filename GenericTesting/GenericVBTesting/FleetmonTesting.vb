@@ -44,3 +44,10 @@ Public Enum FleetMonAPIReturnType
   xml = 1
   json = 2
 End Enum
+
+Public Class VesselModel
+  Public Property name As Double
+  Public Property mmsinumber As Integer
+  Public Property latitude As Double
+  Public Property longitude As Double
+End Class

@@ -63,25 +63,7 @@ Module Module1
 
   End Sub
 
-  Public Class VesselModel
-    Public Property name As Double
-    Public Property mmsinumber As Integer
-    Public Property latitude As Double
-    Public Property longitude As Double
-  End Class
-
-  'Private Sub DeserializeObject(xml As String)
-  '  Dim serializer = New XmlSerializer(GetType(Chart()))
-  '  Dim result As Chart()
-
-  '  Using reader As TextReader = New StringReader(xml)
-  '    result = DirectCast(serializer.Deserialize(reader), Chart())
-  '  End Using
-  'End Sub
-
   Sub Main()
-    'Dim charts = {New ShipDb With {.MMSI = 111111111, .ShipName = "Anne Sleuth", .ShipTypeId = 1, .Latitude = 46.851859, .Longitude = -129.322418},
-    '  New ShipDb With {.MMSI = 367197230, .ShipName = "Buck & Ann", .ShipTypeId = 1, .Latitude = 46.451859, .Longitude = -124.322418}}
     Dim chart = New Chart With {.ChartName = "Test", .MapRefreshInMinutes = 1, .ShipDetailsRefreshInSeconds = 4}
 
     Dim charts = {chart}
@@ -89,8 +71,22 @@ Module Module1
     Dim xmler = charts.SerializeToXml()
 
     Console.WriteLine($"{xmler}")
+    Console.WriteLine("AFTER")
 
-    Dim items = xmler.DeserializeXml(Of Chart())
+    Dim otherChart = New Chart With {.ChartName = "Test2", .MapRefreshInMinutes = 1, .ShipDetailsRefreshInSeconds = 4}
+
+    Dim items = xmler.DeserializeXml(Of Chart()).ToList()
+
+    Dim item = items.FirstOrDefault(Function(x) x.ChartName = otherChart.ChartName)
+
+    If (Not item Is Nothing) Then
+      item.ChartName = "TestChanged"
+    Else
+      items.Add(otherChart)
+    End If
+
+    Dim xmler2 = items.SerializeToXml()
+    Console.WriteLine($"{xmler2}")
 
     Console.ReadLine()
   End Sub
