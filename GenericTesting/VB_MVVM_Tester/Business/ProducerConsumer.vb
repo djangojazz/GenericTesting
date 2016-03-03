@@ -2,10 +2,11 @@
 
 Public NotInheritable Class ProducerConsumer
   Private Shared ReadOnly _instance As New Lazy(Of ProducerConsumer)(Function() New ProducerConsumer(), Threading.LazyThreadSafetyMode.ExecutionAndPublication)
-
   Private Shared _syncRoot = New Object
-  Friend producer As New Threading.Thread(AddressOf ThreadProcessing)
-  Friend queue As New ConcurrentQueue(Of POCO)
+  Private NotProcessed As Boolean = True
+  Public producer As New Threading.Thread(AddressOf ThreadProcessing)
+  Public queue As New ConcurrentQueue(Of POCO)
+
 
   Public Sub New()
   End Sub
@@ -16,20 +17,23 @@ Public NotInheritable Class ProducerConsumer
     End Get
   End Property
 
-  Public Property Thing = "Hello"
+  Public Shared Property Thing As New POCO
 
   Private Sub ThreadProcessing()
-    Do While (True)
+    Do While (NotProcessed)
       Dim ToProcess As POCO = Nothing
       queue.TryDequeue(ToProcess)
       If Not ToProcess Is Nothing Then
         Threading.Thread.Sleep(10I)
       End If
-      If queue.Count = 0 And Not IsNothing(ToProcess) Then
-        'PROCESS CURRENT VALUE
-        MessageBox.Show("Processing a record" & ToProcess.Desc)
 
+      If queue.Count = 0 And Not IsNothing(ToProcess) Then
+        MessageBox.Show(ToProcess.Id.ToString())
+        Thing = ToProcess
+        NotProcessed = False
       End If
     Loop
+
+
   End Sub
 End Class

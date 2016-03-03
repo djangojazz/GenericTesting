@@ -16,6 +16,9 @@
       <Setter Property="Background" Value="Transparent" />
     </Style>
   </Window.Resources>
-  <!--<local:SL_BackgroundWorker_VB />-->
-  <local:ProducerConsumerView />
+  <StackPanel>
+    <local:SL_BackgroundWorker_VB />
+    <local:ProducerConsumerView />
+  </StackPanel>
+  
 </Window>
