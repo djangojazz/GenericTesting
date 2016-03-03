@@ -1,13 +1,11 @@
 ﻿Imports System.Text
 Imports GenericVBTesting.BoatTesting
 Imports Microsoft.Maps.MapControl.WPF
-Imports System.Net
-Imports System.Net.Mail
-Imports System.Xml.Serialization
 Imports System.IO
 
 Module Module1
 
+  Private chartSettingsFileLocation = My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\OpenEnterprise\ChartSettings.xml"
   Dim _ships As List(Of ShipModel) = New List(Of ShipModel)
 
   Enum Tester
@@ -64,29 +62,22 @@ Module Module1
   End Sub
 
   Sub Main()
-    Dim chart = New Chart With {.ChartName = "Test", .MapRefreshInMinutes = 1, .ShipDetailsRefreshInSeconds = 4}
+    Dim locationRect
 
-    Dim charts = {chart}
+    Dim dBships = DataConverter.ConvertTo(Of ShipDb)(New SQLTalker(Configuration.ConfigurationManager.ConnectionStrings("Ships").ToString()) _
+      .LoadShipsBasedOnRectangle(44.000111, 46.000111, -123.000111, -122.000111))
+    'DataConverter.ConvertTo(Of ShipDb)(New SQLTalker(Configuration.ConfigurationManager.ConnectionStrings("Ships").ToString()).GetData("EXEC Ships.pGetAllShips"))
 
-    Dim xmler = charts.SerializeToXml()
 
-    Console.WriteLine($"{xmler}")
-    Console.WriteLine("AFTER")
+    Dim items = dBships.GroupBy(Function(x) New With {Key x.ShipId, Key x.MMSI, Key x.ShipName, Key x.ShipTypeId, Key x.Latitude, Key x.Longitude}).Select(Function(x) New ShipModel With
+                          {
+                          .MMSI = x.Key.MMSI,
+                          .ShipName = x.Key.ShipName,
+                          .ShipType = DirectCast(x.Key.ShipTypeId, ShipType),
+                          .Location = New Location() With {.Latitude = x.Key.Latitude, .Longitude = x.Key.Longitude}
+                          }).ToList()
 
-    Dim otherChart = New Chart With {.ChartName = "Test2", .MapRefreshInMinutes = 1, .ShipDetailsRefreshInSeconds = 4}
-
-    Dim items = xmler.DeserializeXml(Of Chart()).ToList()
-
-    Dim item = items.FirstOrDefault(Function(x) x.ChartName = otherChart.ChartName)
-
-    If (Not item Is Nothing) Then
-      item.ChartName = "TestChanged"
-    Else
-      items.Add(otherChart)
-    End If
-
-    Dim xmler2 = items.SerializeToXml()
-    Console.WriteLine($"{xmler2}")
+    items.ForEach(Sub(x) Console.WriteLine($"{x.ShipName}"))
 
     Console.ReadLine()
   End Sub

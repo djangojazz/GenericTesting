@@ -79,18 +79,11 @@ namespace GenericTesting
     
     static void Main(string[] args)
     {
-      string xml = "<StatusDocumentItem xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"><DataUrl/><LastUpdated>2013-02-01T12:35:29.9517061Z</LastUpdated><Message>Job put in queue</Message><State>0</State><StateName>Waiting to be processed</StateName></StatusDocumentItem>";
-      var serializer = new XmlSerializer(typeof(StatusDocumentItem));
-      StatusDocumentItem result;
+      var ls = new List<string> {"Know", "What", "I", "Mean"};
 
-      StatusDocumentItem[] things = new StatusDocumentItem[1];
-
-      using (TextReader reader = new StringReader(xml))
-      {
-        result = (StatusDocumentItem)serializer.Deserialize(reader);
-      }
-
-      Console.WriteLine(result.Message);
+      ls.ForEach(x => Console.WriteLine(x));
+      
+      
 
       //TimerGeneric(1000, async () => { Console.WriteLine("Passed in Task is: " + DateTime.Now); });
 

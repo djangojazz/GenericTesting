@@ -5,6 +5,10 @@ Imports System.Text
 Public Class SQLTalker
   Private _cnx As String
 
+  Public Sub New(connectionString As String)
+    _cnx = connectionString
+  End Sub
+
   Public Sub New(Optional server As String = "(local)", Optional database As String = "Ships", Optional user As String = Nothing, Optional password As String = Nothing)
     _cnx = If(user?.Length > 0 AndAlso password?.Length > 0, $"Server={server};Database={database};User Id={user};Password={password}", $"Server ={server};Database={database};Trusted_Connection=True;")
   End Sub
@@ -221,6 +225,32 @@ Public Class SQLTalker
         cn.Close()
 
         Return sb.ToString()
+      End Using
+    End Using
+  End Function
+
+  Public Function LoadShipsBasedOnRectangle(minLat As Double, maxLat As Double, minLong As Double, maxLong As Double) As DataTable
+    Using cn As New SqlConnection(_cnx)
+      Using cmd As New SqlCommand("Ships.pReturnShipsWithinARectangle", cn)
+        cmd.CommandType = CommandType.StoredProcedure
+        cmd.CommandTimeout = 60
+
+        cmd.Parameters.AddWithValue("@minLat", minLat)
+        cmd.Parameters.AddWithValue("@maxLat", maxLat)
+        cmd.Parameters.AddWithValue("@minLong", minLong)
+        cmd.Parameters.AddWithValue("@maxLong", maxLong)
+
+        Using adapter As New SqlDataAdapter()
+          Using table As New DataTable()
+            cn.Open()
+            adapter.SelectCommand = cmd
+            table.Locale = Globalization.CultureInfo.InvariantCulture
+            adapter.Fill(table)
+            cn.Close()
+
+            Return table
+          End Using
+        End Using
       End Using
     End Using
   End Function
