@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
         xmlns:local="clr-namespace:VB_MVVM_Tester"
         mc:Ignorable="d"
         Background="{StaticResource brushMainBoard}" Width="550">
@@ -14,17 +15,7 @@
     <Style TargetType="{x:Type DataGridRowHeader}">
       <Setter Property="Background" Value="Transparent" />
     </Style>
-    
   </Window.Resources>
-  <local:DynamicTemplate Height="100" Width="200" />
-  <!--<StackPanel>
-    <Border x:Name="BDRounded" CornerRadius="15" Background="{StaticResource brushMainBoard}">
-      <Border.BitmapEffect>
-        <DropShadowBitmapEffect/>
-      </Border.BitmapEffect>
-      <DataGrid Grid.Row="1" x:Name="ShipDetails" ItemsSource="{Binding Stuff}" Height="100" Foreground="{StaticResource brushMainText}" BorderThickness="0"              
-                 Background="Transparent" RowBackground="Transparent"   GridLinesVisibility="None" IsReadOnly="True" HorizontalAlignment="Center" FontSize="20">
-      </DataGrid>
-    </Border>
-  </StackPanel>-->
+  <local:SL_BackgroundWorker_VB />
+  <!--<local:ProducerConsumerView />-->
 </Window>

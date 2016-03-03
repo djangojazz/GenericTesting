@@ -16,13 +16,13 @@
     </Style>
   </UserControl.Resources>
   
-  <Border x:Name="BDRounded" CornerRadius="15" Background="{StaticResource brushMainBoard}">
+  <!--<Border x:Name="BDRounded" CornerRadius="15" Background="{StaticResource brushMainBoard}">
   <Border.BitmapEffect>
     <DropShadowBitmapEffect/>
-  </Border.BitmapEffect>
+  </Border.BitmapEffect>-->
     <StackPanel>
       <Label x:Name="lblCustomDataGridHeader" Content="TEST" Foreground="{StaticResource brushLegendCustomDataGrid}" HorizontalAlignment="Center" FontSize="24"/>
-      <DataGrid Grid.Row="1" x:Name="ShipDetails" ItemsSource="{Binding Stuff}" Height="100" Foreground="{StaticResource brushTextCustomDataGrid}" BorderThickness="0"              
+      <DataGrid Grid.Row="1" x:Name="ShipDetails" ItemsSource="{Binding Items}" Height="100" Foreground="{StaticResource brushTextCustomDataGrid}" BorderThickness="0"              
                   Background="Transparent" RowBackground="Transparent"   GridLinesVisibility="None" IsReadOnly="True" HorizontalAlignment="Center" FontSize="20" AutoGenerateColumns="False">
         <DataGrid.Columns>
           <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
@@ -31,6 +31,6 @@
         </DataGrid.Columns>
       </DataGrid>
     </StackPanel>
-  </Border>
+  <!--</Border>-->
   
 </UserControl>
