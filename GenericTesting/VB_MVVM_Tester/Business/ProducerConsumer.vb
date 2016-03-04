@@ -9,7 +9,6 @@ Public NotInheritable Class ProducerConsumer
   Public producer As New Threading.Thread(AddressOf ThreadProcessing)
   Public queue As New ConcurrentQueue(Of POCO)
 
-
   Public Sub New()
   End Sub
 
@@ -22,19 +21,18 @@ Public NotInheritable Class ProducerConsumer
   Public Shared Property Thing As New POCO
 
   Private Sub ThreadProcessing()
+    Dim ToProcess As New POCO
+
     Do While (NotProcessed)
-      Dim ToProcess As POCO = Nothing
       queue.TryDequeue(ToProcess)
       If Not ToProcess Is Nothing Then
-        Threading.Thread.Sleep(10I)
+        Threading.Thread.Sleep(30I)
       End If
 
       If queue.Count = 0 And Not IsNothing(ToProcess) Then
-        MessageBox.Show(ToProcess.Id.ToString())
-        Thing = ToProcess
+        ToProcess.DescAction.Invoke(ToProcess.Desc)
       End If
     Loop
-
   End Sub
 
 End Class

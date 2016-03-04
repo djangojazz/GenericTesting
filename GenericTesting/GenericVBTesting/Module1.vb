@@ -61,23 +61,19 @@ Module Module1
 
   End Sub
 
+  Public Function DoIt(x As Integer, y As Integer) As Boolean
+    Dim value = If(x Mod y = 0, True, False)
+    Return value
+  End Function
+
   Sub Main()
-    Dim locationRect
-
-    Dim dBships = DataConverter.ConvertTo(Of ShipDb)(New SQLTalker(Configuration.ConfigurationManager.ConnectionStrings("Ships").ToString()) _
-      .LoadShipsBasedOnRectangle(44.000111, 46.000111, -123.000111, -122.000111))
-    'DataConverter.ConvertTo(Of ShipDb)(New SQLTalker(Configuration.ConfigurationManager.ConnectionStrings("Ships").ToString()).GetData("EXEC Ships.pGetAllShips"))
-
-
-    Dim items = dBships.GroupBy(Function(x) New With {Key x.ShipId, Key x.MMSI, Key x.ShipName, Key x.ShipTypeId, Key x.Latitude, Key x.Longitude}).Select(Function(x) New ShipModel With
-                          {
-                          .MMSI = x.Key.MMSI,
-                          .ShipName = x.Key.ShipName,
-                          .ShipType = DirectCast(x.Key.ShipTypeId, ShipType),
-                          .Location = New Location() With {.Latitude = x.Key.Latitude, .Longitude = x.Key.Longitude}
-                          }).ToList()
-
-    items.ForEach(Sub(x) Console.WriteLine($"{x.ShipName}"))
+    Dim item As String = String.Empty
+    Dim thing = New TestCallBack
+    thing.DoWork("hello", Sub(x) Console.WriteLine($"{x}"))
+    thing.DoWork("hey", Sub(x) item = x)
+    Console.WriteLine($"{item}")
+    '  EnumWindows(New GenericVBTesting.CallBack(AddressOf DoIt), y)
+    'Console.WriteLine($"{result}")
 
     Console.ReadLine()
   End Sub

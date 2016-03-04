@@ -97,6 +97,8 @@
     <Compile Include="DataConverter.vb" />
     <Compile Include="RandomHelper.vb" />
     <Compile Include="SqlTalker.vb" />
+    <Compile Include="TestCallBack.vb" />
+    <Compile Include="TestQueue.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

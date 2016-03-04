@@ -76,15 +76,30 @@ namespace GenericTesting
     }
 
     public class Poc { public int Id { get; set; } public string Value { get; set; }}
-    
+
+    public static void DoWork(Action<string> callback)
+    {
+      callback("Hello world");
+    }
+
+    public static void Test()
+    {
+      //string result = String.Empty;
+      //var action = new Action<string>(x => Console.WriteLine(result));
+
+      //Console.WriteLine(result);
+
+      //DoWork(action);
+
+      //Console.WriteLine(result);
+
+      DoWork((x) => Console.WriteLine(x));
+    }
+
     static void Main(string[] args)
     {
-      var ls = new List<string> {"Know", "What", "I", "Mean"};
-
-      ls.ForEach(x => Console.WriteLine(x));
+      Test();
       
-      
-
       //TimerGeneric(1000, async () => { Console.WriteLine("Passed in Task is: " + DateTime.Now); });
 
       //Works just as expected and refreshes every second for the 'Refresh()' method.
