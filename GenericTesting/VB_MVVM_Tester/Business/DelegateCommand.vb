@@ -9,17 +9,10 @@ Public Class DelegateCommand(Of T)
     _execute = execute
   End Sub
 
-  'Public Function CanExecute(parameter As Object) As Boolean
-  '  Return True
-  'End Function
-
   Public Event CanExecuteChanged As EventHandler
   Private Event ICommand_CanExecuteChanged As EventHandler Implements ICommand.CanExecuteChanged
 
-  'Public Sub Execute(parameter As Object)
-  '  _execute.Invoke(DirectCast(parameter, T))
-  'End Sub
-
+  'Public Sub E
   Private Function ICommand_CanExecute(parameter As Object) As Boolean Implements ICommand.CanExecute
     Return True
   End Function

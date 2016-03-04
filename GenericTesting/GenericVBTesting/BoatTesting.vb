@@ -52,6 +52,7 @@ Public Class BoatTesting
     Public Property Longitude As Double
     <XmlAttribute>
     Public Property ShipTypeId As Integer
+    Public Property LastUpdated As DateTime
     Public Property ShipVolumeId As Integer
     Public Property BoatHale As Double
     Public Property ExpectedVolume As Double

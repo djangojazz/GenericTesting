@@ -4,18 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:VB_MVVM_Tester"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-  <Grid x:Name="LayoutRoot" Background="White">
-    <StackPanel Height="30" Orientation="Horizontal" 
-                    HorizontalAlignment="Left" VerticalAlignment="Top" 
-                    Margin="10" >
-      <Button x:Name="buttonStart" Content="Start" Click="buttonStart_Click"
-                    Width="80" Height="30"/>
-    </StackPanel>
-    <StackPanel Margin="10,50,0,0" Orientation="Horizontal">
+             mc:Ignorable="d" MouseMove="UserControl_MouseMove" >
+  <StackPanel>
+    <Button x:Name="buttonStart" Content="Start" Width="200" Height="50" Command="{Binding StartCommandProdCons}" />
+    <!--Click="buttonStart_Click" />-->
+    <StackPanel Orientation="Horizontal">
       <TextBlock Text="Progress: "/>
-      <TextBlock x:Name="tbProgress"/>
+      <TextBlock x:Name="tbProgress" Text="{Binding TestText}"/>
     </StackPanel>
-  </Grid>
+  </StackPanel>
 </UserControl>

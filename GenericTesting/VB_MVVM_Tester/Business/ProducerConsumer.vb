@@ -1,9 +1,11 @@
 ﻿Imports System.Collections.Concurrent
 
 Public NotInheritable Class ProducerConsumer
+
   Private Shared ReadOnly _instance As New Lazy(Of ProducerConsumer)(Function() New ProducerConsumer(), Threading.LazyThreadSafetyMode.ExecutionAndPublication)
   Private Shared _syncRoot = New Object
-  Private NotProcessed As Boolean = True
+
+  Public NotProcessed As Boolean = True
   Public producer As New Threading.Thread(AddressOf ThreadProcessing)
   Public queue As New ConcurrentQueue(Of POCO)
 
@@ -30,10 +32,9 @@ Public NotInheritable Class ProducerConsumer
       If queue.Count = 0 And Not IsNothing(ToProcess) Then
         MessageBox.Show(ToProcess.Id.ToString())
         Thing = ToProcess
-        NotProcessed = False
       End If
     Loop
 
-
   End Sub
+
 End Class

@@ -6,7 +6,7 @@
         xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
         xmlns:local="clr-namespace:VB_MVVM_Tester"
         mc:Ignorable="d"
-        Background="{StaticResource brushMainBoard}" Width="550">
+        Background="{StaticResource brushMainBoard}">
   <Window.Resources>
     <Style TargetType="{x:Type DataGridColumnHeader}">
       <Setter Property="Background" Value="Transparent" />
@@ -16,8 +16,8 @@
       <Setter Property="Background" Value="Transparent" />
     </Style>
   </Window.Resources>
-  <StackPanel>
-    <local:SL_BackgroundWorker_VB />
+  <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <!--<local:SL_BackgroundWorker_VB />-->
     <local:ProducerConsumerView />
   </StackPanel>
   
