@@ -1,13 +1,15 @@
 ﻿Imports System.Text
 Imports GenericVBTesting.BoatTesting
 Imports Microsoft.Maps.MapControl.WPF
-Imports System.IO
+Imports System.Windows.Threading
+Imports System.Collections.ObjectModel
 
 Module Module1
 
   Private listings As New Dictionary(Of String, String)
   Private chartSettingsFileLocation = My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\OpenEnterprise\ChartSettings.xml"
   Dim _ships As List(Of ShipModel) = New List(Of ShipModel)
+  Private _dispatcher As Dispatcher
 
   Enum Tester
     Hello = 1
@@ -20,6 +22,8 @@ Module Module1
     Contractor = 2
     Other = 3
   End Enum
+
+  Public Property ShipLocations As ObservableCollection(Of ShipGroupingModel)
 
   Private Sub UpdateShipsInformation()
     Dim bt = New BoatTesting(2)
@@ -64,10 +68,25 @@ Module Module1
 
 
   Sub Main()
-    Using testclass As New TestUsingClass("hello")
-    End Using
+    _dispatcher = Dispatcher.CurrentDispatcher
+    Dim chart = New Chart With {.ChartName = "Test", .MapRefreshInMinutes = 5, .ShipDetailsRefreshInSeconds = 4,
+      .LocationGrid = New LocationRect(New Location(45.500111, -123.000111), New Location(45.400111, -122.500111))}
+    Dim subscriptionToQueueDTO = New SubscriptionToQueueDTO With {.ChartName = chart.ChartName, .Dispatcher = _dispatcher, .SleepDuration = 15I}
+    Dim mapLocationToQueueDTO = New MapLocationToQueueDTO With {.SubscriptionToQueueDTO = subscriptionToQueueDTO, .DistanceThreshold = 12, .Location = chart.LocationGrid, .ProducerCompleted = AddressOf UpdateShipCollection}
+    Dim subscriptionToQueueDTO2 = New SubscriptionToQueueDTO With {.ChartName = "Test2", .Dispatcher = _dispatcher, .SleepDuration = 15I}
+
+
+    ProducerTest.Instance.Subscribe(subscriptionToQueueDTO, mapLocationToQueueDTO)
+    ProducerTest.Instance.Subscribe(subscriptionToQueueDTO2, mapLocationToQueueDTO)
+
+    ProducerTest.Instance.Unsubscribe(subscriptionToQueueDTO)
+    ProducerTest.Instance.Unsubscribe(subscriptionToQueueDTO2)
 
     Console.ReadLine()
+  End Sub
+
+  Private Sub UpdateShipCollection(newShipCollection As IList(Of ShipGroupingModel))
+    ShipLocations.ClearAndAddRange(newShipCollection)
   End Sub
 
   Private Sub FunWithGrouping()

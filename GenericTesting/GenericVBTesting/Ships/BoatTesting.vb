@@ -74,6 +74,8 @@ Public Class BoatTesting
     Public Property MapRefreshInMinutes As Integer
     <XmlAttribute>
     Public Property ShipDetailsRefreshInSeconds As Integer
+    <XmlElement>
+    Public Property LocationGrid As LocationRect
 
     Public Overrides Function Equals(obj As Object) As Boolean
       Return TypeOf obj Is Chart AndAlso DirectCast(obj, Chart).ChartName = Me.ChartName

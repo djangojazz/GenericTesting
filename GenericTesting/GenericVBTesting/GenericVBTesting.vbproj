@@ -60,6 +60,7 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -73,6 +74,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions.vb" />
     <Compile Include="Ships\BoatTesting.vb" />
     <Compile Include="BubbleSort.vb" />
     <Compile Include="ExtensionHelper.vb" />
@@ -98,6 +100,8 @@
     <Compile Include="DataConverter.vb" />
     <Compile Include="RandomHelper.vb" />
     <Compile Include="SqlTalker.vb" />
+    <Compile Include="Test\DTOs.vb" />
+    <Compile Include="Test\ProducerTest.vb" />
     <Compile Include="Test\TestCallBack.vb" />
     <Compile Include="Test\TestQueue.vb" />
     <Compile Include="Test\TestUsingClass.vb" />
