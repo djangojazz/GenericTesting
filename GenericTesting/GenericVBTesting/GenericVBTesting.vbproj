@@ -73,11 +73,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BoatTesting.vb" />
+    <Compile Include="Ships\BoatTesting.vb" />
     <Compile Include="BubbleSort.vb" />
     <Compile Include="ExtensionHelper.vb" />
-    <Compile Include="FleetmonTesting.vb" />
-    <Compile Include="MapHelpers.vb" />
+    <Compile Include="Ships\FleetmonTesting.vb" />
+    <Compile Include="GetCurrentThreads.vb" />
+    <Compile Include="Ships\MapHelpers.vb" />
     <Compile Include="Module1.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -97,8 +98,9 @@
     <Compile Include="DataConverter.vb" />
     <Compile Include="RandomHelper.vb" />
     <Compile Include="SqlTalker.vb" />
-    <Compile Include="TestCallBack.vb" />
-    <Compile Include="TestQueue.vb" />
+    <Compile Include="Test\TestCallBack.vb" />
+    <Compile Include="Test\TestQueue.vb" />
+    <Compile Include="Test\TestUsingClass.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

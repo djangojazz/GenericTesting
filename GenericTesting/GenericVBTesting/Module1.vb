@@ -5,6 +5,7 @@ Imports System.IO
 
 Module Module1
 
+  Private listings As New Dictionary(Of String, String)
   Private chartSettingsFileLocation = My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\OpenEnterprise\ChartSettings.xml"
   Dim _ships As List(Of ShipModel) = New List(Of ShipModel)
 
@@ -61,19 +62,10 @@ Module Module1
 
   End Sub
 
-  Public Function DoIt(x As Integer, y As Integer) As Boolean
-    Dim value = If(x Mod y = 0, True, False)
-    Return value
-  End Function
 
   Sub Main()
-    Dim item As String = String.Empty
-    Dim thing = New TestCallBack
-    thing.DoWork("hello", Sub(x) Console.WriteLine($"{x}"))
-    thing.DoWork("hey", Sub(x) item = x)
-    Console.WriteLine($"{item}")
-    '  EnumWindows(New GenericVBTesting.CallBack(AddressOf DoIt), y)
-    'Console.WriteLine($"{result}")
+    Using testclass As New TestUsingClass("hello")
+    End Using
 
     Console.ReadLine()
   End Sub

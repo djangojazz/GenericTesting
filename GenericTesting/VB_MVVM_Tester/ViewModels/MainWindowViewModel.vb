@@ -52,11 +52,11 @@ Public Class MainWindowViewModel
     Set
       _mouseMove = Value
 
-      Dim result As String = String.Empty
-      Dim result2 As String
-      Dim action As Action(Of String) = Nothing
+      'Dim result As String = String.Empty
+      'Dim result2 As String
+      'Dim action As Action(Of String) = Nothing
       'ProducerConsumerFinished = Nothing
-      Dim poc = New POCO With {.Desc = Value, .DescAction = action}
+      Dim poc = New POCO With {.Desc = Value, .DescAction = Function(x) x}
 
       ProducerConsumer.Instance.queue.Enqueue(poc)
 
