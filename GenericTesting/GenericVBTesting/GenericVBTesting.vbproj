@@ -74,6 +74,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnumParsing.vb" />
     <Compile Include="Extensions.vb" />
     <Compile Include="Ships\BoatTesting.vb" />
     <Compile Include="BubbleSort.vb" />

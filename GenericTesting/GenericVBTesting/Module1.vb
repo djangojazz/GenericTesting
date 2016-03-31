@@ -6,6 +6,11 @@ Imports System.Collections.ObjectModel
 
 Module Module1
 
+  Public Class POCO
+    Public Property ID As Integer
+    Public Property Value As String
+  End Class
+
   Private listings As New Dictionary(Of String, String)
   Private chartSettingsFileLocation = My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\OpenEnterprise\ChartSettings.xml"
   Dim _ships As List(Of ShipModel) = New List(Of ShipModel)
@@ -66,21 +71,8 @@ Module Module1
 
   End Sub
 
-
   Sub Main()
-    _dispatcher = Dispatcher.CurrentDispatcher
-    Dim chart = New Chart With {.ChartName = "Test", .MapRefreshInMinutes = 5, .ShipDetailsRefreshInSeconds = 4,
-      .LocationGrid = New LocationRect(New Location(45.500111, -123.000111), New Location(45.400111, -122.500111))}
-    Dim subscriptionToQueueDTO = New SubscriptionToQueueDTO With {.ChartName = chart.ChartName, .Dispatcher = _dispatcher, .SleepDuration = 15I}
-    Dim mapLocationToQueueDTO = New MapLocationToQueueDTO With {.SubscriptionToQueueDTO = subscriptionToQueueDTO, .DistanceThreshold = 12, .Location = chart.LocationGrid, .ProducerCompleted = AddressOf UpdateShipCollection}
-    Dim subscriptionToQueueDTO2 = New SubscriptionToQueueDTO With {.ChartName = "Test2", .Dispatcher = _dispatcher, .SleepDuration = 15I}
-
-
-    ProducerTest.Instance.Subscribe(subscriptionToQueueDTO, mapLocationToQueueDTO)
-    ProducerTest.Instance.Subscribe(subscriptionToQueueDTO2, mapLocationToQueueDTO)
-
-    ProducerTest.Instance.Unsubscribe(subscriptionToQueueDTO)
-    ProducerTest.Instance.Unsubscribe(subscriptionToQueueDTO2)
+    Console.WriteLine($"{DateTime.Now.ToString("MMddHHmmss")}")
 
     Console.ReadLine()
   End Sub

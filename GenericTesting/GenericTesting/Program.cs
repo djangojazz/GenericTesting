@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using System.Timers;
-using System.IO;
-using System.Xml.Serialization;
+using System.Data;
+using System.Linq;
 
 namespace GenericTesting
 {
@@ -20,7 +14,7 @@ namespace GenericTesting
       return new List<POCO>
       {
           new POCO { Id = 1, Name = "John", Description = "basic" },
-          new POCO { Id = 2, Name = "Jane", Description = "more" },
+          new POCO { Id = 2, Name = "Jane", Description = "" },
           new POCO { Id = 3, Name = "Joey", Description = "advanced" }
       };
     }
@@ -62,38 +56,54 @@ namespace GenericTesting
       timer.Elapsed += async (sender, e) => await timerDuration();
       timer.Enabled = true;
     }
-
-    private static void TimerSetupWithRefresh(int refreshDuration)
+    
+    public class POC
     {
-      Timer timer = new Timer(refreshDuration);
-      timer.Elapsed += async (sender, e) => await Refresh();
-      timer.Enabled = true;
+      public int Id { get; set; }
+      public string Desc { get; set; }
     }
-
-    private static async Task Refresh()
+    
+    public static List<T> GetSpecificFields<T>(DataTable dt, string columnName)
     {
-      Console.WriteLine("Specific is: " + DateTime.Now);
-    }
-
-    public class Poc { public int Id { get; set; } public string Value { get; set; }}
-
-    public static void DoWork(Action<string> callback)
-    {
-      callback("Hello world");
+      return dt.AsEnumerable().Select(x => (T)(object)x.Field<T>(columnName)).ToList();
     }
 
     public static void Test()
     {
-      //string result = String.Empty;
-      //var action = new Action<string>(x => Console.WriteLine(result));
+      // Set up a test table
+      var dt = new DataTable();
+      DataRow row;
 
-      //Console.WriteLine(result);
+      var col1 = new DataColumn("Id", typeof(int));
+      var col2 = new DataColumn("Desc", typeof(string));
+      dt.Columns.AddRange(new DataColumn[] { col1, col2 });
+      
+      // give it some test data
+      for (int i = 0; i < 3; i++)
+      {
+        row = dt.NewRow();
+        row["Id"] = i;
+        row["Desc"] = "item " + i.ToString();
+        dt.Rows.Add(row);
+      }
 
-      //DoWork(action);
+      // Test out the methods be aware this is very very brittle
+      GetSpecificFields<int>(dt, "Id").ForEach(x => Console.WriteLine(x));
+      GetSpecificFields<string>(dt, "Desc").ForEach(x => Console.WriteLine(x));
+      
+      Console.ReadLine();
 
-      //Console.WriteLine(result);
+      //var timezones = TimeZoneInfo.GetSystemTimeZones();
+      //var pst = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+      //var est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
 
-      DoWork((x) => Console.WriteLine(x));
+      //var dtString = "2016-03-20T01:00:00";
+
+      //var dtPSTOff = pst.ConvertDateFromTimeZoneToUTCElseDefaultUTCNow
+      //  DateTimeOffset.Parse(dtString);
+
+
+      //Console.WriteLine(Environment.NewLine + dtOff);
     }
 
     static void Main(string[] args)
