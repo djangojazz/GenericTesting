@@ -5,40 +5,51 @@ namespace GenericTesting
 {
   public static class TimeZoneInfoHelpers
   {
-    public static DateTime ConvertDateFromTimeZoneToUTCElseDefaultUTCNow(this TimeZoneInfo timeZone, string dateString)
+    private static T ReturnDefaultOfType<T>()
+    {
+      return (typeof(T) == typeof(DateTimeOffset)) ? (T)(object)DateTimeOffset.UtcNow : (T)(object)DateTime.UtcNow;
+    }
+
+    public static T ConvertDateFromTimeZoneToUTCElseDefaultUTCNow<T>(this TimeZoneInfo timeZone, string dateString)
     {
       try
       {
         if (string.IsNullOrEmpty(dateString))
         {
-          return DateTime.UtcNow;
+          return ReturnDefaultOfType<T>();
         }
 
-        return OffsetDateAddedChecker(dateString, x => TimeZoneInfo.ConvertTimeToUtc(x, timeZone));
+        var dt = OffsetDateAddedChecker(dateString, x => TimeZoneInfo.ConvertTimeToUtc(x, timeZone));
+        var dtOffset = new DateTimeOffset(dt, new TimeSpan());
 
+        return (typeof(T) == typeof(DateTimeOffset)) ? (T)(object)dtOffset : (T)(object)dt;
       }
-      catch
+      catch(Exception ex)
       {
-        return DateTime.UtcNow;
+        throw ex;
       }
     }
     
-    public static DateTime ConvertDateToTimeZoneFromUTCElseDefaultUTCNow(this TimeZoneInfo timeZone, string dateString)
+    public static T ConvertDateToTimeZoneFromUTCElseDefaultUTCNow<T>(this TimeZoneInfo timeZone, string dateString)
+    {
+        try
         {
-            try
-            {
-                if (string.IsNullOrEmpty(dateString))
-                {
-                    return DateTime.UtcNow;
-                }
+          if (string.IsNullOrEmpty(dateString))
+          {
+            return ReturnDefaultOfType<T>();
+          }
 
-                return OffsetDateAddedChecker(dateString, x => TimeZoneInfo.ConvertTimeFromUtc(x, timeZone));
-            }
-            catch
-            {
-                return DateTime.UtcNow;
-            }
+          var dt = OffsetDateAddedChecker(dateString, x => TimeZoneInfo.ConvertTimeFromUtc(x, timeZone));
+          var offset = timeZone.GetUtcOffset(dt);
+          var dtOffset = new DateTimeOffset(dt, offset);
+
+          return (typeof(T) == typeof(DateTimeOffset)) ? (T)(object)dtOffset : (T)(object)dt;
         }
+        catch(Exception ex)
+        {
+          throw ex;
+        }
+    }
     
     public static DateTime ConvertDateFromTimeZoneToUTCElseDefaultUTCNow(this TimeZoneInfo timeZone, DateTime date)
     {
@@ -66,25 +77,21 @@ namespace GenericTesting
         }
     }
 
-    //public static T OffsetDateAddedChecker<T>(string dateString, Func<DateTime, DateTime> customMethodToRun)
-    //{
-    //    var date = Convert.ToDateTime(dateString);
+    public static T OffsetDateAddedChecker<T>(string dateString, Func<DateTime, T> customMethodToRun)
+    {
+      var date = DateTime.Parse(dateString);
+      var dateOffset = DateTimeOffset.Parse(dateString);
 
-    //  if (typeof(T) == typeof(DateTime))
-    //  {
-    //    return (T)(object)(Regex.IsMatch(dateString, @"Z|GMT|[+-][1-9]:[0-9]") ? date.ToUniversalTime() : customMethodToRun(date));
-    //  }
-        
-    //  else if (typeof(T) == typeof(DateTimeOffset))
-          
-    //}
-
-  public static DateTime OffsetDateAddedChecker(string dateString, Func<DateTime, DateTime> customMethodToRun)
-  {
-    var date = Convert.ToDateTime(dateString);
-
-    return Regex.IsMatch(dateString, @"Z|GMT|[+-][1-9]:[0-9]") ? date.ToUniversalTime() : customMethodToRun(date);
-  }
-
+      if (typeof(T) == typeof(DateTime))
+      {
+        return Regex.IsMatch(dateString, @"Z|GMT|[+-][1-9]:[0-9]") ? (T)(object)date.ToUniversalTime() : (T)(object)customMethodToRun(date);
+      }
+      else if (typeof(T) == typeof(DateTimeOffset))
+      {
+        return Regex.IsMatch(dateString, @"Z|GMT|[+-][1-9]:[0-9]") ? (T)(object)dateOffset.ToUniversalTime() : (T)(object)customMethodToRun(date);
+      }
+      else
+        return (T)(object)(date.ToUniversalTime());
+    }
   }
 }

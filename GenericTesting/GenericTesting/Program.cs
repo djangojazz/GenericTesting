@@ -70,40 +70,24 @@ namespace GenericTesting
 
     public static void Test()
     {
-      // Set up a test table
-      var dt = new DataTable();
-      DataRow row;
+      var timezones = TimeZoneInfo.GetSystemTimeZones();
+      var utc = TimeZoneInfo.FindSystemTimeZoneById("UTC");
+      var pst = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+      var est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
 
-      var col1 = new DataColumn("Id", typeof(int));
-      var col2 = new DataColumn("Desc", typeof(string));
-      dt.Columns.AddRange(new DataColumn[] { col1, col2 });
-      
-      // give it some test data
-      for (int i = 0; i < 3; i++)
-      {
-        row = dt.NewRow();
-        row["Id"] = i;
-        row["Desc"] = "item " + i.ToString();
-        dt.Rows.Add(row);
-      }
+      var dtString = "2016-03-13T01:00:00";
+      var dtString2 = "2016-03-14T01:00:00";
 
-      // Test out the methods be aware this is very very brittle
-      GetSpecificFields<int>(dt, "Id").ForEach(x => Console.WriteLine(x));
-      GetSpecificFields<string>(dt, "Desc").ForEach(x => Console.WriteLine(x));
-      
-      Console.ReadLine();
+      var dtUTC = utc.ConvertDateFromTimeZoneToUTCElseDefaultUTCNow<DateTimeOffset>(dtString);
+      var dtPST = pst.ConvertDateFromTimeZoneToUTCElseDefaultUTCNow<DateTimeOffset>(dtString);
+      var dtEST = est.ConvertDateFromTimeZoneToUTCElseDefaultUTCNow<DateTimeOffset>(dtString);
+      var dtUTC2 = utc.ConvertDateFromTimeZoneToUTCElseDefaultUTCNow<DateTime>(dtString);
+      var dtPST2 = pst.ConvertDateFromTimeZoneToUTCElseDefaultUTCNow<DateTime>(dtString);
+      var dtEST2 = est.ConvertDateFromTimeZoneToUTCElseDefaultUTCNow<DateTime>(dtString);
+      var nl = Environment.NewLine;
 
-      //var timezones = TimeZoneInfo.GetSystemTimeZones();
-      //var pst = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
-      //var est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-
-      //var dtString = "2016-03-20T01:00:00";
-
-      //var dtPSTOff = pst.ConvertDateFromTimeZoneToUTCElseDefaultUTCNow
-      //  DateTimeOffset.Parse(dtString);
-
-
-      //Console.WriteLine(Environment.NewLine + dtOff);
+      Console.WriteLine($"utc: {dtUTC}{nl}est:{dtEST}{nl}pst:{dtPST}");
+      Console.WriteLine($"utc: {dtUTC2}{nl}est:{dtEST2}{nl}pst:{dtPST2}");
     }
 
     static void Main(string[] args)
