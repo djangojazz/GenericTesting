@@ -5,11 +5,6 @@ namespace GenericTesting
 {
   public static class TimeZoneInfoHelpers
   {
-    private static T ReturnDefaultOfType<T>()
-    {
-      return (typeof(T) == typeof(DateTimeOffset)) ? (T)(object)DateTimeOffset.UtcNow : (T)(object)DateTime.UtcNow;
-    }
-
     public static T ConvertDateFromTimeZoneToUTCElseDefaultUTCNow<T>(this TimeZoneInfo timeZone, string dateString)
     {
       try
@@ -77,21 +72,22 @@ namespace GenericTesting
         }
     }
 
-    public static T OffsetDateAddedChecker<T>(string dateString, Func<DateTime, T> customMethodToRun)
+    private static T OffsetDateAddedChecker<T>(string dateString, Func<DateTime, T> customMethodToRun)
     {
       var date = DateTime.Parse(dateString);
       var dateOffset = DateTimeOffset.Parse(dateString);
 
       if (typeof(T) == typeof(DateTime))
-      {
         return Regex.IsMatch(dateString, @"Z|GMT|[+-][1-9]:[0-9]") ? (T)(object)date.ToUniversalTime() : (T)(object)customMethodToRun(date);
-      }
       else if (typeof(T) == typeof(DateTimeOffset))
-      {
         return Regex.IsMatch(dateString, @"Z|GMT|[+-][1-9]:[0-9]") ? (T)(object)dateOffset.ToUniversalTime() : (T)(object)customMethodToRun(date);
-      }
       else
         return (T)(object)(date.ToUniversalTime());
+    }
+
+    private static T ReturnDefaultOfType<T>()
+    {
+      return (typeof(T) == typeof(DateTimeOffset)) ? (T)(object)DateTimeOffset.UtcNow : (T)(object)DateTime.UtcNow;
     }
   }
 }

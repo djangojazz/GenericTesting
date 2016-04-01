@@ -78,12 +78,12 @@ namespace GenericTesting
       var dtString = "2016-03-13T01:00:00";
       var dtString2 = "2016-03-14T01:00:00";
 
-      var dtUTC = utc.ConvertDateFromTimeZoneToUTCElseDefaultUTCNow<DateTimeOffset>(dtString);
-      var dtPST = pst.ConvertDateFromTimeZoneToUTCElseDefaultUTCNow<DateTimeOffset>(dtString);
-      var dtEST = est.ConvertDateFromTimeZoneToUTCElseDefaultUTCNow<DateTimeOffset>(dtString);
-      var dtUTC2 = utc.ConvertDateFromTimeZoneToUTCElseDefaultUTCNow<DateTime>(dtString);
-      var dtPST2 = pst.ConvertDateFromTimeZoneToUTCElseDefaultUTCNow<DateTime>(dtString);
-      var dtEST2 = est.ConvertDateFromTimeZoneToUTCElseDefaultUTCNow<DateTime>(dtString);
+      var dtUTC = utc.ConvertDateToTimeZoneFromUTCElseDefaultUTCNow<DateTimeOffset>(dtString);
+      var dtPST = pst.ConvertDateToTimeZoneFromUTCElseDefaultUTCNow<DateTimeOffset>(dtString);
+      var dtEST = est.ConvertDateToTimeZoneFromUTCElseDefaultUTCNow<DateTimeOffset>(dtString);
+      var dtUTC2 = utc.ConvertDateToTimeZoneFromUTCElseDefaultUTCNow<DateTimeOffset>(dtString2);
+      var dtPST2 = pst.ConvertDateToTimeZoneFromUTCElseDefaultUTCNow<DateTimeOffset>(dtString2);
+      var dtEST2 = est.ConvertDateToTimeZoneFromUTCElseDefaultUTCNow<DateTimeOffset>(dtString2);
       var nl = Environment.NewLine;
 
       Console.WriteLine($"utc: {dtUTC}{nl}est:{dtEST}{nl}pst:{dtPST}");
@@ -92,15 +92,26 @@ namespace GenericTesting
 
     static void Main(string[] args)
     {
-      Test();
+      var pocos = GetPOCOs();
+
+      Console.WriteLine("--------------BEFORE---------" + Environment.NewLine);
+      pocos.ToList().ForEach(x => Console.WriteLine($"{x.Id} {x.Name} {x.Description}"));
+
+      pocos.ToList().ForEach(x =>
+      {
+        if (x.Id == 1)
+          pocos.Remove(x);
+        if (x.Id == 2)
+          x.Description = "new Desc";
+        if (x.Id == 3)
+          pocos.Add(new POCO { Id = x.Id + 1, Name = "Thingie", Description = "More stuff" });
+      });
       
-      //TimerGeneric(1000, async () => { Console.WriteLine("Passed in Task is: " + DateTime.Now); });
+      Console.WriteLine("--------------AFTER---------" + Environment.NewLine);
+      pocos.ToList().ForEach(x => Console.WriteLine($"{x.Id} {x.Name} {x.Description}"));
 
-      //Works just as expected and refreshes every second for the 'Refresh()' method.
-      //TimerSetupWithRefresh(1000);
+      var newPocos = pocos.ToList().Select(x => new { MyCrazyAssName = x.Name + x.Id + x.Description });
 
-      //Below does not work yet I would expect a Task passed in via signature with near same method would behave the same.
-      //TimerGeneric(1000, new Task(() => { Console.WriteLine("Passed in Task is: " + DateTime.Now); }));
 
       Console.ReadLine();
     }
