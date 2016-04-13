@@ -67,19 +67,15 @@
     <Build Include="Tables\tePerson.sql" />
     <Build Include="Tables\teOrder.sql" />
     <Build Include="Procedures\pGetOrdersByPersonId.sql" />
-    <Build Include="Views\vPersonOrders.sql" />
-    <Build Include="Tables\teShipDetail.sql" />
+    <Build Include="Views\vPersonOrdersSkus.sql" />
     <Build Include="Procedures\pGetAllShips.sql" />
     <Build Include="Procedures\pShipsMockService.sql" />
-    <Build Include="Tables\tdShipType.sql" />
     <Build Include="Schemas\Ships.sql" />
     <Build Include="Procedures\pFindMyAddress.sql" />
     <Build Include="Tables\teAddress.sql" />
     <Build Include="Tables\tbPerson_Address.sql" />
-    <Build Include="Tables\teShipVolume.sql" />
-    <Build Include="Tables\tdCatchType.sql" />
-    <Build Include="Tables\teShipPastLocation.sql" />
     <Build Include="Procedures\pInsertOrUpdateShipPosition.sql" />
+    <Build Include="Tables\teSku.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LocalPublish.publish.xml" />
