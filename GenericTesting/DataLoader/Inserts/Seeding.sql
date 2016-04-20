@@ -40,15 +40,15 @@ INSERT INTO dbo.tePerson (PersonId, FirstName, LastName) VALUES (1, 'Brett', 'Mo
 SET IDENTITY_INSERT dbo.tePerson OFF;
 
 SET IDENTITY_INSERT dbo.tbPerson_Address ON;
-INSERT INTO dbo.tbPerson_Address (Person_AddressId, PersonId, AddressId) VALUES (1, 1, 1);
+INSERT INTO dbo.tbPerson_Address (Person_AddressId, PersonId, AddressId) VALUES (1, 1, 1), (2,2,1);
 SET IDENTITY_INSERT dbo.tbPerson_Address OFF;
 
 SET IDENTITY_INSERT dbo.teOrder ON;
-INSERT INTO dbo.teOrder ( OrderId, PersonId, [Description]) VALUES (1, 1, 'Clothing'),(2, 1, 'Electronics'),(3, 2, 'Clothing');
+INSERT INTO dbo.teOrder ( OrderId, PersonId, [Description]) VALUES (1, 1, 'Clothing'),(2, 1, 'Electronics'),(3, 2, 'Clothing'),(4,2,'Pets');
 SET IDENTITY_INSERT dbo.teOrder OFF;
 
 SET IDENTITY_INSERT dbo.teSku ON;
-INSERT INTO dbo.teSku (SkuId, OrderId, [Description]) VALUES (1, 1, 'Shirt'),(2, 1, 'Pants'),(3, 1, 'Shoes'),(4, 2, 'Laptop'),(5, 3, 'Dress'),(6, 3, 'Shoes');
+INSERT INTO dbo.teSku (SkuId, OrderId, [Description]) VALUES (1, 1, 'Shirt'),(2, 1, 'Pants'),(3, 1, 'Shoes'),(4, 2, 'Laptop'),(5, 3, 'Dress'),(6, 3, 'Shoes'),(7, 4, 'Dog Food'),(8,4,'Dog Medicine');
 SET IDENTITY_INSERT dbo.teOrder OFF;
 
 GO

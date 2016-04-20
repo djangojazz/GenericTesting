@@ -94,26 +94,12 @@ namespace GenericTesting
     {
       var pocos = GetPOCOs();
 
-      Console.WriteLine("--------------BEFORE---------" + Environment.NewLine);
-      pocos.ToList().ForEach(x => Console.WriteLine($"{x.Id} {x.Name} {x.Description}"));
+      var item =  pocos.FirstOrDefault(x => { switch (x.Id) { case 2: return true; default: return false; } });
 
-      pocos.ToList().ForEach(x =>
-      {
-        if (x.Id == 1)
-          pocos.Remove(x);
-        if (x.Id == 2)
-          x.Description = "new Desc";
-        if (x.Id == 3)
-          pocos.Add(new POCO { Id = x.Id + 1, Name = "Thingie", Description = "More stuff" });
-      });
-      
-      Console.WriteLine("--------------AFTER---------" + Environment.NewLine);
-      pocos.ToList().ForEach(x => Console.WriteLine($"{x.Id} {x.Name} {x.Description}"));
-
-      var newPocos = pocos.ToList().Select(x => new { MyCrazyAssName = x.Name + x.Id + x.Description });
-
+      Console.WriteLine($"{item.Description} {item.Id} {item.Name}");
 
       Console.ReadLine();
     }
   }
+  
 }
