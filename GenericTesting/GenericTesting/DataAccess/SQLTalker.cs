@@ -15,11 +15,13 @@
       public string Cnx { get; set; }
 
       // default values of the library is set to local database that has a test database.
-      public SQLTalker(string server = "(local)", string database = "Tester")
+      public SQLTalker(string server = "(local)", string database = "Tester", string user = null, string password = null)
       {
         Server = server;
         Database = database;
-        Cnx = "Integrated Security=SSPI;Persist Security Info=False;Data Source =" + server + ";Initial Catalog=" + database;
+        Cnx = (user?.Length > 0 && password?.Length > 0) ? 
+          $"Server={server};Database={database};User Id={user};Password={password}" : 
+          $"Server ={server};Database={database};Trusted_Connection=True;";
       }
 
       #region String Readers to populate a sql query from a sql file.

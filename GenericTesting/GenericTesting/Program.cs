@@ -92,13 +92,19 @@ namespace GenericTesting
 
     static void Main(string[] args)
     {
+      var sqltalker = new DataAccess.SQLTalker("VM-APC01D-CLK\\TEST", "distribution", "sqluser", "pa55word");
+
+      var results = sqltalker.Reader("EXEC sys.sp_replmonitorhelpsubscription 	@publication_type = 0", ",", true);
+      
+      Console.ReadLine();
+    }
+
+    private static POCO SwitchLambdaExample()
+    {
       var pocos = GetPOCOs();
 
-      var item =  pocos.FirstOrDefault(x => { switch (x.Id) { case 2: return true; default: return false; } });
-
-      Console.WriteLine($"{item.Description} {item.Id} {item.Name}");
-
-      Console.ReadLine();
+      var item = pocos.FirstOrDefault(x => { switch (x.Id) { case 2: return true; default: return false; } });
+      return item;
     }
   }
   

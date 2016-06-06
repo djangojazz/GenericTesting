@@ -23,6 +23,10 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DataLoader", "DataLoader\Da
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PathPlayland", "PathPlayland\PathPlayland.vbproj", "{0E2F99FE-479F-4698-8EC8-C26A643B5D5D}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "WindowsFormsExample", "WindowsFormsExample\WindowsFormsExample.vbproj", "{2A930020-75A4-4734-83F2-C3C77B0274FE}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "WindowsFormsReOrderingColumns", "WindowsFormsReOrderingColumns\WindowsFormsReOrderingColumns.vbproj", "{1321249A-0A28-4128-8230-ADEC4057798B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +75,14 @@ Global
 		{0E2F99FE-479F-4698-8EC8-C26A643B5D5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E2F99FE-479F-4698-8EC8-C26A643B5D5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E2F99FE-479F-4698-8EC8-C26A643B5D5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A930020-75A4-4734-83F2-C3C77B0274FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A930020-75A4-4734-83F2-C3C77B0274FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A930020-75A4-4734-83F2-C3C77B0274FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A930020-75A4-4734-83F2-C3C77B0274FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1321249A-0A28-4128-8230-ADEC4057798B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1321249A-0A28-4128-8230-ADEC4057798B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1321249A-0A28-4128-8230-ADEC4057798B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1321249A-0A28-4128-8230-ADEC4057798B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
