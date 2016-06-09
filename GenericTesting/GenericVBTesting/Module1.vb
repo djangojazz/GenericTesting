@@ -72,8 +72,11 @@ Module Module1
   End Sub
 
   Sub Main()
-    Console.WriteLine($"{DateTime.Now.ToString("MMddHHmmss")}")
-
+    Dim dict = New Dictionary(Of Integer, Integer) From {{100, 1}, {200, 2}, {300, 3}}
+    Dim exists1 = dict.ContainsKey(1)
+    Console.WriteLine(exists1)
+    Dim exists2 = dict.ContainsKey(100)
+    Console.WriteLine(exists2)
     Console.ReadLine()
   End Sub
 

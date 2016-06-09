@@ -92,11 +92,18 @@ namespace GenericTesting
 
     static void Main(string[] args)
     {
-      var sqltalker = new DataAccess.SQLTalker("VM-APC01D-CLK\\TEST", "distribution", "sqluser", "pa55word");
+      using (var context = new TesterEntities())
+      {
+        var orders = context.tePersons.SelectMany(x => x.teOrders).ToList();
 
-      var results = sqltalker.Reader("EXEC sys.sp_replmonitorhelpsubscription 	@publication_type = 0", ",", true);
-      
-      Console.ReadLine();
+        orders.ForEach(x => Console.WriteLine($"{x.PersonId} {x.OrderId} {x.Description}"));
+      }
+
+        //var sqltalker = new DataAccess.SQLTalker("VM-APC01D-CLK\\TEST", "distribution", "sqluser", "pa55word");
+
+        //var results = sqltalker.Reader("EXEC sys.sp_replmonitorhelpsubscription 	@publication_type = 0", ",", true);
+
+        Console.ReadLine();
     }
 
     private static POCO SwitchLambdaExample()
