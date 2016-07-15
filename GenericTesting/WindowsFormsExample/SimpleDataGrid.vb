@@ -1,4 +1,16 @@
-﻿Public Class SimpleDataGrid
+﻿Imports ADODataAccess
+Imports System.Linq
+
+Public Class SimpleDataGrid
+
+  Public Class Product
+    Public Property ProductID As Integer
+    Public Property ProudctName As String
+  End Class
+
+  Private _products = New List(Of Product)
+  Private _talker = New SQLTalker("(local)", "Tester")
+
   Public Sub New()
 
     ' This call is required by the designer.
@@ -9,6 +21,11 @@
       .Add(New String() {"2", "B"})
       .Add(New String() {"3", "C"})
     End With
+
+    _products = DataConverter.ConvertTo(Of Product)(_talker.GetData("Select * From dbo.Product"))
+    Dim s = ""
+
+
   End Sub
 
   Public Sub DataGridView1_CurrentCellChanged1(sender As Object, e As EventArgs) Handles dgv.CurrentCellChanged
@@ -31,14 +48,6 @@
     Dim thing = ""
 
     list.ForEach(Sub(x) thing += x.ToString)
-
   End Sub
-
-  'Public Event CurrentRowChanged(index As Integer)
-
-  'Public Sub CurrentRowChanged_Action(index As Integer)
-  '  lbl.Text = index.ToString() + " Changed"
-  'End Sub
-
 
 End Class

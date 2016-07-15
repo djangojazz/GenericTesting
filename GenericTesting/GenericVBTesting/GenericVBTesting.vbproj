@@ -100,7 +100,6 @@
     </Compile>
     <Compile Include="DataConverter.vb" />
     <Compile Include="RandomHelper.vb" />
-    <Compile Include="SqlTalker.vb" />
     <Compile Include="Test\DTOs.vb" />
     <Compile Include="Test\ProducerTest.vb" />
     <Compile Include="Test\TestCallBack.vb" />
@@ -127,6 +126,12 @@
     </None>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ADODataAccess\ADODataAccess.vbproj">
+      <Project>{381ecf47-ae91-4337-b457-df62c15aeae9}</Project>
+      <Name>ADODataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

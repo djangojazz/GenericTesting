@@ -3,6 +3,7 @@ Imports GenericVBTesting.BoatTesting
 Imports Microsoft.Maps.MapControl.WPF
 Imports System.Windows.Threading
 Imports System.Collections.ObjectModel
+Imports ADODataAccess
 
 Module Module1
 
