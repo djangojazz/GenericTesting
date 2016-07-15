@@ -15,35 +15,31 @@ Public Class SimpleDataGrid
 
     ' This call is required by the designer.
     InitializeComponent()
-
-    With Me.dgv.Rows
-      .Add(New String() {"1", "A"})
-      .Add(New String() {"2", "B"})
-      .Add(New String() {"3", "C"})
-    End With
-
-    Dim stuff = _talker.GetData("Select * From dbo.Product")
-
-    _products = DirectCast(DataConverter.ConvertTo(Of Product)(stuff), List(Of Product)).OrderBy(Function(x) x.ProductDescription)
+    _products = DirectCast(DataConverter.ConvertTo(Of Product)(_talker.GetData("Select * From dbo.Product")), List(Of Product)).OrderBy(Function(x) x.ProductDescription)
 
     Dim s = ""
     For Each p In _products
       's += p.ProductDescription + Environment.NewLine
       Dim row As DataRow = ds.Tables("tProduct").NewRow
       row("ProductId") = p.ProductId
-      row("ProductDescription") = p.ProductDescription
+      row("Whatevs") = p.ProductDescription
       ds.Tables("tProduct").Rows.Add(row)
     Next
 
-    'MessageBox.Show(s)
-
+    For i = 1 To 3
+      Dim newRow As DataRow = ds.Tables("tBase").NewRow
+      newRow("Id") = i
+      newRow("Value") = If(i = 1, "A", If(i = 2, "B", "C"))
+      newRow("ProductId") = i + 5
+      ds.Tables("tBase").Rows.Add(newRow)
+    Next
   End Sub
 
   Public Sub DataGridView1_CurrentCellChanged1(sender As Object, e As EventArgs) Handles dgv.CurrentCellChanged
     Static nPrevLineIndex As Integer = -1
     If nPrevLineIndex <> dgv.CurrentRow.Index Then
       nPrevLineIndex = dgv.CurrentRow.Index
-      Dim val = dgv.CurrentRow.Cells("Value")?.Value?.ToString()
+      Dim val = dgv.CurrentRow.Cells("ValueDataGridViewTextBoxColumn")?.Value?.ToString()
 
       If Not val Is Nothing Then lbl.Text = nPrevLineIndex.ToString() + " Val: " + val
       'RaiseEvent CurrentRowChanged(nPrevLineIndex)
@@ -61,4 +57,11 @@ Public Class SimpleDataGrid
     list.ForEach(Sub(x) thing += x.ToString)
   End Sub
 
+  Private Sub btnGetValues_Click(sender As Object, e As EventArgs) Handles btnGetValues.Click
+    Dim s = ""
+    For Each row As DataGridViewRow In dgv.Rows
+      s += row.Cells("Id").ToString + Environment.NewLine
+    Next
+    MessageBox.Show(s)
+  End Sub
 End Class
