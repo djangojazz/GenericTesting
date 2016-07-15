@@ -27,13 +27,13 @@ Partial Class SimpleDataGrid
     Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
     Me.TestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.lbl = New System.Windows.Forms.Label()
-    Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-    Me.Value = New System.Windows.Forms.DataGridViewTextBoxColumn()
-    Me.TestDropDown = New System.Windows.Forms.DataGridViewComboBoxColumn()
     Me.ds = New System.Data.DataSet()
     Me.tProduct = New System.Data.DataTable()
     Me.DataColumn1 = New System.Data.DataColumn()
     Me.DataColumn2 = New System.Data.DataColumn()
+    Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.Value = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.TestDropDown = New System.Windows.Forms.DataGridViewComboBoxColumn()
     CType(Me.dgv, System.ComponentModel.ISupportInitialize).BeginInit()
     Me.ContextMenuStrip1.SuspendLayout()
     CType(Me.ds, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -70,22 +70,6 @@ Partial Class SimpleDataGrid
     Me.lbl.Size = New System.Drawing.Size(0, 13)
     Me.lbl.TabIndex = 1
     '
-    'ID
-    '
-    Me.ID.HeaderText = "ID"
-    Me.ID.Name = "ID"
-    Me.ID.Width = 30
-    '
-    'Value
-    '
-    Me.Value.HeaderText = "Value"
-    Me.Value.Name = "Value"
-    '
-    'TestDropDown
-    '
-    Me.TestDropDown.HeaderText = "TestDropDown"
-    Me.TestDropDown.Name = "TestDropDown"
-    '
     'ds
     '
     Me.ds.DataSetName = "NewDataSet"
@@ -103,6 +87,25 @@ Partial Class SimpleDataGrid
     'DataColumn2
     '
     Me.DataColumn2.ColumnName = "ProductDescription"
+    '
+    'ID
+    '
+    Me.ID.HeaderText = "ID"
+    Me.ID.Name = "ID"
+    Me.ID.Width = 30
+    '
+    'Value
+    '
+    Me.Value.HeaderText = "Value"
+    Me.Value.Name = "Value"
+    '
+    'TestDropDown
+    '
+    Me.TestDropDown.DataSource = Me.ds
+    Me.TestDropDown.DisplayMember = "tProduct.ProductDescription"
+    Me.TestDropDown.HeaderText = "TestDropDown"
+    Me.TestDropDown.Name = "TestDropDown"
+    Me.TestDropDown.ValueMember = "tProduct.ProductDescription"
     '
     'SimpleDataGrid
     '
@@ -126,11 +129,11 @@ Partial Class SimpleDataGrid
   Friend WithEvents lbl As Label
   Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
   Friend WithEvents TestToolStripMenuItem As ToolStripMenuItem
-  Friend WithEvents ID As DataGridViewTextBoxColumn
-  Friend WithEvents Value As DataGridViewTextBoxColumn
-  Friend WithEvents TestDropDown As DataGridViewComboBoxColumn
   Friend WithEvents ds As DataSet
   Friend WithEvents tProduct As DataTable
   Friend WithEvents DataColumn1 As DataColumn
   Friend WithEvents DataColumn2 As DataColumn
+  Friend WithEvents ID As DataGridViewTextBoxColumn
+  Friend WithEvents Value As DataGridViewTextBoxColumn
+  Friend WithEvents TestDropDown As DataGridViewComboBoxColumn
 End Class

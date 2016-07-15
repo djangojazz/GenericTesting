@@ -63,6 +63,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseAccess.vb" />
     <Compile Include="DataConverter.vb" />
     <Compile Include="SQLTalker.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

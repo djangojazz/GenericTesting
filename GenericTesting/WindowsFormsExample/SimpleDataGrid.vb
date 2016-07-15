@@ -4,12 +4,12 @@ Imports System.Linq
 Public Class SimpleDataGrid
 
   Public Class Product
-    Public Property ProductID As Integer
-    Public Property ProudctName As String
+    Public Property ProductId As Integer
+    Public Property ProductDescription As String
   End Class
 
   Private _products = New List(Of Product)
-  Private _talker = New SQLTalker("(local)", "Tester")
+  Private _talker = New SQLTalker(GetTesterDatabase)
 
   Public Sub New()
 
@@ -22,9 +22,20 @@ Public Class SimpleDataGrid
       .Add(New String() {"3", "C"})
     End With
 
-    _products = DataConverter.ConvertTo(Of Product)(_talker.GetData("Select * From dbo.Product"))
-    Dim s = ""
+    Dim stuff = _talker.GetData("Select * From dbo.Product")
 
+    _products = DirectCast(DataConverter.ConvertTo(Of Product)(stuff), List(Of Product)).OrderBy(Function(x) x.ProductDescription)
+
+    Dim s = ""
+    For Each p In _products
+      's += p.ProductDescription + Environment.NewLine
+      Dim row As DataRow = ds.Tables("tProduct").NewRow
+      row("ProductId") = p.ProductId
+      row("ProductDescription") = p.ProductDescription
+      ds.Tables("tProduct").Rows.Add(row)
+    Next
+
+    'MessageBox.Show(s)
 
   End Sub
 
