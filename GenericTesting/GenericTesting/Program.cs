@@ -9,6 +9,8 @@ namespace GenericTesting
 {
   class Program
   {
+    public int MyProperty { get; private set; }
+
     static List<POCO> GetPOCOs()
     {
       return new List<POCO>
@@ -92,18 +94,13 @@ namespace GenericTesting
 
     static void Main(string[] args)
     {
-      using (var context = new TesterEntities())
-      {
-        var orders = context.tePersons.SelectMany(x => x.teOrders).ToList();
-
-        orders.ForEach(x => Console.WriteLine($"{x.PersonId} {x.OrderId} {x.Description}"));
-      }
+      new Delegates.ComposableDelegates().ReturnData();
 
         //var sqltalker = new DataAccess.SQLTalker("VM-APC01D-CLK\\TEST", "distribution", "sqluser", "pa55word");
 
-        //var results = sqltalker.Reader("EXEC sys.sp_replmonitorhelpsubscription 	@publication_type = 0", ",", true);
+      //var results = sqltalker.Reader("EXEC sys.sp_replmonitorhelpsubscription 	@publication_type = 0", ",", true);
 
-        Console.ReadLine();
+      Console.ReadLine();
     }
 
     private static POCO SwitchLambdaExample()

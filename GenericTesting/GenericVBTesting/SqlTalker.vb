@@ -255,6 +255,31 @@ Public Class SQLTalker
     End Using
   End Function
 
+  Public Function TestSelectProductionHeaderPlanning(startDate As Date, endDate As Date, productionState As Integer?) As DataTable
+    Using cn As New SqlConnection(_cnx)
+      Using cmd As New SqlCommand("APC_SP_SELECT_ProductionHeadersProductionPlan", cn)
+        cmd.CommandType = CommandType.StoredProcedure
+        cmd.CommandTimeout = 60
+
+        cmd.Parameters.AddWithValue("@StartDate", startDate.ToString("MM/dd/yyyy 00:00"))
+        cmd.Parameters.AddWithValue("@EndDate", endDate.ToString("MM/dd/yyyy 23:59"))
+        cmd.Parameters.AddWithValue("@ProductionState", productionState)
+
+        Using adapter As New SqlDataAdapter()
+          Using table As New DataTable()
+            cn.Open()
+            adapter.SelectCommand = cmd
+            table.Locale = Globalization.CultureInfo.InvariantCulture
+            adapter.Fill(table)
+            cn.Close()
+
+            Return table
+          End Using
+        End Using
+      End Using
+    End Using
+  End Function
+
   Public Function GetData(sqlquery As String) As DataTable
     Using cn As New SqlConnection(_cnx)
       Using cmd As New SqlCommand(sqlquery, cn)

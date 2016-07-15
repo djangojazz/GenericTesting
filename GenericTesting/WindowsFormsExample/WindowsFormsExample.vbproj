@@ -77,6 +77,12 @@
     <Compile Include="DataGridWindow.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ErrorChecking.Designer.vb">
+      <DependentUpon>ErrorChecking.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorChecking.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -107,6 +113,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ErrorChecking.resx">
+      <DependentUpon>ErrorChecking.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
     </EmbeddedResource>

@@ -25,12 +25,13 @@ Partial Class Form1
     Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
     Me.OpenDataGridViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.SimpleDataGridViewToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+    Me.SimpleErrorCheckingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.MenuStrip1.SuspendLayout()
     Me.SuspendLayout()
     '
     'MenuStrip1
     '
-    Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenDataGridViewToolStripMenuItem, Me.SimpleDataGridViewToolStripMenuItem1})
+    Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenDataGridViewToolStripMenuItem, Me.SimpleDataGridViewToolStripMenuItem1, Me.SimpleErrorCheckingToolStripMenuItem})
     Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
     Me.MenuStrip1.Name = "MenuStrip1"
     Me.MenuStrip1.Size = New System.Drawing.Size(658, 24)
@@ -48,6 +49,12 @@ Partial Class Form1
     Me.SimpleDataGridViewToolStripMenuItem1.Name = "SimpleDataGridViewToolStripMenuItem1"
     Me.SimpleDataGridViewToolStripMenuItem1.Size = New System.Drawing.Size(126, 20)
     Me.SimpleDataGridViewToolStripMenuItem1.Text = "SimpleDataGridView"
+    '
+    'SimpleErrorCheckingToolStripMenuItem
+    '
+    Me.SimpleErrorCheckingToolStripMenuItem.Name = "SimpleErrorCheckingToolStripMenuItem"
+    Me.SimpleErrorCheckingToolStripMenuItem.Size = New System.Drawing.Size(130, 20)
+    Me.SimpleErrorCheckingToolStripMenuItem.Text = "SimpleErrorChecking"
     '
     'Form1
     '
@@ -68,4 +75,5 @@ Partial Class Form1
   Friend WithEvents MenuStrip1 As MenuStrip
   Friend WithEvents OpenDataGridViewToolStripMenuItem As ToolStripMenuItem
   Friend WithEvents SimpleDataGridViewToolStripMenuItem1 As ToolStripMenuItem
+  Friend WithEvents SimpleErrorCheckingToolStripMenuItem As ToolStripMenuItem
 End Class

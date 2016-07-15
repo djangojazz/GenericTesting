@@ -6,6 +6,9 @@ Imports System.Collections.ObjectModel
 
 Module Module1
 
+  Private MyConnection As SqlClient.SqlConnection
+  Private MyReader As SqlClient.SqlDataReader
+
   Public Class POCO
     Public Property ID As Integer
     Public Property Value As String
@@ -71,13 +74,43 @@ Module Module1
 
   End Sub
 
+  Private Function GiveAnonymous() As Object
+    Return New With {Key .a = "a", .b = "b"}
+  End Function
+
   Sub Main()
-    Dim dict = New Dictionary(Of Integer, Integer) From {{100, 1}, {200, 2}, {300, 3}}
-    Dim exists1 = dict.ContainsKey(1)
-    Console.WriteLine(exists1)
-    Dim exists2 = dict.ContainsKey(100)
-    Console.WriteLine(exists2)
+    Dim text = "123.1212"
+
+
+    Console.WriteLine(text.Split("."c).GetUpperBound(0))
+
     Console.ReadLine()
+  End Sub
+
+  Private Sub sqlTesting()
+    Dim sqlTalker = New SQLTalker(GetMyConnectionString)
+
+    Dim dt = sqlTalker.TestSelectProductionHeaderPlanning(Now.Date.AddDays(-1), Now.Date, -10)
+
+    For Each row In dt.Rows
+      Console.WriteLine(row(0))
+    Next
+  End Sub
+
+  Public Function GetMyConnectionString() As String
+    Return "data source=APC-DEV\TEST;initial catalog=APC_Local;Integrated Security=False;password=pa55word;user id=sqluser;Connect Timeout=40;"
+  End Function
+
+  Private Sub TestGetNull(ByVal IP As String, ByVal StartDate As Date, ByVal EndDate As Date, ByVal ProductionState As Integer?)
+    MyConnection = New SqlClient.SqlConnection(GetMyConnectionString())
+    MyConnection.Open()
+    Dim oCmd As New SqlClient.SqlCommand("APC_SP_SELECT_ProductionHeadersProductionPlan", MyConnection)
+    oCmd.CommandType = CommandType.StoredProcedure
+    oCmd.CommandTimeout = 60
+    oCmd.Parameters.AddWithValue("@StartDate", StartDate.ToString("MM/dd/yyyy 00:00"))
+    oCmd.Parameters.AddWithValue("@EndDate", EndDate.ToString("MM/dd/yyyy 23:59"))
+    oCmd.Parameters.AddWithValue("@ProductionState", If(ProductionState, DirectCast(DBNull.Value, Object)))
+    MyReader = oCmd.ExecuteReader
   End Sub
 
   Private Sub UpdateShipCollection(newShipCollection As IList(Of ShipGroupingModel))
