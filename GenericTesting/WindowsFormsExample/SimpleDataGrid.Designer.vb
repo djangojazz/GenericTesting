@@ -23,41 +23,77 @@ Partial Class SimpleDataGrid
   <System.Diagnostics.DebuggerStepThrough()> _
   Private Sub InitializeComponent()
     Me.components = New System.ComponentModel.Container()
+    Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
     Me.dgv = New System.Windows.Forms.DataGridView()
+    Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.Value = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.Percent = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.TestDropDown = New System.Windows.Forms.DataGridViewComboBoxColumn()
     Me.ds = New System.Data.DataSet()
     Me.tProduct = New System.Data.DataTable()
     Me.DataColumn1 = New System.Data.DataColumn()
     Me.DataColumn2 = New System.Data.DataColumn()
-    Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-    Me.TestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-    Me.lbl = New System.Windows.Forms.Label()
-    Me.btnGetValues = New System.Windows.Forms.Button()
     Me.tBase = New System.Data.DataTable()
     Me.DataColumn3 = New System.Data.DataColumn()
     Me.DataColumn4 = New System.Data.DataColumn()
+    Me.DataColumn6 = New System.Data.DataColumn()
     Me.DataColumn5 = New System.Data.DataColumn()
-    Me.IdDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-    Me.ValueDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-    Me.TestDropDown = New System.Windows.Forms.DataGridViewComboBoxColumn()
+    Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+    Me.TestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+    Me.lblx = New System.Windows.Forms.Label()
+    Me.btnGetValues = New System.Windows.Forms.Button()
+    Me.lbly = New System.Windows.Forms.Label()
+    Me.lblz = New System.Windows.Forms.Label()
     CType(Me.dgv, System.ComponentModel.ISupportInitialize).BeginInit()
     CType(Me.ds, System.ComponentModel.ISupportInitialize).BeginInit()
     CType(Me.tProduct, System.ComponentModel.ISupportInitialize).BeginInit()
-    Me.ContextMenuStrip1.SuspendLayout()
     CType(Me.tBase, System.ComponentModel.ISupportInitialize).BeginInit()
+    Me.ContextMenuStrip1.SuspendLayout()
     Me.SuspendLayout()
     '
     'dgv
     '
     Me.dgv.AutoGenerateColumns = False
     Me.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-    Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdDataGridViewTextBoxColumn, Me.ValueDataGridViewTextBoxColumn, Me.TestDropDown})
+    Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ID, Me.Value, Me.Percent, Me.TestDropDown})
     Me.dgv.ContextMenuStrip = Me.ContextMenuStrip1
     Me.dgv.DataMember = "tBase"
     Me.dgv.DataSource = Me.ds
-    Me.dgv.Location = New System.Drawing.Point(26, 12)
+    Me.dgv.Dock = System.Windows.Forms.DockStyle.Top
+    Me.dgv.Location = New System.Drawing.Point(0, 0)
     Me.dgv.Name = "dgv"
-    Me.dgv.Size = New System.Drawing.Size(340, 150)
+    Me.dgv.Size = New System.Drawing.Size(622, 150)
     Me.dgv.TabIndex = 0
+    '
+    'ID
+    '
+    Me.ID.DataPropertyName = "Id"
+    Me.ID.HeaderText = "Id"
+    Me.ID.Name = "ID"
+    '
+    'Value
+    '
+    Me.Value.DataPropertyName = "Value"
+    DataGridViewCellStyle2.Format = "N0"
+    DataGridViewCellStyle2.NullValue = Nothing
+    Me.Value.DefaultCellStyle = DataGridViewCellStyle2
+    Me.Value.HeaderText = "Value"
+    Me.Value.Name = "Value"
+    '
+    'Percent
+    '
+    Me.Percent.DataPropertyName = "Percent"
+    Me.Percent.HeaderText = "Percent"
+    Me.Percent.Name = "Percent"
+    '
+    'TestDropDown
+    '
+    Me.TestDropDown.DataPropertyName = "ProductId"
+    Me.TestDropDown.DataSource = Me.ds
+    Me.TestDropDown.DisplayMember = "tProduct.Whatevs"
+    Me.TestDropDown.HeaderText = "TestDropDown"
+    Me.TestDropDown.Name = "TestDropDown"
+    Me.TestDropDown.ValueMember = "tProduct.ProductId"
     '
     'ds
     '
@@ -77,6 +113,32 @@ Partial Class SimpleDataGrid
     '
     Me.DataColumn2.ColumnName = "Whatevs"
     '
+    'tBase
+    '
+    Me.tBase.Columns.AddRange(New System.Data.DataColumn() {Me.DataColumn3, Me.DataColumn4, Me.DataColumn6, Me.DataColumn5})
+    Me.tBase.TableName = "tBase"
+    '
+    'DataColumn3
+    '
+    Me.DataColumn3.ColumnName = "Id"
+    Me.DataColumn3.DataType = GetType(Integer)
+    '
+    'DataColumn4
+    '
+    Me.DataColumn4.ColumnName = "Value"
+    Me.DataColumn4.DataType = GetType(Integer)
+    '
+    'DataColumn6
+    '
+    Me.DataColumn6.Caption = "Percent"
+    Me.DataColumn6.ColumnName = "Percent"
+    Me.DataColumn6.DataType = GetType(Double)
+    '
+    'DataColumn5
+    '
+    Me.DataColumn5.Caption = "ProductId"
+    Me.DataColumn5.ColumnName = "ProductId"
+    '
     'ContextMenuStrip1
     '
     Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TestToolStripMenuItem})
@@ -89,96 +151,82 @@ Partial Class SimpleDataGrid
     Me.TestToolStripMenuItem.Size = New System.Drawing.Size(95, 22)
     Me.TestToolStripMenuItem.Text = "Test"
     '
-    'lbl
+    'lblx
     '
-    Me.lbl.AutoSize = True
-    Me.lbl.Location = New System.Drawing.Point(23, 195)
-    Me.lbl.Name = "lbl"
-    Me.lbl.Size = New System.Drawing.Size(0, 13)
-    Me.lbl.TabIndex = 1
+    Me.lblx.AutoSize = True
+    Me.lblx.Location = New System.Drawing.Point(12, 177)
+    Me.lblx.Name = "lblx"
+    Me.lblx.Size = New System.Drawing.Size(35, 13)
+    Me.lblx.TabIndex = 1
+    Me.lblx.Text = "TEST"
     '
     'btnGetValues
     '
-    Me.btnGetValues.Location = New System.Drawing.Point(291, 185)
+    Me.btnGetValues.Location = New System.Drawing.Point(487, 172)
     Me.btnGetValues.Name = "btnGetValues"
     Me.btnGetValues.Size = New System.Drawing.Size(75, 23)
     Me.btnGetValues.TabIndex = 2
     Me.btnGetValues.Text = "GetData"
     Me.btnGetValues.UseVisualStyleBackColor = True
     '
-    'tBase
+    'lbly
     '
-    Me.tBase.Columns.AddRange(New System.Data.DataColumn() {Me.DataColumn3, Me.DataColumn4, Me.DataColumn5})
-    Me.tBase.TableName = "tBase"
+    Me.lbly.AutoSize = True
+    Me.lbly.Location = New System.Drawing.Point(12, 201)
+    Me.lbly.Name = "lbly"
+    Me.lbly.Size = New System.Drawing.Size(41, 13)
+    Me.lbly.TabIndex = 3
+    Me.lbly.Text = "TEST2"
     '
-    'DataColumn3
+    'lblz
     '
-    Me.DataColumn3.ColumnName = "Id"
-    Me.DataColumn3.DataType = GetType(Integer)
-    '
-    'DataColumn4
-    '
-    Me.DataColumn4.ColumnName = "Value"
-    '
-    'DataColumn5
-    '
-    Me.DataColumn5.ColumnName = "ProductId"
-    '
-    'IdDataGridViewTextBoxColumn
-    '
-    Me.IdDataGridViewTextBoxColumn.DataPropertyName = "Id"
-    Me.IdDataGridViewTextBoxColumn.HeaderText = "Id"
-    Me.IdDataGridViewTextBoxColumn.Name = "IdDataGridViewTextBoxColumn"
-    '
-    'ValueDataGridViewTextBoxColumn
-    '
-    Me.ValueDataGridViewTextBoxColumn.DataPropertyName = "Value"
-    Me.ValueDataGridViewTextBoxColumn.HeaderText = "Value"
-    Me.ValueDataGridViewTextBoxColumn.Name = "ValueDataGridViewTextBoxColumn"
-    '
-    'TestDropDown
-    '
-    Me.TestDropDown.DataPropertyName = "ProductId"
-    Me.TestDropDown.DataSource = Me.ds
-    Me.TestDropDown.DisplayMember = "tProduct.Whatevs"
-    Me.TestDropDown.HeaderText = "TestDropDown"
-    Me.TestDropDown.Name = "TestDropDown"
-    Me.TestDropDown.ValueMember = "tProduct.ProductId"
+    Me.lblz.AutoSize = True
+    Me.lblz.Location = New System.Drawing.Point(12, 227)
+    Me.lblz.Name = "lblz"
+    Me.lblz.Size = New System.Drawing.Size(41, 13)
+    Me.lblz.TabIndex = 4
+    Me.lblz.Text = "TEST3"
     '
     'SimpleDataGrid
     '
     Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
     Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-    Me.ClientSize = New System.Drawing.Size(392, 261)
+    Me.ClientSize = New System.Drawing.Size(622, 261)
+    Me.Controls.Add(Me.lblz)
+    Me.Controls.Add(Me.lbly)
     Me.Controls.Add(Me.btnGetValues)
-    Me.Controls.Add(Me.lbl)
+    Me.Controls.Add(Me.lblx)
     Me.Controls.Add(Me.dgv)
     Me.Name = "SimpleDataGrid"
     Me.Text = "SimpleDataGrid"
     CType(Me.dgv, System.ComponentModel.ISupportInitialize).EndInit()
     CType(Me.ds, System.ComponentModel.ISupportInitialize).EndInit()
     CType(Me.tProduct, System.ComponentModel.ISupportInitialize).EndInit()
-    Me.ContextMenuStrip1.ResumeLayout(False)
     CType(Me.tBase, System.ComponentModel.ISupportInitialize).EndInit()
+    Me.ContextMenuStrip1.ResumeLayout(False)
     Me.ResumeLayout(False)
     Me.PerformLayout()
 
   End Sub
 
   Friend WithEvents dgv As DataGridView
-  Friend WithEvents lbl As Label
+  Friend WithEvents lblx As Label
   Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
   Friend WithEvents TestToolStripMenuItem As ToolStripMenuItem
   Friend WithEvents ds As DataSet
   Friend WithEvents tProduct As DataTable
   Friend WithEvents DataColumn1 As DataColumn
   Friend WithEvents DataColumn2 As DataColumn
-  Friend WithEvents btnGetValues As Button
   Friend WithEvents tBase As DataTable
   Friend WithEvents DataColumn3 As DataColumn
   Friend WithEvents DataColumn4 As DataColumn
+  Friend WithEvents DataColumn6 As DataColumn
   Friend WithEvents DataColumn5 As DataColumn
-  Friend WithEvents IdDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-  Friend WithEvents ValueDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+  Friend WithEvents btnGetValues As Button
+  Friend WithEvents lbly As Label
+  Friend WithEvents ID As DataGridViewTextBoxColumn
+  Friend WithEvents Value As DataGridViewTextBoxColumn
+  Friend WithEvents Percent As DataGridViewTextBoxColumn
   Friend WithEvents TestDropDown As DataGridViewComboBoxColumn
+  Friend WithEvents lblz As Label
 End Class
