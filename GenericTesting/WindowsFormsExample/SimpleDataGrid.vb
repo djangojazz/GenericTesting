@@ -38,6 +38,8 @@ Public Class SimpleDataGrid
       ds.Tables("tBase").Rows.Add(newRow)
     Next
 
+    ds.AcceptChanges()
+
     Percent.DefaultCellStyle.Format = "##.##"
   End Sub
 
@@ -97,7 +99,6 @@ Public Class SimpleDataGrid
       lbly.Text = currentCell
       lblz.Text = "No change"
     End If
-    'lbl2.Text = y
 
   End Sub
 
@@ -113,6 +114,14 @@ Public Class SimpleDataGrid
     For Each row As DataGridViewRow In dgv.Rows
       s += row.Cells("Id")?.Value?.ToString + Environment.NewLine
     Next
+
+    If ds.HasChanges() Then
+      For Each row As DataRow In ds.Tables("tBase").GetChanges().Rows
+        s += $"Id: {row("Id")} Value: {row("Value")} Percent:{row("Percent")}"
+      Next
+    End If
+
+
     MessageBox.Show(s)
   End Sub
 End Class
