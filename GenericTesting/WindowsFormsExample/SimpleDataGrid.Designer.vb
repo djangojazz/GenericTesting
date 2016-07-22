@@ -23,12 +23,9 @@ Partial Class SimpleDataGrid
   <System.Diagnostics.DebuggerStepThrough()> _
   Private Sub InitializeComponent()
     Me.components = New System.ComponentModel.Container()
+    Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
     Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
     Me.dgv = New System.Windows.Forms.DataGridView()
-    Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-    Me.Value = New System.Windows.Forms.DataGridViewTextBoxColumn()
-    Me.Percent = New System.Windows.Forms.DataGridViewTextBoxColumn()
-    Me.TestDropDown = New System.Windows.Forms.DataGridViewComboBoxColumn()
     Me.ds = New System.Data.DataSet()
     Me.tProduct = New System.Data.DataTable()
     Me.DataColumn1 = New System.Data.DataColumn()
@@ -44,6 +41,12 @@ Partial Class SimpleDataGrid
     Me.btnGetValues = New System.Windows.Forms.Button()
     Me.lbly = New System.Windows.Forms.Label()
     Me.lblz = New System.Windows.Forms.Label()
+    Me.DataColumn7 = New System.Data.DataColumn()
+    Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.Value = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.Percent = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.Computed = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.TestDropDown = New System.Windows.Forms.DataGridViewComboBoxColumn()
     CType(Me.dgv, System.ComponentModel.ISupportInitialize).BeginInit()
     CType(Me.ds, System.ComponentModel.ISupportInitialize).BeginInit()
     CType(Me.tProduct, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -55,7 +58,7 @@ Partial Class SimpleDataGrid
     '
     Me.dgv.AutoGenerateColumns = False
     Me.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-    Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ID, Me.Value, Me.Percent, Me.TestDropDown})
+    Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ID, Me.Value, Me.Percent, Me.Computed, Me.TestDropDown})
     Me.dgv.ContextMenuStrip = Me.ContextMenuStrip1
     Me.dgv.DataMember = "tBase"
     Me.dgv.DataSource = Me.ds
@@ -64,36 +67,6 @@ Partial Class SimpleDataGrid
     Me.dgv.Name = "dgv"
     Me.dgv.Size = New System.Drawing.Size(622, 150)
     Me.dgv.TabIndex = 0
-    '
-    'ID
-    '
-    Me.ID.DataPropertyName = "Id"
-    Me.ID.HeaderText = "Id"
-    Me.ID.Name = "ID"
-    '
-    'Value
-    '
-    Me.Value.DataPropertyName = "Value"
-    DataGridViewCellStyle2.Format = "N0"
-    DataGridViewCellStyle2.NullValue = Nothing
-    Me.Value.DefaultCellStyle = DataGridViewCellStyle2
-    Me.Value.HeaderText = "Value"
-    Me.Value.Name = "Value"
-    '
-    'Percent
-    '
-    Me.Percent.DataPropertyName = "Percent"
-    Me.Percent.HeaderText = "Percent"
-    Me.Percent.Name = "Percent"
-    '
-    'TestDropDown
-    '
-    Me.TestDropDown.DataPropertyName = "ProductId"
-    Me.TestDropDown.DataSource = Me.ds
-    Me.TestDropDown.DisplayMember = "tProduct.Whatevs"
-    Me.TestDropDown.HeaderText = "TestDropDown"
-    Me.TestDropDown.Name = "TestDropDown"
-    Me.TestDropDown.ValueMember = "tProduct.ProductId"
     '
     'ds
     '
@@ -115,7 +88,7 @@ Partial Class SimpleDataGrid
     '
     'tBase
     '
-    Me.tBase.Columns.AddRange(New System.Data.DataColumn() {Me.DataColumn3, Me.DataColumn4, Me.DataColumn6, Me.DataColumn5})
+    Me.tBase.Columns.AddRange(New System.Data.DataColumn() {Me.DataColumn3, Me.DataColumn4, Me.DataColumn6, Me.DataColumn5, Me.DataColumn7})
     Me.tBase.TableName = "tBase"
     '
     'DataColumn3
@@ -187,6 +160,52 @@ Partial Class SimpleDataGrid
     Me.lblz.TabIndex = 4
     Me.lblz.Text = "TEST3"
     '
+    'DataColumn7
+    '
+    Me.DataColumn7.ColumnName = "Computed"
+    Me.DataColumn7.DataType = GetType(Double)
+    Me.DataColumn7.Expression = "Value * (Percent / 100)"
+    Me.DataColumn7.ReadOnly = True
+    '
+    'ID
+    '
+    Me.ID.DataPropertyName = "Id"
+    Me.ID.HeaderText = "Id"
+    Me.ID.Name = "ID"
+    '
+    'Value
+    '
+    Me.Value.DataPropertyName = "Value"
+    DataGridViewCellStyle1.Format = "N0"
+    DataGridViewCellStyle1.NullValue = Nothing
+    Me.Value.DefaultCellStyle = DataGridViewCellStyle1
+    Me.Value.HeaderText = "Value"
+    Me.Value.Name = "Value"
+    '
+    'Percent
+    '
+    Me.Percent.DataPropertyName = "Percent"
+    Me.Percent.HeaderText = "Percent"
+    Me.Percent.Name = "Percent"
+    '
+    'Computed
+    '
+    Me.Computed.DataPropertyName = "Computed"
+    DataGridViewCellStyle2.BackColor = System.Drawing.Color.LightGray
+    Me.Computed.DefaultCellStyle = DataGridViewCellStyle2
+    Me.Computed.HeaderText = "Computed"
+    Me.Computed.Name = "Computed"
+    Me.Computed.ReadOnly = True
+    '
+    'TestDropDown
+    '
+    Me.TestDropDown.DataPropertyName = "ProductId"
+    Me.TestDropDown.DataSource = Me.ds
+    Me.TestDropDown.DisplayMember = "tProduct.Whatevs"
+    Me.TestDropDown.HeaderText = "TestDropDown"
+    Me.TestDropDown.Name = "TestDropDown"
+    Me.TestDropDown.ValueMember = "tProduct.ProductId"
+    '
     'SimpleDataGrid
     '
     Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -224,9 +243,11 @@ Partial Class SimpleDataGrid
   Friend WithEvents DataColumn5 As DataColumn
   Friend WithEvents btnGetValues As Button
   Friend WithEvents lbly As Label
+  Friend WithEvents lblz As Label
   Friend WithEvents ID As DataGridViewTextBoxColumn
   Friend WithEvents Value As DataGridViewTextBoxColumn
   Friend WithEvents Percent As DataGridViewTextBoxColumn
+  Friend WithEvents Computed As DataGridViewTextBoxColumn
   Friend WithEvents TestDropDown As DataGridViewComboBoxColumn
-  Friend WithEvents lblz As Label
+  Friend WithEvents DataColumn7 As DataColumn
 End Class

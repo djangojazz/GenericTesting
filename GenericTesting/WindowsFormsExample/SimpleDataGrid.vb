@@ -69,6 +69,7 @@ Public Class SimpleDataGrid
     If headerText.Equals("Percent") Then
       Dim regexPercent = New Regex("^([0-9]{1,2})(\.[0-9]{1,2})?$")
 
+
       If Not regexPercent.Match(val).Success Then
         dgv.Rows(e.RowIndex).ErrorText = "Percent must be numeric and in the format: ##.##"
         btnGetValues.Enabled = False
@@ -77,7 +78,7 @@ Public Class SimpleDataGrid
       End If
     Else
       'If it is something else in the listed columns to examine do a different regex pattern
-      Dim regex = New Regex("(^[0-9]{1,3})([,]?)([0-9]{3})$")
+      Dim regex = New Regex("^[0-9]{1,3}(?:,?[0-9]{3})*$")
 
       If Not regex.Match(val).Success Then
         dgv.Rows(e.RowIndex).ErrorText = "You are limited to numbers under a million by product"
