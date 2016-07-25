@@ -29,7 +29,7 @@ Public Class SimpleDataGrid
       ds.Tables("tProduct").Rows.Add(row)
     Next
 
-    For i = 1 To 3
+    For i = 1 To 2
       Dim newRow As DataRow = ds.Tables("tBase").NewRow
       newRow("Id") = i
       newRow("Value") = i * 1000
@@ -112,13 +112,14 @@ Public Class SimpleDataGrid
 
   Private Sub btnGetValues_Click(sender As Object, e As EventArgs) Handles btnGetValues.Click
     Dim s = ""
-    For Each row As DataGridViewRow In dgv.Rows
-      s += row.Cells("Id")?.Value?.ToString + Environment.NewLine
-    Next
+    'For Each row As DataGridViewRow In dgv.Rows
+    '  s += row.Cells("Id")?.Value?.ToString + Environment.NewLine
+    'Next
 
     If ds.HasChanges() Then
       For Each row As DataRow In ds.Tables("tBase").GetChanges().Rows
-        s += $"Id: {row("Id")} Value: {row("Value")} Percent:{row("Percent")}"
+        Dim valId = CInt(If(row("Id")?.ToString() <> String.Empty, row("Id"), 0))
+        s += $"Id: {valId} Value: {row("Value")} Percent:{row("Percent")}"
       Next
     End If
 

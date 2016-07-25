@@ -80,10 +80,7 @@ Module Module1
   End Function
 
   Sub Main()
-    Dim text = "123.1212"
-
-
-    Console.WriteLine(text.Split("."c).GetUpperBound(0))
+    ProductionPlanGroup(0, 35205, 50000, 0.1234, 5000, 8)
 
     Console.ReadLine()
   End Sub
@@ -101,6 +98,22 @@ Module Module1
   Public Function GetMyConnectionString() As String
     Return "data source=APC-DEV\TEST;initial catalog=APC_Local;Integrated Security=False;password=pa55word;user id=sqluser;Connect Timeout=40;"
   End Function
+
+  Private Sub ProductionPlanGroup(productionPlanGroupID As Integer, productionPlanID As Integer, estimatedPoundsIn As Decimal, projectedRecovery As Decimal, poundsPerCrewHour As Decimal, productId As Integer)
+    Using oConnection As New SqlClient.SqlConnection(GetMyConnectionString)
+      oConnection.Open()
+      Dim oCmd As New SqlClient.SqlCommand("APC_SP_UPDATE_ProductionPlanGroup", oConnection)
+      oCmd.CommandType = CommandType.StoredProcedure
+      oCmd.Parameters.AddWithValue("@ProductionPlanGroupID", productionPlanGroupID)
+      oCmd.Parameters.AddWithValue("@ProductionPlanID", productionPlanID)
+      oCmd.Parameters.AddWithValue("@EstimatedPoundsIn", estimatedPoundsIn)
+      oCmd.Parameters.AddWithValue("@ProjectedRecoveryPercent", projectedRecovery)
+      oCmd.Parameters.AddWithValue("@PoundsPerCrewHour", poundsPerCrewHour)
+      oCmd.Parameters.AddWithValue("@ProductID", productId)
+      oCmd.Parameters.AddWithValue("@UserID", 617)
+      oCmd.ExecuteNonQuery()
+    End Using
+  End Sub
 
   Private Sub TestGetNull(ByVal IP As String, ByVal StartDate As Date, ByVal EndDate As Date, ByVal ProductionState As Integer?)
     MyConnection = New SqlClient.SqlConnection(GetMyConnectionString())
