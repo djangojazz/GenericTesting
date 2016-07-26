@@ -80,7 +80,15 @@ Module Module1
   End Function
 
   Sub Main()
-    ProductionPlanGroup(0, 35205, 50000, 0.1234, 5000, 8)
+    Dim pocos = New List(Of String)({"A", "B", "C"})
+
+    Dim bool = pocos.GroupBy(Function(x) x) _
+    .Select(Function(x) New With {.Key = x.Key, .Values = x.Count}).ToList() _
+    .Exists(Function(x) x.Values > 1)
+    '.ToList() _
+    '.ForEach(Sub(x) Console.WriteLine($"{x.Key} {x.Values}"))
+
+    Console.WriteLine(bool)
 
     Console.ReadLine()
   End Sub

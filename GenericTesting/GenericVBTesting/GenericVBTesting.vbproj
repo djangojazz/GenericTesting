@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="EnumParsing.vb" />
     <Compile Include="Extensions.vb" />
+    <Compile Include="InvoiceExample.vb" />
     <Compile Include="Ships\BoatTesting.vb" />
     <Compile Include="BubbleSort.vb" />
     <Compile Include="ExtensionHelper.vb" />

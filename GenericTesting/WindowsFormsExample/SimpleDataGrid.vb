@@ -78,10 +78,10 @@ Public Class SimpleDataGrid
       End If
     Else
       'If it is something else in the listed columns to examine do a different regex pattern
-      Dim regex = New Regex("^[0-9]{1,3}(?:,?[0-9]{3})*$")
+      Dim regex = New Regex("^(?!.{8,})[0-9]{1,3}(?:,?[0-9]{3})*$")
 
       If Not regex.Match(val).Success Then
-        dgv.Rows(e.RowIndex).ErrorText = "You are limited to numbers under a million by product"
+        dgv.Rows(e.RowIndex).ErrorText = "You are limited to numbers under a million by product and in the format: ###,### or ######"
         'btnGetValues.Enabled = False
         e.Cancel = True
       End If
@@ -112,16 +112,17 @@ Public Class SimpleDataGrid
 
   Private Sub btnGetValues_Click(sender As Object, e As EventArgs) Handles btnGetValues.Click
     Dim s = ""
-    'For Each row As DataGridViewRow In dgv.Rows
-    '  s += row.Cells("Id")?.Value?.ToString + Environment.NewLine
-    'Next
+    For Each row As DataGridViewRow In dgv.Rows
+      s += row.Cells("TestDropDown")?.Value?.ToString + Environment.NewLine
+    Next
 
-    If ds.HasChanges() Then
-      For Each row As DataRow In ds.Tables("tBase").GetChanges().Rows
-        Dim valId = CInt(If(row("Id")?.ToString() <> String.Empty, row("Id"), 0))
-        s += $"Id: {valId} Value: {row("Value")} Percent:{row("Percent")}"
-      Next
-    End If
+
+    'If ds.HasChanges() Then
+    '  For Each row As DataRow In ds.Tables("tBase").GetChanges().Rows
+    '    Dim valId = CInt(If(row("Id")?.ToString() <> String.Empty, row("Id"), 0))
+    '    s += $"Id: {valId} Value: {row("Value")} Percent:{row("Percent")}"
+    '  Next
+    'End If
 
 
     MessageBox.Show(s)
