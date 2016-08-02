@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class Form1
+Partial Class MainForm
   Inherits System.Windows.Forms.Form
 
   'Form overrides dispose to clean up the component list.
@@ -24,14 +24,16 @@ Partial Class Form1
   Private Sub InitializeComponent()
     Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
     Me.OpenDataGridViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-    Me.SimpleDataGridViewToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+    Me.mDataGrids = New System.Windows.Forms.ToolStripMenuItem()
+    Me.mSimpleDataGrid = New System.Windows.Forms.ToolStripMenuItem()
+    Me.mDynamicDataGrid = New System.Windows.Forms.ToolStripMenuItem()
     Me.SimpleErrorCheckingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.MenuStrip1.SuspendLayout()
     Me.SuspendLayout()
     '
     'MenuStrip1
     '
-    Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenDataGridViewToolStripMenuItem, Me.SimpleDataGridViewToolStripMenuItem1, Me.SimpleErrorCheckingToolStripMenuItem})
+    Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenDataGridViewToolStripMenuItem, Me.mDataGrids, Me.SimpleErrorCheckingToolStripMenuItem})
     Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
     Me.MenuStrip1.Name = "MenuStrip1"
     Me.MenuStrip1.Size = New System.Drawing.Size(658, 24)
@@ -44,11 +46,24 @@ Partial Class Form1
     Me.OpenDataGridViewToolStripMenuItem.Size = New System.Drawing.Size(119, 20)
     Me.OpenDataGridViewToolStripMenuItem.Text = "OpenDataGridView"
     '
-    'SimpleDataGridViewToolStripMenuItem1
+    'mDataGrids
     '
-    Me.SimpleDataGridViewToolStripMenuItem1.Name = "SimpleDataGridViewToolStripMenuItem1"
-    Me.SimpleDataGridViewToolStripMenuItem1.Size = New System.Drawing.Size(126, 20)
-    Me.SimpleDataGridViewToolStripMenuItem1.Text = "SimpleDataGridView"
+    Me.mDataGrids.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mSimpleDataGrid, Me.mDynamicDataGrid})
+    Me.mDataGrids.Name = "mDataGrids"
+    Me.mDataGrids.Size = New System.Drawing.Size(70, 20)
+    Me.mDataGrids.Text = "DataGrids"
+    '
+    'mSimpleDataGrid
+    '
+    Me.mSimpleDataGrid.Name = "mSimpleDataGrid"
+    Me.mSimpleDataGrid.Size = New System.Drawing.Size(167, 22)
+    Me.mSimpleDataGrid.Text = "SimpleDataGrid"
+    '
+    'mDynamicDataGrid
+    '
+    Me.mDynamicDataGrid.Name = "mDynamicDataGrid"
+    Me.mDynamicDataGrid.Size = New System.Drawing.Size(167, 22)
+    Me.mDynamicDataGrid.Text = "DynamicDataGrid"
     '
     'SimpleErrorCheckingToolStripMenuItem
     '
@@ -56,14 +71,14 @@ Partial Class Form1
     Me.SimpleErrorCheckingToolStripMenuItem.Size = New System.Drawing.Size(130, 20)
     Me.SimpleErrorCheckingToolStripMenuItem.Text = "SimpleErrorChecking"
     '
-    'Form1
+    'MainForm
     '
     Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
     Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
     Me.ClientSize = New System.Drawing.Size(658, 394)
     Me.Controls.Add(Me.MenuStrip1)
     Me.MainMenuStrip = Me.MenuStrip1
-    Me.Name = "Form1"
+    Me.Name = "MainForm"
     Me.Text = "Form1"
     Me.MenuStrip1.ResumeLayout(False)
     Me.MenuStrip1.PerformLayout()
@@ -74,6 +89,8 @@ Partial Class Form1
 
   Friend WithEvents MenuStrip1 As MenuStrip
   Friend WithEvents OpenDataGridViewToolStripMenuItem As ToolStripMenuItem
-  Friend WithEvents SimpleDataGridViewToolStripMenuItem1 As ToolStripMenuItem
+  Friend WithEvents mDataGrids As ToolStripMenuItem
   Friend WithEvents SimpleErrorCheckingToolStripMenuItem As ToolStripMenuItem
+  Friend WithEvents mSimpleDataGrid As ToolStripMenuItem
+  Friend WithEvents mDynamicDataGrid As ToolStripMenuItem
 End Class

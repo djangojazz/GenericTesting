@@ -5,12 +5,6 @@ Imports System.Text.RegularExpressions
 Public Class SimpleDataGrid
 
   Private _lastValue As Object
-
-  Public Class Product
-    Public Property ProductId As Integer
-    Public Property ProductDescription As String
-  End Class
-
   Private _products = New List(Of Product)
   Private _talker = New SQLTalker(GetTesterDatabase)
 
@@ -39,8 +33,9 @@ Public Class SimpleDataGrid
     Next
 
     ds.AcceptChanges()
+    dgv.DataSource = ds.Tables("tBase")
 
-    Percent.DefaultCellStyle.Format = "##.##"
+    'Percent.DefaultCellStyle.Format = "##.##"
   End Sub
 
   Private Sub TestToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TestToolStripMenuItem.Click
@@ -105,16 +100,22 @@ Public Class SimpleDataGrid
 
 
   Private Sub dgv_CurrentCellChanged(sender As Object, e As EventArgs) Handles dgv.CurrentCellChanged
-    Dim x = DirectCast(sender, DataGridView)?.CurrentCell?.Value.ToString
+    Dim x = DirectCast(sender, DataGridView)?.CurrentCell?.Value?.ToString
     _lastValue = x
     lblx.Text = x
   End Sub
 
   Private Sub btnGetValues_Click(sender As Object, e As EventArgs) Handles btnGetValues.Click
     Dim s = ""
-    For Each row As DataGridViewRow In dgv.Rows
-      s += row.Cells("TestDropDown")?.Value?.ToString + Environment.NewLine
-    Next
+
+    '
+    Dim dv As DataView = New DataView(ds.Tables(1), $"Id = '{txtTest.Text}'", "Id ASC", DataViewRowState.CurrentRows)
+    dgv.DataSource = dv
+
+
+    'For Each row As DataGridViewRow In dgv.Rows
+    '  s += row.Cells("TestDropDown")?.Value?.ToString + Environment.NewLine
+    'Next
 
 
     'If ds.HasChanges() Then
@@ -125,6 +126,6 @@ Public Class SimpleDataGrid
     'End If
 
 
-    MessageBox.Show(s)
+    'MessageBox.Show(s)
   End Sub
 End Class

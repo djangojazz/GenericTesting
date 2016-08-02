@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="DatabaseAccess.vb" />
     <Compile Include="DataConverter.vb" />
+    <Compile Include="Models.vb" />
     <Compile Include="SQLTalker.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

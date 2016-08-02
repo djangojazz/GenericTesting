@@ -11,7 +11,7 @@
   ' Establish the main entry point for the application.
   <STAThreadAttribute()>
   Public Shared Sub Main()
-    Application.Run(New Form1())
+    Application.Run(New MainForm())
   End Sub
 
   Public Sub New()

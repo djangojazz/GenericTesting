@@ -23,7 +23,6 @@ Partial Class SimpleDataGrid
   <System.Diagnostics.DebuggerStepThrough()> _
   Private Sub InitializeComponent()
     Me.components = New System.ComponentModel.Container()
-    Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
     Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
     Me.dgv = New System.Windows.Forms.DataGridView()
     Me.ds = New System.Data.DataSet()
@@ -35,16 +34,15 @@ Partial Class SimpleDataGrid
     Me.DataColumn4 = New System.Data.DataColumn()
     Me.DataColumn6 = New System.Data.DataColumn()
     Me.DataColumn5 = New System.Data.DataColumn()
+    Me.DataColumn7 = New System.Data.DataColumn()
     Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
     Me.TestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.lblx = New System.Windows.Forms.Label()
     Me.btnGetValues = New System.Windows.Forms.Button()
     Me.lbly = New System.Windows.Forms.Label()
     Me.lblz = New System.Windows.Forms.Label()
-    Me.DataColumn7 = New System.Data.DataColumn()
-    Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-    Me.Value = New System.Windows.Forms.DataGridViewTextBoxColumn()
-    Me.Percent = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.txtTest = New System.Windows.Forms.TextBox()
+    Me.Id = New System.Windows.Forms.DataGridViewTextBoxColumn()
     Me.Computed = New System.Windows.Forms.DataGridViewTextBoxColumn()
     Me.TestDropDown = New System.Windows.Forms.DataGridViewComboBoxColumn()
     CType(Me.dgv, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -56,12 +54,9 @@ Partial Class SimpleDataGrid
     '
     'dgv
     '
-    Me.dgv.AutoGenerateColumns = False
     Me.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-    Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ID, Me.Value, Me.Percent, Me.Computed, Me.TestDropDown})
+    Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.Computed, Me.TestDropDown})
     Me.dgv.ContextMenuStrip = Me.ContextMenuStrip1
-    Me.dgv.DataMember = "tBase"
-    Me.dgv.DataSource = Me.ds
     Me.dgv.Dock = System.Windows.Forms.DockStyle.Top
     Me.dgv.Location = New System.Drawing.Point(0, 0)
     Me.dgv.Name = "dgv"
@@ -112,6 +107,13 @@ Partial Class SimpleDataGrid
     Me.DataColumn5.Caption = "ProductId"
     Me.DataColumn5.ColumnName = "ProductId"
     '
+    'DataColumn7
+    '
+    Me.DataColumn7.ColumnName = "Computed"
+    Me.DataColumn7.DataType = GetType(Double)
+    Me.DataColumn7.Expression = "Value * (Percent / 100)"
+    Me.DataColumn7.ReadOnly = True
+    '
     'ContextMenuStrip1
     '
     Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TestToolStripMenuItem})
@@ -160,33 +162,19 @@ Partial Class SimpleDataGrid
     Me.lblz.TabIndex = 4
     Me.lblz.Text = "TEST3"
     '
-    'DataColumn7
+    'txtTest
     '
-    Me.DataColumn7.ColumnName = "Computed"
-    Me.DataColumn7.DataType = GetType(Double)
-    Me.DataColumn7.Expression = "Value * (Percent / 100)"
-    Me.DataColumn7.ReadOnly = True
+    Me.txtTest.Location = New System.Drawing.Point(371, 177)
+    Me.txtTest.Name = "txtTest"
+    Me.txtTest.Size = New System.Drawing.Size(100, 20)
+    Me.txtTest.TabIndex = 5
+    Me.txtTest.Text = "1"
     '
-    'ID
+    'Id
     '
-    Me.ID.DataPropertyName = "Id"
-    Me.ID.HeaderText = "Id"
-    Me.ID.Name = "ID"
-    '
-    'Value
-    '
-    Me.Value.DataPropertyName = "Value"
-    DataGridViewCellStyle1.Format = "N0"
-    DataGridViewCellStyle1.NullValue = Nothing
-    Me.Value.DefaultCellStyle = DataGridViewCellStyle1
-    Me.Value.HeaderText = "Value"
-    Me.Value.Name = "Value"
-    '
-    'Percent
-    '
-    Me.Percent.DataPropertyName = "Percent"
-    Me.Percent.HeaderText = "Percent"
-    Me.Percent.Name = "Percent"
+    Me.Id.DataPropertyName = "Id"
+    Me.Id.HeaderText = "Id"
+    Me.Id.Name = "Id"
     '
     'Computed
     '
@@ -211,6 +199,7 @@ Partial Class SimpleDataGrid
     Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
     Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
     Me.ClientSize = New System.Drawing.Size(622, 261)
+    Me.Controls.Add(Me.txtTest)
     Me.Controls.Add(Me.lblz)
     Me.Controls.Add(Me.lbly)
     Me.Controls.Add(Me.btnGetValues)
@@ -244,10 +233,9 @@ Partial Class SimpleDataGrid
   Friend WithEvents btnGetValues As Button
   Friend WithEvents lbly As Label
   Friend WithEvents lblz As Label
-  Friend WithEvents ID As DataGridViewTextBoxColumn
-  Friend WithEvents Value As DataGridViewTextBoxColumn
-  Friend WithEvents Percent As DataGridViewTextBoxColumn
+  Friend WithEvents DataColumn7 As DataColumn
+  Friend WithEvents txtTest As TextBox
+  Friend WithEvents Id As DataGridViewTextBoxColumn
   Friend WithEvents Computed As DataGridViewTextBoxColumn
   Friend WithEvents TestDropDown As DataGridViewComboBoxColumn
-  Friend WithEvents DataColumn7 As DataColumn
 End Class
