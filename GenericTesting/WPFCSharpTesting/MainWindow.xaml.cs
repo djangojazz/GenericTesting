@@ -25,5 +25,6 @@ namespace WPFCSharpTesting
       InitializeComponent();
       DataContext = new MainWindowViewModel();
     }
+    
   }
 }

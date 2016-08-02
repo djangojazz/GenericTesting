@@ -23,7 +23,6 @@ Partial Class DataGridDynamic
   <System.Diagnostics.DebuggerStepThrough()> _
   Private Sub InitializeComponent()
     Me.dgv = New System.Windows.Forms.DataGridView()
-    Me.OrderId = New System.Windows.Forms.DataGridViewComboBoxColumn()
     Me.ds = New System.Data.DataSet()
     Me.tOrders = New System.Data.DataTable()
     Me.DataColumn1 = New System.Data.DataColumn()
@@ -32,35 +31,34 @@ Partial Class DataGridDynamic
     Me.tTest = New System.Windows.Forms.TextBox()
     Me.bDoIt = New System.Windows.Forms.Button()
     Me.btnGetIt = New System.Windows.Forms.Button()
+    Me.OrderId = New System.Windows.Forms.DataGridViewComboBoxColumn()
+    Me.PersonId = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.FirstName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.LastName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.tPeople = New System.Data.DataTable()
+    Me.DataColumn3 = New System.Data.DataColumn()
+    Me.DataColumn4 = New System.Data.DataColumn()
+    Me.DataColumn5 = New System.Data.DataColumn()
+    Me.DataColumn6 = New System.Data.DataColumn()
     CType(Me.dgv, System.ComponentModel.ISupportInitialize).BeginInit()
     CType(Me.ds, System.ComponentModel.ISupportInitialize).BeginInit()
     CType(Me.tOrders, System.ComponentModel.ISupportInitialize).BeginInit()
+    CType(Me.tPeople, System.ComponentModel.ISupportInitialize).BeginInit()
     Me.SuspendLayout()
     '
     'dgv
     '
     Me.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-    Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.OrderId})
+    Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.OrderId, Me.PersonId, Me.FirstName, Me.LastName})
     Me.dgv.Location = New System.Drawing.Point(13, 13)
     Me.dgv.Name = "dgv"
-    Me.dgv.Size = New System.Drawing.Size(401, 150)
+    Me.dgv.Size = New System.Drawing.Size(523, 150)
     Me.dgv.TabIndex = 0
-    '
-    'OrderId
-    '
-    Me.OrderId.DataPropertyName = "OrderId"
-    Me.OrderId.DataSource = Me.ds
-    Me.OrderId.DisplayMember = "tOrders.Description"
-    Me.OrderId.HeaderText = "ORDER"
-    Me.OrderId.Name = "OrderId"
-    Me.OrderId.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-    Me.OrderId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-    Me.OrderId.ValueMember = "tOrders.OrderId"
     '
     'ds
     '
     Me.ds.DataSetName = "NewDataSet"
-    Me.ds.Tables.AddRange(New System.Data.DataTable() {Me.tOrders})
+    Me.ds.Tables.AddRange(New System.Data.DataTable() {Me.tOrders, Me.tPeople})
     '
     'tOrders
     '
@@ -111,11 +109,70 @@ Partial Class DataGridDynamic
     Me.btnGetIt.Text = "GetIt"
     Me.btnGetIt.UseVisualStyleBackColor = True
     '
+    'OrderId
+    '
+    Me.OrderId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+    Me.OrderId.DataPropertyName = "OrderId"
+    Me.OrderId.DataSource = Me.ds
+    Me.OrderId.DisplayMember = "tOrders.Description"
+    Me.OrderId.FillWeight = 30.0!
+    Me.OrderId.HeaderText = "ORDER"
+    Me.OrderId.Name = "OrderId"
+    Me.OrderId.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+    Me.OrderId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+    Me.OrderId.ValueMember = "tOrders.OrderId"
+    '
+    'PersonId
+    '
+    Me.PersonId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+    Me.PersonId.DataPropertyName = "PersonID"
+    Me.PersonId.FillWeight = 20.0!
+    Me.PersonId.HeaderText = "PersonID"
+    Me.PersonId.Name = "PersonId"
+    '
+    'FirstName
+    '
+    Me.FirstName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+    Me.FirstName.DataPropertyName = "FirstName"
+    Me.FirstName.FillWeight = 25.0!
+    Me.FirstName.HeaderText = "FirstName"
+    Me.FirstName.Name = "FirstName"
+    '
+    'LastName
+    '
+    Me.LastName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+    Me.LastName.DataPropertyName = "LastName"
+    Me.LastName.FillWeight = 25.0!
+    Me.LastName.HeaderText = "LastName"
+    Me.LastName.Name = "LastName"
+    '
+    'tPeople
+    '
+    Me.tPeople.Columns.AddRange(New System.Data.DataColumn() {Me.DataColumn3, Me.DataColumn4, Me.DataColumn5, Me.DataColumn6})
+    Me.tPeople.TableName = "tPeople"
+    '
+    'DataColumn3
+    '
+    Me.DataColumn3.ColumnName = "OrderId"
+    Me.DataColumn3.DataType = GetType(Integer)
+    '
+    'DataColumn4
+    '
+    Me.DataColumn4.ColumnName = "PersonId"
+    '
+    'DataColumn5
+    '
+    Me.DataColumn5.ColumnName = "FirstName"
+    '
+    'DataColumn6
+    '
+    Me.DataColumn6.ColumnName = "LastName"
+    '
     'DataGridDynamic
     '
     Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
     Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-    Me.ClientSize = New System.Drawing.Size(498, 273)
+    Me.ClientSize = New System.Drawing.Size(548, 273)
     Me.Controls.Add(Me.btnGetIt)
     Me.Controls.Add(Me.bDoIt)
     Me.Controls.Add(Me.tTest)
@@ -126,6 +183,7 @@ Partial Class DataGridDynamic
     CType(Me.dgv, System.ComponentModel.ISupportInitialize).EndInit()
     CType(Me.ds, System.ComponentModel.ISupportInitialize).EndInit()
     CType(Me.tOrders, System.ComponentModel.ISupportInitialize).EndInit()
+    CType(Me.tPeople, System.ComponentModel.ISupportInitialize).EndInit()
     Me.ResumeLayout(False)
     Me.PerformLayout()
 
@@ -137,8 +195,16 @@ Partial Class DataGridDynamic
   Friend WithEvents tOrders As DataTable
   Friend WithEvents DataColumn1 As DataColumn
   Friend WithEvents DataColumn2 As DataColumn
-  Friend WithEvents OrderId As DataGridViewComboBoxColumn
   Friend WithEvents tTest As TextBox
   Friend WithEvents bDoIt As Button
   Friend WithEvents btnGetIt As Button
+  Friend WithEvents OrderId As DataGridViewComboBoxColumn
+  Friend WithEvents PersonId As DataGridViewTextBoxColumn
+  Friend WithEvents FirstName As DataGridViewTextBoxColumn
+  Friend WithEvents LastName As DataGridViewTextBoxColumn
+  Friend WithEvents tPeople As DataTable
+  Friend WithEvents DataColumn3 As DataColumn
+  Friend WithEvents DataColumn4 As DataColumn
+  Friend WithEvents DataColumn5 As DataColumn
+  Friend WithEvents DataColumn6 As DataColumn
 End Class

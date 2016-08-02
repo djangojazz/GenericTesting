@@ -9,7 +9,7 @@ Public Class DataGridDynamic
 
   Private Sub DataGridDynamic_Load(sender As Object, e As EventArgs) Handles MyBase.Load
     Try
-      _people = _talker.GetData("Select PersonID, FirstName, LastName, OrderId from dbo.tePerson")
+      _people = _talker.GetData("Select PersonId, FirstName, LastName, OrderId from dbo.tePerson")
       dgv.DataSource = _people
 
       _orders = DirectCast(DataConverter.ConvertTo(Of Order)(_talker.GetData("Select OrderId, Description From dbo.teOrder")), List(Of Order))
@@ -26,6 +26,7 @@ Public Class DataGridDynamic
       lTest.Text = ex.InnerException.ToString
     End Try
   End Sub
+
   Private Sub dgvError(ByVal sender As Object, ByVal e As DataGridViewDataErrorEventArgs) Handles dgv.DataError
     If (e.Context = (DataGridViewDataErrorContexts.Formatting Or DataGridViewDataErrorContexts.PreferredSize)) Then
       e.ThrowException = False

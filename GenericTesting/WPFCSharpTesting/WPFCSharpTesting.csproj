@@ -60,6 +60,9 @@
     <Compile Include="Views\CustomMarqueeControl.xaml.cs">
       <DependentUpon>CustomMarqueeControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EnterpriseWPF.xaml.cs">
+      <DependentUpon>EnterpriseWPF.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -74,6 +77,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\CustomMarqueeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EnterpriseWPF.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
