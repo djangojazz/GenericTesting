@@ -7,5 +7,5 @@
         xmlns:views="clr-namespace:WPFCSharpTesting.Views"
         mc:Ignorable="d"
         Title="Test WPF" Height="350" Width="525">
-  <views:EnterpriseWPF></views:EnterpriseWPF>
+  <views:DataBinding></views:DataBinding>
 </Window>

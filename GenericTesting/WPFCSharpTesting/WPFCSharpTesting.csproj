@@ -57,8 +57,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DateConverter.cs" />
+    <Compile Include="Employee.cs" />
     <Compile Include="Views\CustomMarqueeControl.xaml.cs">
       <DependentUpon>CustomMarqueeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataBinding.xaml.cs">
+      <DependentUpon>DataBinding.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EnterpriseWPF.xaml.cs">
       <DependentUpon>EnterpriseWPF.xaml</DependentUpon>
@@ -77,6 +82,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\CustomMarqueeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DataBinding.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
