@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class ListViewWindow
   Inherits System.Windows.Forms.Form
 
   'Form overrides dispose to clean up the component list.
-  <System.Diagnostics.DebuggerNonUserCode()> _
+  <System.Diagnostics.DebuggerNonUserCode()>
   Protected Overrides Sub Dispose(ByVal disposing As Boolean)
     Try
       If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class ListViewWindow
   'NOTE: The following procedure is required by the Windows Form Designer
   'It can be modified using the Windows Form Designer.  
   'Do not modify it using the code editor.
-  <System.Diagnostics.DebuggerStepThrough()> _
+  <System.Diagnostics.DebuggerStepThrough()>
   Private Sub InitializeComponent()
     Me.lsv = New System.Windows.Forms.ListView()
     Me.PersonId = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -39,6 +39,7 @@ Partial Class ListViewWindow
     Me.lsv.Size = New System.Drawing.Size(631, 97)
     Me.lsv.TabIndex = 0
     Me.lsv.UseCompatibleStateImageBehavior = False
+    Me.lsv.View = System.Windows.Forms.View.Details
     '
     'PersonId
     '
@@ -54,7 +55,7 @@ Partial Class ListViewWindow
     '
     'tTest
     '
-    Me.tTest.Location = New System.Drawing.Point(155, 148)
+    Me.tTest.Location = New System.Drawing.Point(154, 147)
     Me.tTest.Name = "tTest"
     Me.tTest.Size = New System.Drawing.Size(100, 20)
     Me.tTest.TabIndex = 1
@@ -63,7 +64,7 @@ Partial Class ListViewWindow
     'lTest
     '
     Me.lTest.AutoSize = True
-    Me.lTest.Location = New System.Drawing.Point(35, 155)
+    Me.lTest.Location = New System.Drawing.Point(34, 154)
     Me.lTest.Name = "lTest"
     Me.lTest.Size = New System.Drawing.Size(52, 13)
     Me.lTest.TabIndex = 2
@@ -71,7 +72,7 @@ Partial Class ListViewWindow
     '
     'bFilter
     '
-    Me.bFilter.Location = New System.Drawing.Point(335, 145)
+    Me.bFilter.Location = New System.Drawing.Point(334, 144)
     Me.bFilter.Name = "bFilter"
     Me.bFilter.Size = New System.Drawing.Size(75, 23)
     Me.bFilter.TabIndex = 3
@@ -82,7 +83,7 @@ Partial Class ListViewWindow
     '
     Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
     Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-    Me.ClientSize = New System.Drawing.Size(790, 359)
+    Me.ClientSize = New System.Drawing.Size(671, 188)
     Me.Controls.Add(Me.bFilter)
     Me.Controls.Add(Me.lTest)
     Me.Controls.Add(Me.tTest)
