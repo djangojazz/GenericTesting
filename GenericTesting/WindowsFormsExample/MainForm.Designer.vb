@@ -28,6 +28,7 @@ Partial Class MainForm
     Me.mSimpleDataGrid = New System.Windows.Forms.ToolStripMenuItem()
     Me.mDynamicDataGrid = New System.Windows.Forms.ToolStripMenuItem()
     Me.SimpleErrorCheckingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+    Me.ListGridToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.MenuStrip1.SuspendLayout()
     Me.SuspendLayout()
     '
@@ -48,7 +49,7 @@ Partial Class MainForm
     '
     'mDataGrids
     '
-    Me.mDataGrids.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mSimpleDataGrid, Me.mDynamicDataGrid})
+    Me.mDataGrids.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mSimpleDataGrid, Me.mDynamicDataGrid, Me.ListGridToolStripMenuItem})
     Me.mDataGrids.Name = "mDataGrids"
     Me.mDataGrids.Size = New System.Drawing.Size(70, 20)
     Me.mDataGrids.Text = "DataGrids"
@@ -70,6 +71,12 @@ Partial Class MainForm
     Me.SimpleErrorCheckingToolStripMenuItem.Name = "SimpleErrorCheckingToolStripMenuItem"
     Me.SimpleErrorCheckingToolStripMenuItem.Size = New System.Drawing.Size(130, 20)
     Me.SimpleErrorCheckingToolStripMenuItem.Text = "SimpleErrorChecking"
+    '
+    'ListGridToolStripMenuItem
+    '
+    Me.ListGridToolStripMenuItem.Name = "ListGridToolStripMenuItem"
+    Me.ListGridToolStripMenuItem.Size = New System.Drawing.Size(167, 22)
+    Me.ListGridToolStripMenuItem.Text = "ListGrid"
     '
     'MainForm
     '
@@ -93,4 +100,5 @@ Partial Class MainForm
   Friend WithEvents SimpleErrorCheckingToolStripMenuItem As ToolStripMenuItem
   Friend WithEvents mSimpleDataGrid As ToolStripMenuItem
   Friend WithEvents mDynamicDataGrid As ToolStripMenuItem
+  Friend WithEvents ListGridToolStripMenuItem As ToolStripMenuItem
 End Class

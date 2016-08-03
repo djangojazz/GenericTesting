@@ -18,4 +18,9 @@
     Dim newWindow = New DataGridDynamic()
     newWindow.Show()
   End Sub
+
+  Private Sub ListGridToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ListGridToolStripMenuItem.Click
+    Dim newWindow = New ListViewWindow()
+    newWindow.Show()
+  End Sub
 End Class

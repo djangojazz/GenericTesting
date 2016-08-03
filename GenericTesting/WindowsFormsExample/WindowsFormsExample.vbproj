@@ -90,6 +90,12 @@
     <Compile Include="ErrorChecking.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ListViewWindow.Designer.vb">
+      <DependentUpon>ListViewWindow.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ListViewWindow.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MainForm.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ErrorChecking.resx">
       <DependentUpon>ErrorChecking.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListViewWindow.resx">
+      <DependentUpon>ListViewWindow.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.vb</DependentUpon>
