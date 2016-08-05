@@ -77,6 +77,9 @@
     <Compile Include="Views\OtherControls.xaml.cs">
       <DependentUpon>OtherControls.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Styles.xaml.cs">
+      <DependentUpon>Styles.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -111,6 +114,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OtherControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
