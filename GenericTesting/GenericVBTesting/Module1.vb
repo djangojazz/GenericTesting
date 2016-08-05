@@ -80,18 +80,42 @@ Module Module1
   End Function
 
   Sub Main()
+    Dim val = "grass".ToUpper()
+
+    If val.Substring(Len(val) - 1, 1) = "S" Then Console.WriteLine("Last value was an s") : val = val.Substring(0, Len(val) - 1)
+    If val.Substring(Len(val) - 1, 1) = "E" Then Console.WriteLine("Last value was an es") : val = val.Substring(0, Len(val) - 1)
+
+    Dim dt As DataTable = New DataTable
+    dt.Columns.Add("Id", GetType(Integer))
+    dt.Columns.Add("Value", GetType(String))
+
+    dt.Rows.Add(1, "Apple and Baked")
+    dt.Rows.Add(2, "Brat Burnt")
+    dt.Rows.Add(3, "Curry that I cannot stand")
+    dt.Rows.Add(4, "Grass that is dry")
+
+    For Each row As DataRow In dt.Rows
+      Console.WriteLine($"{row("Value").ToString}")
+    Next
+
+    Console.WriteLine("")
+
+    Dim ls = dt.Select().Select(Function(x) x("Value")?.ToString?.Split(New Char(){","," "}).First().ToUpper).ToList()
+
+    Console.WriteLine(ls.Single(Function(x) x.Contains(val)))
+    'ForEach(Sub(x) Console.WriteLine(x))
+
+    Console.ReadLine()
+  End Sub
+
+  Private Function TestGrouping() As Boolean
     Dim pocos = New List(Of String)({"A", "B", "C"})
 
     Dim bool = pocos.GroupBy(Function(x) x) _
     .Select(Function(x) New With {.Key = x.Key, .Values = x.Count}).ToList() _
     .Exists(Function(x) x.Values > 1)
-    '.ToList() _
-    '.ForEach(Sub(x) Console.WriteLine($"{x.Key} {x.Values}"))
-
-    Console.WriteLine(bool)
-
-    Console.ReadLine()
-  End Sub
+    Return bool
+  End Function
 
   Private Sub sqlTesting()
     Dim sqlTalker = New SQLTalker(GetMyConnectionString)

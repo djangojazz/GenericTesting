@@ -43,6 +43,32 @@ namespace WPFCSharpTesting
       }
     }
 
+    private bool _wasReelected;
+
+    public bool WasReelected
+    {
+      get { return _wasReelected; }
+      set
+      {
+        _wasReelected = value;
+        OnPropertyChanged();
+      }
+    }
+
+    private Party _affiliation;
+
+    public Party Affiliation
+    {
+      get { return _affiliation; }
+      set
+      {
+        _affiliation = value;
+        OnPropertyChanged();
+      }
+    }
+
+
+
     public static Employee GetEmployee()
     {
       return new Employee { Name = "Brett", Title = "Developer", StartDate = new DateTime(2016, 1, 1) };
@@ -52,11 +78,11 @@ namespace WPFCSharpTesting
     {
       return new ObservableCollection<Employee>
       {
-        new Employee { Name = "Washington", Title = "President 1" },
-        new Employee { Name = "Adams", Title = "President 2" },
-        new Employee { Name = "Jefferson", Title = "President 3" },
-        new Employee { Name = "Madison", Title = "President 4" },
-        new Employee { Name = "Monroe", Title = "President 5" }
+        new Employee { Name = "Washington", Title = "President 1", WasReelected = true, Affiliation = Party.Independent },
+        new Employee { Name = "Adams", Title = "President 2", WasReelected = false, Affiliation = Party.Federalist  },
+        new Employee { Name = "Jefferson", Title = "President 3", WasReelected = true, Affiliation = Party.DemocratRepublican  },
+        new Employee { Name = "Madison", Title = "President 4", WasReelected = true, Affiliation = Party.DemocratRepublican  },
+        new Employee { Name = "Monroe", Title = "President 5", WasReelected = true, Affiliation = Party.DemocratRepublican  }
       };
     }
 
@@ -66,5 +92,12 @@ namespace WPFCSharpTesting
     {
       if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(caller));
     }
+  }
+
+  public enum Party
+  {
+    Independent,
+    Federalist,
+    DemocratRepublican
   }
 }

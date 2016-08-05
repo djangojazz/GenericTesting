@@ -59,6 +59,9 @@
     </ApplicationDefinition>
     <Compile Include="DateConverter.cs" />
     <Compile Include="Employee.cs" />
+    <Compile Include="Views\Animations.xaml.cs">
+      <DependentUpon>Animations.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AsyncView.xaml.cs">
       <DependentUpon>AsyncView.xaml</DependentUpon>
     </Compile>
@@ -70,6 +73,9 @@
     </Compile>
     <Compile Include="Views\EnterpriseWPF.xaml.cs">
       <DependentUpon>EnterpriseWPF.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OtherControls.xaml.cs">
+      <DependentUpon>OtherControls.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -84,6 +90,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Animations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AsyncView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -97,6 +107,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EnterpriseWPF.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OtherControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
