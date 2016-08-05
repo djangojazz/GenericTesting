@@ -6,8 +6,42 @@
              xmlns:local="clr-namespace:WPFCSharpTesting.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-    <Button Content="OK"
+  <UserControl.Resources>
+    <Storyboard x:Key="EllipseMovement">
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="ellipse">
+        <EasingDoubleKeyFrame KeyTime="0" Value="-4.5"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:1" Value="-4"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:2" Value="101"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3" Value="170"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:4" Value="225.5"/>
+      </DoubleAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="ellipse">
+        <EasingDoubleKeyFrame KeyTime="0" Value="-4"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:1" Value="160.5"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:2" Value="5"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3" Value="142"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:4" Value="-4.5"/>
+      </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+  </UserControl.Resources>
+  <UserControl.Triggers>
+    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+      <BeginStoryboard Storyboard="{StaticResource EllipseMovement}"/>
+    </EventTrigger>
+  </UserControl.Triggers>
+  <Grid>
+    <Ellipse x:Name="ellipse" Fill="#FF050593" HorizontalAlignment="Left" Height="50" Margin="5.5,5.5,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.5,0.5">
+      <Ellipse.RenderTransform>
+        <TransformGroup>
+          <ScaleTransform/>
+          <SkewTransform/>
+          <RotateTransform/>
+          <TranslateTransform/>
+        </TransformGroup>
+      </Ellipse.RenderTransform>
+    </Ellipse>
+
+    <!--<Button Content="OK"
             Width="30"
             Height="30">
       <Button.Triggers>
@@ -23,16 +57,16 @@
               </Storyboard>
             </BeginStoryboard>
             
-            <!--<BeginStoryboard>
+            <BeginStoryboard>
               <Storyboard TargetProperty="Width">
                 <DoubleAnimation From="30" To="150" Duration="0:0:4" AutoReverse="True" />
               </Storyboard>
-            </BeginStoryboard>-->
+            </BeginStoryboard>
           </EventTrigger.Actions>
         </EventTrigger>
       </Button.Triggers>
     </Button>
-    <!--<Canvas>
+    <Canvas>
       <Ellipse Width="50"
              Height="50"
              Fill="LightBlue"
