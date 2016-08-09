@@ -8,11 +8,41 @@ Public Class SimpleDataGrid
   Private _products = New List(Of Product)
   Private _talker = New SQLTalker(GetTesterDatabase)
 
+  Public Enum EUOM
+    Lbs = 1
+    Ounces = 2
+    Dozen = 3
+    Bushel = 4
+  End Enum
+
   Public Sub New()
     ' This call is required by the designer.
     InitializeComponent()
 
-    _products = DirectCast(DataConverter.ConvertTo(Of Product)(_talker.GetData("Select * From dbo.Product")), List(Of Product)).OrderBy(Function(x) x.ProductDescription)
+    _products = DirectCast(DataConverter.ConvertTo(Of Product)(_talker.GetData("Select * From dbo.Product")), List(Of Product)).OrderBy(Function(x) x.ProductDescription).ToArray()
+    Dim items = New Dictionary(Of Integer, String)
+
+
+    For Each e As EUOM In [Enum].GetValues(GetType(EUOM))
+      Dim row As DataRow = ds.Tables("tUOM").NewRow
+      row("Id") = e
+      lblx.Text += CDbl(e).ToString
+      row("Val") = e.ToString
+      lbly.Text += e.ToString
+      ds.Tables("tUOM").Rows.Add(row)
+    Next
+
+
+    'dd2.Selected = EUOM.Dozen
+
+    'Dim items As IList(Of Product) = _products
+
+    'Dim src As BindingSource = New BindingSource
+    'src.DataSource = items
+    'TestDropDown.DataSource = src.DataSource
+    'TestDropDown.DataSource = src
+    'TestDropDown.ValueMember = "ProductId"
+    'TestDropDown.DisplayMember = "ProductDescription"
 
     Dim s = ""
     For Each p In _products
@@ -23,12 +53,13 @@ Public Class SimpleDataGrid
       ds.Tables("tProduct").Rows.Add(row)
     Next
 
-    For i = 1 To 2
+    For i = 1 To 3
       Dim newRow As DataRow = ds.Tables("tBase").NewRow
       newRow("Id") = i
       newRow("Value") = i * 1000
       newRow("Percent") = (i * 0.22) * 100
       newRow("ProductId") = i + 5
+      newRow("dd2") = i
       ds.Tables("tBase").Rows.Add(newRow)
     Next
 
@@ -88,13 +119,13 @@ Public Class SimpleDataGrid
     btnGetValues.Enabled = True
     Dim currentCell = DirectCast(sender, DataGridView)?.CurrentCell?.Value?.ToString
 
-    If (_lastValue <> currentCell) Then
-      lbly.Text = currentCell
-      lblz.Text = "Needs change"
-    Else
-      lbly.Text = currentCell
-      lblz.Text = "No change"
-    End If
+    'If (_lastValue <> currentCell) Then
+    '  lbly.Text = currentCell
+    '  lblz.Text = "Needs change"
+    'Else
+    '  lbly.Text = currentCell
+    '  lblz.Text = "No change"
+    'End If
 
   End Sub
 
@@ -102,7 +133,7 @@ Public Class SimpleDataGrid
   Private Sub dgv_CurrentCellChanged(sender As Object, e As EventArgs) Handles dgv.CurrentCellChanged
     Dim x = DirectCast(sender, DataGridView)?.CurrentCell?.Value?.ToString
     _lastValue = x
-    lblx.Text = x
+    'lblx.Text = x
   End Sub
 
   Private Sub btnGetValues_Click(sender As Object, e As EventArgs) Handles btnGetValues.Click
@@ -128,4 +159,5 @@ Public Class SimpleDataGrid
 
     'MessageBox.Show(s)
   End Sub
+
 End Class
