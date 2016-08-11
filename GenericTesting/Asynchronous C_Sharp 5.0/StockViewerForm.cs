@@ -32,12 +32,9 @@ namespace StockMarket
       try
       {
         fetchButton.Enabled = false;
-
-        
       }
       catch (Exception)
       {
-
         throw;
       }
       finally

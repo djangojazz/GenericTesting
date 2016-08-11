@@ -1,0 +1,17 @@
+﻿<Window x:Class="UnreliableWPFApplication.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UnreliableWPFApplication"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+    <StackPanel Margin="2">
+      <Button Name="RssButton" Content="DOWNLOAD RSS" Margin="5" Click="RssButton_Click" />
+      <Button Name="CounterButton" Content="INCREASE COUNTER" Margin="5" Click="CounterButton_Click" />
+      <TextBlock Name="CounterText" Text="Counter: " Margin="5"/>
+      <TextBlock x:Name="RssText" TextWrapping="Wrap" Text="RSS" Margin="5"/>
+    </StackPanel>
+    </Grid>
+</Window>

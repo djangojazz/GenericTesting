@@ -31,6 +31,12 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ADODataAccess", "ADODataAcc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asynchronous C_Sharp 5.0", "Asynchronous C_Sharp 5.0\Asynchronous C_Sharp 5.0.csproj", "{5AC94E9E-FA36-47DF-9E69-8A14EA61D614}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnreliableWPFApplication", "UnreliableWPFApplication\UnreliableWPFApplication.csproj", "{ABCC8C36-99A4-4994-830A-F7DFE1F76267}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Getting Started with Async 5.0", "Getting Started with Async 5.0", "{BDC66876-72BB-42B9-9A20-7C480A046A79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReliableWPFApplication", "ReliableWPFApplication\ReliableWPFApplication.csproj", "{127053DA-3050-4E48-BE49-99AA0D82468F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,8 +101,20 @@ Global
 		{5AC94E9E-FA36-47DF-9E69-8A14EA61D614}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AC94E9E-FA36-47DF-9E69-8A14EA61D614}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AC94E9E-FA36-47DF-9E69-8A14EA61D614}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABCC8C36-99A4-4994-830A-F7DFE1F76267}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABCC8C36-99A4-4994-830A-F7DFE1F76267}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABCC8C36-99A4-4994-830A-F7DFE1F76267}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABCC8C36-99A4-4994-830A-F7DFE1F76267}.Release|Any CPU.Build.0 = Release|Any CPU
+		{127053DA-3050-4E48-BE49-99AA0D82468F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{127053DA-3050-4E48-BE49-99AA0D82468F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{127053DA-3050-4E48-BE49-99AA0D82468F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{127053DA-3050-4E48-BE49-99AA0D82468F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ABCC8C36-99A4-4994-830A-F7DFE1F76267} = {BDC66876-72BB-42B9-9A20-7C480A046A79}
+		{127053DA-3050-4E48-BE49-99AA0D82468F} = {BDC66876-72BB-42B9-9A20-7C480A046A79}
 	EndGlobalSection
 EndGlobal
