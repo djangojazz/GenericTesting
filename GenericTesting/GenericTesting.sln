@@ -37,6 +37,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Getting Started with Async 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReliableWPFApplication", "ReliableWPFApplication\ReliableWPFApplication.csproj", "{127053DA-3050-4E48-BE49-99AA0D82468F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLogin", "MyLogin\MyLogin.csproj", "{8CE998CF-78E4-4F73-905E-2EBB0DB02563}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -109,6 +111,10 @@ Global
 		{127053DA-3050-4E48-BE49-99AA0D82468F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{127053DA-3050-4E48-BE49-99AA0D82468F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{127053DA-3050-4E48-BE49-99AA0D82468F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CE998CF-78E4-4F73-905E-2EBB0DB02563}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CE998CF-78E4-4F73-905E-2EBB0DB02563}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CE998CF-78E4-4F73-905E-2EBB0DB02563}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CE998CF-78E4-4F73-905E-2EBB0DB02563}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,5 +122,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{ABCC8C36-99A4-4994-830A-F7DFE1F76267} = {BDC66876-72BB-42B9-9A20-7C480A046A79}
 		{127053DA-3050-4E48-BE49-99AA0D82468F} = {BDC66876-72BB-42B9-9A20-7C480A046A79}
+		{8CE998CF-78E4-4F73-905E-2EBB0DB02563} = {BDC66876-72BB-42B9-9A20-7C480A046A79}
 	EndGlobalSection
 EndGlobal
