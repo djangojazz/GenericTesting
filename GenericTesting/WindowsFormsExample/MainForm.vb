@@ -1,26 +1,23 @@
 ﻿Public Class MainForm
-  Private Sub OpenDataGridViewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OpenDataGridViewToolStripMenuItem.Click
-    Dim newWindow = New DataGridWindow()
-    newWindow.Show()
+  Private Sub Opener(sender As Object, e As EventArgs) Handles OpenDataGridViewToolStripMenuItem.Click, SimpleErrorCheckingToolStripMenuItem.Click, mSimpleDataGrid.Click, mDynamicDataGrid.Click, ListGridToolStripMenuItem.Click, TreeViewToolStripMenuItem.Click
+    Dim newWindow = Nothing
+
+    Select Case True
+      Case sender Is OpenDataGridViewToolStripMenuItem
+        newWindow = New DataGridWindow()
+      Case sender Is SimpleErrorCheckingToolStripMenuItem
+        newWindow = New ErrorChecking()
+      Case sender Is mSimpleDataGrid
+        newWindow = New SimpleDataGrid()
+      Case sender Is mDynamicDataGrid
+        newWindow = New DataGridDynamic()
+      Case sender Is ListGridToolStripMenuItem
+        newWindow = New ListViewWindow()
+      Case sender Is TreeViewToolStripMenuItem
+        newWindow = New TreeView()
+    End Select
+
+    If newWindow IsNot Nothing Then newWindow.Show()
   End Sub
 
-  Private Sub SimpleErrorCheckingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SimpleErrorCheckingToolStripMenuItem.Click
-    Dim newWindow = New ErrorChecking()
-    newWindow.Show()
-  End Sub
-
-  Private Sub SimpleDataGridToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mSimpleDataGrid.Click
-    Dim newWindow = New SimpleDataGrid()
-    newWindow.Show()
-  End Sub
-
-  Private Sub mDynamicDataGrid_Click(sender As Object, e As EventArgs) Handles mDynamicDataGrid.Click
-    Dim newWindow = New DataGridDynamic()
-    newWindow.Show()
-  End Sub
-
-  Private Sub ListGridToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ListGridToolStripMenuItem.Click
-    Dim newWindow = New ListViewWindow()
-    newWindow.Show()
-  End Sub
 End Class

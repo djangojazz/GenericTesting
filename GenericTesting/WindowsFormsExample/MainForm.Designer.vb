@@ -27,8 +27,9 @@ Partial Class MainForm
     Me.mDataGrids = New System.Windows.Forms.ToolStripMenuItem()
     Me.mSimpleDataGrid = New System.Windows.Forms.ToolStripMenuItem()
     Me.mDynamicDataGrid = New System.Windows.Forms.ToolStripMenuItem()
-    Me.SimpleErrorCheckingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.ListGridToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+    Me.SimpleErrorCheckingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+    Me.TreeViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.MenuStrip1.SuspendLayout()
     Me.SuspendLayout()
     '
@@ -49,7 +50,7 @@ Partial Class MainForm
     '
     'mDataGrids
     '
-    Me.mDataGrids.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mSimpleDataGrid, Me.mDynamicDataGrid, Me.ListGridToolStripMenuItem})
+    Me.mDataGrids.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mSimpleDataGrid, Me.mDynamicDataGrid, Me.ListGridToolStripMenuItem, Me.TreeViewToolStripMenuItem})
     Me.mDataGrids.Name = "mDataGrids"
     Me.mDataGrids.Size = New System.Drawing.Size(70, 20)
     Me.mDataGrids.Text = "DataGrids"
@@ -66,17 +67,23 @@ Partial Class MainForm
     Me.mDynamicDataGrid.Size = New System.Drawing.Size(167, 22)
     Me.mDynamicDataGrid.Text = "DynamicDataGrid"
     '
+    'ListGridToolStripMenuItem
+    '
+    Me.ListGridToolStripMenuItem.Name = "ListGridToolStripMenuItem"
+    Me.ListGridToolStripMenuItem.Size = New System.Drawing.Size(167, 22)
+    Me.ListGridToolStripMenuItem.Text = "ListGrid"
+    '
     'SimpleErrorCheckingToolStripMenuItem
     '
     Me.SimpleErrorCheckingToolStripMenuItem.Name = "SimpleErrorCheckingToolStripMenuItem"
     Me.SimpleErrorCheckingToolStripMenuItem.Size = New System.Drawing.Size(130, 20)
     Me.SimpleErrorCheckingToolStripMenuItem.Text = "SimpleErrorChecking"
     '
-    'ListGridToolStripMenuItem
+    'TreeViewToolStripMenuItem
     '
-    Me.ListGridToolStripMenuItem.Name = "ListGridToolStripMenuItem"
-    Me.ListGridToolStripMenuItem.Size = New System.Drawing.Size(167, 22)
-    Me.ListGridToolStripMenuItem.Text = "ListGrid"
+    Me.TreeViewToolStripMenuItem.Name = "TreeViewToolStripMenuItem"
+    Me.TreeViewToolStripMenuItem.Size = New System.Drawing.Size(167, 22)
+    Me.TreeViewToolStripMenuItem.Text = "TreeView"
     '
     'MainForm
     '
@@ -101,4 +108,5 @@ Partial Class MainForm
   Friend WithEvents mSimpleDataGrid As ToolStripMenuItem
   Friend WithEvents mDynamicDataGrid As ToolStripMenuItem
   Friend WithEvents ListGridToolStripMenuItem As ToolStripMenuItem
+  Friend WithEvents TreeViewToolStripMenuItem As ToolStripMenuItem
 End Class

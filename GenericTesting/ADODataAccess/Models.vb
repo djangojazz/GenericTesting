@@ -7,7 +7,7 @@ End Class
 
 Public Class Product
   Public Property ProductId As Integer
-  Public Property ProductDescription As String
+  Public Property Description As String
 End Class
 
 Public Class Order
@@ -21,3 +21,4 @@ Public Class PersonOrder
   Public Property LastName As String
   Public Property OrderId As Integer
 End Class
+

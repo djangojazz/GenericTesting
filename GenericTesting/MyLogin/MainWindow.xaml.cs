@@ -29,22 +29,33 @@ namespace MyLogin
 
     private async void Button_Click(object sender, RoutedEventArgs e)
     {
-      try
-      {
-        loginButton.IsEnabled = false;
-        BusyIndicator.Visibility = Visibility.Visible;
+      // Block the UI thread with using a state machine in a Task vehicle
+      var result = Task.Run(() => LoginAsync()).Result;
 
-        var result = await LoginAsync();
+      ////Create a Deadlock on Purpose
+      //var task = Task.Delay(1).ContinueWith((t) => {
+      //  Dispatcher.Invoke(() => { });
+      //});
 
-        loginButton.Content = result;
+      //task.Wait();
 
-        loginButton.IsEnabled = true;
-        BusyIndicator.Visibility = Visibility.Hidden;
-      }
-      catch (Exception)
-      {
-        loginButton.Content = "Internal Error!";
-      }
+      //// WORKING VERSION BELOW
+      //try
+      //{
+      //  loginButton.IsEnabled = false;
+      //  BusyIndicator.Visibility = Visibility.Visible;
+
+      //  var result = await LoginAsync();
+        
+      //  loginButton.Content = result;
+
+      //  loginButton.IsEnabled = true;
+      //  BusyIndicator.Visibility = Visibility.Hidden;
+      //}
+      //catch (Exception)
+      //{
+      //  loginButton.Content = "Internal Error!";
+      //}
 
       // This is the first two ways of doing things with the TPL
       //loginButton.IsEnabled = false;
@@ -91,28 +102,53 @@ namespace MyLogin
       //  //});
     }
 
-    private async Task<string> LoginAsync()
+    //private async Task<string> LoginAsync()
+    //{
+    //  try
+    //  {
+    //    var loginTask = Task.Run(() =>
+    //      {
+    //        Thread.Sleep(2000);
+
+    //        return "Login Successful!";
+    //      });
+
+    //    //var logTask = Task.Delay(2000);
+
+    //    //var purchaseTask = Task.Delay(1000);
+
+    //    //await Task.WhenAll(logingTask, logTask, purchaseTask);
+
+    //    return await loginTask;
+    //  }
+    //  catch (Exception)
+    //  {
+    //    return "Login Failed!";
+    //  }
+    //}
+
+    private Task<string> LoginAsync()
     {
       try
       {
-        var logingTask = Task.Run(() =>
-          {
-            Thread.Sleep(2000);
+        var loginTask = Task.Run(async () =>
+        {
+          await Task.Delay(2000);
 
-            return "Login Successful!";
-          });
+          return "Login Successful!";
+        });
 
-        var logTask = Task.Delay(2000);
+        //var logTask = Task.Delay(2000);
 
-        var purchaseTask = Task.Delay(1000);
+        //var purchaseTask = Task.Delay(1000);
 
-        await Task.WhenAll(logingTask, logTask, purchaseTask);
+        //await Task.WhenAll(logingTask, logTask, purchaseTask);
 
-        return logingTask.Result;
+        return loginTask;
       }
       catch (Exception)
       {
-        return "Login Failed!";
+        return Task.FromResult("Login Failed!");
       }
     }
   }

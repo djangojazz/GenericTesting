@@ -19,7 +19,7 @@ Public Class SimpleDataGrid
     ' This call is required by the designer.
     InitializeComponent()
 
-    _products = DirectCast(DataConverter.ConvertTo(Of Product)(_talker.GetData("Select * From dbo.Product")), List(Of Product)).OrderBy(Function(x) x.ProductDescription).ToArray()
+    _products = DirectCast(DataConverter.ConvertTo(Of Product)(_talker.GetData("Select * From dbo.Product")), List(Of Product)).OrderBy(Function(x) x.Description).ToArray()
     Dim items = New Dictionary(Of Integer, String)
 
 
