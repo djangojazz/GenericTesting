@@ -11,6 +11,13 @@ Public Class TreeView
     Public Property UOM As Integer
   End Class
 
+  Public Enum EUOM
+    Lbs = 1
+    Ounces = 2
+    Dozen = 3
+    Bushel = 4
+  End Enum
+
   Private _talker = New SQLTalker(GetCentralTestDatabase)
   Private _productChangeFormats As New List(Of ProductFormatChange)
   Private _products As New List(Of Product)
@@ -18,6 +25,10 @@ Public Class TreeView
   Private _productFormats As New Dictionary(Of Integer, String)
 
   Private Sub TreeView_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    For Each uom As EUOM In [Enum].GetValues(GetType(EUOM))
+      _UOMs.Add(CInt(uom), uom.ToString)
+    Next
+
     _products = DirectCast(DataConverter.ConvertTo(Of Product)(_talker.GetData("Select ProductId,	Description from dbo.tCentral_Product WHERE Active_Flag = 1")), List(Of Product))
     Dim productFormats = _talker.GetData("Select ProductFormatId, ProductFormatDescription From dbo.tCentral_ProductFormat")
 
@@ -25,7 +36,9 @@ Public Class TreeView
       _productFormats.Add(row("ProductFormatId"), row("ProductFormatDescription"))
     Next
 
-    _UOMs = New Dictionary(Of Integer, String) From {{1, "Lbs"}, {2, "Ounces"}, {3, "Dozen"}, {4, "Bushel"}}
+
+
+
     _productChangeFormats = DirectCast(DataConverter.ConvertTo(Of ProductFormatChange)(_talker.GetData("SELECT ProductFormatChangeId, ProductFormatChangeDescription, ProductId, ParentProductFormatChangeId, ProductFormatId, RecoveryRate, UOM from dbo.tCentral_ProductFormatChange")), List(Of ProductFormatChange))
 
 

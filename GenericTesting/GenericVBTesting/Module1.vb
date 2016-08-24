@@ -7,6 +7,13 @@ Imports ADODataAccess
 
 Module Module1
 
+  Public Class FleetMonVesselModel
+    Public Property name As Double
+    Public Property mmsinumber As Integer
+    Public Property latitude As Double
+    Public Property longitude As Double
+  End Class
+
   Private MyConnection As SqlClient.SqlConnection
   Private MyReader As SqlClient.SqlDataReader
 
@@ -80,30 +87,21 @@ Module Module1
   End Function
 
   Sub Main()
-    Dim val = "grass".ToUpper()
+    Dim item = "<objects type="" list""><object><note></note><tags type="" list""><value>Canfisco</value><value>Other</value></tags><vessel><callsign>CFL3773</callsign><course type="" integer"">270</course><destination>VANCOUVER BC</destination><draught type="" null""/><etatime>2015-11-30 00:00:00+00:00</etatime><flag>CA|Canada</flag><heading>270.0</heading><imonumber type="" integer"">7628473</imonumber><lastevent type="" hash""><event>Left port area, Vancouver (CA)</event><eventtime>2016-08-24T18:48:12+00:00</eventtime></lastevent><lastport type="" hash""><arrival>2016-08-17 13:46:34+00:00</arrival><departure>2016-08-24 17:43:52+00:00</departure><locode>CAVAN</locode><name>Vancouver</name></lastport><latitude type="" float"">49.21457</latitude><location>Harmac, CA</location><longitude type="" float"">-123.755835</longitude><mmsinumber type="" integer"">316001821</mmsinumber><name>FROSTI</name><navigationstatus>not available</navigationstatus><nextport type="" null""/><photos type="" null""/><positionreceived>2016-08-24 22:38:25+00:00</positionreceived><publicurl>//www.fleetmon.com/vessels/frosti_7628473_52472/</publicurl><speed>6.8</speed><type>Special Purpose</type></vessel></object></objects>"
+    Dim xdoc As XDocument = XDocument.Parse(item)
 
-    If val.Substring(Len(val) - 1, 1) = "S" Then Console.WriteLine("Last value was an s") : val = val.Substring(0, Len(val) - 1)
-    If val.Substring(Len(val) - 1, 1) = "E" Then Console.WriteLine("Last value was an es") : val = val.Substring(0, Len(val) - 1)
+    Dim vessels = xdoc.Descendants("vessel")
 
-    Dim dt As DataTable = New DataTable
-    dt.Columns.Add("Id", GetType(Integer))
-    dt.Columns.Add("Value", GetType(String))
+    'Dim extracted = vessels.ToList().Select(Function(x) New ShipDb With
+    '                                     {
+    '                                      .MMSI = x.Element(NameOf(FleetMonVesselModel.mmsinumber)).Value,
+    '                                      .ShipName = x.Element(NameOf(FleetMonVesselModel.name)).Value,
+    '                                      .Latitude = x.Element(NameOf(FleetMonVesselModel.latitude)).Value,
+    '                                      .Longitude = x.Element(NameOf(FleetMonVesselModel.longitude)).Value,
+    '                                      .ShipTypeId = [Enum].Parse(GetType(ShipType), x.Parent.Element("tags").Value)
+    '                                      }).ToList()
 
-    dt.Rows.Add(1, "Apple and Baked")
-    dt.Rows.Add(2, "Brat Burnt")
-    dt.Rows.Add(3, "Curry that I cannot stand")
-    dt.Rows.Add(4, "Grass that is dry")
-
-    For Each row As DataRow In dt.Rows
-      Console.WriteLine($"{row("Value").ToString}")
-    Next
-
-    Console.WriteLine("")
-
-    Dim ls = dt.Select().Select(Function(x) x("Value")?.ToString?.Split(New Char(){","," "}).First().ToUpper).ToList()
-
-    Console.WriteLine(ls.Single(Function(x) x.Contains(val)))
-    'ForEach(Sub(x) Console.WriteLine(x))
+    vessels.ToList().Select(Function(x) x.Parent.Element("tags").Value).ToList().ForEach(Sub(x) Console.WriteLine(x))
 
     Console.ReadLine()
   End Sub

@@ -92,11 +92,34 @@ namespace GenericTesting
       Console.WriteLine($"utc: {dtUTC2}{nl}est:{dtEST2}{nl}pst:{dtPST2}");
     }
 
+    public static void ApiMock(string s)
+    {
+      Console.WriteLine($"I worked on {s}!");
+    }
+
     static void Main(string[] args)
     {
-      new Delegates.ComposableDelegates().ReturnData();
+      var d =  new Dictionary<int, string> {
+          {  1, "location-1" },
+          {  2, "location-2" },
+          {  3, "location-3" }
+      };
 
-        //var sqltalker = new DataAccess.SQLTalker("VM-APC01D-CLK\\TEST", "distribution", "sqluser", "pa55word");
+      d.ToList().ForEach(x => ApiMock(x.Value));
+
+      //I just want the second one
+      d.Where(x => x.Value.Contains("-2")).ToList().ForEach(x => ApiMock(x.Value));
+
+      //Do you want a concatenated string
+      var holder = string.Empty;
+      d.ToList().ForEach(x => holder += x.Value + ", ");
+      holder = holder.Substring(0, holder.Length - 2);
+
+      Console.WriteLine(holder);
+
+      //new Delegates.ComposableDelegates().ReturnData();
+
+      //var sqltalker = new DataAccess.SQLTalker("VM-APC01D-CLK\\TEST", "distribution", "sqluser", "pa55word");
 
       //var results = sqltalker.Reader("EXEC sys.sp_replmonitorhelpsubscription 	@publication_type = 0", ",", true);
 
