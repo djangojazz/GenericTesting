@@ -5,45 +5,12 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TesterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Tester.dbo.Dates' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="Dates">
-          <Key>
-            <PropertyRef Name="DateId" />
-          </Key>
-          <Property Name="DateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Dt" Type="datetime" />
-          <Property Name="dtO" Type="datetimeoffset" Precision="7" />
-        </EntityType>
-        <EntityType Name="tbPerson_Address">
-          <Key>
-            <PropertyRef Name="Person_AddressId" />
-          </Key>
-          <Property Name="Person_AddressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PersonId" Type="int" Nullable="false" />
-          <Property Name="AddressId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="teAddress">
-          <Key>
-            <PropertyRef Name="AddressId" />
-          </Key>
-          <Property Name="AddressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StreetAddress" Type="varchar" MaxLength="256" Nullable="false" />
-          <Property Name="StreetAddressExtended" Type="varchar" MaxLength="256" />
-          <Property Name="City" Type="varchar" MaxLength="256" Nullable="false" />
-          <Property Name="State" Type="char" MaxLength="2" Nullable="false" />
-          <Property Name="ZipCode" Type="int" Nullable="false" />
-          <Property Name="Latitude" Type="float" Nullable="false" />
-          <Property Name="Longitude" Type="float" Nullable="false" />
-          <Property Name="GeographyPoint" Type="geography" StoreGeneratedPattern="Computed" />
-        </EntityType>
         <EntityType Name="teOrder">
           <Key>
             <PropertyRef Name="OrderId" />
           </Key>
           <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PersonId" Type="int" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="32" />
+          <Property Name="Description" Type="varchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="tePerson">
           <Key>
@@ -52,106 +19,47 @@ warning 6002: The table/view 'Tester.dbo.Dates' does not have a primary key defi
           <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FirstName" Type="varchar" MaxLength="128" />
           <Property Name="LastName" Type="varchar" MaxLength="128" />
-          <Property Name="Description" Type="text" />
+          <Property Name="OrderId" Type="int" />
         </EntityType>
-        <Association Name="FK_Order_Person_PersonID">
-          <End Role="tePerson" Type="Self.tePerson" Multiplicity="1" />
-          <End Role="teOrder" Type="Self.teOrder" Multiplicity="*" />
+        <Association Name="FK_Person_Order_OrderId">
+          <End Role="teOrder" Type="Self.teOrder" Multiplicity="0..1" />
+          <End Role="tePerson" Type="Self.tePerson" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tePerson">
-              <PropertyRef Name="PersonId" />
+            <Principal Role="teOrder">
+              <PropertyRef Name="OrderId" />
             </Principal>
-            <Dependent Role="teOrder">
-              <PropertyRef Name="PersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbPerson_Address_Address_AddressID">
-          <End Role="teAddress" Type="Self.teAddress" Multiplicity="1" />
-          <End Role="tbPerson_Address" Type="Self.tbPerson_Address" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="teAddress">
-              <PropertyRef Name="AddressId" />
-            </Principal>
-            <Dependent Role="tbPerson_Address">
-              <PropertyRef Name="PersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbPerson_Address_Person_PersonID">
-          <End Role="tePerson" Type="Self.tePerson" Multiplicity="1" />
-          <End Role="tbPerson_Address" Type="Self.tbPerson_Address" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tePerson">
-              <PropertyRef Name="PersonId" />
-            </Principal>
-            <Dependent Role="tbPerson_Address">
-              <PropertyRef Name="PersonId" />
+            <Dependent Role="tePerson">
+              <PropertyRef Name="OrderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="TesterModelStoreContainer">
-          <EntitySet Name="tbPerson_Address" EntityType="Self.tbPerson_Address" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="teAddress" EntityType="Self.teAddress" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="teOrder" EntityType="Self.teOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tePerson" EntityType="Self.tePerson" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Dates" EntityType="Self.Dates" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Dates].[DateId] AS [DateId], 
-    [Dates].[Dt] AS [Dt], 
-    [Dates].[dtO] AS [dtO]
-    FROM [dbo].[Dates] AS [Dates]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK_Order_Person_PersonID" Association="Self.FK_Order_Person_PersonID">
-            <End Role="tePerson" EntitySet="tePerson" />
+          <AssociationSet Name="FK_Person_Order_OrderId" Association="Self.FK_Person_Order_OrderId">
             <End Role="teOrder" EntitySet="teOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbPerson_Address_Address_AddressID" Association="Self.FK_tbPerson_Address_Address_AddressID">
-            <End Role="teAddress" EntitySet="teAddress" />
-            <End Role="tbPerson_Address" EntitySet="tbPerson_Address" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbPerson_Address_Person_PersonID" Association="Self.FK_tbPerson_Address_Person_PersonID">
             <End Role="tePerson" EntitySet="tePerson" />
-            <End Role="tbPerson_Address" EntitySet="tbPerson_Address" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TesterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="tbPerson_Address">
-          <Key>
-            <PropertyRef Name="Person_AddressId" />
-          </Key>
-          <Property Name="Person_AddressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PersonId" Type="Int32" Nullable="false" />
-          <Property Name="AddressId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="teAddress" Relationship="Self.FK_tbPerson_Address_Address_AddressID" FromRole="tbPerson_Address" ToRole="teAddress" />
-          <NavigationProperty Name="tePerson" Relationship="Self.FK_tbPerson_Address_Person_PersonID" FromRole="tbPerson_Address" ToRole="tePerson" />
-        </EntityType>
-        <EntityType Name="teAddress">
-          <Key>
-            <PropertyRef Name="AddressId" />
-          </Key>
-          <Property Name="AddressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StreetAddress" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StreetAddressExtended" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="City" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="ZipCode" Type="Int32" Nullable="false" />
-          <Property Name="Latitude" Type="Double" Nullable="false" />
-          <Property Name="Longitude" Type="Double" Nullable="false" />
-          <Property Name="GeographyPoint" Type="Geography" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="tbPerson_Address" Relationship="Self.FK_tbPerson_Address_Address_AddressID" FromRole="teAddress" ToRole="tbPerson_Address" />
-        </EntityType>
+        <EntityContainer Name="TesterEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="teOrders" EntityType="TesterModel.teOrder" />
+          <EntitySet Name="tePersons" EntityType="TesterModel.tePerson" />
+          <AssociationSet Name="FK_Person_Order_OrderId" Association="TesterModel.FK_Person_Order_OrderId">
+            <End Role="teOrder" EntitySet="teOrders" />
+            <End Role="tePerson" EntitySet="tePersons" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="teOrder">
           <Key>
             <PropertyRef Name="OrderId" />
           </Key>
           <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PersonId" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tePerson" Relationship="Self.FK_Order_Person_PersonID" FromRole="teOrder" ToRole="tePerson" />
+          <Property Name="Description" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tePersons" Relationship="TesterModel.FK_Person_Order_OrderId" FromRole="teOrder" ToRole="tePerson" />
         </EntityType>
         <EntityType Name="tePerson">
           <Key>
@@ -160,128 +68,42 @@ warning 6002: The table/view 'Tester.dbo.Dates' does not have a primary key defi
           <Property Name="PersonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FirstName" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="LastName" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tbPerson_Address" Relationship="Self.FK_tbPerson_Address_Person_PersonID" FromRole="tePerson" ToRole="tbPerson_Address" />
-          <NavigationProperty Name="teOrders" Relationship="Self.FK_Order_Person_PersonID" FromRole="tePerson" ToRole="teOrder" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OrderId" Type="Int32" />
+          <NavigationProperty Name="teOrder" Relationship="TesterModel.FK_Person_Order_OrderId" FromRole="tePerson" ToRole="teOrder" />
         </EntityType>
-        <Association Name="FK_tbPerson_Address_Address_AddressID">
-          <End Role="teAddress" Type="Self.teAddress" Multiplicity="1" />
-          <End Role="tbPerson_Address" Type="Self.tbPerson_Address" Multiplicity="*" />
+        <Association Name="FK_Person_Order_OrderId">
+          <End Type="TesterModel.teOrder" Role="teOrder" Multiplicity="0..1" />
+          <End Type="TesterModel.tePerson" Role="tePerson" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="teAddress">
-              <PropertyRef Name="AddressId" />
+            <Principal Role="teOrder">
+              <PropertyRef Name="OrderId" />
             </Principal>
-            <Dependent Role="tbPerson_Address">
-              <PropertyRef Name="PersonId" />
+            <Dependent Role="tePerson">
+              <PropertyRef Name="OrderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbPerson_Address_Person_PersonID">
-          <End Role="tePerson" Type="Self.tePerson" Multiplicity="1" />
-          <End Role="tbPerson_Address" Type="Self.tbPerson_Address" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tePerson">
-              <PropertyRef Name="PersonId" />
-            </Principal>
-            <Dependent Role="tbPerson_Address">
-              <PropertyRef Name="PersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Order_Person_PersonID">
-          <End Role="tePerson" Type="Self.tePerson" Multiplicity="1" />
-          <End Role="teOrder" Type="Self.teOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tePerson">
-              <PropertyRef Name="PersonId" />
-            </Principal>
-            <Dependent Role="teOrder">
-              <PropertyRef Name="PersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="TesterEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tbPerson_Address" EntityType="Self.tbPerson_Address" />
-          <EntitySet Name="teAddresses" EntityType="Self.teAddress" />
-          <EntitySet Name="teOrders" EntityType="Self.teOrder" />
-          <EntitySet Name="tePersons" EntityType="Self.tePerson" />
-          <AssociationSet Name="FK_tbPerson_Address_Address_AddressID" Association="Self.FK_tbPerson_Address_Address_AddressID">
-            <End Role="teAddress" EntitySet="teAddresses" />
-            <End Role="tbPerson_Address" EntitySet="tbPerson_Address" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbPerson_Address_Person_PersonID" Association="Self.FK_tbPerson_Address_Person_PersonID">
-            <End Role="tePerson" EntitySet="tePersons" />
-            <End Role="tbPerson_Address" EntitySet="tbPerson_Address" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_Person_PersonID" Association="Self.FK_Order_Person_PersonID">
-            <End Role="tePerson" EntitySet="tePersons" />
-            <End Role="teOrder" EntitySet="teOrders" />
-          </AssociationSet>
-          <EntitySet Name="Dates" EntityType="TesterModel.Date" />
-        </EntityContainer>
-        <EntityType Name="Date">
-          <Key>
-            <PropertyRef Name="DateId" />
-          </Key>
-          <Property Name="DateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Dt" Type="DateTime" Precision="3" />
-          <Property Name="dtO" Type="DateTimeOffset" Precision="7" />
-        </EntityType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="TesterModelStoreContainer" CdmEntityContainer="TesterEntities">
-          <EntitySetMapping Name="tbPerson_Address">
-            <EntityTypeMapping TypeName="TesterModel.tbPerson_Address">
-              <MappingFragment StoreEntitySet="tbPerson_Address">
-                <ScalarProperty Name="Person_AddressId" ColumnName="Person_AddressId" />
-                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
-                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="teAddresses">
-            <EntityTypeMapping TypeName="TesterModel.teAddress">
-              <MappingFragment StoreEntitySet="teAddress">
-                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
-                <ScalarProperty Name="StreetAddress" ColumnName="StreetAddress" />
-                <ScalarProperty Name="StreetAddressExtended" ColumnName="StreetAddressExtended" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-                <ScalarProperty Name="GeographyPoint" ColumnName="GeographyPoint" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="teOrders">
             <EntityTypeMapping TypeName="TesterModel.teOrder">
               <MappingFragment StoreEntitySet="teOrder">
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tePersons">
             <EntityTypeMapping TypeName="TesterModel.tePerson">
               <MappingFragment StoreEntitySet="tePerson">
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Dates">
-            <EntityTypeMapping TypeName="TesterModel.Date">
-              <MappingFragment StoreEntitySet="Dates">
-                <ScalarProperty Name="dtO" ColumnName="dtO" />
-                <ScalarProperty Name="Dt" ColumnName="Dt" />
-                <ScalarProperty Name="DateId" ColumnName="DateId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

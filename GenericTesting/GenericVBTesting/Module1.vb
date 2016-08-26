@@ -86,22 +86,9 @@ Module Module1
     Return New With {Key .a = "a", .b = "b"}
   End Function
 
+
   Sub Main()
-    Dim item = "<objects type="" list""><object><note></note><tags type="" list""><value>Canfisco</value><value>Other</value></tags><vessel><callsign>CFL3773</callsign><course type="" integer"">270</course><destination>VANCOUVER BC</destination><draught type="" null""/><etatime>2015-11-30 00:00:00+00:00</etatime><flag>CA|Canada</flag><heading>270.0</heading><imonumber type="" integer"">7628473</imonumber><lastevent type="" hash""><event>Left port area, Vancouver (CA)</event><eventtime>2016-08-24T18:48:12+00:00</eventtime></lastevent><lastport type="" hash""><arrival>2016-08-17 13:46:34+00:00</arrival><departure>2016-08-24 17:43:52+00:00</departure><locode>CAVAN</locode><name>Vancouver</name></lastport><latitude type="" float"">49.21457</latitude><location>Harmac, CA</location><longitude type="" float"">-123.755835</longitude><mmsinumber type="" integer"">316001821</mmsinumber><name>FROSTI</name><navigationstatus>not available</navigationstatus><nextport type="" null""/><photos type="" null""/><positionreceived>2016-08-24 22:38:25+00:00</positionreceived><publicurl>//www.fleetmon.com/vessels/frosti_7628473_52472/</publicurl><speed>6.8</speed><type>Special Purpose</type></vessel></object></objects>"
-    Dim xdoc As XDocument = XDocument.Parse(item)
 
-    Dim vessels = xdoc.Descendants("vessel")
-
-    'Dim extracted = vessels.ToList().Select(Function(x) New ShipDb With
-    '                                     {
-    '                                      .MMSI = x.Element(NameOf(FleetMonVesselModel.mmsinumber)).Value,
-    '                                      .ShipName = x.Element(NameOf(FleetMonVesselModel.name)).Value,
-    '                                      .Latitude = x.Element(NameOf(FleetMonVesselModel.latitude)).Value,
-    '                                      .Longitude = x.Element(NameOf(FleetMonVesselModel.longitude)).Value,
-    '                                      .ShipTypeId = [Enum].Parse(GetType(ShipType), x.Parent.Element("tags").Value)
-    '                                      }).ToList()
-
-    vessels.ToList().Select(Function(x) x.Parent.Element("tags").Value).ToList().ForEach(Sub(x) Console.WriteLine(x))
 
     Console.ReadLine()
   End Sub

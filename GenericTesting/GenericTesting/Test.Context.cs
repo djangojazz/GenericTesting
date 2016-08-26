@@ -25,10 +25,7 @@ namespace GenericTesting
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tbPerson_Address> tbPerson_Address { get; set; }
-        public virtual DbSet<teAddress> teAddresses { get; set; }
         public virtual DbSet<teOrder> teOrders { get; set; }
         public virtual DbSet<tePerson> tePersons { get; set; }
-        public virtual DbSet<Date> Dates { get; set; }
     }
 }

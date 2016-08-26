@@ -54,9 +54,6 @@
   <ItemGroup>
     <Compile Include="DataAccess\DataConverter.cs" />
     <Compile Include="DataAccess\SQLTalker.cs" />
-    <Compile Include="Date.cs">
-      <DependentUpon>Test.tt</DependentUpon>
-    </Compile>
     <Compile Include="Delegates\AnnonymousDelegates.cs" />
     <Compile Include="Delegates\BasicDelegates.cs" />
     <Compile Include="Delegates\ComposableDelegates2.cs" />
@@ -72,12 +69,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringBoxingAndUnboxingToADictionary.cs" />
-    <Compile Include="tbPerson_Address.cs">
-      <DependentUpon>Test.tt</DependentUpon>
-    </Compile>
-    <Compile Include="teAddress.cs">
-      <DependentUpon>Test.tt</DependentUpon>
-    </Compile>
     <Compile Include="teOrder.cs">
       <DependentUpon>Test.tt</DependentUpon>
     </Compile>

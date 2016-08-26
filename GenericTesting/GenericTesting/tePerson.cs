@@ -14,21 +14,11 @@ namespace GenericTesting
     
     public partial class tePerson
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tePerson()
-        {
-            this.tbPerson_Address = new HashSet<tbPerson_Address>();
-            this.teOrders = new HashSet<teOrder>();
-        }
-    
         public int PersonId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Description { get; set; }
+        public Nullable<int> OrderId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbPerson_Address> tbPerson_Address { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<teOrder> teOrders { get; set; }
+        public virtual teOrder teOrder { get; set; }
     }
 }

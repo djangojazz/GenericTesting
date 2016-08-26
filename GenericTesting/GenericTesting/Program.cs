@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Data;
 using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace GenericTesting
 {
@@ -97,31 +98,73 @@ namespace GenericTesting
       Console.WriteLine($"I worked on {s}!");
     }
 
+    public class PersonnelTech
+    {
+      public int TechId { get; set; }
+      public string Name { get; set; }
+    }
+
+    public class PersonnelTechCostCenter
+    {
+      public int TechCenterId { get; set; }
+      public string Name { get; set; }
+      public PersonnelTech Tech { get; set; }
+    }
+    
+    public static List<PersonnelTechCostCenter> ReturnTechCenters()
+    {
+      return new List<PersonnelTechCostCenter>
+      {
+          new PersonnelTechCostCenter { TechCenterId = 1, Name = "First", Tech = new PersonnelTech { TechId = 1, Name = "Joe" }},
+          new PersonnelTechCostCenter { TechCenterId = 2, Name = "Second", Tech = new PersonnelTech { TechId = 2, Name = "Bob" }},
+      };
+    }
+
     static void Main(string[] args)
     {
-      var d =  new Dictionary<int, string> {
-          {  1, "location-1" },
-          {  2, "location-2" },
-          {  3, "location-3" }
-      };
+      using (var context = new TesterEntities())
+      {
+        var peopleWithOrderOfOne = context.tePersons.Where(x => x.OrderId == 1);
 
-      d.ToList().ForEach(x => ApiMock(x.Value));
+        // Go down to get the orders for Brett, Ryan, and Mark.  I am realizing an object that is a foreign key merely by selecting the complex object.
+        // In this case x.teOrder is a POCO class mapped to another POCO class
+        var observable = new ObservableCollection<teOrder>(peopleWithOrderOfOne.ToList().Select(x => x.teOrder).ToList());
 
-      //I just want the second one
-      d.Where(x => x.Value.Contains("-2")).ToList().ForEach(x => ApiMock(x.Value));
+        // display it
+        observable.ToList().ForEach(x => Console.WriteLine($"{x.Description}"));
 
-      //Do you want a concatenated string
-      var holder = string.Empty;
-      d.ToList().ForEach(x => holder += x.Value + ", ");
-      holder = holder.Substring(0, holder.Length - 2);
+        //If you want to fully realize new objects you need to make them concrete by doing a select followed by a toList to materialize them, else they are not realized yet.
+        // THis WILL NOT WORK:
+        //var madeupPeopleAndOrders = context.tePersons
+        //  .Select(x =>
+        //    new tePerson
+        //    {
+        //      FirstName = x.FirstName,
+        //      LastName = x.LastName,
+        //      teOrder = new teOrder
+        //      {
+        //        OrderId = x.OrderId.Value,
+        //        Description = x.teOrder.Description
+        //      }
+        //    });
 
-      Console.WriteLine(holder);
+        // THis WILL WORK:
+        var madeupPeopleAndOrders = context.tePersons
+          .ToList()
+          .Select(x =>
+            new tePerson
+            {
+              FirstName = x.FirstName,
+              LastName = x.LastName,
+              teOrder = new teOrder
+              {
+                OrderId = x.OrderId.Value,
+                Description = x.teOrder.Description
+              }
+            });
 
-      //new Delegates.ComposableDelegates().ReturnData();
-
-      //var sqltalker = new DataAccess.SQLTalker("VM-APC01D-CLK\\TEST", "distribution", "sqluser", "pa55word");
-
-      //var results = sqltalker.Reader("EXEC sys.sp_replmonitorhelpsubscription 	@publication_type = 0", ",", true);
+        madeupPeopleAndOrders.ToList().ForEach(x => Console.WriteLine($"{x.FirstName} {x.LastName} {x.teOrder.Description}"));
+      }
 
       Console.ReadLine();
     }
