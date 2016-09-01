@@ -5,22 +5,13 @@ using System.Timers;
 using System.Data;
 using System.Linq;
 using System.Collections.ObjectModel;
+using System.Web.Script.Serialization;
 
 namespace GenericTesting
 {
   class Program
   {
     public int MyProperty { get; private set; }
-
-    static List<POCO> GetPOCOs()
-    {
-      return new List<POCO>
-      {
-          new POCO { Id = 1, Name = "John", Description = "basic" },
-          new POCO { Id = 2, Name = "Jane", Description = "" },
-          new POCO { Id = 3, Name = "Joey", Description = "advanced" }
-      };
-    }
     
     public delegate void ProcessTimer(object sender, ElapsedEventArgs e);
 
@@ -60,11 +51,7 @@ namespace GenericTesting
       timer.Enabled = true;
     }
     
-    public class POC
-    {
-      public int Id { get; set; }
-      public string Desc { get; set; }
-    }
+    
     
     public static List<T> GetSpecificFields<T>(DataTable dt, string columnName)
     {
@@ -97,79 +84,35 @@ namespace GenericTesting
     {
       Console.WriteLine($"I worked on {s}!");
     }
-
-    public class PersonnelTech
-    {
-      public int TechId { get; set; }
-      public string Name { get; set; }
-    }
-
-    public class PersonnelTechCostCenter
-    {
-      public int TechCenterId { get; set; }
-      public string Name { get; set; }
-      public PersonnelTech Tech { get; set; }
-    }
     
-    public static List<PersonnelTechCostCenter> ReturnTechCenters()
+    public class POC
     {
-      return new List<PersonnelTechCostCenter>
+      public int Id { get; set; }
+      public string Desc { get; set; }
+    }
+
+    static List<POC> GetPOCOs()
+    {
+      return new List<POC>
       {
-          new PersonnelTechCostCenter { TechCenterId = 1, Name = "First", Tech = new PersonnelTech { TechId = 1, Name = "Joe" }},
-          new PersonnelTechCostCenter { TechCenterId = 2, Name = "Second", Tech = new PersonnelTech { TechId = 2, Name = "Bob" }},
+          new POC { Id = 1, Desc = "John"},
+          new POC { Id = 2, Desc = "Jane" },
+          new POC { Id = 3, Desc = "\"Joey\"" }
       };
     }
-
+    
     static void Main(string[] args)
     {
-      using (var context = new TesterEntities())
-      {
-        var peopleWithOrderOfOne = context.tePersons.Where(x => x.OrderId == 1);
+      var pocos = GetPOCOs();
 
-        // Go down to get the orders for Brett, Ryan, and Mark.  I am realizing an object that is a foreign key merely by selecting the complex object.
-        // In this case x.teOrder is a POCO class mapped to another POCO class
-        var observable = new ObservableCollection<teOrder>(peopleWithOrderOfOne.ToList().Select(x => x.teOrder).ToList());
-
-        // display it
-        observable.ToList().ForEach(x => Console.WriteLine($"{x.Description}"));
-
-        //If you want to fully realize new objects you need to make them concrete by doing a select followed by a toList to materialize them, else they are not realized yet.
-        // THis WILL NOT WORK:
-        //var madeupPeopleAndOrders = context.tePersons
-        //  .Select(x =>
-        //    new tePerson
-        //    {
-        //      FirstName = x.FirstName,
-        //      LastName = x.LastName,
-        //      teOrder = new teOrder
-        //      {
-        //        OrderId = x.OrderId.Value,
-        //        Description = x.teOrder.Description
-        //      }
-        //    });
-
-        // THis WILL WORK:
-        var madeupPeopleAndOrders = context.tePersons
-          .ToList()
-          .Select(x =>
-            new tePerson
-            {
-              FirstName = x.FirstName,
-              LastName = x.LastName,
-              teOrder = new teOrder
-              {
-                OrderId = x.OrderId.Value,
-                Description = x.teOrder.Description
-              }
-            });
-
-        madeupPeopleAndOrders.ToList().ForEach(x => Console.WriteLine($"{x.FirstName} {x.LastName} {x.teOrder.Description}"));
-      }
+      var serializer = new JavaScriptSerializer();
+      var sjson = serializer.Serialize(pocos);
+      var djson = serializer.Deserialize<List<POC>>(sjson);
 
       Console.ReadLine();
     }
 
-    private static POCO SwitchLambdaExample()
+    private static POC SwitchLambdaExample()
     {
       var pocos = GetPOCOs();
 

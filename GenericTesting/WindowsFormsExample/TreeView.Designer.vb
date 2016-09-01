@@ -23,7 +23,7 @@ Partial Class TreeView
   <System.Diagnostics.DebuggerStepThrough()> _
   Private Sub InitializeComponent()
     Me.lbl = New System.Windows.Forms.Label()
-    Me.treeProductFormats = New System.Windows.Forms.TreeView()
+    Me.treeProductFormatChanges = New System.Windows.Forms.TreeView()
     Me.SuspendLayout()
     '
     'lbl
@@ -35,19 +35,19 @@ Partial Class TreeView
     Me.lbl.TabIndex = 0
     Me.lbl.Text = "Test"
     '
-    'treeProductFormats
+    'treeProductFormatChanges
     '
-    Me.treeProductFormats.Location = New System.Drawing.Point(13, 52)
-    Me.treeProductFormats.Name = "treeProductFormats"
-    Me.treeProductFormats.Size = New System.Drawing.Size(384, 271)
-    Me.treeProductFormats.TabIndex = 1
+    Me.treeProductFormatChanges.Location = New System.Drawing.Point(13, 52)
+    Me.treeProductFormatChanges.Name = "treeProductFormatChanges"
+    Me.treeProductFormatChanges.Size = New System.Drawing.Size(384, 271)
+    Me.treeProductFormatChanges.TabIndex = 1
     '
     'TreeView
     '
     Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
     Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
     Me.ClientSize = New System.Drawing.Size(417, 344)
-    Me.Controls.Add(Me.treeProductFormats)
+    Me.Controls.Add(Me.treeProductFormatChanges)
     Me.Controls.Add(Me.lbl)
     Me.Name = "TreeView"
     Me.Text = "TreeView"
@@ -57,5 +57,5 @@ Partial Class TreeView
   End Sub
 
   Friend WithEvents lbl As Label
-  Friend WithEvents treeProductFormats As System.Windows.Forms.TreeView
+  Friend WithEvents treeProductFormatChanges As System.Windows.Forms.TreeView
 End Class

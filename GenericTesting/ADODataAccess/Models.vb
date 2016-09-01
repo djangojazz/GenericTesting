@@ -8,6 +8,7 @@ End Class
 Public Class Product
   Public Property ProductId As Integer
   Public Property Description As String
+  Public Property Active_Flag As Boolean
 End Class
 
 Public Class Order

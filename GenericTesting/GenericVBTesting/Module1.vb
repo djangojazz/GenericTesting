@@ -86,9 +86,37 @@ Module Module1
     Return New With {Key .a = "a", .b = "b"}
   End Function
 
+  Private Function ReturnString() As String
+    Return "I am a string"
+  End Function
+
+  Private Function ReturnList() As List(Of String)
+    Return New List(Of String)({"A", "B", "C"})
+  End Function
+
+  Private Sub DetermineReturn(obj As Object)
+    If obj.GetType = GetType(String) Then
+      Console.WriteLine(CType(obj, String))
+    ElseIf obj.GetType = GetType(List(Of String)) Then
+      CType(obj, List(Of String)).ForEach(Sub(x) Console.WriteLine(x))
+    Else
+      Console.WriteLine("UnKnOwN!1!")
+    End If
+  End Sub
+
 
   Sub Main()
+    Dim testError = "Oh Shoot Error!"
+    Dim GoodStuff = New List(Of String)({"I", "am", "a", "list"})
 
+    Console.WriteLine("FirstExample")
+    DetermineReturn(testError)
+    Console.WriteLine()
+    Console.WriteLine("SecondExample")
+    DetermineReturn(GoodStuff)
+    Console.WriteLine()
+    Console.WriteLine("ThirdExample")
+    DetermineReturn(1)
 
     Console.ReadLine()
   End Sub
