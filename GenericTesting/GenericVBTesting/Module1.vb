@@ -104,10 +104,19 @@ Module Module1
     End If
   End Sub
 
+  Private Function GetPOOCs() As List(Of POCO)
+    Return New List(Of POCO)({
+                             New POCO With {.ID = 1, .Value = "A"},
+                             New POCO With {.ID = 2, .Value = "B"},
+                             New POCO With {.ID = 3, .Value = "C"}
+                    })
+  End Function
+
 
   Sub Main()
     Dim testError = "Oh Shoot Error!"
     Dim GoodStuff = New List(Of String)({"I", "am", "a", "list"})
+    Dim pocs = GetPOOCs()
 
     Console.WriteLine("FirstExample")
     DetermineReturn(testError)

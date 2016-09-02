@@ -2,6 +2,13 @@
 
 Public Class TreeView
   Public Class ProductFormatChange
+    'Public Sub New(productID As Integer, productFormatId As Integer, productFormatChangeId As Integer, parentProductFormatChangeId As Integer)
+    '  Me.ProductId = productID
+    '  Me.ProductFormatId = productFormatId
+    '  Me.ProductFormatChangeId = productFormatChangeId
+    '  Me.ParentProductFormatChangeId = parentProductFormatChangeId
+    'End Sub
+
     Public Property ProductFormatChangeId As Integer
     Public Property ProductId As Integer
     Public Property ParentProductFormatChangeId As Integer
@@ -26,78 +33,119 @@ Public Class TreeView
   Private _products As New List(Of Product)
   Private _UOMs As New Dictionary(Of Integer, String)
   Private _productFormats As New Dictionary(Of Integer, String)
+  Private _isNotMainProductGroup As Boolean = False
+  Private _selectedProductFormatChange As ProductFormatChange = Nothing
+  Private _productFormatChangeId As Integer = 0
+  Private _selectedProductId As Integer = 0
 
   Private Sub TreeView_Load(sender As Object, e As EventArgs) Handles MyBase.Load
     For Each uom As EUOM In [Enum].GetValues(GetType(EUOM))
       _UOMs.Add(CInt(uom), uom.ToString)
     Next
 
-    _products = DirectCast(DataConverter.ConvertTo(Of Product)(_talker.GetData("Select ProductId,	Description, Active_Flag from dbo.tCentral_Product WHERE ProductId In (21,22)")), List(Of Product))
+    _products = DirectCast(DataConverter.ConvertTo(Of Product)(_talker.GetData("Select ProductId,	Description, Active_Flag from dbo.tCentral_Product")), List(Of Product))
 
     Dim productFormats = _talker.GetData("Select ProductFormatId, ProductFormatDescription From dbo.tCentral_ProductFormat")
     For Each row As DataRow In productFormats.Rows
       _productFormats.Add(row("ProductFormatId"), row("ProductFormatDescription"))
     Next
 
-    _productFormatChanges = DirectCast(DataConverter.ConvertTo(Of ProductFormatChange)(_talker.GetData("EXEC dbo.APC_SP_SELECT_ProductFormatChange 0, NULL, NULL")), List(Of ProductFormatChange))
+    _productFormatChanges = DirectCast(DataConverter.ConvertTo(Of ProductFormatChange)(_talker.GetData("EXEC dbo.APC_SP_SELECT_ProductFormatChange 0, 231, NULL")), List(Of ProductFormatChange))
 
     TreeViewLoad()
   End Sub
 
-  Private Structure Noder
-    Public Property Key As String
-    Public Property Text As String
-    Public Property Active As Boolean
-  End Structure
+  'Private Class NodeKey
+  '  Public Sub New(productID As Integer, productFormatId As Integer, parentProductFormatId As Integer)
+  '    Me.ProductId = productID
+  '    Me.ProductFormatId = productFormatId
+  '    Me.ParentProductFormatId = parentProductFormatId
+  '  End Sub
+
+  '  Public Property ProductId As Integer
+  '  Public Property ProductFormatId As Integer
+  '  Public Property ProductFormatChangeId As Integer
+  '  Public Property ParentProductFormatId As Integer
+
+  'End Class
+
+  Private Function ReturnNodeFromProductFormatChange(productFormatChange As ProductFormatChange) As TreeNode
+    Dim productFormat = _productFormats.SingleOrDefault(Function(y) y.Key = productFormatChange.ProductFormatId)
+    Dim uomDesc = _UOMs.SingleOrDefault(Function(y) y.Key = productFormatChange.UOM)
+    Dim genericTag = productFormatChange
+    'NodeKey(productFormatChange.ProductId, productFormatChange.ProductFormatId, productFormatChange.ParentProductFormatChangeId)
+    'New Tuple(Of Integer, Integer)(productFormatChange.ProductId, productFormatChange.ParentProductFormatChangeId)
+    Dim genericNode = New TreeNode($"{productFormat.Value} - {uomDesc.Value} - {(productFormatChange.RecoveryRate * 100).ToString("N2")}%")
+    genericNode.Tag = genericTag
+    Return genericNode
+  End Function
+
+
+  Private Sub AttachChild(parentNode As TreeNode)
+    Dim parentTag = TryCast(parentNode.Tag, ProductFormatChange)
+    If parentTag Is Nothing Then Throw New ArgumentException("Must have a tag of Type Tuple(Of Integer, Integer)")
+
+    Dim productFormatChange = _productFormatChanges.SingleOrDefault(Function(x) x.ProductId = parentTag.ProductId AndAlso x.ParentProductFormatChangeId = parentTag.ParentProductFormatChangeId)
+    Dim childProductFormatChange = _productFormatChanges.SingleOrDefault(Function(x) x.ProductId = parentTag.ProductId AndAlso x.ParentProductFormatChangeId = productFormatChange.ProductFormatChangeId)
+
+    If childProductFormatChange IsNot Nothing Then
+      Dim childNode = ReturnNodeFromProductFormatChange(childProductFormatChange)
+
+      AttachChild(childNode)
+      parentNode.Nodes.Add(childNode)
+    End If
+  End Sub
 
   Private Sub TreeViewLoad()
     treeProductFormatChanges.Nodes.Clear()
 
-    Dim ReturnDescription As Func(Of ProductFormatChange, Noder) = Function(prod)
-                                                                     Dim productFormat = _productFormats.SingleOrDefault(Function(y) y.Key = prod.ProductFormatId)
-                                                                     Dim uomDesc = _UOMs.SingleOrDefault(Function(y) y.Key = prod.UOM)
-                                                                     Return New Noder With {
-                                                                        .Key = prod?.ProductFormatChangeId.ToString,
-                                                                        .Text = $"{productFormat.Value} - {uomDesc.Value} - {(prod.RecoveryRate * 100).ToString("N2")}%",
-                                                                        .Active = prod.Active_Flag
-                                                                     }
-                                                                   End Function
-
     Dim ReturnActiveColor As Func(Of Boolean, Color) = Function(active) If(active, Color.Black, Color.LightGray)
 
-    _productFormatChanges.ForEach(Sub(x)
-                                    Dim val = ReturnDescription(x)
-                                    Dim parent = _productFormatChanges.FirstOrDefault(Function(y) y.ProductFormatChangeId = x.ParentProductFormatChangeId)
-                                    Dim parentVal = If(parent IsNot Nothing,
-                                      ReturnDescription(parent),
-                                      New Noder With {
-                                        .Key = _products.SingleOrDefault(Function(y) y.ProductId = x.ProductId)?.Description?.ToUpper,
-                                        .Text = _products.SingleOrDefault(Function(y) y.ProductId = x.ProductId)?.Description?.ToUpper,
-                                        .Active = _products.SingleOrDefault(Function(y) y.ProductId = x.ProductId)?.Active_Flag
-                                      }
-                                    )
-
-                                    If parentVal.Key <> "0" Then
-                                      Dim nodes As New List(Of TreeNode)
-                                      nodes.AddRange(treeProductFormatChanges.Nodes.Find(parentVal.Key, True))
-
-                                      If Not nodes.Any Then
-                                        Dim pnode As TreeNode = treeProductFormatChanges.Nodes.Add(parentVal.Key, parentVal.Text)
-                                        pnode.NodeFont = New Font("Tahoma", "12", FontStyle.Bold, Nothing)
-                                        pnode.ForeColor = ReturnActiveColor(parentVal.Active)
-
-                                        nodes.Add(pnode)
-                                      End If
-
-                                      Dim node As TreeNode = New TreeNode(val.Key)
-                                      node.Text = val.Text
-                                      node.ForeColor = ReturnActiveColor(parentVal.Active)
-                                      nodes(0).Nodes.Add(node)
-                                    End If
-                                  End Sub)
+    _productFormatChanges.Where(Function(x) x.ParentProductFormatChangeId = 0) _
+      .ToList() _
+      .ForEach(Sub(x)
+                 Dim root = New TreeNode(x.ProductDescription?.Trim?.ToUpper)
+                 root.NodeFont = New Font("Tahoma", CType("12", Single), FontStyle.Bold, Nothing)
+                 root.ForeColor = ReturnActiveColor(x.Active_Flag)
+                 Dim parentNode = ReturnNodeFromProductFormatChange(x)
+                 parentNode.ForeColor = ReturnActiveColor(x.Active_Flag)
+                 AttachChild(parentNode)
+                 root.Nodes.Add(parentNode)
+                 treeProductFormatChanges.Nodes.Add(root)
+               End Sub)
 
     treeProductFormatChanges.Sort()
-    treeProductFormatChanges.ExpandAll()
   End Sub
 
-  End Class
+  Private Sub treeProductFormatChanges_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles treeProductFormatChanges.AfterSelect
+    Dim tagOnSelectedItem = treeProductFormatChanges?.SelectedNode?.Tag
+
+    If tagOnSelectedItem IsNot Nothing Then
+      Dim formattedTagProductFormatChange = TryCast(tagOnSelectedItem, ProductFormatChange)
+
+      _productFormatChangeId = formattedTagProductFormatChange.ProductFormatId
+      _isNotMainProductGroup = True
+      _selectedProductFormatChange = If(_isNotMainProductGroup, _productFormatChanges?.SingleOrDefault(Function(x) x.ProductFormatChangeId = _productFormatChangeId), Nothing)
+      _selectedProductId = If(_selectedProductFormatChange?.ProductId, _products.SingleOrDefault(Function(x) x.ProductId = formattedTagProductFormatChange.ProductId).ProductId)
+    Else
+      _isNotMainProductGroup = False
+    End If
+
+    If _isNotMainProductGroup Then
+      mnuNewChildProductFormatChange.Visible = True
+      mnuMaintainProductFormatChange.Visible = True
+      mnuDeleteProductFormatChange.Visible = True
+    Else
+      mnuNewChildProductFormatChange.Visible = False
+      mnuMaintainProductFormatChange.Visible = False
+      mnuDeleteProductFormatChange.Visible = False
+      Return
+    End If
+
+    Dim productFormatChangesForProductId = _productFormatChanges?.Where(Function(x) x.ProductId = _selectedProductId).ToList()
+
+    If productFormatChangesForProductId.Count = 1 Then mnuDeleteProductFormatChange.Visible = False
+
+  End Sub
+
+End Class
