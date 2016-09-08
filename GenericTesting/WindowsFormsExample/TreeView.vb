@@ -33,10 +33,7 @@ Public Class TreeView
   Private _products As New List(Of Product)
   Private _UOMs As New Dictionary(Of Integer, String)
   Private _productFormats As New Dictionary(Of Integer, String)
-  Private _isNotMainProductGroup As Boolean = False
   Private _selectedProductFormatChange As ProductFormatChange = Nothing
-  Private _productFormatChangeId As Integer = 0
-  Private _selectedProductId As Integer = 0
 
   Private Sub TreeView_Load(sender As Object, e As EventArgs) Handles MyBase.Load
     For Each uom As EUOM In [Enum].GetValues(GetType(EUOM))
@@ -50,31 +47,15 @@ Public Class TreeView
       _productFormats.Add(row("ProductFormatId"), row("ProductFormatDescription"))
     Next
 
-    _productFormatChanges = DirectCast(DataConverter.ConvertTo(Of ProductFormatChange)(_talker.GetData("EXEC dbo.APC_SP_SELECT_ProductFormatChange 0, 231, NULL")), List(Of ProductFormatChange))
+    _productFormatChanges = DirectCast(DataConverter.ConvertTo(Of ProductFormatChange)(_talker.GetData("EXEC dbo.APC_SP_SELECT_ProductFormatChange 0, NULL, NULL")), List(Of ProductFormatChange))
 
     TreeViewLoad()
   End Sub
-
-  'Private Class NodeKey
-  '  Public Sub New(productID As Integer, productFormatId As Integer, parentProductFormatId As Integer)
-  '    Me.ProductId = productID
-  '    Me.ProductFormatId = productFormatId
-  '    Me.ParentProductFormatId = parentProductFormatId
-  '  End Sub
-
-  '  Public Property ProductId As Integer
-  '  Public Property ProductFormatId As Integer
-  '  Public Property ProductFormatChangeId As Integer
-  '  Public Property ParentProductFormatId As Integer
-
-  'End Class
 
   Private Function ReturnNodeFromProductFormatChange(productFormatChange As ProductFormatChange) As TreeNode
     Dim productFormat = _productFormats.SingleOrDefault(Function(y) y.Key = productFormatChange.ProductFormatId)
     Dim uomDesc = _UOMs.SingleOrDefault(Function(y) y.Key = productFormatChange.UOM)
     Dim genericTag = productFormatChange
-    'NodeKey(productFormatChange.ProductId, productFormatChange.ProductFormatId, productFormatChange.ParentProductFormatChangeId)
-    'New Tuple(Of Integer, Integer)(productFormatChange.ProductId, productFormatChange.ParentProductFormatChangeId)
     Dim genericNode = New TreeNode($"{productFormat.Value} - {uomDesc.Value} - {(productFormatChange.RecoveryRate * 100).ToString("N2")}%")
     genericNode.Tag = genericTag
     Return genericNode
@@ -121,17 +102,8 @@ Public Class TreeView
     Dim tagOnSelectedItem = treeProductFormatChanges?.SelectedNode?.Tag
 
     If tagOnSelectedItem IsNot Nothing Then
-      Dim formattedTagProductFormatChange = TryCast(tagOnSelectedItem, ProductFormatChange)
+      _selectedProductFormatChange = TryCast(tagOnSelectedItem, ProductFormatChange)
 
-      _productFormatChangeId = formattedTagProductFormatChange.ProductFormatId
-      _isNotMainProductGroup = True
-      _selectedProductFormatChange = If(_isNotMainProductGroup, _productFormatChanges?.SingleOrDefault(Function(x) x.ProductFormatChangeId = _productFormatChangeId), Nothing)
-      _selectedProductId = If(_selectedProductFormatChange?.ProductId, _products.SingleOrDefault(Function(x) x.ProductId = formattedTagProductFormatChange.ProductId).ProductId)
-    Else
-      _isNotMainProductGroup = False
-    End If
-
-    If _isNotMainProductGroup Then
       mnuNewChildProductFormatChange.Visible = True
       mnuMaintainProductFormatChange.Visible = True
       mnuDeleteProductFormatChange.Visible = True
@@ -142,10 +114,9 @@ Public Class TreeView
       Return
     End If
 
-    Dim productFormatChangesForProductId = _productFormatChanges?.Where(Function(x) x.ProductId = _selectedProductId).ToList()
+    Dim productFormatChangesForProductId = _productFormatChanges?.Where(Function(x) x.ProductId = _selectedProductFormatChange.ProductId).ToList()
 
     If productFormatChangesForProductId.Count = 1 Then mnuDeleteProductFormatChange.Visible = False
-
   End Sub
 
 End Class

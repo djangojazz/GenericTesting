@@ -1,5 +1,5 @@
 ﻿Public Class MainForm
-  Private Sub Opener(sender As Object, e As EventArgs) Handles OpenDataGridViewToolStripMenuItem.Click, SimpleErrorCheckingToolStripMenuItem.Click, mSimpleDataGrid.Click, mDynamicDataGrid.Click, ListGridToolStripMenuItem.Click, TreeViewToolStripMenuItem.Click
+  Private Sub Opener(sender As Object, e As EventArgs) Handles SimpleErrorCheckingToolStripMenuItem.Click, mSimpleDataGrid.Click, mDynamicDataGrid.Click, ListGridToolStripMenuItem.Click, TreeViewToolStripMenuItem.Click, OpenDataGridViewToolStripMenuItem.Click, CheckTwoButtonGenericDialogBoxToolStripMenuItem.Click, CheckGenericDialogBoxToolStripMenuItem.Click
     Dim newWindow = Nothing
 
     Select Case True
@@ -15,6 +15,10 @@
         newWindow = New ListViewWindow()
       Case sender Is TreeViewToolStripMenuItem
         newWindow = New TreeView()
+      Case sender Is CheckTwoButtonGenericDialogBoxToolStripMenuItem
+        newWindow = New DialogBoxGenericButtons("Parent", "Child")
+      Case sender Is CheckGenericDialogBoxToolStripMenuItem
+        newWindow = New GenericDialog("Brett Example", New List(Of String)({"A", "B", "C", "D", "E", "F"}))
     End Select
 
     If newWindow IsNot Nothing Then newWindow.Show()

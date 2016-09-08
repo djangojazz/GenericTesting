@@ -4,6 +4,7 @@ Imports Microsoft.Maps.MapControl.WPF
 Imports System.Windows.Threading
 Imports System.Collections.ObjectModel
 Imports ADODataAccess
+Imports GenericVBTesting.Models
 
 Module Module1
 
@@ -16,11 +17,6 @@ Module Module1
 
   Private MyConnection As SqlClient.SqlConnection
   Private MyReader As SqlClient.SqlDataReader
-
-  Public Class POCO
-    Public Property ID As Integer
-    Public Property Value As String
-  End Class
 
   Private listings As New Dictionary(Of String, String)
   Private chartSettingsFileLocation = My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\OpenEnterprise\ChartSettings.xml"
@@ -104,28 +100,29 @@ Module Module1
     End If
   End Sub
 
-  Private Function GetPOOCs() As List(Of POCO)
-    Return New List(Of POCO)({
-                             New POCO With {.ID = 1, .Value = "A"},
-                             New POCO With {.ID = 2, .Value = "B"},
-                             New POCO With {.ID = 3, .Value = "C"}
-                    })
-  End Function
+  'Private Function GetLevel(pocos As List(Of POCO), poco As POCO, i As Integer) As Integer
+  '  i += 1
 
+  '  Dim parent = pocos.SingleOrDefault(Function(x) x.ID = poco.ParentID)
+  '  If parent IsNot Nothing Then
+  '    Return GetLevel(pocos, parent, i)
+  '  End If
+
+  '  Return i
+  'End Function
 
   Sub Main()
-    Dim testError = "Oh Shoot Error!"
-    Dim GoodStuff = New List(Of String)({"I", "am", "a", "list"})
-    Dim pocs = GetPOOCs()
+    Dim pocos = GetPOOCs()
+    Dim Getlevel As Func(Of POCO, Integer, Integer) = Function(poco, level) 
+                                                        level += 1
+                                                        Dim parent = pocos.SingleOrDefault(Function(x) x.ID = poco.ParentID)
+                                                        If parent IsNot Nothing Then Return Getlevel(parent, level) : Else Return level
+                                                      End Function
 
-    Console.WriteLine("FirstExample")
-    DetermineReturn(testError)
-    Console.WriteLine()
-    Console.WriteLine("SecondExample")
-    DetermineReturn(GoodStuff)
-    Console.WriteLine()
-    Console.WriteLine("ThirdExample")
-    DetermineReturn(1)
+    pocos.ForEach(Sub(x)
+                    Console.WriteLine($"{x.ID} {x.Value} {Getlevel(x, 0)}")
+                  End Sub)
+
 
     Console.ReadLine()
   End Sub

@@ -72,6 +72,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DialogBoxGenericButtons.Designer.vb">
+      <DependentUpon>DialogBoxGenericButtons.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DialogBoxGenericButtons.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DataGridDynamic.Designer.vb">
       <DependentUpon>DataGridDynamic.vb</DependentUpon>
     </Compile>
@@ -88,6 +94,12 @@
       <DependentUpon>ErrorChecking.vb</DependentUpon>
     </Compile>
     <Compile Include="ErrorChecking.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenericDialog.Designer.vb">
+      <DependentUpon>GenericDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GenericDialog.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ListViewWindow.Designer.vb">
@@ -132,11 +144,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DialogBoxGenericButtons.resx">
+      <DependentUpon>DialogBoxGenericButtons.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DataGridDynamic.resx">
       <DependentUpon>DataGridDynamic.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ErrorChecking.resx">
       <DependentUpon>ErrorChecking.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenericDialog.resx">
+      <DependentUpon>GenericDialog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListViewWindow.resx">
       <DependentUpon>ListViewWindow.vb</DependentUpon>

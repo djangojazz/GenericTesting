@@ -106,6 +106,7 @@
     <Compile Include="DataConverter.vb" />
     <Compile Include="RandomHelper.vb" />
     <Compile Include="Test\DTOs.vb" />
+    <Compile Include="Test\Models.vb" />
     <Compile Include="Test\ProducerTest.vb" />
     <Compile Include="Test\TestCallBack.vb" />
     <Compile Include="Test\TestQueue.vb" />
