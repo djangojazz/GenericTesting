@@ -1,5 +1,5 @@
 ﻿Public Class MainForm
-  Private Sub Opener(sender As Object, e As EventArgs) Handles SimpleErrorCheckingToolStripMenuItem.Click, mSimpleDataGrid.Click, mDynamicDataGrid.Click, ListGridToolStripMenuItem.Click, TreeViewToolStripMenuItem.Click, OpenDataGridViewToolStripMenuItem.Click, CheckTwoButtonGenericDialogBoxToolStripMenuItem.Click, CheckGenericDialogBoxToolStripMenuItem.Click
+  Private Sub Opener(sender As Object, e As EventArgs) Handles SimpleErrorCheckingToolStripMenuItem.Click, mSimpleDataGrid.Click, mDynamicDataGrid.Click, ListGridToolStripMenuItem.Click, TreeViewToolStripMenuItem.Click, OpenDataGridViewToolStripMenuItem.Click, CheckTwoButtonGenericDialogBoxToolStripMenuItem.Click, CheckGenericDialogBoxToolStripMenuItem.Click, DynamicComboBoxDoubleFillToolStripMenuItem.Click
     Dim newWindow = Nothing
 
     Select Case True
@@ -19,9 +19,14 @@
         newWindow = New DialogBoxGenericButtons("Parent", "Child")
       Case sender Is CheckGenericDialogBoxToolStripMenuItem
         newWindow = New GenericDialog("Brett Example", New List(Of String)({"A", "B", "C", "D", "E", "F"}))
+      Case sender Is DynamicComboBoxDoubleFillToolStripMenuItem
+        newWindow = New DynamicComboBoxDoubleFill()
     End Select
 
     If newWindow IsNot Nothing Then newWindow.Show()
   End Sub
 
+  Private Sub DynamicComboBoxDoubleFillToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DynamicComboBoxDoubleFillToolStripMenuItem.Click
+
+  End Sub
 End Class
