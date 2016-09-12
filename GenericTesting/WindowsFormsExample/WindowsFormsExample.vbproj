@@ -72,6 +72,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DynamicComboBoxDoubleFill.Designer.vb">
+      <DependentUpon>DynamicComboBoxDoubleFill.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DynamicComboBoxDoubleFill.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DialogBoxGenericButtons.Designer.vb">
       <DependentUpon>DialogBoxGenericButtons.vb</DependentUpon>
     </Compile>
@@ -144,6 +150,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DynamicComboBoxDoubleFill.resx">
+      <DependentUpon>DynamicComboBoxDoubleFill.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DialogBoxGenericButtons.resx">
       <DependentUpon>DialogBoxGenericButtons.vb</DependentUpon>
     </EmbeddedResource>
@@ -192,6 +201,9 @@
       <Project>{381ecf47-ae91-4337-b457-df62c15aeae9}</Project>
       <Name>ADODataAccess</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="sqlScriptExamples.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

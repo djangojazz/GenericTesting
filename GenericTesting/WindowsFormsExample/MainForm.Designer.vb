@@ -33,6 +33,7 @@ Partial Class MainForm
     Me.checkdialogs = New System.Windows.Forms.ToolStripMenuItem()
     Me.CheckGenericDialogBoxToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.CheckTwoButtonGenericDialogBoxToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+    Me.DynamicComboBoxDoubleFillToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.MenuStrip1.SuspendLayout()
     Me.SuspendLayout()
     '
@@ -47,7 +48,7 @@ Partial Class MainForm
     '
     'mDataGrids
     '
-    Me.mDataGrids.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenDataGridViewToolStripMenuItem, Me.mSimpleDataGrid, Me.mDynamicDataGrid, Me.ListGridToolStripMenuItem, Me.TreeViewToolStripMenuItem})
+    Me.mDataGrids.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenDataGridViewToolStripMenuItem, Me.mSimpleDataGrid, Me.mDynamicDataGrid, Me.ListGridToolStripMenuItem, Me.TreeViewToolStripMenuItem, Me.DynamicComboBoxDoubleFillToolStripMenuItem})
     Me.mDataGrids.Name = "mDataGrids"
     Me.mDataGrids.Size = New System.Drawing.Size(70, 20)
     Me.mDataGrids.Text = "DataGrids"
@@ -55,31 +56,31 @@ Partial Class MainForm
     'OpenDataGridViewToolStripMenuItem
     '
     Me.OpenDataGridViewToolStripMenuItem.Name = "OpenDataGridViewToolStripMenuItem"
-    Me.OpenDataGridViewToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+    Me.OpenDataGridViewToolStripMenuItem.Size = New System.Drawing.Size(233, 22)
     Me.OpenDataGridViewToolStripMenuItem.Text = "OpenDataGridView"
     '
     'mSimpleDataGrid
     '
     Me.mSimpleDataGrid.Name = "mSimpleDataGrid"
-    Me.mSimpleDataGrid.Size = New System.Drawing.Size(174, 22)
+    Me.mSimpleDataGrid.Size = New System.Drawing.Size(233, 22)
     Me.mSimpleDataGrid.Text = "SimpleDataGrid"
     '
     'mDynamicDataGrid
     '
     Me.mDynamicDataGrid.Name = "mDynamicDataGrid"
-    Me.mDynamicDataGrid.Size = New System.Drawing.Size(174, 22)
+    Me.mDynamicDataGrid.Size = New System.Drawing.Size(233, 22)
     Me.mDynamicDataGrid.Text = "DynamicDataGrid"
     '
     'ListGridToolStripMenuItem
     '
     Me.ListGridToolStripMenuItem.Name = "ListGridToolStripMenuItem"
-    Me.ListGridToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+    Me.ListGridToolStripMenuItem.Size = New System.Drawing.Size(233, 22)
     Me.ListGridToolStripMenuItem.Text = "ListGrid"
     '
     'TreeViewToolStripMenuItem
     '
     Me.TreeViewToolStripMenuItem.Name = "TreeViewToolStripMenuItem"
-    Me.TreeViewToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+    Me.TreeViewToolStripMenuItem.Size = New System.Drawing.Size(233, 22)
     Me.TreeViewToolStripMenuItem.Text = "TreeView"
     '
     'SimpleErrorCheckingToolStripMenuItem
@@ -98,7 +99,7 @@ Partial Class MainForm
     'CheckGenericDialogBoxToolStripMenuItem
     '
     Me.CheckGenericDialogBoxToolStripMenuItem.Name = "CheckGenericDialogBoxToolStripMenuItem"
-    Me.CheckGenericDialogBoxToolStripMenuItem.Size = New System.Drawing.Size(209, 22)
+    Me.CheckGenericDialogBoxToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
     Me.CheckGenericDialogBoxToolStripMenuItem.Text = "Check Generic Dialog Box"
     '
     'CheckTwoButtonGenericDialogBoxToolStripMenuItem
@@ -106,6 +107,12 @@ Partial Class MainForm
     Me.CheckTwoButtonGenericDialogBoxToolStripMenuItem.Name = "CheckTwoButtonGenericDialogBoxToolStripMenuItem"
     Me.CheckTwoButtonGenericDialogBoxToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
     Me.CheckTwoButtonGenericDialogBoxToolStripMenuItem.Text = "Check Two Button Generic Dialog Box"
+    '
+    'DynamicComboBoxDoubleFillToolStripMenuItem
+    '
+    Me.DynamicComboBoxDoubleFillToolStripMenuItem.Name = "DynamicComboBoxDoubleFillToolStripMenuItem"
+    Me.DynamicComboBoxDoubleFillToolStripMenuItem.Size = New System.Drawing.Size(233, 22)
+    Me.DynamicComboBoxDoubleFillToolStripMenuItem.Text = "DynamicComboBoxDoubleFill"
     '
     'MainForm
     '
@@ -134,4 +141,5 @@ Partial Class MainForm
   Friend WithEvents checkdialogs As ToolStripMenuItem
   Friend WithEvents CheckGenericDialogBoxToolStripMenuItem As ToolStripMenuItem
   Friend WithEvents CheckTwoButtonGenericDialogBoxToolStripMenuItem As ToolStripMenuItem
+  Friend WithEvents DynamicComboBoxDoubleFillToolStripMenuItem As ToolStripMenuItem
 End Class
