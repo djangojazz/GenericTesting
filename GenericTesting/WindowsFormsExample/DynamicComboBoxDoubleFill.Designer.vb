@@ -33,6 +33,7 @@ Partial Class DynamicComboBoxDoubleFill
     Me.DataColumn5 = New System.Data.DataColumn()
     Me.DataColumn6 = New System.Data.DataColumn()
     Me.lTest = New System.Windows.Forms.Label()
+    Me.DataColumn7 = New System.Data.DataColumn()
     Me.OrderId = New System.Windows.Forms.DataGridViewComboBoxColumn()
     Me.PersonId = New System.Windows.Forms.DataGridViewTextBoxColumn()
     Me.FirstName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -77,7 +78,7 @@ Partial Class DynamicComboBoxDoubleFill
     '
     'tPeople
     '
-    Me.tPeople.Columns.AddRange(New System.Data.DataColumn() {Me.DataColumn3, Me.DataColumn4, Me.DataColumn5, Me.DataColumn6})
+    Me.tPeople.Columns.AddRange(New System.Data.DataColumn() {Me.DataColumn3, Me.DataColumn4, Me.DataColumn5, Me.DataColumn6, Me.DataColumn7})
     Me.tPeople.TableName = "tPeople"
     '
     'DataColumn3
@@ -105,6 +106,10 @@ Partial Class DynamicComboBoxDoubleFill
     Me.lTest.Size = New System.Drawing.Size(39, 13)
     Me.lTest.TabIndex = 1
     Me.lTest.Text = "Label1"
+    '
+    'DataColumn7
+    '
+    Me.DataColumn7.ColumnName = "SkuId"
     '
     'OrderId
     '
@@ -180,6 +185,7 @@ Partial Class DynamicComboBoxDoubleFill
   Friend WithEvents DataColumn5 As DataColumn
   Friend WithEvents DataColumn6 As DataColumn
   Friend WithEvents lTest As Label
+  Friend WithEvents DataColumn7 As DataColumn
   Friend WithEvents OrderId As DataGridViewComboBoxColumn
   Friend WithEvents PersonId As DataGridViewTextBoxColumn
   Friend WithEvents FirstName As DataGridViewTextBoxColumn

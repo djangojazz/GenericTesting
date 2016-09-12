@@ -4,6 +4,7 @@ Public Class Person
   Public Property FirstName As String
   Public Property LastName As String
   Public Property ProductId As Integer
+  Public Property SkuId As Integer
 End Class
 
 Public Class Product
