@@ -24,9 +24,7 @@
         newWindow = New DialogBoxGenericButtons("Parent", "Child")
       Case sender Is CheckGenericDialogBoxToolStripMenuItem
         newWindow = New GenericDialog("Brett Example", New List(Of String)({"A", "B", "C", "D", "E", "F"}))
-      Case sender Is DynamicComboBoxDoubleFillToolStripMenuItem
-        newWindow = New DynamicComboBoxDoubleFill()
-
+      Case sender Is CheckGenericDialogBoxToolStripMenuItem
         newWindow = New Form()
         Dim btn As Button = Nothing
         'New GenericDialog("Brett Example", New List(Of String)({"A", "B", "C", "D", "E", "F"}))
@@ -52,6 +50,8 @@
             AddHandler btn.Click, Sub(senderO, args) MessageBox.Show($"You clicked: {CType(senderO, Button).Text}")
           End If
         Next
+      Case sender Is DynamicComboBoxDoubleFillToolStripMenuItem
+        newWindow = New DynamicComboBoxDoubleFill()
     End Select
 
     If newWindow IsNot Nothing Then newWindow.Show()
