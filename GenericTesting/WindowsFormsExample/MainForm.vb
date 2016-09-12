@@ -2,6 +2,11 @@
   Private Sub Opener(sender As Object, e As EventArgs) Handles SimpleErrorCheckingToolStripMenuItem.Click, mSimpleDataGrid.Click, mDynamicDataGrid.Click, ListGridToolStripMenuItem.Click, TreeViewToolStripMenuItem.Click, OpenDataGridViewToolStripMenuItem.Click, CheckTwoButtonGenericDialogBoxToolStripMenuItem.Click, CheckGenericDialogBoxToolStripMenuItem.Click
     Dim newWindow = Nothing
 
+    'Dim genericWindow = New Form()
+
+
+
+
     Select Case True
       Case sender Is OpenDataGridViewToolStripMenuItem
         newWindow = New DataGridWindow()
@@ -18,10 +23,36 @@
       Case sender Is CheckTwoButtonGenericDialogBoxToolStripMenuItem
         newWindow = New DialogBoxGenericButtons("Parent", "Child")
       Case sender Is CheckGenericDialogBoxToolStripMenuItem
-        newWindow = New GenericDialog("Brett Example", New List(Of String)({"A", "B", "C", "D", "E", "F"}))
+
+        newWindow = New Form()
+        Dim btn As Button = Nothing
+        'New GenericDialog("Brett Example", New List(Of String)({"A", "B", "C", "D", "E", "F"}))
+        Dim array = New List(Of String)({"A", "B", "C", "D", "E", "F"})
+
+        Dim locationVert = 20
+        array.ForEach(Sub(x)
+                        Dim b = New Button()
+                        b.Name = x
+                        b.Text = x
+                        b.Width = 200
+                        b.Height = 30
+                        newWindow.Controls.Add(b)
+                        b.Location = New Point(20, locationVert)
+
+                        locationVert += 40
+                      End Sub)
+
+
+        For Each ctrl As Control In newWindow.Controls
+          If TypeOf ctrl Is Button Then
+            btn = DirectCast(ctrl, Button)
+            AddHandler btn.Click, Sub(senderO, args) MessageBox.Show($"You clicked: {CType(senderO, Button).Text}")
+          End If
+        Next
     End Select
 
     If newWindow IsNot Nothing Then newWindow.Show()
   End Sub
+
 
 End Class

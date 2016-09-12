@@ -63,6 +63,9 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APCLocal\Connection.vb" />
+    <Compile Include="APCLocal\Select\ProductFormat.vb" />
+    <Compile Include="APCLocal\Select\ProductionPlanGroup.vb" />
     <Compile Include="DatabaseAccess.vb" />
     <Compile Include="DataConverter.vb" />
     <Compile Include="Models.vb" />

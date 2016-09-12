@@ -22,6 +22,8 @@ Module Module1
   Private chartSettingsFileLocation = My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\OpenEnterprise\ChartSettings.xml"
   Dim _ships As List(Of ShipModel) = New List(Of ShipModel)
   Private _dispatcher As Dispatcher
+  Private _productFormats As New Dictionary(Of Integer, String)
+  Private _productionPlanGroups As New Dictionary(Of Integer, Integer)
 
   Enum Tester
     Hello = 1
@@ -78,51 +80,26 @@ Module Module1
 
   End Sub
 
-  Private Function GiveAnonymous() As Object
-    Return New With {Key .a = "a", .b = "b"}
-  End Function
-
-  Private Function ReturnString() As String
-    Return "I am a string"
-  End Function
-
-  Private Function ReturnList() As List(Of String)
-    Return New List(Of String)({"A", "B", "C"})
-  End Function
-
-  Private Sub DetermineReturn(obj As Object)
-    If obj.GetType = GetType(String) Then
-      Console.WriteLine(CType(obj, String))
-    ElseIf obj.GetType = GetType(List(Of String)) Then
-      CType(obj, List(Of String)).ForEach(Sub(x) Console.WriteLine(x))
-    Else
-      Console.WriteLine("UnKnOwN!1!")
-    End If
+  Private Sub LoadProductFormats()
+    Using myReader As New APCLocal.Select.ProductFormat("APC-DEV\TEST")
+      Do While myReader.Read
+        _productFormats.Add(myReader.Int(APCLocal.Select.ProductFormat.EInts.ProductFormatID), myReader.Str(APCLocal.Select.ProductFormat.EStrings.ProductFormatDescription))
+      Loop
+    End Using
   End Sub
 
-  'Private Function GetLevel(pocos As List(Of POCO), poco As POCO, i As Integer) As Integer
-  '  i += 1
-
-  '  Dim parent = pocos.SingleOrDefault(Function(x) x.ID = poco.ParentID)
-  '  If parent IsNot Nothing Then
-  '    Return GetLevel(pocos, parent, i)
-  '  End If
-
-  '  Return i
-  'End Function
+  Private Sub LoadProductGroup()
+    Using MyReader As New APCLocal.Select.ProductionPlanGroup("APC-DEV\TEST", Nothing, 36189)
+      Do While MyReader.Read
+        _productionPlanGroups.Add(MyReader.Int(APCLocal.Select.ProductionPlanGroup.EInts.ProductionPlanGroupID), MyReader.Int(APCLocal.Select.ProductionPlanGroup.EInts.ProductID))
+      Loop
+    End Using
+  End Sub
 
   Sub Main()
-    Dim pocos = GetPOOCs()
-    Dim Getlevel As Func(Of POCO, Integer, Integer) = Function(poco, level) 
-                                                        level += 1
-                                                        Dim parent = pocos.SingleOrDefault(Function(x) x.ID = poco.ParentID)
-                                                        If parent IsNot Nothing Then Return Getlevel(parent, level) : Else Return level
-                                                      End Function
-
-    pocos.ForEach(Sub(x)
-                    Console.WriteLine($"{x.ID} {x.Value} {Getlevel(x, 0)}")
-                  End Sub)
-
+    LoadProductFormats()
+    'LoadProductGroup()
+    Dim x = ""
 
     Console.ReadLine()
   End Sub

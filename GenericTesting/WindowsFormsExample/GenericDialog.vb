@@ -26,13 +26,9 @@ Public Class GenericDialog
     For Each ctrl As Control In Me.Controls
       If TypeOf ctrl Is Button Then
         btn = DirectCast(ctrl, Button)
-        AddHandler btn.Click, AddressOf Me.ButtonClicks
+        AddHandler btn.Click, Sub(sender, args) MessageBox.Show($"You clicked: {CType(sender, Button).Text}")
       End If
     Next
-  End Sub
-
-  Private Sub ButtonClicks(sender As Object, e As EventArgs)
-    MessageBox.Show($"You clicked: {CType(sender, Button).Text}")
   End Sub
 
 End Class
