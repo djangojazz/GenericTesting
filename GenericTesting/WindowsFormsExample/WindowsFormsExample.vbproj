@@ -150,6 +150,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DataGridWindow.resx">
+      <DependentUpon>DataGridWindow.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DynamicComboBoxDoubleFill.resx">
       <DependentUpon>DynamicComboBoxDoubleFill.vb</DependentUpon>
     </EmbeddedResource>

@@ -8,6 +8,8 @@ Public Class DynamicComboBoxDoubleFill
   Private _people As List(Of Person) = New List(Of Person)
   Private _products As List(Of Product) = New List(Of Product)
   Private _SKUs As List(Of Sku) = New List(Of Sku)
+  Private _initialLoadDone = False
+  Private _currentRow As Integer? = Nothing
 
   Private Sub DynamicComboBoxDoubleFill_Load(sender As Object, e As EventArgs) Handles MyBase.Load
     _products = New List(Of Product)({
@@ -51,33 +53,58 @@ Public Class DynamicComboBoxDoubleFill
 
     For Each row As DataGridViewRow In dgv.Rows
       Dim cells = row.Cells
-      Dim productId = 0
-      Dim personId = 0
-      Dim SkuId = 0
 
-      For Each cell As DataGridViewCell In cells
-        If cell.ColumnIndex = 0 Then
-          productId = cell.Value
-        End If
+      ArrangeValuesForSKUComboBox(cells)
+    Next
 
-        If cell.ColumnIndex = 1 Then
-          personId = cell.Value
-        End If
+    _initialLoadDone = True
+  End Sub
 
-        If cell.ColumnIndex = 4 Then
-          Dim skus = _SKUs.Where(Function(x) x.ProductId = productId).ToList().Select(Function(x) New With {Key .SkuId = x.SKUId, .SkuDesc = x.Description}).ToList()
-          Dim combobox = CType(cell, DataGridViewComboBoxCell)
-          combobox.DataSource = skus
-          combobox.ValueMember = "SKUId"
-          combobox.DisplayMember = "SkuDesc"
-          combobox.Value = _people.SingleOrDefault(Function(x) x.PersonID = personId)?.SkuId
-          'combobox.DataGridView.DataMember = "SKUId"
-          'What should be done here to hook up values as pointers as 'Display Member' and 'Value member' are not available and CTYPe to DataGridViewComboBox is not available?
-          'cell.Value = "SkuId"
-          'cell.Displayed = "SkuDesc"
-          'cell.DefaultNewRowValue = skus.First()
-        End If
-      Next
+  Private Sub dgv_CurrentCellChanged(sender As Object, e As EventArgs) Handles dgv.CurrentCellChanged
+    If _initialLoadDone Then
+      If dgv?.CurrentRow?.Index <> _currentRow Then
+        ArrangeValuesForSKUComboBox(dgv?.CurrentRow?.Cells)
+      End If
+
+      _currentRow = dgv?.CurrentRow?.Index
+
+      'For Each row As DataGridViewRow In dgv.CurrentRow.Cells.R
+      '  Dim currentRow = row.Index
+      '  Dim cells = row.Cells
+
+      '  If currentRow <> _currentRow.Value Then
+      '    MessageBox.Show(currentRow)
+      '  End If
+
+      '  _currentRow = currentRow
+      'Next
+      'Dim product = dgv?.CurrentRow?.Cells("cProductId")?.Value?.ToString
+    End If
+  End Sub
+
+  Private Sub ArrangeValuesForSKUComboBox(cells As DataGridViewCellCollection)
+    Dim productId = 0
+    Dim personId = 0
+
+    For Each cell As DataGridViewCell In cells
+      If cell.ColumnIndex = 0 Then
+        productId = cell.Value
+      End If
+
+      If cell.ColumnIndex = 1 Then
+        personId = cell.Value
+      End If
+
+      If cell.ColumnIndex = 4 Then
+        Dim skus = _SKUs.Where(Function(x) x.ProductId = productId).ToList().Select(Function(x) New With {Key .SkuId = x.SKUId, .SkuDesc = x.Description}).ToList()
+        Dim combobox = CType(cell, DataGridViewComboBoxCell)
+        'combobox.DataSource = Nothing
+        combobox.DataSource = skus
+        combobox.ValueMember = "SKUId"
+        combobox.DisplayMember = "SkuDesc"
+        combobox.Value = skus.FirstOrDefault()?.SkuId
+        '_people.SingleOrDefault(Function(x) x.PersonID = personId)?.SkuId
+      End If
     Next
   End Sub
 End Class

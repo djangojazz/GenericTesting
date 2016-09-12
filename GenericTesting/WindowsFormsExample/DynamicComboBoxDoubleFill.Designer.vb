@@ -32,8 +32,8 @@ Partial Class DynamicComboBoxDoubleFill
     Me.DataColumn4 = New System.Data.DataColumn()
     Me.DataColumn5 = New System.Data.DataColumn()
     Me.DataColumn6 = New System.Data.DataColumn()
-    Me.lTest = New System.Windows.Forms.Label()
     Me.DataColumn7 = New System.Data.DataColumn()
+    Me.lTest = New System.Windows.Forms.Label()
     Me.OrderId = New System.Windows.Forms.DataGridViewComboBoxColumn()
     Me.PersonId = New System.Windows.Forms.DataGridViewTextBoxColumn()
     Me.FirstName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -98,6 +98,10 @@ Partial Class DynamicComboBoxDoubleFill
     '
     Me.DataColumn6.ColumnName = "LastName"
     '
+    'DataColumn7
+    '
+    Me.DataColumn7.ColumnName = "SkuId"
+    '
     'lTest
     '
     Me.lTest.AutoSize = True
@@ -106,10 +110,6 @@ Partial Class DynamicComboBoxDoubleFill
     Me.lTest.Size = New System.Drawing.Size(39, 13)
     Me.lTest.TabIndex = 1
     Me.lTest.Text = "Label1"
-    '
-    'DataColumn7
-    '
-    Me.DataColumn7.ColumnName = "SkuId"
     '
     'OrderId
     '
