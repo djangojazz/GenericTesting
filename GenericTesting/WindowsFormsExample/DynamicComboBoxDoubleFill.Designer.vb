@@ -34,7 +34,7 @@ Partial Class DynamicComboBoxDoubleFill
     Me.DataColumn6 = New System.Data.DataColumn()
     Me.DataColumn7 = New System.Data.DataColumn()
     Me.lTest = New System.Windows.Forms.Label()
-    Me.OrderId = New System.Windows.Forms.DataGridViewComboBoxColumn()
+    Me.ProductId = New System.Windows.Forms.DataGridViewComboBoxColumn()
     Me.PersonId = New System.Windows.Forms.DataGridViewTextBoxColumn()
     Me.FirstName = New System.Windows.Forms.DataGridViewTextBoxColumn()
     Me.LastName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -47,11 +47,8 @@ Partial Class DynamicComboBoxDoubleFill
     '
     'dgv
     '
-    Me.dgv.AutoGenerateColumns = False
     Me.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-    Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.OrderId, Me.PersonId, Me.FirstName, Me.LastName, Me.SKU})
-    Me.dgv.DataMember = "tPeople"
-    Me.dgv.DataSource = Me.ds
+    Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductId, Me.PersonId, Me.FirstName, Me.LastName, Me.SKU})
     Me.dgv.Location = New System.Drawing.Point(13, 13)
     Me.dgv.Name = "dgv"
     Me.dgv.Size = New System.Drawing.Size(523, 150)
@@ -111,18 +108,18 @@ Partial Class DynamicComboBoxDoubleFill
     Me.lTest.TabIndex = 1
     Me.lTest.Text = "Label1"
     '
-    'OrderId
+    'ProductId
     '
-    Me.OrderId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-    Me.OrderId.DataPropertyName = "ProductId"
-    Me.OrderId.DataSource = Me.ds
-    Me.OrderId.DisplayMember = "tProducts.Description"
-    Me.OrderId.FillWeight = 30.0!
-    Me.OrderId.HeaderText = "PRODUCT"
-    Me.OrderId.Name = "OrderId"
-    Me.OrderId.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-    Me.OrderId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-    Me.OrderId.ValueMember = "tProducts.ProductId"
+    Me.ProductId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+    Me.ProductId.DataPropertyName = "ProductId"
+    Me.ProductId.DataSource = Me.ds
+    Me.ProductId.DisplayMember = "tProducts.Description"
+    Me.ProductId.FillWeight = 30.0!
+    Me.ProductId.HeaderText = "PRODUCT"
+    Me.ProductId.Name = "ProductId"
+    Me.ProductId.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+    Me.ProductId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+    Me.ProductId.ValueMember = "tProducts.ProductId"
     '
     'PersonId
     '
@@ -186,7 +183,7 @@ Partial Class DynamicComboBoxDoubleFill
   Friend WithEvents DataColumn6 As DataColumn
   Friend WithEvents lTest As Label
   Friend WithEvents DataColumn7 As DataColumn
-  Friend WithEvents OrderId As DataGridViewComboBoxColumn
+  Friend WithEvents ProductId As DataGridViewComboBoxColumn
   Friend WithEvents PersonId As DataGridViewTextBoxColumn
   Friend WithEvents FirstName As DataGridViewTextBoxColumn
   Friend WithEvents LastName As DataGridViewTextBoxColumn

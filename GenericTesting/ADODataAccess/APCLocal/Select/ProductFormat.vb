@@ -1,9 +1,6 @@
 ﻿Namespace APCLocal
   Partial Public Class [Select]
 
-    ''' <summary>
-    ''' WRAPS PROCEDURE APC_SP_SELECT_CostingReceiveFromWarehouse
-    ''' </summary>
     Public Class ProductFormat
       Implements IDisposable
 

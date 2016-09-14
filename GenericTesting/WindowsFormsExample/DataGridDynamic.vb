@@ -3,9 +3,9 @@ Imports System.Linq
 
 Public Class DataGridDynamic
 
-  Private _talker = New SQLTalker(GetTesterDatabase)
-  Private _people = New DataTable
-  Private _orders = New List(Of Order)
+  Private _talker As SQLTalker = New SQLTalker(GetTesterDatabase)
+  Private _people As DataTable = New DataTable
+  Private _orders As List(Of Order) = New List(Of Order)
 
   Private Sub DataGridDynamic_Load(sender As Object, e As EventArgs) Handles MyBase.Load
     Try

@@ -8,7 +8,7 @@ Public Class ListViewWindow
     Public LastName As String
   End Structure
 
-  Private _talker = New SQLTalker(GetTesterDatabase)
+  Private _talker As SQLTalker = New SQLTalker(GetTesterDatabase)
   Private _people As New List(Of SPerson)
 
   Private Sub ListViewWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -16,8 +16,8 @@ Public Class ListViewWindow
     Dim items = _talker.GetData("Select PersonId, FirstName, LastName from dbo.tePerson")
 
     Dim s = String.Empty
-    For Each item In items.Rows
-      _people.Add(New SPerson With {.PersonId = item("PersonId"), .FirstName = item("FirstName"), .LastName = item("LastName")})
+    For Each item As DataRow In items.Rows
+      _people.Add(New SPerson With {.PersonId = CInt(item("PersonId")), .FirstName = CStr(item("FirstName")), .LastName = CStr(item("LastName"))})
     Next
 
     LoadDataListView(_people)
@@ -28,9 +28,9 @@ Public Class ListViewWindow
       lsv.Items.Clear()
 
       items.ForEach(Sub(x)
-                      Dim lvi As ListViewItem = lsv.Items.Add(x.PersonId)
-                      lvi.SubItems.Add(x.FirstName)
-                      lvi.SubItems.Add(x.LastName)
+                      Dim lvi As ListViewItem = lsv.Items.Add(x.PersonId.ToString)
+                      lvi.SubItems.Add(x.FirstName.ToString)
+                      lvi.SubItems.Add(x.LastName.ToString)
                     End Sub)
     End If
   End Sub
@@ -38,7 +38,7 @@ Public Class ListViewWindow
   Private Sub bFilter_Click(sender As Object, e As EventArgs) Handles bFilter.Click
 
     If Not String.IsNullOrEmpty(tTest.Text) Then
-      LoadDataListView(_people?.Where(Function(x) x.PersonId = tTest.Text)?.ToList())
+      LoadDataListView(_people?.Where(Function(x) x.PersonId = CInt(tTest.Text))?.ToList())
     Else
       LoadDataListView(_people)
     End If

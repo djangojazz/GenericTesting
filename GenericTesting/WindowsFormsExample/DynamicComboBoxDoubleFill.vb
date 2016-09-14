@@ -8,10 +8,12 @@ Public Class DynamicComboBoxDoubleFill
   Private _people As List(Of Person) = New List(Of Person)
   Private _products As List(Of Product) = New List(Of Product)
   Private _SKUs As List(Of Sku) = New List(Of Sku)
-  Private _initialLoadDone = False
+  Private _initialLoadDone As Boolean = False
   Private _currentRow As Integer? = Nothing
 
   Private Sub DynamicComboBoxDoubleFill_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    dgv.AutoGenerateColumns = False
+
     _products = New List(Of Product)({
                                      New Product With {.ProductId = 1, .Description = "Offline"},
                                      New Product With {.ProductId = 2, .Description = "Online"}
@@ -32,18 +34,13 @@ Public Class DynamicComboBoxDoubleFill
      New Sku With {.SKUId = 4, .ProductId = 2, .Description = "APIRequest"}
     })
 
-    Dim items = _SKUs
-
     _people = New List(Of Person)({
       New Person With {.PersonID = 1, .FirstName = "Emily", .LastName = "X", .ProductId = 1, .SkuId = 1},
       New Person With {.PersonID = 2, .FirstName = "Brett", .LastName = "X", .ProductId = 2, .SkuId = 3}
                                   })
-
-    'Personally I don't like the binding to the Dataset in the designer.  I only do it because if I bind a 'datasource' to a list I get a data error for the datagridview that I need to handle
-    'it would be much simple to just bind directly to my lists but I don't like handling the data error as it is annoying
     For Each p In _people
       Dim row As DataRow = ds.Tables("tPeople").NewRow
-      row("PersonId") = p.PersonId
+      row("PersonId") = p.PersonID
       row("FirstName") = p.FirstName
       row("LastName") = p.LastName
       row("ProductId") = p.ProductId
@@ -51,60 +48,35 @@ Public Class DynamicComboBoxDoubleFill
       ds.Tables("tPeople").Rows.Add(row)
     Next
 
-    For Each row As DataGridViewRow In dgv.Rows
-      Dim cells = row.Cells
+    dgv.AutoGenerateColumns = False
+    dgv.DataSource = ds.Tables("tPeople")
+    dgv.Refresh()
 
-      ArrangeValuesForSKUComboBox(cells)
+    For Each row As DataGridViewRow In dgv.Rows
+      ArrangeValuesForSKUComboBox(row)
     Next
 
     _initialLoadDone = True
   End Sub
 
-  Private Sub dgv_CurrentCellChanged(sender As Object, e As EventArgs) Handles dgv.CurrentCellChanged
-    If _initialLoadDone Then
-      If dgv?.CurrentRow?.Index <> _currentRow Then
-        ArrangeValuesForSKUComboBox(dgv?.CurrentRow?.Cells)
-      End If
+  Private Sub ArrangeValuesForSKUComboBox(row As DataGridViewRow)
+    Dim productId = CInt(row.Cells("ProductId")?.Value)
+    Dim skus = _SKUs.Where(Function(x) x.ProductId = productId).ToList().Select(Function(x) New With {Key .SkuId = x.SKUId, .SkuDesc = x.Description}).ToList()
 
-      _currentRow = dgv?.CurrentRow?.Index
-
-      'For Each row As DataGridViewRow In dgv.CurrentRow.Cells.R
-      '  Dim currentRow = row.Index
-      '  Dim cells = row.Cells
-
-      '  If currentRow <> _currentRow.Value Then
-      '    MessageBox.Show(currentRow)
-      '  End If
-
-      '  _currentRow = currentRow
-      'Next
-      'Dim product = dgv?.CurrentRow?.Cells("cProductId")?.Value?.ToString
-    End If
+    Dim thing = row.Cells("SKU")
+    Dim combobox = CType(thing, DataGridViewComboBoxCell)
+    combobox.DataSource = skus
+    combobox.ValueMember = "SKUId"
+    combobox.DisplayMember = "SkuDesc"
+    combobox.Value = skus.FirstOrDefault()?.SkuId
   End Sub
 
-  Private Sub ArrangeValuesForSKUComboBox(cells As DataGridViewCellCollection)
-    Dim productId = 0
-    Dim personId = 0
-
-    For Each cell As DataGridViewCell In cells
-      If cell.ColumnIndex = 0 Then
-        productId = cell.Value
+  Private Sub dgv_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dgv.CellValueChanged
+    If _initialLoadDone Then
+      Dim headerText As String = TryCast(sender, DataGridView).Columns(e.ColumnIndex).HeaderText
+      If headerText = "PRODUCT" Then
+        ArrangeValuesForSKUComboBox(dgv?.CurrentRow)
       End If
-
-      If cell.ColumnIndex = 1 Then
-        personId = cell.Value
-      End If
-
-      If cell.ColumnIndex = 4 Then
-        Dim skus = _SKUs.Where(Function(x) x.ProductId = productId).ToList().Select(Function(x) New With {Key .SkuId = x.SKUId, .SkuDesc = x.Description}).ToList()
-        Dim combobox = CType(cell, DataGridViewComboBoxCell)
-        'combobox.DataSource = Nothing
-        combobox.DataSource = skus
-        combobox.ValueMember = "SKUId"
-        combobox.DisplayMember = "SkuDesc"
-        combobox.Value = skus.FirstOrDefault()?.SkuId
-        '_people.SingleOrDefault(Function(x) x.PersonID = personId)?.SkuId
-      End If
-    Next
+    End If
   End Sub
 End Class

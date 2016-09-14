@@ -28,7 +28,7 @@ Public Class TreeView
     Bushel = 4
   End Enum
 
-  Private _talker = New SQLTalker(GetCentralTestDatabase)
+  Private _talker As SQLTalker = New SQLTalker(GetCentralTestDatabase)
   Private _productFormatChanges As New List(Of ProductFormatChange)
   Private _products As New List(Of Product)
   Private _UOMs As New Dictionary(Of Integer, String)
@@ -44,7 +44,7 @@ Public Class TreeView
 
     Dim productFormats = _talker.GetData("Select ProductFormatId, ProductFormatDescription From dbo.tCentral_ProductFormat")
     For Each row As DataRow In productFormats.Rows
-      _productFormats.Add(row("ProductFormatId"), row("ProductFormatDescription"))
+      _productFormats.Add(CInt(row("ProductFormatId")), CStr(row("ProductFormatDescription")))
     Next
 
     _productFormatChanges = DirectCast(DataConverter.ConvertTo(Of ProductFormatChange)(_talker.GetData("EXEC dbo.APC_SP_SELECT_ProductFormatChange 0, NULL, NULL")), List(Of ProductFormatChange))

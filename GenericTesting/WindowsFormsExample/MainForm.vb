@@ -1,11 +1,6 @@
 ﻿Public Class MainForm
   Private Sub Opener(sender As Object, e As EventArgs) Handles SimpleErrorCheckingToolStripMenuItem.Click, mSimpleDataGrid.Click, mDynamicDataGrid.Click, ListGridToolStripMenuItem.Click, TreeViewToolStripMenuItem.Click, OpenDataGridViewToolStripMenuItem.Click, CheckTwoButtonGenericDialogBoxToolStripMenuItem.Click, CheckGenericDialogBoxToolStripMenuItem.Click, DynamicComboBoxDoubleFillToolStripMenuItem.Click
-    Dim newWindow = Nothing
-
-    'Dim genericWindow = New Form()
-
-
-
+    Dim newWindow = New Form()
 
     Select Case True
       Case sender Is OpenDataGridViewToolStripMenuItem
@@ -56,6 +51,5 @@
 
     If newWindow IsNot Nothing Then newWindow.Show()
   End Sub
-
 
 End Class

@@ -5,8 +5,8 @@ Imports System.Text.RegularExpressions
 Public Class SimpleDataGrid
 
   Private _lastValue As Object
-  Private _products = New List(Of Product)
-  Private _talker = New SQLTalker(GetTesterDatabase)
+  Private _products As List(Of Product) = New List(Of Product)
+  Private _talker As SQLTalker = New SQLTalker(GetTesterDatabase)
 
   Public Enum EUOM
     Lbs = 1
@@ -19,7 +19,7 @@ Public Class SimpleDataGrid
     ' This call is required by the designer.
     InitializeComponent()
 
-    _products = DirectCast(DataConverter.ConvertTo(Of Product)(_talker.GetData("Select * From dbo.Product")), List(Of Product)).OrderBy(Function(x) x.Description).ToArray()
+    _products = CType(DataConverter.ConvertTo(Of Product)(_talker.GetData("Select * From dbo.Product")), List(Of Product))
     Dim items = New Dictionary(Of Integer, String)
 
 
@@ -49,7 +49,7 @@ Public Class SimpleDataGrid
       's += p.ProductDescription + Environment.NewLine
       Dim row As DataRow = ds.Tables("tProduct").NewRow
       row("ProductId") = p.ProductId
-      row("Whatevs") = p.ProductDescription
+      row("Whatevs") = p.Description
       ds.Tables("tProduct").Rows.Add(row)
     Next
 
