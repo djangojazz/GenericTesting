@@ -78,6 +78,8 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APC\ProductionPlanning.vb" />
+    <Compile Include="APC\u.vb" />
     <Compile Include="EnumParsing.vb" />
     <Compile Include="Extensions.vb" />
     <Compile Include="InvoiceExample.vb" />

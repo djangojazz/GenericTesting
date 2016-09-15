@@ -76,6 +76,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DynamicComboBoxDoubleFillSO.Designer.vb">
+      <DependentUpon>DynamicComboBoxDoubleFillSO.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DynamicComboBoxDoubleFillSO.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DynamicComboBoxDoubleFill.Designer.vb">
       <DependentUpon>DynamicComboBoxDoubleFill.vb</DependentUpon>
     </Compile>
@@ -156,6 +162,9 @@
   <ItemGroup>
     <EmbeddedResource Include="DataGridWindow.resx">
       <DependentUpon>DataGridWindow.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DynamicComboBoxDoubleFillSO.resx">
+      <DependentUpon>DynamicComboBoxDoubleFillSO.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DynamicComboBoxDoubleFill.resx">
       <DependentUpon>DynamicComboBoxDoubleFill.vb</DependentUpon>

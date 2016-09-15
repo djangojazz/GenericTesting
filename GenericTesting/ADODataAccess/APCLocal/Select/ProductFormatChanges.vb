@@ -1,7 +1,7 @@
 ﻿Namespace APCLocal
   Partial Public Class [Select]
 
-    Public Class ProductFormat
+    Public Class ProductFormatChanges
       Implements IDisposable
 
       'VARIABLES
@@ -9,22 +9,28 @@
       Private MyConnection As SqlClient.SqlConnection
 
       'CONSTRUCTORS
-      Public Sub New(IP As String)
+      Public Sub New(IP As String, Optional productFormatChangeId As Integer? = Nothing, Optional productFormatId As Integer? = Nothing, Optional productId As Integer? = Nothing)
         MyConnection = New SqlClient.SqlConnection(GetMyConnectionString(IP))
         MyConnection.Open()
-        Dim oCmd As New SqlClient.SqlCommand("APC_SP_SELECT_ProductFormat", MyConnection)
+        Dim oCmd As New SqlClient.SqlCommand("APC_SP_SELECT_ProductFormatChange", MyConnection)
         oCmd.CommandType = CommandType.StoredProcedure
         oCmd.CommandTimeout = iTimeOut
+        oCmd.Parameters.AddWithValue("@ProductFormatChangeId", If(productFormatChangeId, DirectCast(DBNull.Value, Object)))
+        oCmd.Parameters.AddWithValue("@ProductFormatId", If(productFormatId, DirectCast(DBNull.Value, Object)))
+        oCmd.Parameters.AddWithValue("@ProductId", If(productId, DirectCast(DBNull.Value, Object)))
         MyReader = oCmd.ExecuteReader
       End Sub
 
       'ENUMERATIONS
       Public Enum EInts
+        ProductFormatChangeID
+        ProductId
+        ParentProductFormatChangeId
         ProductFormatID
+        UOM
       End Enum
 
       Public Enum EStrings
-        ProductFormatDescription
         LastModifiedBy
       End Enum
 
@@ -32,23 +38,32 @@
         LastModifiedDate
       End Enum
 
+      Public Enum ENbr
+        RecoveryRate
+      End Enum
       'PROPERTIES
 
       Public ReadOnly Property Int(ByVal Field As EInts) As Integer
         Get
-          Return CInt(MyReader(Field.ToString))
+          Return If(IsDBNull(MyReader(Field.ToString)), New Integer, CInt(MyReader(Field.ToString)))
         End Get
       End Property
 
       Public ReadOnly Property Str(ByVal Field As EStrings) As String
         Get
-          Return MyReader(Field.ToString).ToString
+          Return If(IsDBNull(MyReader(Field.ToString)), Nothing, CStr(MyReader(Field.ToString)))
         End Get
       End Property
 
       Public ReadOnly Property Dte(ByVal Field As EDates) As Date
         Get
-          Return CDate(MyReader(Field.ToString))
+          Return If(IsDBNull(MyReader(Field.ToString)), New Date, CDate(MyReader(Field.ToString)))
+        End Get
+      End Property
+
+      Public ReadOnly Property Dec(ByVal Field As ENbr) As Decimal
+        Get
+          Return CDec(MyReader(Field.ToString))
         End Get
       End Property
 

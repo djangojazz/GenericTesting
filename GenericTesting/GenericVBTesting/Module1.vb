@@ -24,6 +24,7 @@ Module Module1
   Private _dispatcher As Dispatcher
   Private _productFormats As New Dictionary(Of Integer, String)
   Private _productionPlanGroups As New Dictionary(Of Integer, Integer)
+  Private _productFormatChanges As New List(Of ProductFormatChange)
 
   Enum Tester
     Hello = 1
@@ -81,9 +82,27 @@ Module Module1
   End Sub
 
   Private Sub LoadProductFormats()
-    Using myReader As New APCLocal.Select.ProductFormat("APC-DEV\TEST")
+    Using myReader As New APCLocal.Select.ProductFormats("APC-DEV\TEST")
       Do While myReader.Read
-        _productFormats.Add(myReader.Int(APCLocal.Select.ProductFormat.EInts.ProductFormatID), myReader.Str(APCLocal.Select.ProductFormat.EStrings.ProductFormatDescription))
+        _productFormats.Add(myReader.Int(APCLocal.Select.ProductFormats.EInts.ProductFormatID), myReader.Str(APCLocal.Select.ProductFormats.EStrings.ProductFormatDescription))
+      Loop
+    End Using
+  End Sub
+
+  Private Sub LoadProductFormatChanges()
+    Using myReader As New APCLocal.Select.ProductFormatChanges("APC-DEV\TEST", Nothing, Nothing, Nothing)
+      Do While myReader.Read
+        _productFormatChanges.Add(New ProductFormatChange With
+          {
+            .ProductFormatChangeId = myReader.Int(APCLocal.Select.ProductFormatChanges.EInts.ProductFormatChangeID),
+            .ProductId = myReader.Int(APCLocal.Select.ProductFormatChanges.EInts.ProductId),
+            .ParentProductFormatChangeId = myReader.Int(APCLocal.Select.ProductFormatChanges.EInts.ParentProductFormatChangeId),
+            .ProductFormatId = myReader.Int(APCLocal.Select.ProductFormatChanges.EInts.ProductFormatID),
+            .RecoveryRate = myReader.Dec(APCLocal.Select.ProductFormatChanges.ENbr.RecoveryRate),
+            .UOM = myReader.Int(APCLocal.Select.ProductFormatChanges.EInts.UOM),
+            .LastModifiedDate = myReader.Dte(APCLocal.Select.ProductFormatChanges.EDates.LastModifiedDate),
+            .LastModifiedBy = myReader.Str(APCLocal.Select.ProductFormatChanges.EStrings.LastModifiedBy)
+        })
       Loop
     End Using
   End Sub
@@ -96,10 +115,39 @@ Module Module1
     End Using
   End Sub
 
+  Private Function GetLevel(productFormatChanges As List(Of ProductFormatChange), id As Integer) As Integer
+    Dim lvl As Integer = 0
+    Do
+      Dim ThisItem = productFormatChanges.SingleOrDefault(Function(x) x.ProductFormatChangeId = id)
+      If ThisItem IsNot Nothing Then lvl += 1 : id = ThisItem.ParentProductFormatChangeId Else If lvl = 0 Then Return -1
+    Loop While id <> 0
+
+    Return lvl
+  End Function
+
   Sub Main()
+    LoadProductFormatChanges()
     LoadProductFormats()
-    'LoadProductGroup()
-    Dim x = ""
+
+    Dim startingPFC = 3
+    Dim endingPFC = 289
+    Dim inputValue = 10
+
+    Console.WriteLine(_productFormatChanges.ReturnHeirarchyValueOfProductFormatId(_productFormats, 8, 1))
+
+    'Dim items = _productFormatChanges.DetermineExistingProductFormatChangeLevels(_productFormats, 8)
+    'items.ToList().ForEach(Sub(x) Console.WriteLine($"{x.Value}"))
+
+    'Dim items = _productFormatChanges.GetLevelsOfAllProductFormatChanges(_productFormats)
+    'items.ForEach(Sub(x) Console.WriteLine($"{x.ProductFormatChangeId} {x.ProductFormatId} {x.ProductId} {x.Description}"))
+
+    'Dim level = GetLevel(_productFormatChanges, endingPFC)
+
+    'Console.WriteLine($"Level of {endingPFC} is {level}")
+
+    'Dim finishedVal = _productFormatChanges.DetermineCalculationOfValueFromOneLevelToAnother(startingPFC, endingPFC, inputValue)
+
+    'Console.WriteLine($"Starting{Environment.NewLine}{inputValue}{Environment.NewLine}Ending{Environment.NewLine}{finishedVal}")
 
     Console.ReadLine()
   End Sub
