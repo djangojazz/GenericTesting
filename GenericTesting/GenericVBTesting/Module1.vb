@@ -82,7 +82,7 @@ Module Module1
   End Sub
 
   Private Sub LoadProductFormats()
-    Using myReader As New APCLocal.Select.ProductFormats("APC-DEV\TEST")
+    Using myReader As New APCLocal.Select.ProductFormats("DEV-APC1")
       Do While myReader.Read
         _productFormats.Add(myReader.Int(APCLocal.Select.ProductFormats.EInts.ProductFormatID), myReader.Str(APCLocal.Select.ProductFormats.EStrings.ProductFormatDescription))
       Loop
@@ -90,7 +90,7 @@ Module Module1
   End Sub
 
   Private Sub LoadProductFormatChanges()
-    Using myReader As New APCLocal.Select.ProductFormatChanges("APC-DEV\TEST", Nothing, Nothing, Nothing)
+    Using myReader As New APCLocal.Select.ProductFormatChanges("DEV-APC1", Nothing, Nothing, Nothing)
       Do While myReader.Read
         _productFormatChanges.Add(New ProductFormatChange With
           {
@@ -108,7 +108,7 @@ Module Module1
   End Sub
 
   Private Sub LoadProductGroup()
-    Using MyReader As New APCLocal.Select.ProductionPlanGroup("APC-DEV\TEST", Nothing, 36189)
+    Using MyReader As New APCLocal.Select.ProductionPlanGroup("DEV-APC1", Nothing, 36189)
       Do While MyReader.Read
         _productionPlanGroups.Add(MyReader.Int(APCLocal.Select.ProductionPlanGroup.EInts.ProductionPlanGroupID), MyReader.Int(APCLocal.Select.ProductionPlanGroup.EInts.ProductID))
       Loop
@@ -129,11 +129,18 @@ Module Module1
     LoadProductFormatChanges()
     LoadProductFormats()
 
-    Dim startingPFC = 3
-    Dim endingPFC = 289
-    Dim inputValue = 10
+    Dim startingPFC = 249
+    Dim endingPFC = 496
+    Dim inputValue = 100
 
-    Console.WriteLine(_productFormatChanges.ReturnHeirarchyValueOfProductFormatId(_productFormats, 8, 1))
+
+    '    ProductFormatChangeId ProductId	ParentProductFormatChangeId
+    '249 8	NULL
+    '494 8	249
+    '496 8	494
+
+
+    'Console.WriteLine(_productFormatChanges.ReturnHeirarchyValueOfProductFormatId(_productFormats, 8, 3))
 
     'Dim items = _productFormatChanges.DetermineExistingProductFormatChangeLevels(_productFormats, 8)
     'items.ToList().ForEach(Sub(x) Console.WriteLine($"{x.Value}"))
@@ -145,9 +152,9 @@ Module Module1
 
     'Console.WriteLine($"Level of {endingPFC} is {level}")
 
-    'Dim finishedVal = _productFormatChanges.DetermineCalculationOfValueFromOneLevelToAnother(startingPFC, endingPFC, inputValue)
+    Dim finishedVal = _productFormatChanges.DetermineCalculationOfValueFromOneLevelToAnother(startingPFC, endingPFC, inputValue, True)
 
-    'Console.WriteLine($"Starting{Environment.NewLine}{inputValue}{Environment.NewLine}Ending{Environment.NewLine}{finishedVal}")
+    Console.WriteLine($"Starting{Environment.NewLine}{inputValue}{Environment.NewLine}Ending{Environment.NewLine}{finishedVal}")
 
     Console.ReadLine()
   End Sub

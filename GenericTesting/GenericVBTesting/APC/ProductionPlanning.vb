@@ -2,11 +2,24 @@
 Imports System.Runtime.CompilerServices
 
 Module ProductionPlanning
-  Private Function GetDescription(productFormatChanges As List(Of ProductFormatChange), productFormats As Dictionary(Of Integer, String), productFormatChangeId As Integer) As String
-    Dim productFormatId = If(productFormatChanges.FirstOrDefault(Function(x) x.ProductFormatChangeId = productFormatChangeId)?.ProductFormatId, -1)
+  Private _enums As New Dictionary(Of Integer, String)
 
-    If productFormatId <> -1 Then
-      Return $"Level {(GetLevel(productFormatChanges, productFormatChangeId))} - {productFormats.SingleOrDefault(Function(z) z.Key = productFormatId).Value}"
+  Private Sub GetEnums()
+    For Each e As EUOM In [Enum].GetValues(GetType(EUOM))
+      _enums.Add(e, e.ToString)
+    Next
+  End Sub
+
+  Sub New()
+    GetEnums()
+  End Sub
+
+
+  Private Function GetDescription(productFormatChanges As List(Of ProductFormatChange), productFormats As Dictionary(Of Integer, String), productFormatChangeId As Integer) As String
+    Dim productFormatChange = productFormatChanges.FirstOrDefault(Function(x) x.ProductFormatChangeId = productFormatChangeId)
+
+    If productFormatChange IsNot Nothing Then
+      Return $"Level {(GetLevel(productFormatChanges, productFormatChangeId))} - {Math.Round(CDbl(productFormatChange.RecoveryRate * 100), 2)}% - {_enums.Single(Function(x) x.Key = productFormatChange.UOM).Value} - {productFormats.SingleOrDefault(Function(z) z.Key = productFormatChange.ProductFormatId).Value}"
     Else
       Return $"NOTHING"
     End If
@@ -34,19 +47,28 @@ Module ProductionPlanning
 
   <Extension>
   Friend Function ReturnHeirarchyValueOfProductFormatId(productFormatChanges As List(Of ProductFormatChange), productFormats As Dictionary(Of Integer, String), productId As Integer, productFormatId As Integer) As String
-    Dim items = productFormatChanges.GetLevelsOfProductFormatChanges(productFormats, productId)
-    Return items.SingleOrDefault(Function(x) x.ProductFormatId = productFormats.SingleOrDefault(Function(y) y.Key = productFormatId).Key).Description
+    Return If(productFormatChanges.GetLevelsOfProductFormatChanges(productFormats, productId).SingleOrDefault(Function(x) x.ProductFormatId = productFormats.SingleOrDefault(Function(y) y.Key = productFormatId).Key)?.Description, "NOTHING")
   End Function
 
   <Extension>
-  Friend Function DetermineCalculationOfValueFromOneLevelToAnother(productFormatChanges As List(Of ProductFormatChange), startingProductFormatChange As Integer, endingProductFormatChange As Integer, inputValue As Double) As Double
+  Friend Function DetermineCalculationOfValueFromOneLevelToAnother(productFormatChanges As List(Of ProductFormatChange), startingProductFormatChange As Integer, endingProductFormatChange As Integer, inputValue As Double, childOrParent As Boolean) As Double
     Dim poco = productFormatChanges.FirstOrDefault(Function(x) x.ProductFormatChangeId = startingProductFormatChange)
-    inputValue *= poco.RecoveryRate
+    If poco Is Nothing Then Return -1
+
+    If childOrParent Then inputValue *= poco.RecoveryRate Else inputValue /= poco.RecoveryRate
+
     If poco.ProductFormatChangeId = endingProductFormatChange Then Return inputValue
 
-    Dim childProductFormatChangeId = If(productFormatChanges.SingleOrDefault(Function(x) x.ParentProductFormatChangeId = poco.ProductFormatChangeId)?.ProductFormatChangeId, -1)
-    If childProductFormatChangeId = -1 Then Return -1
-    Return DetermineCalculationOfValueFromOneLevelToAnother(productFormatChanges, childProductFormatChangeId, endingProductFormatChange, inputValue)
+    If childOrParent Then
+      Dim childProductFormatChangeId = If(productFormatChanges.SingleOrDefault(Function(x) x.ParentProductFormatChangeId = poco.ProductFormatChangeId)?.ProductFormatChangeId, -1)
+      If childProductFormatChangeId = -1 Then Return -1
+      Return DetermineCalculationOfValueFromOneLevelToAnother(productFormatChanges, childProductFormatChangeId, endingProductFormatChange, inputValue, True)
+    Else
+      Dim parentProductFormatChangeId = If(productFormatChanges.SingleOrDefault(Function(x) x.ProductFormatChangeId = poco.ParentProductFormatChangeId)?.ProductFormatChangeId, -1)
+      If parentProductFormatChangeId = -1 Then Return -1
+      Return DetermineCalculationOfValueFromOneLevelToAnother(productFormatChanges, parentProductFormatChangeId, endingProductFormatChange, inputValue, False)
+    End If
+
   End Function
 
   <Extension>

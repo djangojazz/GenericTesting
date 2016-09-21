@@ -1,4 +1,11 @@
 ﻿Public Module u
+  Public Enum EUOM
+    Lbs = 1
+    Ounces = 2
+    Dozen = 3
+    Bushel = 4
+  End Enum
+
   Public Class ProductFormatChange
     Private p As Object()
 
