@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CartesianHelper.cs" />
     <Compile Include="DataAccess\DataConverter.cs" />
     <Compile Include="DataAccess\SQLTalker.cs" />
     <Compile Include="Delegates\AnnonymousDelegates.cs" />

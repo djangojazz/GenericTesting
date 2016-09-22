@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Collections.ObjectModel;
 using System.Web.Script.Serialization;
+using System.Text;
 
 namespace GenericTesting
 {
@@ -110,11 +111,30 @@ namespace GenericTesting
 
     static void Main(string[] args)
     {
-      //PlayingWithEntity();
+      Func<decimal, bool> IsValid = (inputNumber) =>
+      {
+        return Decimal.Remainder((inputNumber / 3), 1) == 0 && Decimal.Remainder((inputNumber / 5), 1) == 0 ? true : false;
+      };
+
+      for (int i = 1; i <= 20; i++)
+      {
+        var items = new[] { "3", "5" };
+        var combs = Enumerable.Repeat(items, i).CartesianProduct();
+        decimal x = -1;
+        
+        foreach (var item in combs.ToList())
+        {
+          Decimal.TryParse(String.Join("", item), out x);
+          if (IsValid(x)) break;
+          else x = -1;  
+        }
+        
+        Console.WriteLine($"{i} {x}");
+      }
 
       Console.ReadLine();
     }
-
+    
     private static void PlayingWithEntity()
     {
       using (var context = new TesterEntities())

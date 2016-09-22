@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APCLocal\Connection.vb" />
+    <Compile Include="APCLocal\Select\ProductFormatApplicableValueFromProductionOut.vb" />
     <Compile Include="APCLocal\Select\ProductFormats.vb" />
     <Compile Include="APCLocal\Select\ProductFormatChanges.vb" />
     <Compile Include="APCLocal\Select\ProductionPlanGroup.vb" />
@@ -86,6 +87,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="u.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

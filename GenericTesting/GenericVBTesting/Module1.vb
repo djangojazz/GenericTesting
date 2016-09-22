@@ -125,6 +125,19 @@ Module Module1
     Return lvl
   End Function
 
+  Private Function UpdateProductForProductFormatChange(product As u.Product) As u.Product
+    Dim productCopy = product
+
+    Using myReader = New APCLocal.Select.ProductFormatApplicableValueFromProductionOut("DEV-APC1", product)
+      Do While myReader.Read
+        productCopy.DerivedProductFormatChangeId = myReader.Int(APCLocal.Select.ProductFormatApplicableValueFromProductionOut.EInts.ProductFormatChangeId)
+        productCopy.DerivedProductFormatId = myReader.Int(APCLocal.Select.ProductFormatApplicableValueFromProductionOut.EInts.ProductFormatId)
+      Loop
+    End Using
+
+    Return productCopy
+  End Function
+
   Sub Main()
     LoadProductFormatChanges()
     LoadProductFormats()
@@ -133,6 +146,11 @@ Module Module1
     Dim endingPFC = 496
     Dim inputValue = 100
 
+    Dim prd = New u.Product With {.ProductID = 8, .SubTypeID = 20, .FormID = 26, .StateID = 21, .GradeID = 82, .SizeID = 218, .CatchMethodID = 85, .GovID = 252}
+
+    Dim newOne = UpdateProductForProductFormatChange(prd)
+
+    Console.WriteLine(newOne.DerivedProductFormatChangeId)
 
     '    ProductFormatChangeId ProductId	ParentProductFormatChangeId
     '249 8	NULL
@@ -152,9 +170,9 @@ Module Module1
 
     'Console.WriteLine($"Level of {endingPFC} is {level}")
 
-    Dim finishedVal = _productFormatChanges.DetermineCalculationOfValueFromOneLevelToAnother(startingPFC, endingPFC, inputValue, True)
+    'Dim finishedVal = _productFormatChanges.DetermineCalculationOfValueFromOneLevelToAnother(startingPFC, endingPFC, inputValue, True)
 
-    Console.WriteLine($"Starting{Environment.NewLine}{inputValue}{Environment.NewLine}Ending{Environment.NewLine}{finishedVal}")
+    'Console.WriteLine($"Starting{Environment.NewLine}{inputValue}{Environment.NewLine}Ending{Environment.NewLine}{finishedVal}")
 
     Console.ReadLine()
   End Sub

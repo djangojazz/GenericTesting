@@ -1,5 +1,5 @@
-﻿Imports APC.Dep.Universal.u
-Imports System.Runtime.CompilerServices
+﻿Imports System.Runtime.CompilerServices
+Imports ADODataAccess.u
 
 Module ProductionPlanning
   Private _enums As New Dictionary(Of Integer, String)
