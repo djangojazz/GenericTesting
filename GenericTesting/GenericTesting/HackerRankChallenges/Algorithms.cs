@@ -26,5 +26,23 @@ namespace GenericTesting.HackerRankChallenges
         Console.WriteLine($"{i} {x}");
       }
     }
+
+    public static void WriteDiagonals()
+    {
+      Func<int[][], bool, int> CalculateDiagonal = (mtrx, leftOrRight) =>
+      {
+        var result = 0;
+        var startBackwards = mtrx.Select(x => x.Count()).First();
+        for (int i = 0; i < mtrx.Count(); i++) { startBackwards -= 1; if (!leftOrRight) result += mtrx[i][startBackwards]; else result += mtrx[i][i]; }
+        return result;
+      };
+
+      var matrix = new int[][] { new int[] { 11, 2, 4 }, new int[] { 4, 5, 6 }, new int[] { 10, 8, -12 } };
+
+      var lr = CalculateDiagonal(matrix, true);
+      var rl = CalculateDiagonal(matrix, false);
+
+      Console.WriteLine(Math.Abs(lr - rl));
+    }
   }
 }

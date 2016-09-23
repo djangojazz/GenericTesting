@@ -132,13 +132,7 @@ namespace GenericTesting
 
     static void Main(string[] args)
     {
-      var orders = new List<int> { 2, 3 };
-      var items = GetPOCOsAndOrders();
-
-      var peopleAndOrdersWhereOrderNumberIsThree = items.Where(x => x.Orders.Any(y => orders.Contains(y.Id)));
-
-      //I should only get the last two people out of three and their orders
-      peopleAndOrdersWhereOrderNumberIsThree.ToList().ForEach(x => Console.WriteLine($"{x.Id} {x.Desc} {x.Orders.Count}"));
+      
 
       Console.ReadLine();
     }
