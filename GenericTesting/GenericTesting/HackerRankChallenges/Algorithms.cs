@@ -38,17 +38,19 @@ namespace GenericTesting.HackerRankChallenges
       {
         for (int i = 1; i <= fives; i++)
         {
-          if (len == 0) return result.ToString();
+          if (len == 0) break;
 
           if (len % 3 == 0)
           {
-            result.Insert(0, "555");
+            //result.Insert(0, "555");
+            result.Append("555");
             len -= 3;
             if (len > 0 && len < 3) return "-1";
           }
           else if ((len - 5) > 0 || len % 5 == 0)
           {
-            result.Insert(0, "33333");
+            //result.Insert(0, "33333");
+            result.Append("33333");
             len -= 5;
           }
           else
@@ -57,8 +59,12 @@ namespace GenericTesting.HackerRankChallenges
           }
         }
       }
+      
+      var array = result.ToString().ToArray();
+      Array.Reverse(array);
+      var output = new string(array);
 
-      return !String.IsNullOrEmpty(result.ToString()) ? result.ToString() : "-1";
+      return !String.IsNullOrEmpty(output) ? output : "-1";
     }
 
     public static void WriteDiagonals()
