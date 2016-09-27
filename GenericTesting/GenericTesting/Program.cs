@@ -132,7 +132,7 @@ namespace GenericTesting
 
     static void Main(string[] args)
     {
-      
+      TheBeastChallenge();
 
       Console.ReadLine();
     }
