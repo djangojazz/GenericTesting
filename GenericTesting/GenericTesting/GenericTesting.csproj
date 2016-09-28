@@ -98,6 +98,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Test.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Timers.cs" />
     <Compile Include="TimeZoneInfoHelpers.cs" />
   </ItemGroup>
   <ItemGroup>

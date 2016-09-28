@@ -28,4 +28,52 @@ namespace GenericTesting
     [XmlElement]
     public string StateName;
   }
+
+  public class POC
+  {
+    public int Id { get; set; }
+    public string Desc { get; set; }
+    public List<Order> Orders { get; set; }
+  }
+
+  public class Order
+  {
+    public int Id { get; set; }
+    public string Desc { get; set; }
+  }
+
+  public class POCOTesting
+  {
+    public static List<POC> GetPOCOs()
+    {
+      return new List<POC>
+      {
+          new POC { Id = 1, Desc = "John"},
+          new POC { Id = 2, Desc = "Jane" },
+          new POC { Id = 3, Desc = "Joey" }
+      };
+    }
+
+    public static List<Order> GetOrders(int numberOfOrders)
+    {
+      var orders = new List<Order>();
+
+      for (int i = 1; i <= numberOfOrders; i++)
+      {
+        orders.Add(new Order { Id = i, Desc = $"{i} Order" });
+      }
+
+      return orders;
+    }
+
+    public static List<POC> GetPOCOsAndOrders()
+    {
+      return new List<POC>
+      {
+          new POC { Id = 1, Desc = "John", Orders = GetOrders(1)},
+          new POC { Id = 2, Desc = "Jane", Orders = GetOrders(2) },
+          new POC { Id = 3, Desc = "Joey" , Orders = GetOrders(3)}
+      };
+    }
+  }
 }

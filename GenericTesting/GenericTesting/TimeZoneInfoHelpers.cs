@@ -89,5 +89,27 @@ namespace GenericTesting
     {
       return (typeof(T) == typeof(DateTimeOffset)) ? (T)(object)DateTimeOffset.UtcNow : (T)(object)DateTime.UtcNow;
     }
+
+    public static void TestTimeZoneStuff()
+    {
+      var timezones = TimeZoneInfo.GetSystemTimeZones();
+      var utc = TimeZoneInfo.FindSystemTimeZoneById("UTC");
+      var pst = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+      var est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+
+      var dtString = "2016-03-13T01:00:00";
+      var dtString2 = "2016-03-14T01:00:00";
+
+      var dtUTC = utc.ConvertDateToTimeZoneFromUTCElseDefaultUTCNow<DateTimeOffset>(dtString);
+      var dtPST = pst.ConvertDateToTimeZoneFromUTCElseDefaultUTCNow<DateTimeOffset>(dtString);
+      var dtEST = est.ConvertDateToTimeZoneFromUTCElseDefaultUTCNow<DateTimeOffset>(dtString);
+      var dtUTC2 = utc.ConvertDateToTimeZoneFromUTCElseDefaultUTCNow<DateTimeOffset>(dtString2);
+      var dtPST2 = pst.ConvertDateToTimeZoneFromUTCElseDefaultUTCNow<DateTimeOffset>(dtString2);
+      var dtEST2 = est.ConvertDateToTimeZoneFromUTCElseDefaultUTCNow<DateTimeOffset>(dtString2);
+      var nl = Environment.NewLine;
+
+      Console.WriteLine($"utc: {dtUTC}{nl}est:{dtEST}{nl}pst:{dtPST}");
+      Console.WriteLine($"utc: {dtUTC2}{nl}est:{dtEST2}{nl}pst:{dtPST2}");
+    }
   }
 }
