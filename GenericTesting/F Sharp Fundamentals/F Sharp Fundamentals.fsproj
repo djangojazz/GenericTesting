@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Squared.fs" />
+    <Compile Include="Quicksort.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
   </ItemGroup>
