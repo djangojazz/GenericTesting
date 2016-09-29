@@ -13,14 +13,14 @@ namespace GenericTesting
 {
   class Program
   {
-
     static void Main(string[] args)
     {
-      TheBeastChallenge();
+      var time = "07:05:45PM";
+
+      Console.WriteLine(DateTime.Parse(time).ToString("HH:mm:ss"));
 
       Console.ReadLine();
     }
-    
   }
   
 }

@@ -50,6 +50,8 @@
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Squared.fs" />
     <Compile Include="Quicksort.fs" />
+    <Compile Include="TwoNumbers.fs" />
+    <Compile Include="Printer.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
   </ItemGroup>
