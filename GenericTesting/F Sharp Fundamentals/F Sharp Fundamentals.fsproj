@@ -63,6 +63,8 @@
     <None Include="App.config" />
     <Content Include="packages.config" />
     <None Include="examples.fsx" />
+    <None Include="signal_generator.fsx" />
+    <None Include="wave_packer.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Charting">

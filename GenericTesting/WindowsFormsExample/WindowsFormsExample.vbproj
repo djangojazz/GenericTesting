@@ -76,6 +76,15 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedComboBox.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ComboBoxTesting.Designer.vb">
+      <DependentUpon>ComboBoxTesting.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ComboBoxTesting.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DynamicComboBoxDoubleFillSO.Designer.vb">
       <DependentUpon>DynamicComboBoxDoubleFillSO.vb</DependentUpon>
     </Compile>
@@ -146,6 +155,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="MyButtonCell.vb" />
     <Compile Include="SimpleDataGrid.Designer.vb">
       <DependentUpon>SimpleDataGrid.vb</DependentUpon>
     </Compile>
@@ -160,6 +170,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ComboBoxTesting.resx">
+      <DependentUpon>ComboBoxTesting.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DataGridWindow.resx">
       <DependentUpon>DataGridWindow.vb</DependentUpon>
     </EmbeddedResource>
