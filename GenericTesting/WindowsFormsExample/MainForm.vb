@@ -46,7 +46,7 @@
           End If
         Next
       Case sender Is DynamicComboBoxDoubleFillToolStripMenuItem
-        newWindow = New DynamicComboBoxDoubleFill()
+        newWindow = New DynamicFilterOnTwoTextItems()
       Case sender Is mnuDynamicComboBoxDoubleFillSO
         newWindow = New DynamicComboBoxDoubleFillSO()
       Case sender Is dgvComboBoxTest

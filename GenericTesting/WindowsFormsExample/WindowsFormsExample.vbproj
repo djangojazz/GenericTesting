@@ -91,10 +91,10 @@
     <Compile Include="DynamicComboBoxDoubleFillSO.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DynamicComboBoxDoubleFill.Designer.vb">
-      <DependentUpon>DynamicComboBoxDoubleFill.vb</DependentUpon>
+    <Compile Include="DynamicFilterOnTwoTextItems.Designer.vb">
+      <DependentUpon>DynamicFilterOnTwoTextItems.vb</DependentUpon>
     </Compile>
-    <Compile Include="DynamicComboBoxDoubleFill.vb">
+    <Compile Include="DynamicFilterOnTwoTextItems.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DialogBoxGenericButtons.Designer.vb">
@@ -179,8 +179,8 @@
     <EmbeddedResource Include="DynamicComboBoxDoubleFillSO.resx">
       <DependentUpon>DynamicComboBoxDoubleFillSO.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DynamicComboBoxDoubleFill.resx">
-      <DependentUpon>DynamicComboBoxDoubleFill.vb</DependentUpon>
+    <EmbeddedResource Include="DynamicFilterOnTwoTextItems.resx">
+      <DependentUpon>DynamicFilterOnTwoTextItems.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DialogBoxGenericButtons.resx">
       <DependentUpon>DialogBoxGenericButtons.vb</DependentUpon>
