@@ -156,6 +156,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="MyButtonCell.vb" />
+    <Compile Include="ResizingPracticeForDataGrids.Designer.vb">
+      <DependentUpon>ResizingPracticeForDataGrids.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ResizingPracticeForDataGrids.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="SimpleDataGrid.Designer.vb">
       <DependentUpon>SimpleDataGrid.vb</DependentUpon>
     </Compile>
@@ -205,6 +211,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResizingPracticeForDataGrids.resx">
+      <DependentUpon>ResizingPracticeForDataGrids.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SimpleDataGrid.resx">
       <DependentUpon>SimpleDataGrid.vb</DependentUpon>

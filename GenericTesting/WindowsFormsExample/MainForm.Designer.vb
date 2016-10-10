@@ -36,6 +36,7 @@ Partial Class MainForm
     Me.checkdialogs = New System.Windows.Forms.ToolStripMenuItem()
     Me.CheckGenericDialogBoxToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.CheckTwoButtonGenericDialogBoxToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+    Me.ResizingExamplesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.MenuStrip1.SuspendLayout()
     Me.SuspendLayout()
     '
@@ -50,7 +51,7 @@ Partial Class MainForm
     '
     'mDataGrids
     '
-    Me.mDataGrids.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenDataGridViewToolStripMenuItem, Me.mSimpleDataGrid, Me.mDynamicDataGrid, Me.ListGridToolStripMenuItem, Me.TreeViewToolStripMenuItem, Me.DynamicComboBoxDoubleFillToolStripMenuItem, Me.mnuDynamicComboBoxDoubleFillSO, Me.dgvComboBoxTest})
+    Me.mDataGrids.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenDataGridViewToolStripMenuItem, Me.mSimpleDataGrid, Me.mDynamicDataGrid, Me.ListGridToolStripMenuItem, Me.TreeViewToolStripMenuItem, Me.DynamicComboBoxDoubleFillToolStripMenuItem, Me.mnuDynamicComboBoxDoubleFillSO, Me.dgvComboBoxTest, Me.ResizingExamplesToolStripMenuItem})
     Me.mDataGrids.Name = "mDataGrids"
     Me.mDataGrids.Size = New System.Drawing.Size(70, 20)
     Me.mDataGrids.Text = "DataGrids"
@@ -128,6 +129,12 @@ Partial Class MainForm
     Me.CheckTwoButtonGenericDialogBoxToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
     Me.CheckTwoButtonGenericDialogBoxToolStripMenuItem.Text = "Check Two Button Generic Dialog Box"
     '
+    'ResizingExamplesToolStripMenuItem
+    '
+    Me.ResizingExamplesToolStripMenuItem.Name = "ResizingExamplesToolStripMenuItem"
+    Me.ResizingExamplesToolStripMenuItem.Size = New System.Drawing.Size(248, 22)
+    Me.ResizingExamplesToolStripMenuItem.Text = "Resizing Examples"
+    '
     'MainForm
     '
     Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -158,4 +165,5 @@ Partial Class MainForm
   Friend WithEvents DynamicComboBoxDoubleFillToolStripMenuItem As ToolStripMenuItem
   Friend WithEvents mnuDynamicComboBoxDoubleFillSO As ToolStripMenuItem
   Friend WithEvents dgvComboBoxTest As ToolStripMenuItem
+  Friend WithEvents ResizingExamplesToolStripMenuItem As ToolStripMenuItem
 End Class
