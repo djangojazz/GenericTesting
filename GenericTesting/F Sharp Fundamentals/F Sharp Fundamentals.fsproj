@@ -65,6 +65,7 @@
     <None Include="examples.fsx" />
     <None Include="signal_generator.fsx" />
     <None Include="wave_packer.fsx" />
+    <None Include="ComposerParsing.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FParsec">
