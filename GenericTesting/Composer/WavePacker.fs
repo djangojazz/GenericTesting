@@ -1,6 +1,8 @@
-﻿#load "signal_generator.fsx"
+﻿module WavePacker
+
 open System.IO
 open System.Text
+open SignalGenerator
 
 
 let pack (d:int16[]) = 

@@ -84,5 +84,22 @@ namespace GenericTesting.HackerRankChallenges
 
       Console.WriteLine(Math.Abs(lr - rl));
     }
+
+    public static void GiveResultNonDegenerateTriangles(List<int> ls)
+    {
+      if(ls.Count < 3)
+      {
+        Console.WriteLine("-1");
+      }
+      else
+      {
+        var subset = ls.OrderByDescending(x => x).Take(3).ToList();
+
+        if (subset[0] < (subset[1] + subset[2]))
+          Console.WriteLine($"{subset[2]} {subset[1]} {subset[0]}");
+        else
+          GiveResultNonDegenerateTriangles(ls.OrderBy(x => x).Take(ls.Count - 1).ToList());
+      }
+    }
   }
 }

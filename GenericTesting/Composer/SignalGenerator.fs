@@ -1,6 +1,4 @@
-﻿#load "D:\GitCode\GenericTesting\GenericTesting\packages\FSharp.Charting.0.90.14\FSharp.Charting.fsx"
-
-open FSharp.Charting
+﻿module SignalGenerator
 
 let generateSamples milliseconds frequency = 
     let sampleRate = 44100.
@@ -18,6 +16,6 @@ let generateSamples milliseconds frequency =
     let requiredSamples = seq { 1.0..numOfSamples}
     Seq.map toAmplitude requiredSamples
     
-let points = generateSamples 150. 440.
-points |> Chart.Line
-()
+//let points = generateSamples 150. 440.
+//points |> Chart.Line
+//()

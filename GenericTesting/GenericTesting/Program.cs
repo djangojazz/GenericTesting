@@ -11,13 +11,17 @@ using static GenericTesting.HackerRankChallenges.Algorithms;
 
 namespace GenericTesting
 {
+  
   class Program
   {
+    
+
     static void Main(string[] args)
     {
-      var time = "07:05:45PM";
+      int n = 5;
+      var ls = new int[]{ 3, 9, 2, 15, 3 };
 
-      Console.WriteLine(DateTime.Parse(time).ToString("HH:mm:ss"));
+      GiveResultNonDegenerateTriangles(ls.ToList());
 
       Console.ReadLine();
     }

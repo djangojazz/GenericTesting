@@ -43,7 +43,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncAspNet", "AsyncAspNet\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebMVC", "TestWebMVC\TestWebMVC.csproj", "{4758AF11-3358-45A4-8B7C-2A8F0B305196}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "F Sharp Fundamentals", "F Sharp Fundamentals\F Sharp Fundamentals.fsproj", "{317F9A09-CDC6-4CFB-9946-6480D3C5F18F}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpTesting", "F Sharp Fundamentals\FSharpTesting.fsproj", "{317F9A09-CDC6-4CFB-9946-6480D3C5F18F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
