@@ -59,9 +59,10 @@
     <Compile Include="AssemblyInfo.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />
-    <None Include="Testing.fsx" />
     <Compile Include="Test.fs" />
     <Compile Include="Program.fs" />
+    <None Include="Testing.fsx" />
+    <None Include="HackerRankScripts.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FParsec">
