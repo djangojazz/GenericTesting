@@ -4,14 +4,18 @@ open Test
 open System
 open System.Linq
 
-let ls = [3; 9; 2; 15; 3]
-let spl = "1 1 1 3 3"
+let input = "4 2 4"
+let spl = "1 2 3 5"
 
 
 [<EntryPoint>]
 let main argv = 
-    let a = spl //|> int
-    //let b = Console.ReadLine() |> int
-    let items = List.ofArray(spl.Split(' ')) |> List.map System.Int32.Parse
-    determineReturnForNonDegenerateTriangles(items)
+    let input = List.ofArray(input.Split(' ')) |> List.map System.Int32.Parse
+    let n = input.[0]
+    let k = input.[1]
+    let q = input.[2]
+    let ls = List.ofArray(spl.Split(' ')) |> List.map System.Int32.Parse
+    
+    getCircularArrayRotation ls k
+
     0 // return an integer exit code

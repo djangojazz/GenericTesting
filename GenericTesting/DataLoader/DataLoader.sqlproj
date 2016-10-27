@@ -76,6 +76,7 @@
     <Build Include="Tables\tbPerson_Address.sql" />
     <Build Include="Procedures\pInsertOrUpdateShipPosition.sql" />
     <Build Include="Tables\teSku.sql" />
+    <Build Include="Tables\TreeTest.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LocalPublish.publish.xml" />

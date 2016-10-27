@@ -8,3 +8,7 @@ let rec determineReturnForNonDegenerateTriangles ls =
         printfn "%A %A %A" subset.[2] subset.[1] subset.[0]
       else
         determineReturnForNonDegenerateTriangles(ls |> List.sort |> List.take(ls.Length - 1))
+
+let getCircularArrayRotation (ls:List<int>) (k:int) = 
+    let nls = List.append (ls |> List.skip(ls.Length - k)) (ls |> List.take(ls.Length - k))
+    for i in 0 .. nls.Length-1 do printfn "%d" nls.[i]

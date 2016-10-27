@@ -9,6 +9,9 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
+--TRUNCATIONS
+TRUNCATE TABLE dbo.TreeTest
+
 --DELETIONS
 DELETE dbo.teSku
 DBCC CHECKIDENT ('dbo.teSku', RESEED, 0);
@@ -31,6 +34,9 @@ DBCC CHECKIDENT ('dbo.tePerson', RESEED, 0);
 GO
 
 --INSERTS
+INSERT INTO dbo.TreeTest (Val, ParentID, Created, Modified, Active )
+VALUES ('A', NULL, GETDATE(), GETDATE(), 1),('B', 1, GETDATE(), GETDATE(), 1),('C', 2, GETDATE(), GETDATE(), 1)
+
 SET IDENTITY_INSERT dbo.teAddress ON;
 INSERT INTO dbo.teAddress (AddressId, StreetAddress, City, [State], ZipCode, Latitude, Longitude) VALUES (1, '7560 SW Lara St.', 'Portland', 'OR', 97223, 45.4573057, -122.7565177);
 SET IDENTITY_INSERT dbo.teAddress OFF;
