@@ -33,9 +33,9 @@ End Class
 
 Public Class TreeTest
   Public Property Id As Integer
-  'Public Property Val As String
-  'Public Property ParentId As Integer
-  'Public Property Created As DateTime
-  'Public Property Modified As DateTime
-  'Public Property Active As Boolean
+  Public Property Val As String
+  Public Property ParentId As Integer
+  Public Property Created As DateTime
+  Public Property Modified As DateTime
+  Public Property Active As Boolean
 End Class

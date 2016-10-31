@@ -8,16 +8,26 @@ Imports GenericVBTesting.Models
 
 Module Module1
 
-  Private MyConnection As SqlClient.SqlConnection
-  Private MyReader As SqlClient.SqlDataReader
+  Private _talker As SQLTalker = New SQLTalker(GetTesterDatabase)
+  Private _treeResults As New List(Of TreeTest)
 
-  Private listings As New Dictionary(Of String, String)
-  Private chartSettingsFileLocation = My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\OpenEnterprise\ChartSettings.xml"
 
   Sub Main()
+    writeIt("Start")
+
+    '_talker.Procer("Insert into TreeTest Values ('AAAAA', NULL, Getdate(), Getdate(), 1)")
+
+    writeIt("After Insert")
+
+
 
     Console.ReadLine()
   End Sub
 
-
+  Private Sub writeIt(header As String)
+    Console.WriteLine(header)
+    Console.WriteLine()
+    _treeResults = DirectCast(DataConverter.ConvertTo(Of TreeTest)(_talker.GetData("SELECT Id, Val, ParentId, Created, Modified, Active From dbo.TreeTest")), List(Of TreeTest))
+    _treeResults.ForEach(Sub(x) Console.WriteLine($"{x.Id} {x.Val} {x.ParentId} {x.Created} {x.Modified} {x.Active}"))
+  End Sub
 End Module

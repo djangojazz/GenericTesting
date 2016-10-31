@@ -28,52 +28,63 @@ Partial Class TreeView
     Me.mnuNewChildProductFormatChange = New System.Windows.Forms.ToolStripMenuItem()
     Me.mnuMaintainProductFormatChange = New System.Windows.Forms.ToolStripMenuItem()
     Me.mnuDeleteProductFormatChange = New System.Windows.Forms.ToolStripMenuItem()
+    Me.txt = New System.Windows.Forms.TextBox()
     Me.cmnu.SuspendLayout()
     Me.SuspendLayout()
     '
     'treeProductFormatChanges
     '
     Me.treeProductFormatChanges.ContextMenuStrip = Me.cmnu
-    Me.treeProductFormatChanges.Dock = System.Windows.Forms.DockStyle.Fill
-    Me.treeProductFormatChanges.Location = New System.Drawing.Point(0, 0)
+    Me.treeProductFormatChanges.Dock = System.Windows.Forms.DockStyle.Bottom
+    Me.treeProductFormatChanges.Location = New System.Drawing.Point(0, 26)
     Me.treeProductFormatChanges.Name = "treeProductFormatChanges"
-    Me.treeProductFormatChanges.Size = New System.Drawing.Size(384, 761)
+    Me.treeProductFormatChanges.Size = New System.Drawing.Size(384, 152)
     Me.treeProductFormatChanges.TabIndex = 1
     '
     'cmnu
     '
     Me.cmnu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuNewChildProductFormatChange, Me.mnuMaintainProductFormatChange, Me.mnuDeleteProductFormatChange})
     Me.cmnu.Name = "cmnu"
-    Me.cmnu.Size = New System.Drawing.Size(153, 92)
+    Me.cmnu.Size = New System.Drawing.Size(122, 70)
     '
     'mnuNewChildProductFormatChange
     '
     Me.mnuNewChildProductFormatChange.Name = "mnuNewChildProductFormatChange"
-    Me.mnuNewChildProductFormatChange.Size = New System.Drawing.Size(152, 22)
+    Me.mnuNewChildProductFormatChange.Size = New System.Drawing.Size(121, 22)
     Me.mnuNewChildProductFormatChange.Text = "New"
     '
     'mnuMaintainProductFormatChange
     '
     Me.mnuMaintainProductFormatChange.Name = "mnuMaintainProductFormatChange"
-    Me.mnuMaintainProductFormatChange.Size = New System.Drawing.Size(152, 22)
+    Me.mnuMaintainProductFormatChange.Size = New System.Drawing.Size(121, 22)
     Me.mnuMaintainProductFormatChange.Text = "Maintain"
     '
     'mnuDeleteProductFormatChange
     '
     Me.mnuDeleteProductFormatChange.Name = "mnuDeleteProductFormatChange"
-    Me.mnuDeleteProductFormatChange.Size = New System.Drawing.Size(152, 22)
+    Me.mnuDeleteProductFormatChange.Size = New System.Drawing.Size(121, 22)
     Me.mnuDeleteProductFormatChange.Text = "Delete"
+    '
+    'txt
+    '
+    Me.txt.Dock = System.Windows.Forms.DockStyle.Top
+    Me.txt.Location = New System.Drawing.Point(0, 0)
+    Me.txt.Name = "txt"
+    Me.txt.Size = New System.Drawing.Size(384, 20)
+    Me.txt.TabIndex = 2
     '
     'TreeView
     '
     Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
     Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-    Me.ClientSize = New System.Drawing.Size(384, 761)
+    Me.ClientSize = New System.Drawing.Size(384, 178)
+    Me.Controls.Add(Me.txt)
     Me.Controls.Add(Me.treeProductFormatChanges)
     Me.Name = "TreeView"
     Me.Text = "TreeView"
     Me.cmnu.ResumeLayout(False)
     Me.ResumeLayout(False)
+    Me.PerformLayout()
 
   End Sub
   Friend WithEvents treeProductFormatChanges As System.Windows.Forms.TreeView
@@ -81,4 +92,5 @@ Partial Class TreeView
   Friend WithEvents mnuNewChildProductFormatChange As ToolStripMenuItem
   Friend WithEvents mnuMaintainProductFormatChange As ToolStripMenuItem
   Friend WithEvents mnuDeleteProductFormatChange As ToolStripMenuItem
+  Friend WithEvents txt As TextBox
 End Class
