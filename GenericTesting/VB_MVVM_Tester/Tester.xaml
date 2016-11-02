@@ -18,7 +18,7 @@
   </Window.Resources>
   <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
     <!--<local:SL_BackgroundWorker_VB />-->
-    <local:ProducerConsumerView />
+    <local:LineChart />
   </StackPanel>
   
 </Window>

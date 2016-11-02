@@ -32,13 +32,14 @@ Partial Class ComboBoxTesting
     Me.DataGridViewComboBoxColumn2 = New System.Windows.Forms.DataGridViewComboBoxColumn()
     Me.cmb = New System.Windows.Forms.DataGridViewComboBoxColumn()
     Me.cmb2 = New System.Windows.Forms.DataGridViewComboBoxColumn()
+    Me.TestSet = New System.Windows.Forms.DataGridViewTextBoxColumn()
     CType(Me.dgv, System.ComponentModel.ISupportInitialize).BeginInit()
     Me.SuspendLayout()
     '
     'dgv
     '
     Me.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-    Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.cmb, Me.cmb2})
+    Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.cmb, Me.cmb2, Me.TestSet})
     Me.dgv.Location = New System.Drawing.Point(12, 12)
     Me.dgv.Name = "dgv"
     Me.dgv.Size = New System.Drawing.Size(324, 150)
@@ -110,6 +111,12 @@ Partial Class ComboBoxTesting
     Me.cmb2.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
     Me.cmb2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
     '
+    'TestSet
+    '
+    Me.TestSet.DataPropertyName = "TestSet"
+    Me.TestSet.HeaderText = "TestSet"
+    Me.TestSet.Name = "TestSet"
+    '
     'ComboBoxTesting
     '
     Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -125,9 +132,10 @@ Partial Class ComboBoxTesting
   End Sub
 
   Friend WithEvents dgv As DataGridView
-  Friend WithEvents cmb As DataGridViewComboBoxColumn
-  Friend WithEvents cmb2 As DataGridViewComboBoxColumn
-    Friend WithEvents cmbTest As ComboBox
+  Friend WithEvents cmbTest As ComboBox
   Friend WithEvents DataGridViewComboBoxColumn1 As DataGridViewComboBoxColumn
   Friend WithEvents DataGridViewComboBoxColumn2 As DataGridViewComboBoxColumn
+  Friend WithEvents cmb As DataGridViewComboBoxColumn
+  Friend WithEvents cmb2 As DataGridViewComboBoxColumn
+  Friend WithEvents TestSet As DataGridViewTextBoxColumn
 End Class

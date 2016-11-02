@@ -22,10 +22,11 @@
 
     Dim c2 = CType(dgv.Columns("cmb2"), DataGridViewComboBoxColumn)
     c2.CellTemplate = New MyButtonCell()
-    'c2.Cel
     c2.DataSource = ls
 
     SetupComboBox(cmbTest, _d)
+
+    dgv.CurrentCell = Me.dgv(2, 0)
   End Sub
 
   Private Sub cmbTest_DrawItem(sender As Object, e As DrawItemEventArgs) Handles cmbTest.DrawItem

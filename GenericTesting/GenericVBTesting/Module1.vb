@@ -10,16 +10,31 @@ Module Module1
 
   Private _talker As SQLTalker = New SQLTalker(GetTesterDatabase)
   Private _treeResults As New List(Of TreeTest)
+  Private _products As New List(Of Product)
 
+  Private example As New Lazy(Of String())(Function()
+                                             Return "example split".Split(" "c)
+                                           End Function)
+
+  'Public Sub test()
+  '  example.Value
+  'End Sub
 
   Sub Main()
-    writeIt("Start")
+    Dim chars = New Char() {","c, " "c, "/"c}
 
-    '_talker.Procer("Insert into TreeTest Values ('AAAAA', NULL, Getdate(), Getdate(), 1)")
+    Using myReader As New APCLocal.Select.Products("DEV-APC1", True)
+      Do While myReader.Read
+        _products.Add(New Product With {.ProductId = myReader.Int(APCLocal.Select.Products.EInts.ProductID), .Description = myReader.Str(APCLocal.Select.Products.EStrings.Description)})
+      Loop
+    End Using
 
-    writeIt("After Insert")
+    Dim val = "SALAD"
+    Dim val2 = "SHRIMP"
 
-
+    Dim matchingProduct = _products.SingleOrDefault(Function(x) x.Description.Split(chars).First().ToUpper.Contains(val))
+    'If that does not find anything try the second, else give up.  This could be done recursively potentially but how far do you want to take loose matching?
+    If matchingProduct Is Nothing Then matchingProduct = _products.Where(Function(x) x.Description.Split(chars).First().ToUpper.Contains(val2))
 
     Console.ReadLine()
   End Sub
