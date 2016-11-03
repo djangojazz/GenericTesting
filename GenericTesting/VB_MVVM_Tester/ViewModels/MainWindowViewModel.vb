@@ -19,9 +19,22 @@ Public Class MainWindowViewModel
     ProducerConsumer.Instance.producer.Start()
     Items = New ObservableCollection(Of Stuff)(New List(Of Stuff)({New Stuff With {.Id = 1, .Value = "Stuff", .ShipType = ShipType.Owned, .MoreStuff = "More Stuff"}, New Stuff With {.Id = 2, .Value = "Another"}}))
 
+    TestText = "Line Chart"
+    Points = "0,260 10,250 20,245 40,200 50,250 80, 200, 140,100"
   End Sub
 
   Private _items As ObservableCollection(Of Stuff)
+
+  Private _points As String
+  Public Property Points() As String
+    Get
+      Return _points
+    End Get
+    Set(ByVal value As String)
+      _points = value
+      OnPropertyChanged(NameOf(Points))
+    End Set
+  End Property
 
   Public Property Items() As ObservableCollection(Of Stuff)
     Get
