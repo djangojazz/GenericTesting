@@ -8,6 +8,9 @@ Public Class MainWindowViewModel
   Private _locationAddress As String
   Private _queueFinished As Boolean = False
   Private _result As String
+  Private _currentPoints As New ObservableCollection(Of Point)
+  Private _lastPoint As Point
+  Private _lineTrend As New LineGraph()
 
 
 
@@ -21,6 +24,12 @@ Public Class MainWindowViewModel
 
     TestText = "Line Chart"
     Points = "0,260 10,250 20,245 40,200 50,250 80, 200, 140,100"
+
+    _currentPoints = New ObservableCollection(Of Point)({New Point With {.X = 1, .Y = 1}, New Point With {.X = 50, .Y = 20}, New Point With {.X = 100, .Y = 100}})
+    _lastPoint = New Point With {.X = 150, .Y = 130}
+    _currentPoints.Add(_lastPoint)
+
+    _lineTrend.Trends.Add(New ChartDataSegment With {.LineColor = Brushes.Blue, .Points = _currentPoints})
   End Sub
 
   Private _items As ObservableCollection(Of Stuff)
@@ -97,13 +106,21 @@ Public Class MainWindowViewModel
     End Set
   End Property
 
-  Private _startCommandProdCons As New Lazy(Of DelegateCommand(Of Object))(Function() New DelegateCommand(Of Object)(AddressOf StartCommandProdConsExecute))
+  Private _testCommand As New Lazy(Of DelegateCommand(Of Object))(Function() New DelegateCommand(Of Object)(AddressOf TestCommandExecute))
 
-  Public ReadOnly Property StartCommandProdCons As ICommand
+  Public ReadOnly Property TestCommand As ICommand
     Get
-      Return _startCommandProdCons.Value
+      Return _testCommand.Value
     End Get
   End Property
+
+  Private Sub TestCommandExecute()
+    MessageBox.Show("Testing")
+    _lastPoint = New Point With {.X = 250, .Y = 130}
+    _currentPoints.Add(_lastPoint)
+    _lineTrend.Trends.Add(New ChartDataSegment With {.LineColor = Brushes.Blue, .Points = _currentPoints})
+    _lineTrend.DrawTrend()
+  End Sub
 
   Private Sub StartCommandProdConsExecute()
     TestText = "Start"

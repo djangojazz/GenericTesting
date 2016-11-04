@@ -16,9 +16,52 @@
       <Setter Property="Background" Value="Transparent" />
     </Style>
   </Window.Resources>
-  <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-    <!--<local:SL_BackgroundWorker_VB />-->
-    <local:LineChart />
-  </StackPanel>
   
+    
+    <!--<local:SL_BackgroundWorker_VB />-->
+    <!--<local:LineChart />-->
+  <StackPanel>
+    <local:LineGraph Height="200" />
+    <Button Height="20" Width="100" Content="Click Me" Command="{Binding TestCommand}" />
+  </StackPanel>
+    
+  
+  
+  <!--<Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <TextBlock Grid.Row="0" Text="Hello" FontSize="20"/>
+    <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="15" Margin="10">
+      <Canvas Margin="10">
+        <Line X1="0" Y1="0" X2="100" Y2="100" Stroke="Black" StrokeThickness="10"/>
+        <Line X1="100" Y1="100" X2="150" Y2="300" Stroke="Black" StrokeThickness="10"/>
+        <Canvas.LayoutTransform>
+          <ScaleTransform ScaleX="1" ScaleY="-1" />
+        </Canvas.LayoutTransform>
+
+      </Canvas>
+    </Border>
+    
+  </Grid>-->
+  
+  <!--<Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+      <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="This is a test" FontSize="20" Height="20"/>
+      <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="15" Margin="10">
+
+      <Canvas Margin="5" RenderTransform="1 0 0 -1 0 0">
+        <Line X1="0" Y1="0" X2="10" Y2="100" Stroke="Black" StrokeThickness="10">
+          
+        </Line>
+         
+        </Canvas>
+
+      </Border>
+    </Grid>-->
+
 </Window>

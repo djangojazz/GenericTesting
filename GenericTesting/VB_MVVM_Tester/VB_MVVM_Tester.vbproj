@@ -98,7 +98,7 @@
     <Compile Include="Business\TemplateSelectors.vb" />
     <Compile Include="Model\Delegates.vb" />
     <Compile Include="Model\POCO.vb" />
-    <Compile Include="ShawnExample.vb" />
+    <Compile Include="Business\LineGraph.vb" />
     <Compile Include="ViewModels\LineChartViewModel.vb" />
     <Compile Include="ViewModels\MarqueeViewModel.vb" />
     <Compile Include="Views\LineChart.xaml.vb">

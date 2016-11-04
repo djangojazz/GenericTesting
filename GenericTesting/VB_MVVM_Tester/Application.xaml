@@ -104,6 +104,29 @@
         </Canvas>
       </StackPanel>
     </DataTemplate>
+
+    <Style TargetType="{x:Type local:LineGraph}">
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="{x:Type local:LineGraph}">
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+              </Grid.RowDefinitions>
+              <TextBlock Grid.Row="0" Text="Hello" FontSize="20"/>
+              <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="15" Margin="10">
+                <Canvas Margin="10" x:Name="PART_Canvas">
+                  <Canvas.LayoutTransform>
+                    <ScaleTransform ScaleX="1" ScaleY="-1" />
+                  </Canvas.LayoutTransform>
+                </Canvas>
+              </Border>
+            </Grid>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
   </Application.Resources>
   
 </Application>
