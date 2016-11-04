@@ -19,16 +19,9 @@ Public Class LineGraph
 
   Private Shared Sub OnTestChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
     MessageBox.Show(e.NewValue)
-    'Dim target = DirectCast(d, LineGraph)
-    'Dim oldAxis = DirectCast(e.OldValue, IEnumerable)
-    'Dim newAxis = target.Axis
-    'target.OnAxis2Changed(oldAxis, newAxis)
   End Sub
 
-  ''' <summary>
-  '''   Provides derived classes an opportunity to handle changes to the Axis property.
-  ''' </summary>
-  Protected Overridable Sub OnTrendsChanged(oldAxis As String, newAxis As String)
+  Protected Overridable Sub OnTestChanged(oldAxis As String, newAxis As String)
   End Sub
 
   'CONSTRUCTOR
