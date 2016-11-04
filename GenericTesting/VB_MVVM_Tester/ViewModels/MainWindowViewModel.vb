@@ -119,7 +119,7 @@ Public Class MainWindowViewModel
     _lastPoint = New Point With {.X = 250, .Y = 130}
     _currentPoints.Add(_lastPoint)
     _lineTrend.Trends.Add(New ChartDataSegment With {.LineColor = Brushes.Blue, .Points = _currentPoints})
-    _lineTrend.DrawTrend()
+    '_lineTrend.DrawTrend()
   End Sub
 
   Private Sub StartCommandProdConsExecute()
