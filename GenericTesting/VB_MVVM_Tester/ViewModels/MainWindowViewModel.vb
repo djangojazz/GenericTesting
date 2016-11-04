@@ -10,7 +10,6 @@ Public Class MainWindowViewModel
   Private _result As String
   Private _currentPoints As New ObservableCollection(Of Point)
   Private _lastPoint As Point
-  Private _lineTrend As New LineGraph()
 
 
   Public Sub DoIt(result As String)
@@ -30,7 +29,7 @@ Public Class MainWindowViewModel
 
     ChartData = New Collection(Of ChartDataSegment)({New ChartDataSegment With {.LineColor = Brushes.Blue, .Points = _currentPoints}})
 
-    _lineTrend.Trends.Add(_chartData(0))
+    '_lineTrend.Trends.Add(_chartData(0))
   End Sub
 
   Private _items As ObservableCollection(Of Stuff)
@@ -118,6 +117,7 @@ Public Class MainWindowViewModel
     End Set
   End Property
 
+#Region "Test Command"
   Private _testCommand As New Lazy(Of DelegateCommand(Of Object))(Function() New DelegateCommand(Of Object)(AddressOf TestCommandExecute))
 
   Public ReadOnly Property TestCommand As ICommand
@@ -127,14 +127,12 @@ Public Class MainWindowViewModel
   End Property
 
   Private Sub TestCommandExecute()
-    'TestText = DateTime.Now.ToShortTimeString
-
-    _lastPoint = New Point With {.X = 250, .Y = 130}
+    _lastPoint = New Point With {.X = _lastPoint.X + 50, .Y = _lastPoint.Y * 0.95}
     _currentPoints.Add(_lastPoint)
-    _lineTrend.Trends.Add(New ChartDataSegment With {.LineColor = Brushes.Blue, .Points = _currentPoints})
     ChartData = New Collection(Of ChartDataSegment)({New ChartDataSegment With {.LineColor = Brushes.Blue, .Points = _currentPoints}})
 
   End Sub
+
 
   Private Sub StartCommandProdConsExecute()
     TestText = "Start"
@@ -147,5 +145,6 @@ Public Class MainWindowViewModel
     Dim value = ProducerConsumer.Instance.Thing.Id
     TestText = $"{value}"
   End Sub
+#End Region
 
 End Class

@@ -4,18 +4,11 @@ Imports System.Collections.ObjectModel
 
 Public Class LineGraph
   Inherits Control
-  Implements INotifyPropertyChanged
 
-  Private _canvas
+  Private Shared _canvas
 
   Shared Sub New()
     DefaultStyleKeyProperty.OverrideMetadata(GetType(LineGraph), New FrameworkPropertyMetadata(GetType(LineGraph)))
-  End Sub
-
-  Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
-
-  Public Sub OnPropertyChanged(ByVal info As String)
-    RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(info))
   End Sub
 
 
@@ -32,9 +25,12 @@ Public Class LineGraph
 
   Private Shared Sub ChartDataChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
     Dim chartData = TryCast(e.NewValue, Collection(Of ChartDataSegment))
-    Dim s = String.Empty
-    chartData.ToList().SelectMany(Function(x) x.Points).Select(Function(y) New With {Key .Listing = $"X: {y.X} Y:{y.Y}"}).ToList().ForEach(Sub(z) s += z.Listing + Environment.NewLine)
-    MessageBox.Show(s)
+
+    If _canvas IsNot Nothing AndAlso chartData IsNot Nothing Then
+      For Each trend In chartData
+        DrawTrend(trend)
+      Next trend
+    End If
   End Sub
 
   Protected Overridable Sub ChartDataChanged(oldAxis As String, newAxis As String)
@@ -53,14 +49,9 @@ Public Class LineGraph
   Public Overrides Sub OnApplyTemplate()
     MyBase.OnApplyTemplate()
     _canvas = TryCast(GetTemplateChild("PART_Canvas"), Canvas)
-    If _canvas IsNot Nothing AndAlso Trends IsNot Nothing Then
-      For Each trend In Trends
-        DrawTrend(trend)
-      Next trend
-    End If
   End Sub
 
-  Public Sub DrawTrend(Trend As ChartDataSegment)
+  Public Shared Sub DrawTrend(Trend As ChartDataSegment)
     Dim t = TryCast(Trend, ChartDataSegment)
     If t IsNot Nothing AndAlso t.Points IsNot Nothing Then
       For i As Integer = 1 To t.Points.Count - 1
