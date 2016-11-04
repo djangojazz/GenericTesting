@@ -6,25 +6,8 @@ Public Class LineGraph
   Inherits Control
   Implements INotifyPropertyChanged
 
-  Public Shared ReadOnly TESTProperty As DependencyProperty = DependencyProperty.Register("TEST", GetType(String), GetType(LineGraph), New UIPropertyMetadata(Nothing, AddressOf OnTestChanged))
+  Private _canvas
 
-  Public Property TEST As String
-    Get
-      Return DirectCast(GetValue(TESTProperty), String)
-    End Get
-    Set
-      SetValue(TESTProperty, Value)
-    End Set
-  End Property
-
-  Private Shared Sub OnTestChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
-    MessageBox.Show(e.NewValue)
-  End Sub
-
-  Protected Overridable Sub OnTestChanged(oldAxis As String, newAxis As String)
-  End Sub
-
-  'CONSTRUCTOR
   Shared Sub New()
     DefaultStyleKeyProperty.OverrideMetadata(GetType(LineGraph), New FrameworkPropertyMetadata(GetType(LineGraph)))
   End Sub
@@ -35,7 +18,31 @@ Public Class LineGraph
     RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(info))
   End Sub
 
+
+  Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(Collection(Of ChartDataSegment)), GetType(LineGraph), New UIPropertyMetadata(Nothing, AddressOf ChartDataChanged))
+
+  Public Property ChartData As Collection(Of ChartDataSegment)
+    Get
+      Return DirectCast(GetValue(ChartDataProperty), Collection(Of ChartDataSegment))
+    End Get
+    Set
+      SetValue(ChartDataProperty, Value)
+    End Set
+  End Property
+
+  Private Shared Sub ChartDataChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
+    Dim chartData = TryCast(e.NewValue, Collection(Of ChartDataSegment))
+    Dim s = String.Empty
+    chartData.ToList().SelectMany(Function(x) x.Points).Select(Function(y) New With {Key .Listing = $"X: {y.X} Y:{y.Y}"}).ToList().ForEach(Sub(z) s += z.Listing + Environment.NewLine)
+    MessageBox.Show(s)
+  End Sub
+
+  Protected Overridable Sub ChartDataChanged(oldAxis As String, newAxis As String)
+  End Sub
+
+
   Public Shared ReadOnly _Trends As DependencyProperty = DependencyProperty.RegisterReadOnly("Trends", GetType(Collection(Of ChartDataSegment)), GetType(LineGraph), New PropertyMetadata(New Collection(Of ChartDataSegment)())).DependencyProperty
+
 
   Public ReadOnly Property Trends As Collection(Of ChartDataSegment)
     Get
@@ -45,15 +52,15 @@ Public Class LineGraph
 
   Public Overrides Sub OnApplyTemplate()
     MyBase.OnApplyTemplate()
-    Dim canvas = TryCast(GetTemplateChild("PART_Canvas"), Canvas)
-    If canvas IsNot Nothing AndAlso Trends IsNot Nothing Then
+    _canvas = TryCast(GetTemplateChild("PART_Canvas"), Canvas)
+    If _canvas IsNot Nothing AndAlso Trends IsNot Nothing Then
       For Each trend In Trends
-        DrawTrend(canvas, trend)
+        DrawTrend(trend)
       Next trend
     End If
   End Sub
 
-  Public Sub DrawTrend(drawingCanvas As Canvas, Trend As ChartDataSegment)
+  Public Sub DrawTrend(Trend As ChartDataSegment)
     Dim t = TryCast(Trend, ChartDataSegment)
     If t IsNot Nothing AndAlso t.Points IsNot Nothing Then
       For i As Integer = 1 To t.Points.Count - 1
@@ -64,7 +71,7 @@ Public Class LineGraph
           .Y2 = t.Points(i).Y,
           .StrokeThickness = 2,
           .Stroke = t.LineColor}
-        drawingCanvas.Children.Add(toDraw)
+        _canvas.Children.Add(toDraw)
       Next i
     End If
   End Sub

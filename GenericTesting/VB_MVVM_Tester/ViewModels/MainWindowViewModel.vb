@@ -13,7 +13,6 @@ Public Class MainWindowViewModel
   Private _lineTrend As New LineGraph()
 
 
-
   Public Sub DoIt(result As String)
     MessageBox.Show(result)
   End Sub
@@ -29,19 +28,32 @@ Public Class MainWindowViewModel
     _lastPoint = New Point With {.X = 150, .Y = 130}
     _currentPoints.Add(_lastPoint)
 
-    _lineTrend.Trends.Add(New ChartDataSegment With {.LineColor = Brushes.Blue, .Points = _currentPoints})
+    ChartData = New Collection(Of ChartDataSegment)({New ChartDataSegment With {.LineColor = Brushes.Blue, .Points = _currentPoints}})
+
+    _lineTrend.Trends.Add(_chartData(0))
   End Sub
 
   Private _items As ObservableCollection(Of Stuff)
 
   Private _points As String
-  Public Property Points() As String
+  Public Property Points As String
     Get
       Return _points
     End Get
     Set(ByVal value As String)
       _points = value
       OnPropertyChanged(NameOf(Points))
+    End Set
+  End Property
+
+  Private _chartData As Collection(Of ChartDataSegment)
+  Public Property ChartData As Collection(Of ChartDataSegment)
+    Get
+      Return _chartData
+    End Get
+    Set
+      _chartData = Value
+      OnPropertyChanged(NameOf(ChartData))
     End Set
   End Property
 
@@ -115,12 +127,13 @@ Public Class MainWindowViewModel
   End Property
 
   Private Sub TestCommandExecute()
-    TestText = DateTime.Now.ToShortTimeString
+    'TestText = DateTime.Now.ToShortTimeString
 
-    '_lastPoint = New Point With {.X = 250, .Y = 130}
-    '_currentPoints.Add(_lastPoint)
-    '_lineTrend.Trends.Add(New ChartDataSegment With {.LineColor = Brushes.Blue, .Points = _currentPoints})
-    '_lineTrend.DrawTrend()
+    _lastPoint = New Point With {.X = 250, .Y = 130}
+    _currentPoints.Add(_lastPoint)
+    _lineTrend.Trends.Add(New ChartDataSegment With {.LineColor = Brushes.Blue, .Points = _currentPoints})
+    ChartData = New Collection(Of ChartDataSegment)({New ChartDataSegment With {.LineColor = Brushes.Blue, .Points = _currentPoints}})
+
   End Sub
 
   Private Sub StartCommandProdConsExecute()
