@@ -12,11 +12,11 @@ Public Class LineGraph
   End Sub
 
 
-  Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(Collection(Of ChartDataSegment)), GetType(LineGraph), New UIPropertyMetadata(Nothing, AddressOf ChartDataChanged))
+  Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(Collection(Of LineTrend)), GetType(LineGraph), New UIPropertyMetadata(Nothing, AddressOf ChartDataChanged))
 
-  Public Property ChartData As Collection(Of ChartDataSegment)
+  Public Property ChartData As Collection(Of LineTrend)
     Get
-      Return DirectCast(GetValue(ChartDataProperty), Collection(Of ChartDataSegment))
+      Return DirectCast(GetValue(ChartDataProperty), Collection(Of LineTrend))
     End Get
     Set
       SetValue(ChartDataProperty, Value)
@@ -24,7 +24,7 @@ Public Class LineGraph
   End Property
 
   Private Shared Sub ChartDataChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
-    Dim chartData = TryCast(e.NewValue, Collection(Of ChartDataSegment))
+    Dim chartData = TryCast(e.NewValue, Collection(Of LineTrend))
 
     If _canvas IsNot Nothing AndAlso chartData IsNot Nothing Then
       For Each trend In chartData
@@ -36,23 +36,13 @@ Public Class LineGraph
   Protected Overridable Sub ChartDataChanged(oldAxis As String, newAxis As String)
   End Sub
 
-
-  Public Shared ReadOnly _Trends As DependencyProperty = DependencyProperty.RegisterReadOnly("Trends", GetType(Collection(Of ChartDataSegment)), GetType(LineGraph), New PropertyMetadata(New Collection(Of ChartDataSegment)())).DependencyProperty
-
-
-  Public ReadOnly Property Trends As Collection(Of ChartDataSegment)
-    Get
-      Return DirectCast(GetValue(_Trends), Collection(Of ChartDataSegment))
-    End Get
-  End Property
-
   Public Overrides Sub OnApplyTemplate()
     MyBase.OnApplyTemplate()
     _canvas = TryCast(GetTemplateChild("PART_Canvas"), Canvas)
   End Sub
 
-  Public Shared Sub DrawTrend(Trend As ChartDataSegment)
-    Dim t = TryCast(Trend, ChartDataSegment)
+  Public Shared Sub DrawTrend(Trend As LineTrend)
+    Dim t = TryCast(Trend, LineTrend)
     If t IsNot Nothing AndAlso t.Points IsNot Nothing Then
       For i As Integer = 1 To t.Points.Count - 1
         Dim toDraw = New Line With {
@@ -67,52 +57,4 @@ Public Class LineGraph
     End If
   End Sub
 
-End Class
-
-Public Class ChartDataSegment
-  Inherits DependencyObject
-
-
-  Public Shared ReadOnly _LineColor As DependencyProperty = DependencyProperty.Register("LineColor", GetType(Brush), GetType(ChartDataSegment), New PropertyMetadata(Nothing))
-  Public Property LineColor As Brush
-    Get
-      Return DirectCast(GetValue(_LineColor), Brush)
-    End Get
-    Set(value As Brush)
-      SetValue(_LineColor, value)
-    End Set
-  End Property
-
-  Public Shared ReadOnly _LineThickness As DependencyProperty = DependencyProperty.Register("LineThickness", GetType(Thickness), GetType(ChartDataSegment), New PropertyMetadata(Nothing))
-  Public Property PointThickness As Thickness
-    Get
-      Return DirectCast(GetValue(_LineThickness), Thickness)
-    End Get
-    Set(value As Thickness)
-      SetValue(_LineThickness, value)
-    End Set
-  End Property
-
-  Public Shared ReadOnly _Points As DependencyProperty = DependencyProperty.Register("Points", GetType(ObservableCollection(Of Point)), GetType(ChartDataSegment), New UIPropertyMetadata(Nothing))
-  Public Property Points As ObservableCollection(Of Point)
-    Get
-      Return DirectCast(GetValue(_Points), ObservableCollection(Of Point))
-    End Get
-    Set(value As ObservableCollection(Of Point))
-      SetValue(_Points, value)
-    End Set
-  End Property
-
-
-  Private _commandCloseMe As New Lazy(Of DelegateCommand(Of String))(Function() New DelegateCommand(Of String)(AddressOf CommandCloseMeExecute))
-
-  Public ReadOnly Property CommandCloseMe As DelegateCommand(Of String)
-    Get
-      Return _commandCloseMe.Value
-    End Get
-  End Property
-
-  Private Sub CommandCloseMeExecute()
-
-  End Sub
 End Class

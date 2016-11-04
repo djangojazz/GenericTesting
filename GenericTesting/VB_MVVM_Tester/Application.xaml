@@ -113,14 +113,32 @@
               <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
               </Grid.RowDefinitions>
-              <TextBlock Grid.Row="0" Text="Hello" FontSize="20"/>
+              <TextBlock Grid.Row="0" Text="{Binding TestText}" FontSize="26" HorizontalAlignment="Center" Foreground="{StaticResource brushMainBoard}" />
               <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="15" Margin="10">
                 <Canvas Margin="10" x:Name="PART_Canvas">
                   <Canvas.LayoutTransform>
                     <ScaleTransform ScaleX="1" ScaleY="-1" />
                   </Canvas.LayoutTransform>
                 </Canvas>
+              </Border>
+              <Border x:Name="PART_LEGEND"
+                                    Grid.Row="2"
+                                    CornerRadius="10" 
+                                    BorderBrush="Black"
+                                    BorderThickness="2"
+                                    Margin="10">
+                <ItemsControl ItemsSource="{TemplateBinding ChartData}">
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <StackPanel Orientation="Horizontal">
+                        <Rectangle Height="20" Width="20" Margin="5" StrokeThickness="{Binding LineThickness}" />
+                        <TextBlock Text="{Binding SeriesName}" FontFamily="Segoe UI" FontSize="14" Margin="5 5 10 5"/>
+                      </StackPanel>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
               </Border>
             </Grid>
           </ControlTemplate>

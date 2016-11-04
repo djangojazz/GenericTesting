@@ -21,7 +21,7 @@
     <!--<local:SL_BackgroundWorker_VB />-->
     <!--<local:LineChart />-->
   <StackPanel>
-    <local:LineGraph Height="200"  ChartData="{Binding ChartData}" />
+    <local:LineGraph Height="300"  ChartData="{Binding ChartData}" />
     <Button Height="20" Width="100" Content="Click Me" Command="{Binding TestCommand}" />
     
   </StackPanel>

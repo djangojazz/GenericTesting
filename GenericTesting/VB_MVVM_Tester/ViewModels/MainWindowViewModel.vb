@@ -8,7 +8,7 @@ Public Class MainWindowViewModel
   Private _locationAddress As String
   Private _queueFinished As Boolean = False
   Private _result As String
-  Private _currentPoints As New ObservableCollection(Of Point)
+  'Private _currentPoints As New ObservableCollection(Of Point)
   Private _lastPoint As Point
 
 
@@ -23,13 +23,33 @@ Public Class MainWindowViewModel
     TestText = "Line Chart"
     Points = "0,260 10,250 20,245 40,200 50,250 80, 200, 140,100"
 
-    _currentPoints = New ObservableCollection(Of Point)({New Point With {.X = 1, .Y = 1}, New Point With {.X = 50, .Y = 20}, New Point With {.X = 100, .Y = 100}})
     _lastPoint = New Point With {.X = 150, .Y = 130}
-    _currentPoints.Add(_lastPoint)
 
-    ChartData = New Collection(Of ChartDataSegment)({New ChartDataSegment With {.LineColor = Brushes.Blue, .Points = _currentPoints}})
-
-    '_lineTrend.Trends.Add(_chartData(0))
+    ChartData = New Collection(Of LineTrend)({New LineTrend With
+                                             {
+                                             .SeriesName = "First",
+                                             .LineColor = Brushes.Blue,
+                                             .Points = New ObservableCollection(Of Point)(
+                                                {
+                                                New Point With {.X = 1, .Y = 1},
+                                                New Point With {.X = 50, .Y = 20},
+                                                New Point With {.X = 100, .Y = 100},
+                                                _lastPoint
+                                                })
+                                             },
+                                             New LineTrend With
+                                             {
+                                             .SeriesName = "Second",
+                                             .LineColor = Brushes.Red,
+                                             .Points = New ObservableCollection(Of Point)(
+                                                {
+                                                New Point With {.X = 1, .Y = 1},
+                                                New Point With {.X = 30, .Y = 40},
+                                                New Point With {.X = 80, .Y = 80},
+                                                _lastPoint
+                                                })
+                                             }
+                                             })
   End Sub
 
   Private _items As ObservableCollection(Of Stuff)
@@ -45,8 +65,8 @@ Public Class MainWindowViewModel
     End Set
   End Property
 
-  Private _chartData As Collection(Of ChartDataSegment)
-  Public Property ChartData As Collection(Of ChartDataSegment)
+  Private _chartData As Collection(Of LineTrend)
+  Public Property ChartData As Collection(Of LineTrend)
     Get
       Return _chartData
     End Get
@@ -128,8 +148,8 @@ Public Class MainWindowViewModel
 
   Private Sub TestCommandExecute()
     _lastPoint = New Point With {.X = _lastPoint.X + 50, .Y = _lastPoint.Y * 0.95}
-    _currentPoints.Add(_lastPoint)
-    ChartData = New Collection(Of ChartDataSegment)({New ChartDataSegment With {.LineColor = Brushes.Blue, .Points = _currentPoints}})
+    ChartData(0).Points.Add(_lastPoint)
+    ChartData = New Collection(Of LineTrend)({New LineTrend With {.SeriesName = "First", .LineColor = Brushes.Blue, .Points = ChartData(0).Points}})
 
   End Sub
 
