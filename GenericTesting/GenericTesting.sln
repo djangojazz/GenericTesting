@@ -43,6 +43,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncAspNet", "AsyncAspNet\
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpTesting", "F Sharp Fundamentals\FSharpTesting.fsproj", "{317F9A09-CDC6-4CFB-9946-6480D3C5F18F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generics", "Generics\Generics.csproj", "{96A74BA6-0204-4D8F-94A0-2440CE84ADAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericsTests", "GenericsTests\GenericsTests.csproj", "{EE07E294-31C2-401F-8F91-BD9CD66A3421}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -127,6 +131,14 @@ Global
 		{317F9A09-CDC6-4CFB-9946-6480D3C5F18F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{317F9A09-CDC6-4CFB-9946-6480D3C5F18F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{317F9A09-CDC6-4CFB-9946-6480D3C5F18F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96A74BA6-0204-4D8F-94A0-2440CE84ADAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96A74BA6-0204-4D8F-94A0-2440CE84ADAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96A74BA6-0204-4D8F-94A0-2440CE84ADAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96A74BA6-0204-4D8F-94A0-2440CE84ADAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE07E294-31C2-401F-8F91-BD9CD66A3421}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE07E294-31C2-401F-8F91-BD9CD66A3421}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE07E294-31C2-401F-8F91-BD9CD66A3421}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE07E294-31C2-401F-8F91-BD9CD66A3421}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
