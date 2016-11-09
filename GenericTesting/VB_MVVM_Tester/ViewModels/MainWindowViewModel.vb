@@ -10,6 +10,7 @@ Public Class MainWindowViewModel
   Private _result As String
   'Private _currentPoints As New ObservableCollection(Of Point)
   Private _lastPoint As Point
+  Private _lastPoint2 As Point
 
 
   Public Sub DoIt(result As String)
@@ -24,6 +25,7 @@ Public Class MainWindowViewModel
     Points = "0,260 10,250 20,245 40,200 50,250 80, 200, 140,100"
 
     _lastPoint = New Point With {.X = 150, .Y = 130}
+    _lastPoint2 = New Point With {.X = 150, .Y = 150}
 
     ChartData = New Collection(Of LineTrend)({New LineTrend With
                                              {
@@ -46,7 +48,7 @@ Public Class MainWindowViewModel
                                                 New Point With {.X = 1, .Y = 1},
                                                 New Point With {.X = 30, .Y = 40},
                                                 New Point With {.X = 80, .Y = 80},
-                                                _lastPoint
+                                                _lastPoint2
                                                 })
                                              }
                                              })
@@ -148,8 +150,13 @@ Public Class MainWindowViewModel
 
   Private Sub TestCommandExecute()
     _lastPoint = New Point With {.X = _lastPoint.X + 50, .Y = _lastPoint.Y * 0.95}
+    _lastPoint2 = New Point With {.X = _lastPoint2.X + 50, .Y = _lastPoint2.Y * 0.95}
     ChartData(0).Points.Add(_lastPoint)
-    ChartData = New Collection(Of LineTrend)({New LineTrend With {.SeriesName = "First", .LineColor = Brushes.Blue, .Points = ChartData(0).Points}})
+    ChartData(1).Points.Add(_lastPoint2)
+    ChartData = New Collection(Of LineTrend)({
+                                             New LineTrend With {.SeriesName = "First", .LineColor = Brushes.Blue, .Points = ChartData(0).Points},
+                                             New LineTrend With {.SeriesName = "Second", .LineColor = Brushes.Red, .Points = ChartData(1).Points}
+                                             })
 
   End Sub
 

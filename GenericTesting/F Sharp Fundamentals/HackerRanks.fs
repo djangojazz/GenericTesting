@@ -31,3 +31,4 @@ let Kangeroo x1 y1 x2 y2 =
         i <- i + 20000
     else if i >= 10000 then
         printfn "NO"
+        i <- i + 20000
