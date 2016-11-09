@@ -4,18 +4,11 @@ open Test
 open System
 open System.Linq
 
-let input = "4 2 4"
-let spl = "1 2 3 5"
-
+let input1 = "0 3 4 2"
 
 [<EntryPoint>]
 let main argv = 
-    let input = List.ofArray(input.Split(' ')) |> List.map System.Int32.Parse
-    let n = input.[0]
-    let k = input.[1]
-    let q = input.[2]
-    let ls = List.ofArray(spl.Split(' ')) |> List.map System.Int32.Parse
+    let a = List.ofArray(input1.Split(' ')) |> List.map System.Int32.Parse
     
-    getCircularArrayRotation ls k
-
+    Kangeroo a.[0] a.[1] a.[2] a.[3]
     0 // return an integer exit code

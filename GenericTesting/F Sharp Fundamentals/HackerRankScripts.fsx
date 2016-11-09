@@ -1,38 +1,19 @@
-﻿
-open System
-open System.Linq
+﻿open System
 
 
-//let ls = [3; 9; 2; 15; 3]
-//let spl = "1 1 1 3 3"
-//
-//let rec determineReturnForNonDegenerateTriangles ls  = 
-//    if ls |> List.length < 3 then printfn "-1"
-//    else 
-//      let subset = ls |> List.sortDescending |> List.take(3)
-//      if (subset.[0] < (subset.[1] + subset.[2])) then
-//        printfn "%A %A %A" subset.[2] subset.[1] subset.[0]
-//      else
-//        determineReturnForNonDegenerateTriangles(ls |> List.sort |> List.take(ls.Length - 1))
-//
-//let items = List.ofArray(spl.Split(' ')) |> List.map System.Int32.Parse
-//determineReturnForNonDegenerateTriangles(items)
+let Kangeroo x1 y1 x2 y2 =
+    let jump start hop times =  start + (times * hop)
+    let mutable i = 0
 
+    if (x1 > x2 && y1 > y2) || (x2 > x1 && y2 > y1) then
+        printfn "NO"
+        i <- i + 20000
+    while i <= 10000 do
+    i <- i + 1
+    if (jump x1 y1 i) = (jump x2 y2 i) then
+        printfn "YES"
+        i <- i + 20000
+    else if i >= 10000 then
+        printfn "NO"
 
-
-let (input:List<int64>) = [4; 2; 4;]
-let (n:int64) = input.[0]
-let (k:int64) = input.[1]
-let (q:int64) = input.[2]
-
-let ls = [1; 2; 3; 5]
-//1 2 3 
-
-
-let nls = List.append (ls |> List.skip(ls.Length - k)) (ls |> List.take(ls.Length - k))
-for i in 1 .. q do 
-        //let m = Console.ReadLine()
-         printfn "%d" i
-         //nls.[m]
-
-//Convert.ToInt32(Console.ReadLine());
+Kangeroo 0 3 4 2
