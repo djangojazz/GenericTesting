@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Generics
 {
 
-  public class CircularBuffer
+  public class CircularBuffer<T>
   {
-    private object[] _buffer;
+    private T[] _buffer;
     private int _start;
     private int _end;
 
@@ -19,12 +19,12 @@ namespace Generics
 
     public CircularBuffer(int capacity)
     {
-      _buffer = new object[capacity + 1];
+      _buffer = new T[capacity + 1];
       _start = 0;
       _end = 0;
     }
 
-    public void Write(object value)
+    public void Write(T value)
     {
       _buffer[_end] = value;
       _end = (_end + 1) % _buffer.Length;
@@ -34,9 +34,9 @@ namespace Generics
       }
     }
 
-    public object Read()
+    public T Read()
     {
-      var result = _buffer[_start];
+      T result = _buffer[_start];
       _start = (_start + 1) % _buffer.Length;
       return result;
     }

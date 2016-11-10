@@ -97,6 +97,7 @@
     <Compile Include="Business\LineTrend.vb" />
     <Compile Include="Business\ProducerConsumer.vb" />
     <Compile Include="Business\TemplateSelectors.vb" />
+    <Compile Include="Converters\ConvertDataSetToSeries.vb" />
     <Compile Include="Model\Delegates.vb" />
     <Compile Include="Model\POCO.vb" />
     <Compile Include="Business\LineGraph.vb" />
