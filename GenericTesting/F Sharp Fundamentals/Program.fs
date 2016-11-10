@@ -8,7 +8,8 @@ let input1 = "0 3 4 2"
 
 [<EntryPoint>]
 let main argv = 
-    let a = List.ofArray(input1.Split(' ')) |> List.map System.Int32.Parse
-    
-    Kangeroo a.[0] a.[1] a.[2] a.[3]
+    //let a = List.ofArray(input1.Split(' ')) |> List.map System.Int32.Parse
+    let a = Console.ReadLine() |> int
+
+    ViralAdvertising a
     0 // return an integer exit code

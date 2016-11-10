@@ -5,7 +5,10 @@ Imports System.Collections.ObjectModel
 Public Class LineGraph
   Inherits Control
 
-  Private Shared _canvas
+  Private Shared _canvas As Canvas = Nothing
+  Private Shared _legendText As TextBlock = Nothing
+  Private Shared _xCeiling As Decimal = 0
+  Private Shared _yCeiling As Decimal = 0
 
   Shared Sub New()
     DefaultStyleKeyProperty.OverrideMetadata(GetType(LineGraph), New FrameworkPropertyMetadata(GetType(LineGraph)))
@@ -33,9 +36,6 @@ Public Class LineGraph
       Next trend
     End If
   End Sub
-
-  Protected Overridable Sub ChartDataChanged(oldAxis As String, newAxis As String)
-  End Sub
 #End Region
 
 #Region "BackGroundColor"
@@ -51,9 +51,6 @@ Public Class LineGraph
   End Property
 
   Private Shared Sub BackGroundColorChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
-  End Sub
-
-  Protected Overridable Sub BackGroundColorChanged(oldAxis As String, newAxis As String)
   End Sub
 #End Region
 
@@ -71,9 +68,6 @@ Public Class LineGraph
 
   Private Shared Sub BackGroundColorCanvasChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
   End Sub
-
-  Protected Overridable Sub BackGroundColorCanvasChanged(oldAxis As String, newAxis As String)
-  End Sub
 #End Region
 
 #Region "BackGroundColorLegend"
@@ -89,9 +83,6 @@ Public Class LineGraph
   End Property
 
   Private Shared Sub BackGroundColorLegendChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
-  End Sub
-
-  Protected Overridable Sub BackGroundColorLegendChanged(oldAxis As String, newAxis As String)
   End Sub
 #End Region
 
@@ -109,9 +100,6 @@ Public Class LineGraph
 
   Private Shared Sub ChartForegroundChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
   End Sub
-
-  Protected Overridable Sub ChartForegroundChanged(oldAxis As String, newAxis As String)
-  End Sub
 #End Region
 
 #Region "LegendForeground"
@@ -123,19 +111,39 @@ Public Class LineGraph
     End Get
     Set
       SetValue(LegendForegroundProperty, Value)
+      _legendText.Visibility = Visibility.Visible
     End Set
   End Property
 
   Private Shared Sub LegendForegroundChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
-  End Sub
-
-  Protected Overridable Sub LegendForegroundChanged(oldAxis As String, newAxis As String)
+    If _legendText?.Visibility IsNot Nothing Then
+      _legendText.Visibility = Visibility.Visible
+    End If
   End Sub
 #End Region
+
+#Region "ChartTitle"
+  Public Shared ReadOnly ChartTitleProperty As DependencyProperty = DependencyProperty.Register("ChartTitle", GetType(String), GetType(LineGraph), New UIPropertyMetadata(Nothing, AddressOf ChartTitleChanged))
+
+  Public Property ChartTitle As String
+    Get
+      Return DirectCast(GetValue(ChartTitleProperty), String)
+    End Get
+    Set
+      SetValue(ChartTitleProperty, Value)
+    End Set
+  End Property
+
+  Private Shared Sub ChartTitleChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
+  End Sub
+#End Region
+
 
   Public Overrides Sub OnApplyTemplate()
     MyBase.OnApplyTemplate()
     _canvas = TryCast(GetTemplateChild("PART_Canvas"), Canvas)
+    _legendText = TryCast(GetTemplateChild("PART_LEGENDTEXT"), TextBlock)
+    If LegendForeground IsNot Nothing Then _legendText.Visibility = Visibility.Visible
   End Sub
 
   Public Shared Sub DrawTrend(Trend As LineTrend)

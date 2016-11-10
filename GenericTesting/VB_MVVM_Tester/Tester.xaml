@@ -21,7 +21,14 @@
     <!--<local:SL_BackgroundWorker_VB />-->
     <!--<local:LineChart />-->
   <StackPanel>
-    <local:LineGraph Height="400" ChartForeground="White" LegendForeground="Wheat" ChartData="{Binding ChartData}" BackGroundColor="Transparent" BackGroundColorCanvas="Transparent" BackGroundColorLegend="White" />
+    <!--<local:LineGraph Height="400" 
+                     ChartData="{Binding ChartData}"
+                     ChartTitle="Testing"
+                     ChartForeground="Wheat" 
+                     LegendForeground="Wheat" 
+                     BackGroundColor="DarkCyan" 
+                     BackGroundColorCanvas="White" 
+                     BackGroundColorLegend="White" />-->
     <Button Height="20" Width="100" Content="Click Me" Command="{Binding TestCommand}" />
 
     <!--<local:LineGraph.BackGroundColor>

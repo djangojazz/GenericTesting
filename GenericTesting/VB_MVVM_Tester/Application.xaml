@@ -109,23 +109,24 @@
       <Setter Property="Template">
         <Setter.Value>
           <ControlTemplate TargetType="{x:Type local:LineGraph}">
-            <Grid Background="{TemplateBinding BackGroundColor}">
+            <Border Background="{TemplateBinding BackGroundColor}" CornerRadius="15" Margin="5">
+            <Grid>
               <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
-              </Grid.RowDefinitions>
-              <TextBlock Grid.Row="0" Text="{Binding TestText}" FontSize="26" HorizontalAlignment="Center" Foreground="{TemplateBinding ChartForeground}" />
-              <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="15" Margin="10" Background="{TemplateBinding BackGroundColorCanvas}" >
+                  <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="{TemplateBinding ChartTitle}" FontSize="26" HorizontalAlignment="Center" Foreground="{TemplateBinding ChartForeground}" />
+                <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="15" Margin="10" Background="{TemplateBinding BackGroundColorCanvas}" >
                 <Canvas Margin="10" x:Name="PART_Canvas">
                   <Canvas.LayoutTransform>
                     <ScaleTransform ScaleX="1" ScaleY="-1" />
                   </Canvas.LayoutTransform>
                 </Canvas>
               </Border>
-              <Border x:Name="PART_LEGEND" Grid.Row="2" CornerRadius="10"  BorderBrush="Black" BorderThickness="2" Margin="10" Background="{TemplateBinding BackGroundColorLegend}">
-                <StackPanel>
-                  <TextBlock Grid.Row="0" Text="Legend" FontSize="26" HorizontalAlignment="Center" Foreground="{TemplateBinding LegendForeground}" />
+                <TextBlock Grid.Row="2" x:Name="PART_LEGENDTEXT" Text="Legend" FontSize="26" HorizontalAlignment="Center" Foreground="{TemplateBinding LegendForeground}" Visibility="Hidden" />
+                <Border x:Name="PART_LEGEND" Grid.Row="3" CornerRadius="10"  BorderBrush="Black" BorderThickness="2" Margin="10" Background="{TemplateBinding BackGroundColorLegend}">
                   <ItemsControl ItemsSource="{TemplateBinding ChartData}">
                     <ItemsControl.ItemTemplate>
                       <DataTemplate>
@@ -136,9 +137,9 @@
                       </DataTemplate>
                     </ItemsControl.ItemTemplate>
                   </ItemsControl>
-                </StackPanel>
-              </Border>
-            </Grid>
+                </Border>
+              </Grid>
+            </Border>
           </ControlTemplate>
         </Setter.Value>
       </Setter>

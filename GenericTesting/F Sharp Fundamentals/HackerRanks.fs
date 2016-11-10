@@ -1,5 +1,7 @@
 ﻿module Test
 
+open System
+
 let rec determineReturnForNonDegenerateTriangles ls = 
     if ls |> List.length < 3 then printfn "-1"
     else 
@@ -32,3 +34,17 @@ let Kangeroo x1 y1 x2 y2 =
     else if i >= 10000 then
         printfn "NO"
         i <- i + 20000
+
+let rec ViralAdvertising day =
+    let mutable likeIt = 0
+    let mutable currentVal = 5.
+
+    let DetermineValueOfDay day2 startingValue= 
+        let dayval = if(day2 = 1) then 5. else startingValue
+        floor( (dayval / 2.))
+
+    for i in 1..day do
+        currentVal <- DetermineValueOfDay i (currentVal * 3.)
+        likeIt <- likeIt + Convert.ToInt32(currentVal)
+
+    printfn "%A" likeIt
