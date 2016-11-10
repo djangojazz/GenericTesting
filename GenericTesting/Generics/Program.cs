@@ -10,10 +10,29 @@ namespace Generics
   {
     static void Main(string[] args)
     {
-      var buffer = new CircularBuffer<double>();
+      Queue<Employee> queue = new Queue<Employee>();
+      queue.Enqueue(new Employee { Name = "Alex" });
+      queue.Enqueue(new Employee { Name = "Brett" });
+      queue.Enqueue(new Employee { Name = "Jon" });
 
-      ProcessingUserInput(buffer);
-      ProcessBuffer(buffer);
+      while(queue.Count > 0)
+      {
+        var employee = queue.Dequeue();
+        Console.WriteLine(employee.Name);
+      }
+
+      Console.WriteLine("----");
+
+      Stack<Employee> stack = new Stack<Employee>();
+      stack.Push(new Employee { Name = "Alex" });
+      stack.Push(new Employee { Name = "Brett" });
+      stack.Push(new Employee { Name = "Jon" });
+
+      while (stack.Count > 0)
+      {
+        var employee = stack.Pop();
+        Console.WriteLine(employee.Name);
+      }
     }
 
     private static void ProcessBuffer(CircularBuffer<double> buffer)
