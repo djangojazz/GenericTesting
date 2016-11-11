@@ -21,20 +21,17 @@ Module Module1
   'End Sub
 
   Sub Main()
-    Dim chars = New Char() {","c, " "c, "/"c}
+    'Dim allowedValues = "abcdefghijklmnopqrstuvwxyz".ToCharArray()
+    'Dim someGoodSomeBad = "#@#$#@okay@#$#@"
 
-    Using myReader As New APCLocal.Select.Products("DEV-APC1", True)
-      Do While myReader.Read
-        _products.Add(New Product With {.ProductId = myReader.Int(APCLocal.Select.Products.EInts.ProductID), .Description = myReader.Str(APCLocal.Select.Products.EStrings.Description)})
-      Loop
-    End Using
+    'Dim onlyGood = New String(someGoodSomeBad.ToCharArray().Where(Function(x) allowedValues.Contains(x)).ToArray)
 
-    Dim val = "SALAD"
-    Dim val2 = "SHRIMP"
+    'Console.WriteLine(onlyGood)
 
-    Dim matchingProduct = _products.SingleOrDefault(Function(x) x.Description.Split(chars).First().ToUpper.Contains(val))
-    'If that does not find anything try the second, else give up.  This could be done recursively potentially but how far do you want to take loose matching?
-    If matchingProduct Is Nothing Then matchingProduct = _products.Where(Function(x) x.Description.Split(chars).First().ToUpper.Contains(val2))
+    Dim nProcess = New System.Diagnostics.Process()
+    nProcess.Start($"D:\Learning\BasicsOfCompilerDesign.pdf")
+
+
 
     Console.ReadLine()
   End Sub

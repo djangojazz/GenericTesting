@@ -4,6 +4,7 @@
     xmlns:local="clr-namespace:VB_MVVM_Tester"
     StartupUri="Tester.xaml" ShutdownMode="OnMainWindowClose">
   <Application.Resources>
+    <local:ConvertDataSetToSeries x:Key="ConvertDataToSeries"/>
     <Style x:Name="ItemSelector" TargetType="{x:Type ListBoxItem}">
       <Setter Property="Template">
         <Setter.Value>
@@ -115,29 +116,47 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                   <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Text="{TemplateBinding ChartTitle}" FontSize="26" HorizontalAlignment="Center" Foreground="{TemplateBinding ChartForeground}" />
                 <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="15" Margin="10" Background="{TemplateBinding BackGroundColorCanvas}" >
-                <Canvas Margin="10" x:Name="PART_Canvas">
-                  <Canvas.LayoutTransform>
-                    <ScaleTransform ScaleX="1" ScaleY="-1" />
-                  </Canvas.LayoutTransform>
-                </Canvas>
-              </Border>
-                <TextBlock Grid.Row="2" x:Name="PART_LEGENDTEXT" Text="Legend" FontSize="26" HorizontalAlignment="Center" Foreground="{TemplateBinding LegendForeground}" Visibility="Hidden" />
-                <Border x:Name="PART_LEGEND" Grid.Row="3" CornerRadius="10"  BorderBrush="Black" BorderThickness="2" Margin="10" Background="{TemplateBinding BackGroundColorLegend}">
-                  <ItemsControl ItemsSource="{TemplateBinding ChartData}">
+                  <Canvas Margin="10" x:Name="PART_Canvas">
+                    <Canvas.LayoutTransform>
+                      <ScaleTransform ScaleX="1" ScaleY="-1" />
+                    </Canvas.LayoutTransform>
+                  </Canvas>
+                </Border>
+                <Border Grid.Row="2" >
+                  <!--<ItemsControl ItemsSource="{TemplateBinding ChartData, Converter={StaticResource ConvertDataToSeries}}" >-->
+                  <ItemsControl x:Name="PART_XAxis">
+                    <ItemsControl.ItemsPanel>
+                      <ItemsPanelTemplate>
+                        <UniformGrid Rows="1"/>
+                      </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                       <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                          <Ellipse Height="20" Width="20" Fill="{Binding LineColor}" Margin="5 5 10 5" />
-                          <TextBlock Text="{Binding SeriesName}" FontFamily="Segoe UI" FontSize="14" Margin="5 5 10 5"/>
+                          <TextBlock Text="{Binding}" FontFamily="Segoe UI" FontSize="14" Margin="5 5 10 5"/>
                         </StackPanel>
                       </DataTemplate>
                     </ItemsControl.ItemTemplate>
                   </ItemsControl>
                 </Border>
+                <TextBlock Grid.Row="3" x:Name="PART_LEGENDTEXT" Text="Legend" FontSize="26" HorizontalAlignment="Center" Foreground="{TemplateBinding LegendForeground}" Visibility="Hidden" />
+              <Border x:Name="PART_LEGEND" Grid.Row="4" CornerRadius="10"  BorderBrush="Black" BorderThickness="2" Margin="10" Background="{TemplateBinding BackGroundColorLegend}">
+                <ItemsControl ItemsSource="{TemplateBinding ChartData}">
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <StackPanel Orientation="Horizontal">
+                        <Ellipse Height="20" Width="20" Fill="{Binding LineColor}" Margin="5 5 10 5" />
+                        <TextBlock Text="{Binding SeriesName}" FontFamily="Segoe UI" FontSize="14" Margin="5 5 10 5"/>
+                      </StackPanel>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+              </Border>
               </Grid>
             </Border>
           </ControlTemplate>

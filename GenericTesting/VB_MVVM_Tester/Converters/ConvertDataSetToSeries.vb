@@ -1,10 +1,8 @@
-﻿
-Imports System.Globalization
-Imports System.Windows
-Imports System.Windows.Data
-Imports System.Windows.Markup
+﻿Imports System.Globalization
+Imports System.Collections.ObjectModel
 
 Public Class ConvertDataSetToSeries
+  Inherits Control
   'Inherits MarkupExtension
   Implements IValueConverter
   'Private Shared instance As ConvertDataSetToSeries
@@ -24,7 +22,22 @@ Public Class ConvertDataSetToSeries
 
 #Region "Implementation of IValueConverter"
 
-  Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object
+  Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.Convert
+    Dim rawData = TryCast(value, Collection(Of LineTrend))
+
+    If rawData IsNot Nothing Then
+
+      If parameter = "H" Then
+        'Dim xs = rawData.SelectMany(Function(x) x.Points).Select(Function(x) x.X).Distinct().OrderBy(Function(x) x)
+
+        Return New List(Of String)({"0", "", "20", "", "40", "", "60", "", "80", "", "100"})
+      Else
+        Dim ys = rawData.SelectMany(Function(x) x.Points).Select(Function(x) x.Y).Distinct().OrderBy(Function(x) x)
+        Return ys
+      End If
+
+
+    End If
 
 
     'If Not (TypeOf value Is LegendLocation) Then
@@ -50,18 +63,18 @@ Public Class ConvertDataSetToSeries
     'Return Nothing
   End Function
 
-  Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object
+  Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.ConvertBack
     Throw New NotImplementedException()
   End Function
 
 
-  Private Function IValueConverter_Convert(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.Convert
-    Throw New NotImplementedException()
-  End Function
+  'Private Function IValueConverter_Convert(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.Convert
+  '  Throw New NotImplementedException()
+  'End Function
 
-  Private Function IValueConverter_ConvertBack(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.ConvertBack
-    Throw New NotImplementedException()
-  End Function
+  'Private Function IValueConverter_ConvertBack(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.ConvertBack
+  '  Throw New NotImplementedException()
+  'End Function
 
 #End Region
 End Class

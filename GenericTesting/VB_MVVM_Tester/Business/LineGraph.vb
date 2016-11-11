@@ -16,11 +16,11 @@ Public Class LineGraph
 
 
 #Region "ChartData"
-  Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(Collection(Of LineTrend)), GetType(LineGraph), New UIPropertyMetadata(Nothing, AddressOf ChartDataChanged))
+  Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(IList(Of LineTrend)), GetType(LineGraph), New UIPropertyMetadata(Nothing, AddressOf ChartDataChanged))
 
-  Public Property ChartData As Collection(Of LineTrend)
+  Public Property ChartData As IList(Of LineTrend)
     Get
-      Return DirectCast(GetValue(ChartDataProperty), Collection(Of LineTrend))
+      Return DirectCast(GetValue(ChartDataProperty), IList(Of LineTrend))
     End Get
     Set
       SetValue(ChartDataProperty, Value)
@@ -28,7 +28,7 @@ Public Class LineGraph
   End Property
 
   Private Shared Sub ChartDataChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
-    Dim chartData = TryCast(e.NewValue, Collection(Of LineTrend))
+    Dim chartData = TryCast(e.NewValue, IList(Of LineTrend))
 
     If _canvas IsNot Nothing AndAlso chartData IsNot Nothing Then
       For Each trend In chartData
