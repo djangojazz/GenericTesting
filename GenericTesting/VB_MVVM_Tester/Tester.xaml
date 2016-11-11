@@ -19,7 +19,7 @@
     </Style>
     <local:ConvertDataSetToSeries x:Key="ConvertDataToSeries"/>
   </Window.Resources>
-  <Grid>
+  <!--<Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
@@ -53,93 +53,31 @@
           <TextBlock Text="800" Canvas.Left="790" />
           <TextBlock Text="1000" Canvas.Left="980" />
         </Canvas>
-        <!--<ItemsControl Grid.Row="2" ItemsSource="{Binding ChartData, Converter={StaticResource ConvertDataToSeries}, ConverterParameter='H'}" >
-        <ItemsControl.ItemsPanel>
-          <ItemsPanelTemplate>
-            <UniformGrid Rows="1"/>
-          </ItemsPanelTemplate>
-        </ItemsControl.ItemsPanel>
-        <ItemsControl.ItemTemplate>
-          <DataTemplate>
-            <StackPanel Orientation="Horizontal">
-              <TextBlock Text="{Binding}" FontFamily="Segoe UI" FontSize="14" Margin="5 5 10 5"/>
-            </StackPanel>
-          </DataTemplate>
-        </ItemsControl.ItemTemplate>
-      </ItemsControl>-->
       </Grid>
     </Viewbox>
-  </Grid>
+  </Grid>-->
   <!--<local:SL_BackgroundWorker_VB />-->
-    <!--<local:LineChart />-->
   
     
-    <!--<Grid.RowDefinitions>
-      <RowDefinition/>
-      <RowDefinition/>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <Viewbox Stretch="UniformToFill" RenderOptions.EdgeMode="Aliased"  >
-      <Canvas Width="1000px" Height="1000px" Background="Black">
-        <Polyline Points="0,10 80,100" Stroke="{DynamicResource brushMainBoard}" Fill="{DynamicResource brushMainBoard}"   />
-        <Canvas.LayoutTransform>
-          <ScaleTransform ScaleX="1" ScaleY="-1" />
-        </Canvas.LayoutTransform>
-      </Canvas>
-    </Viewbox>-->
-
-    <!--<local:LineGraph ChartData="{Binding ChartData}"
+    <local:LineGraph Grid.Row="0" ChartData="{Binding ChartData}"
                      ChartTitle="Testing"
                      ChartForeground="Wheat" 
                      LegendForeground="Wheat" 
                      BackGroundColor="DarkCyan" 
                      BackGroundColorCanvas="White" 
-                     BackGroundColorLegend="White" />-->
-
-
+                     BackGroundColorLegend="White" 
+                     />
+    <Button Grid.Row="1" Height="20" Width="100" Content="Click Me" Command="{Binding TestCommand}" />
+  </Grid>
+  
       
-      <!--<ItemsControl ItemsSource="{Binding ChartData, Converter={StaticResource ConvertDataToSeries}, ConverterParameter='H'}" >
-      <ItemsControl.ItemsPanel>
-        <ItemsPanelTemplate>
-          <UniformGrid Rows="1"/>
-        </ItemsPanelTemplate>
-      </ItemsControl.ItemsPanel>
-      <ItemsControl.ItemTemplate>
-        <DataTemplate>
-          <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{Binding}" FontFamily="Segoe UI" FontSize="14" Margin="5 5 10 5"/>
-          </StackPanel>
-        </DataTemplate>
-      </ItemsControl.ItemTemplate>
-    </ItemsControl>-->
-      <!--<Button Height="20" Width="100" Content="Click Me" Command="{Binding TestCommand}" />-->
-
-      <!--<local:LineGraph.BackGroundColor>
-      <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-        <GradientStop Color="#FF8F2E2E" Offset="0"/>
-        <GradientStop Color="White" Offset="1"/>
-      </LinearGradientBrush>
-    </local:LineGraph.BackGroundColor>-->
 
   
-  
-  <!--<Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="*"/>
-    </Grid.RowDefinitions>
-    <TextBlock Grid.Row="0" Text="Hello" FontSize="20"/>
-    <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="15" Margin="10">
-      <Canvas Margin="10">
-        <Line X1="0" Y1="0" X2="100" Y2="100" Stroke="Black" StrokeThickness="10"/>
-        <Line X1="100" Y1="100" X2="150" Y2="300" Stroke="Black" StrokeThickness="10"/>
-        <Canvas.LayoutTransform>
-          <ScaleTransform ScaleX="1" ScaleY="-1" />
-        </Canvas.LayoutTransform>
-
-      </Canvas>
-    </Border>
-    
-  </Grid>-->
   
 
 </Window>

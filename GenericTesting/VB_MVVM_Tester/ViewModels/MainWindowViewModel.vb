@@ -24,8 +24,8 @@ Public Class MainWindowViewModel
     TestText = "Line Chart"
     Points = "0,260 10,250 20,245 40,200 50,250 80, 200, 140,100"
 
-    _lastPoint = New Point With {.X = 150, .Y = 130}
-    _lastPoint2 = New Point With {.X = 150, .Y = 150}
+    _lastPoint = New Point With {.X = 650, .Y = 930}
+    _lastPoint2 = New Point With {.X = 650, .Y = 950}
 
     ChartData = New Collection(Of LineTrend)({New LineTrend With
                                              {
@@ -34,24 +34,24 @@ Public Class MainWindowViewModel
                                              .Points = New ObservableCollection(Of Point)(
                                                 {
                                                 New Point With {.X = 1, .Y = 1},
-                                                New Point With {.X = 50, .Y = 20},
-                                                New Point With {.X = 100, .Y = 100},
+                                                New Point With {.X = 500, .Y = 200},
                                                 _lastPoint
                                                 })
-                                             },
-                                             New LineTrend With
-                                             {
-                                             .SeriesName = "Second",
-                                             .LineColor = Brushes.Red,
-                                             .Points = New ObservableCollection(Of Point)(
-                                                {
-                                                New Point With {.X = 1, .Y = 1},
-                                                New Point With {.X = 30, .Y = 40},
-                                                New Point With {.X = 80, .Y = 80},
-                                                _lastPoint2
-                                                })
-                                             }
-                                             })
+                                             }})
+
+    '},
+    'New LineTrend With
+    '{
+    '.SeriesName = "Second",
+    '.LineColor = Brushes.Red,
+    '.Points = New ObservableCollection(Of Point)(
+    '   {
+    '   New Point With {.X = 1, .Y = 1},
+    '   New Point With {.X = 300, .Y = 400},
+    '   _lastPoint2
+    '   })
+    '}
+    '})
   End Sub
 
   Private _items As ObservableCollection(Of Stuff)
@@ -150,13 +150,13 @@ Public Class MainWindowViewModel
 
   Private Sub TestCommandExecute()
     _lastPoint = New Point With {.X = _lastPoint.X + 50, .Y = _lastPoint.Y * 0.95}
-    _lastPoint2 = New Point With {.X = _lastPoint2.X + 50, .Y = _lastPoint2.Y * 0.95}
+    '_lastPoint2 = New Point With {.X = _lastPoint2.X + 50, .Y = _lastPoint2.Y * 0.95}
     ChartData(0).Points.Add(_lastPoint)
-    ChartData(1).Points.Add(_lastPoint2)
-    ChartData = New Collection(Of LineTrend)({
-                                             New LineTrend With {.SeriesName = "First", .LineColor = Brushes.Blue, .Points = ChartData(0).Points},
-                                             New LineTrend With {.SeriesName = "Second", .LineColor = Brushes.Red, .Points = ChartData(1).Points}
-                                             })
+    'ChartData(1).Points.Add(_lastPoint2)
+    ChartData = New Collection(Of LineTrend)({New LineTrend With {.SeriesName = "First", .LineColor = Brushes.Blue, .Points = ChartData(0).Points}})
+    ',
+    'New LineTrend With {.SeriesName = "Second", .LineColor = Brushes.Red, .Points = ChartData(1).Points}
+    '})
 
   End Sub
 

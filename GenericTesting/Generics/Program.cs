@@ -10,28 +10,18 @@ namespace Generics
   {
     static void Main(string[] args)
     {
-      Queue<Employee> queue = new Queue<Employee>();
-      queue.Enqueue(new Employee { Name = "Alex" });
-      queue.Enqueue(new Employee { Name = "Brett" });
-      queue.Enqueue(new Employee { Name = "Jon" });
+      var employeesByName = new Dictionary<string, List<Employee>>();
+      employeesByName.Add("Development", 
+          new List<Employee> { new Employee { Name = "Brett" } });
 
-      while(queue.Count > 0)
+      employeesByName["Development"].Add(new Employee { Name = "Jonhn" });
+
+      foreach (var item in employeesByName)
       {
-        var employee = queue.Dequeue();
-        Console.WriteLine(employee.Name);
-      }
-
-      Console.WriteLine("----");
-
-      Stack<Employee> stack = new Stack<Employee>();
-      stack.Push(new Employee { Name = "Alex" });
-      stack.Push(new Employee { Name = "Brett" });
-      stack.Push(new Employee { Name = "Jon" });
-
-      while (stack.Count > 0)
-      {
-        var employee = stack.Pop();
-        Console.WriteLine(employee.Name);
+        foreach (var employee in item.Value)
+        {
+          Console.WriteLine(employee.Name);
+        }
       }
     }
 
