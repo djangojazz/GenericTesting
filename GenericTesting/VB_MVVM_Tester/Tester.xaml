@@ -6,8 +6,8 @@
         xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
         xmlns:local="clr-namespace:VB_MVVM_Tester"
         mc:Ignorable="d"
-        Height="500"
-        Width="500"
+        Height="800"
+        Width="800"
         Background="{StaticResource brushMainBoard}">
   <Window.Resources>
     <Style TargetType="{x:Type DataGridColumnHeader}">

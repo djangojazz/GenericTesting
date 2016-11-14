@@ -8,12 +8,26 @@ Public Class LineGraph
   Private Shared _canvasPoints As Canvas = Nothing
   Private Shared _canvasXAxisTicks As Canvas = Nothing
   Private Shared _canvasXAxisLabels As Canvas = Nothing
+  Private Shared _canvasYAxisTicks As Canvas = Nothing
+  Private Shared _canvasYAxisLabels As Canvas = Nothing
   Private Shared _legendText As TextBlock = Nothing
   Private Shared _xCeiling As Decimal = 0
   Private Shared _yCeiling As Decimal = 0
 
   Shared Sub New()
     DefaultStyleKeyProperty.OverrideMetadata(GetType(LineGraph), New FrameworkPropertyMetadata(GetType(LineGraph)))
+  End Sub
+
+  Public Overrides Sub OnApplyTemplate()
+    MyBase.OnApplyTemplate()
+    _canvasPoints = TryCast(GetTemplateChild("PART_CanvasPoints"), Canvas)
+    _canvasXAxisTicks = TryCast(GetTemplateChild("PART_CanvasXAxisTicks"), Canvas)
+    _canvasXAxisLabels = TryCast(GetTemplateChild("PART_CanvasXAxisLabels"), Canvas)
+    _canvasYAxisTicks = TryCast(GetTemplateChild("PART_CanvasYAxisTicks"), Canvas)
+    _canvasYAxisLabels = TryCast(GetTemplateChild("PART_CanvasYAxisLabels"), Canvas)
+    _legendText = TryCast(GetTemplateChild("PART_LEGENDTEXT"), TextBlock)
+
+    If LegendForeground IsNot Nothing Then _legendText.Visibility = Visibility.Visible
   End Sub
 
 
@@ -41,8 +55,9 @@ Public Class LineGraph
         DrawTrend(trend)
       Next trend
 
-      If _canvasXAxisTicks IsNot Nothing Then
+      If _canvasXAxisTicks IsNot Nothing And _canvasYAxisTicks IsNot Nothing Then
         DrawXAxis(chartData)
+        DrawYAxis(chartData)
       End If
     End If
   End Sub
@@ -186,20 +201,46 @@ Public Class LineGraph
 
       _canvasXAxisLabels.Children.Add(labelSegment)
     Next
+  End Sub
 
+  Public Shared Sub DrawYAxis(lineTrends As IList(Of LineTrend))
+    Dim segment = (_yCeiling / 5)
+    _canvasYAxisTicks.Children.RemoveRange(0, _canvasYAxisTicks.Children.Count)
+    _canvasYAxisLabels.Children.RemoveRange(0, _canvasYAxisLabels.Children.Count)
+
+    _canvasYAxisTicks.Children.Add(New Line With {
+                                   .X1 = 0,
+                                   .X2 = 0,
+                                   .Y1 = 0,
+                                   .Y2 = 1000,
+                                   .StrokeThickness = 2,
+                                   .Stroke = Brushes.Black
+                                   })
+
+    For i As Integer = 0 To 5
+      Dim ySegment = If(i = 0, 0, i * 200)
+      Dim ySegmentLabel = If(i = 0, 0, i * segment)
+
+      Dim lineSegment = New Line With {
+          .X1 = 0,
+          .X2 = 30,
+          .Y1 = ySegment,
+          .Y2 = ySegment,
+          .StrokeThickness = 2,
+          .Stroke = Brushes.Black}
+      _canvasYAxisTicks.Children.Add(lineSegment)
+
+      Dim labelSegment = New TextBlock With {
+        .Text = ySegmentLabel.ToString,
+        .FontSize = 20,
+        .Margin = New Thickness(0, 980 - (ySegment - If(i = 0, 0, If(i = 5, 15, 5))), 0, 0)
+      }
+
+      _canvasYAxisLabels.Children.Add(labelSegment)
+    Next
   End Sub
 
 
-
-  Public Overrides Sub OnApplyTemplate()
-    MyBase.OnApplyTemplate()
-    _canvasPoints = TryCast(GetTemplateChild("PART_CanvasPoints"), Canvas)
-    _canvasXAxisTicks = TryCast(GetTemplateChild("PART_CanvasXAxisTicks"), Canvas)
-    _canvasXAxisLabels = TryCast(GetTemplateChild("PART_CanvasXAxisLabels"), Canvas)
-    _legendText = TryCast(GetTemplateChild("PART_LEGENDTEXT"), TextBlock)
-
-    If LegendForeground IsNot Nothing Then _legendText.Visibility = Visibility.Visible
-  End Sub
 
   Public Shared Sub DrawTrend(Trend As LineTrend)
     Dim t = TryCast(Trend, LineTrend)

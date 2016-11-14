@@ -133,22 +133,12 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                       </Grid.ColumnDefinitions>
-                      <Canvas Grid.Row="0" Grid.Column="0" Height="1000px" Width="35px" >
-                        <TextBlock Text="0"  Canvas.Bottom="0" FontSize="20" />
-                        <TextBlock Text="200" Canvas.Bottom="190" FontSize="20"/>
-                        <TextBlock Text="400" Canvas.Bottom="390" FontSize="20"/>
-                        <TextBlock Text="600" Canvas.Bottom="590" FontSize="20"/>
-                        <TextBlock Text="800" Canvas.Bottom="790" FontSize="20"/>
-                        <TextBlock Text="1000" Canvas.Bottom="980" FontSize="20"/>
+                      <Canvas x:Name="PART_CanvasYAxisLabels" Grid.Row="0" Grid.Column="0" Height="1000px" Width="35px">
+                        <!--<Canvas.LayoutTransform>
+                          <ScaleTransform ScaleX="-1" ScaleY="-1" />
+                        </Canvas.LayoutTransform>-->
                       </Canvas>
-                      <Canvas Grid.Row="0" Grid.Column="1" Height="1000px" Width="50px" >
-                        <Line X1="0" X2="0" Y1="0" Y2="1000" Stroke="Black" StrokeThickness="2"/>
-                        <Line X1="0" X2="30" Y1="0" Y2="0" Stroke="Black" StrokeThickness="2" />
-                        <Line X1="0" X2="30" Y1="200" Y2="200" Stroke="Black" StrokeThickness="2" />
-                        <Line X1="0" X2="30" Y1="400" Y2="400" Stroke="Black" StrokeThickness="2" />
-                        <Line X1="0" X2="30" Y1="600" Y2="600" Stroke="Black" StrokeThickness="2" />
-                        <Line X1="0" X2="30" Y1="800" Y2="800" Stroke="Black" StrokeThickness="2" />
-                        <Line X1="0" X2="30" Y1="1000" Y2="1000" Stroke="Black" StrokeThickness="2" />
+                      <Canvas x:Name="PART_CanvasYAxisTicks" Grid.Row="0" Grid.Column="1" Height="1000px" Width="50px" >
                         <Canvas.LayoutTransform>
                           <ScaleTransform ScaleX="-1" ScaleY="-1" />
                         </Canvas.LayoutTransform>
@@ -158,7 +148,7 @@
                           <ScaleTransform ScaleX="1" ScaleY="-1" />
                         </Canvas.LayoutTransform>
                       </Canvas>
-                      <Canvas  x:Name="PART_CanvasXAxisTicks" Grid.Row="1" Grid.Column="2" Height="100px" Width="1000px"/>
+                      <Canvas x:Name="PART_CanvasXAxisTicks" Grid.Row="1" Grid.Column="2" Height="100px" Width="1000px"/>
                       <Canvas x:Name="PART_CanvasXAxisLabels" Grid.Row="2" Grid.Column="2" Height="50px" Width="1000px" />
                     </Grid>
                   </Viewbox>

@@ -9,8 +9,7 @@ Public Class MainWindowViewModel
   Private _queueFinished As Boolean = False
   Private _result As String
   'Private _currentPoints As New ObservableCollection(Of Point)
-  Private _lastPoint As Point
-  Private _lastPoint2 As Point
+  Private _lastPoints As List(Of Point)
 
 
   Public Sub DoIt(result As String)
@@ -24,8 +23,7 @@ Public Class MainWindowViewModel
     TestText = "Line Chart"
     Points = "0,260 10,250 20,245 40,200 50,250 80, 200, 140,100"
 
-    _lastPoint = New Point With {.X = 650, .Y = 930}
-    _lastPoint2 = New Point With {.X = 650, .Y = 950}
+    _lastPoints = New List(Of Point)({New Point With {.X = 650, .Y = 930}, New Point With {.X = 650, .Y = 950}})
 
     ChartData = New Collection(Of LineTrend)({
                                              New LineTrend With
@@ -36,7 +34,7 @@ Public Class MainWindowViewModel
                                                   {
                                                   New Point With {.X = 1, .Y = 1},
                                                   New Point With {.X = 500, .Y = 200},
-                                                  _lastPoint
+                                                  _lastPoints(0)
                                                   })
                                                 },
                                               New LineTrend With
@@ -47,7 +45,7 @@ Public Class MainWindowViewModel
                                                   {
                                                   New Point With {.X = 1, .Y = 1},
                                                   New Point With {.X = 300, .Y = 400},
-                                                  _lastPoint2
+                                                  _lastPoints(1)
                                                   })
                                                 }
                                               })
@@ -148,10 +146,16 @@ Public Class MainWindowViewModel
   End Property
 
   Private Sub TestCommandExecute()
-    _lastPoint = New Point With {.X = _lastPoint.X + 50, .Y = _lastPoint.Y * 0.95}
-    _lastPoint2 = New Point With {.X = _lastPoint2.X + 50, .Y = _lastPoint2.Y * 0.95}
-    ChartData(0).Points.Add(_lastPoint)
-    ChartData(1).Points.Add(_lastPoint2)
+
+    Dim newPoints = New List(Of Point)
+
+    For i = 1 To _lastPoints.Count
+      newPoints.Add(New Point With {.X = _lastPoints(i - 1).X + i * 50, .Y = _lastPoints(i - 1).Y * 1.05})
+    Next
+
+    _lastPoints = newPoints
+    ChartData(0).Points.Add(_lastPoints(0))
+    ChartData(1).Points.Add(_lastPoints(1))
     ChartData = New Collection(Of LineTrend)({
                                              New LineTrend With {.SeriesName = "First", .LineColor = Brushes.Blue, .Points = ChartData(0).Points},
                                              New LineTrend With {.SeriesName = "Second", .LineColor = Brushes.Red, .Points = ChartData(1).Points}
