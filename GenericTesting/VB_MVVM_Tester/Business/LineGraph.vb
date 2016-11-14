@@ -35,6 +35,7 @@ Public Class LineGraph
     If _canvasPoints IsNot Nothing AndAlso chartData IsNot Nothing Then
       _xCeiling = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.X).OrderByDescending(Function(x) x).FirstOrDefault()
       _yCeiling = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.Y).OrderByDescending(Function(x) x).FirstOrDefault()
+      _canvasPoints.Children.RemoveRange(0, _canvasPoints.Children.Count)
 
       For Each trend In chartData
         DrawTrend(trend)
@@ -204,7 +205,6 @@ Public Class LineGraph
     Dim t = TryCast(Trend, LineTrend)
 
     If t IsNot Nothing AndAlso t.Points IsNot Nothing Then
-      _canvasPoints.Children.RemoveRange(0, _canvasPoints.Children.Count)
       Dim xFactor = (1000 / _xCeiling)
 
       For i As Integer = 1 To t.Points.Count - 1
