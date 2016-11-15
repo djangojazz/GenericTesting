@@ -25,24 +25,15 @@
         <RowDefinition Height="*" />
         <RowDefinition Height="Auto" />
       </Grid.RowDefinitions>
-      <local:LineChart 
-          DataContext="{Binding ChartData}"
-          ChartTitle="Testing"
+    <local:LineChart 
+          ChartData="{Binding ChartData}"
+          ChartTitle="{Binding TestText}"
           ChartForeground="Wheat" 
-          LegendForeground="Wheat" 
           BackGroundColor="DarkCyan" 
           BackGroundColorCanvas="White" 
           BackGroundColorLegend="White"
         />
-      <!--<local:LineGraph Grid.Row="0" ChartData="{Binding ChartData}"
-                     ChartTitle="Testing"
-                     ChartForeground="Wheat" 
-                     LegendForeground="Wheat" 
-                     BackGroundColor="DarkCyan" 
-                     BackGroundColorCanvas="White" 
-                     BackGroundColorLegend="White" 
-                     />-->
-      <Button Grid.Row="1" Height="20" Width="100" Content="Click Me" Command="{Binding TestCommand}" />
+    <Button Grid.Row="1" Height="20" Width="100" Content="Click Me" Command="{Binding TestCommand}" />
     </Grid>
 
 

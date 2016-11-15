@@ -10,29 +10,8 @@ Public Class ConvertDataSetToSeries
   Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.Convert
     Dim rawData = TryCast(value, Collection(Of LineTrend))
 
-
-    Dim valueOfObject = value.GetType()
-
-    Dim valNum = Nothing
-    Dim valDate = Nothing
-
-    If valueOfObject.GetType() Is GetType(Integer) Then
-    End If
-
-
-
     If rawData IsNot Nothing Then
-
-      If parameter = "Date_DD/MM/YYYY hh:mm:ss" Then
-        'Dim xs = rawData.SelectMany(Function(x) x.Points).Select(Function(x) x.X).Distinct().OrderBy(Function(x) x)
-
-        Return New List(Of String)({"0", "", "20", "", "40", "", "60", "", "80", "", "100"})
-      Else
-        Dim ys = rawData.SelectMany(Function(x) x.Points).Select(Function(x) x.Y).Distinct().OrderBy(Function(x) x)
-        Return ys
-      End If
-
-
+      Return "lkajsd;flkajs;ljkasd"
     End If
   End Function
 

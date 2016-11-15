@@ -26,7 +26,6 @@ Public Class MainWindowViewModel
     _lastPoints = New List(Of Point)({New Point With {.X = 650, .Y = 930}, New Point With {.X = 650, .Y = 950}})
 
 
-
     ChartData = New Collection(Of LineTrend)({
                                              New LineTrend With
                                                {

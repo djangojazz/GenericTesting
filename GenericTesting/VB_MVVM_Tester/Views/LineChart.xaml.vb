@@ -1,4 +1,6 @@
-﻿Public Class LineChart
+﻿Imports System.Collections.ObjectModel
+
+Public Class LineChart
 
 
   Private Shared _canvasPoints As Canvas = Nothing
@@ -19,34 +21,39 @@
     _canvasYAxisTicks = PART_CanvasYAxisTicks
     _canvasYAxisLabels = PART_CanvasYAxisLabels
     _legendText = PART_LEGENDTEXT
-    Dim y = Me.DataContext
-    Dim x = y
   End Sub
 
 #Region "ChartData"
-  Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(IList(Of LineTrend)), GetType(LineGraph), New UIPropertyMetadata(Nothing))
+  Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(IList(Of LineTrend)), GetType(LineChart), New UIPropertyMetadata(New List(Of LineTrend), AddressOf ChartDataChanged))
 
   Public Property ChartData As IList(Of LineTrend)
     Get
-      MessageBox.Show(DirectCast(GetValue(ChartDataProperty), IList(Of LineTrend))(0).Points.Count)
-      Return DirectCast(GetValue(ChartDataProperty), IList(Of LineTrend))
+      Return CType(GetValue(ChartDataProperty), IList(Of LineTrend))
     End Get
     Set
       SetValue(ChartDataProperty, Value)
-      _xCeiling = ChartData.SelectMany(Function(x) x.Points).Select(Function(x) x.X).OrderByDescending(Function(x) x).FirstOrDefault()
-      _yCeiling = ChartData.SelectMany(Function(x) x.Points).Select(Function(x) x.Y).OrderByDescending(Function(x) x).FirstOrDefault()
+    End Set
+  End Property
+
+  Private Shared Sub ChartDataChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
+    Dim chartData = TryCast(e.NewValue, IList(Of LineTrend))
+
+    If _canvasPoints IsNot Nothing AndAlso chartData IsNot Nothing Then
+      _xCeiling = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.X).OrderByDescending(Function(x) x).FirstOrDefault()
+      _yCeiling = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.Y).OrderByDescending(Function(x) x).FirstOrDefault()
       _canvasPoints.Children.RemoveRange(0, _canvasPoints.Children.Count)
 
-      For Each trend In ChartData
+      For Each trend In chartData
         DrawTrend(trend)
       Next trend
 
       If _canvasXAxisTicks IsNot Nothing And _canvasYAxisTicks IsNot Nothing Then
-        DrawXAxis(ChartData)
-        DrawYAxis(ChartData)
+        DrawXAxis(chartData)
+        DrawYAxis(chartData)
       End If
-    End Set
-  End Property
+    End If
+  End Sub
+
 
 #End Region
 
@@ -124,7 +131,7 @@
     End Get
     Set
       SetValue(LegendForegroundProperty, Value)
-      '_legendText.Visibility = Visibility.Visible
+      _legendText.Visibility = Visibility.Visible
     End Set
   End Property
 
