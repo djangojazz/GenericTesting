@@ -27,8 +27,9 @@
       </Grid.RowDefinitions>
     <local:LineChart 
           ChartData="{Binding ChartData}"
-          ChartTitle="{Binding TestText}"
+          ChartTitle="My Test Chart"
           ChartForeground="Wheat" 
+          LegendForeground="Wheat"
           BackGroundColor="DarkCyan" 
           BackGroundColorCanvas="White" 
           BackGroundColorLegend="White"

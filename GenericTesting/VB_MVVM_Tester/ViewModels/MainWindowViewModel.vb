@@ -33,23 +33,24 @@ Public Class MainWindowViewModel
                                                .LineColor = Brushes.Blue,
                                                .Points = New ObservableCollection(Of Point)(
                                                   {
-                                                  New Point With {.X = 1, .Y = 1},
-                                                  New Point With {.X = 500, .Y = 200},
+                                                  New Point With {.X = 350, .Y = 500},
+                                                  New Point With {.X = 600, .Y = 600},
                                                   _lastPoints(0)
                                                   })
-                                                },
-                                              New LineTrend With
-                                                {
-                                                .SeriesName = "Second",
-                                                .LineColor = Brushes.Red,
-                                                .Points = New ObservableCollection(Of Point)(
-                                                  {
-                                                  New Point With {.X = 1, .Y = 1},
-                                                  New Point With {.X = 300, .Y = 400},
-                                                  _lastPoints(1)
-                                                  })
-                                                }
-                                              })
+                                                  }})
+    '},
+    'New LineTrend With
+    '  {
+    '  .SeriesName = "Second",
+    '  .LineColor = Brushes.Red,
+    '  .Points = New ObservableCollection(Of Point)(
+    '    {
+    '    New Point With {.X = 1, .Y = 1},
+    '    New Point With {.X = 300, .Y = 400},
+    '    _lastPoints(1)
+    '    })
+    '  }
+    '})
   End Sub
 
   Private _items As ObservableCollection(Of Stuff)
@@ -156,11 +157,11 @@ Public Class MainWindowViewModel
 
     _lastPoints = newPoints
     ChartData(0).Points.Add(_lastPoints(0))
-    ChartData(1).Points.Add(_lastPoints(1))
-    ChartData = New Collection(Of LineTrend)({
-                                             New LineTrend With {.SeriesName = "First", .LineColor = Brushes.Blue, .Points = ChartData(0).Points},
-                                             New LineTrend With {.SeriesName = "Second", .LineColor = Brushes.Red, .Points = ChartData(1).Points}
-                                             })
+    'ChartData(1).Points.Add(_lastPoints(1))
+    ChartData = New Collection(Of LineTrend)({New LineTrend With {.SeriesName = "First", .LineColor = Brushes.Blue, .Points = ChartData(0).Points}})
+    'New LineTrend With {.SeriesName = "First", .LineColor = Brushes.Blue, .Points = ChartData(0).Points},
+    'New LineTrend With {.SeriesName = "Second", .LineColor = Brushes.Red, .Points = ChartData(1).Points}
+    '})
 
   End Sub
 
