@@ -24,7 +24,6 @@ Public Class LineChart
     _canvasYAxisTicks = PART_CanvasYAxisTicks
     _canvasYAxisLabels = PART_CanvasYAxisLabels
     _legendText = PART_LEGENDTEXT
-    _numberOfTicks = NumberOfTicks
   End Sub
 
 #Region "ChartData"
@@ -54,7 +53,7 @@ Public Class LineChart
       Next trend
 
       If _canvasXAxisTicks IsNot Nothing And _canvasYAxisTicks IsNot Nothing Then
-        If _numberOfTicks = 0 Then _numberOfTicks = 2
+        If _numberOfTicks = 0 Then _numberOfTicks = 1 'I want at the very least to see a beginning and an end
         DrawXAxis(chartData)
         DrawYAxis(chartData)
       End If
@@ -153,6 +152,20 @@ Public Class LineChart
     End Get
     Set
       SetValue(NumberOfTicksProperty, Value)
+      _numberOfTicks = Value
+    End Set
+  End Property
+#End Region
+
+#Region "MinorTicks"
+  Public Shared ReadOnly MinorTicksProperty As DependencyProperty = DependencyProperty.Register("MinorTicks", GetType(Integer), GetType(LineGraph), New UIPropertyMetadata(0))
+
+  Public Property MinorTicks As Integer
+    Get
+      Return DirectCast(GetValue(MinorTicksProperty), Integer)
+    End Get
+    Set
+      SetValue(MinorTicksProperty, Value)
       _numberOfTicks = Value
     End Set
   End Property
