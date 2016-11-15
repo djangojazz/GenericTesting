@@ -9,6 +9,7 @@ Public Class LineChart
   Private Shared _canvasYAxisTicks As Canvas = Nothing
   Private Shared _canvasYAxisLabels As Canvas = Nothing
   Private Shared _legendText As TextBlock = Nothing
+  Private Shared _numberOfTicks As Integer = 0
   Private Shared _xFloor As Decimal = 0
   Private Shared _xCeiling As Decimal = 0
   Private Shared _yFloor As Decimal = 0
@@ -23,6 +24,7 @@ Public Class LineChart
     _canvasYAxisTicks = PART_CanvasYAxisTicks
     _canvasYAxisLabels = PART_CanvasYAxisLabels
     _legendText = PART_LEGENDTEXT
+    _numberOfTicks = NumberOfTicks
   End Sub
 
 #Region "ChartData"
@@ -52,6 +54,7 @@ Public Class LineChart
       Next trend
 
       If _canvasXAxisTicks IsNot Nothing And _canvasYAxisTicks IsNot Nothing Then
+        If _numberOfTicks = 0 Then _numberOfTicks = 2
         DrawXAxis(chartData)
         DrawYAxis(chartData)
       End If
@@ -150,9 +153,9 @@ Public Class LineChart
     End Get
     Set
       SetValue(NumberOfTicksProperty, Value)
+      _numberOfTicks = Value
     End Set
   End Property
-
 #End Region
 
 
@@ -170,7 +173,8 @@ Public Class LineChart
 
 #Region "Drawing Methods"
   Public Shared Sub DrawXAxis(lineTrends As IList(Of LineTrend))
-    Dim segment = ((_xCeiling - _xFloor) / 5)
+
+    Dim segment = ((_xCeiling - _xFloor) / _numberOfTicks)
     _canvasXAxisTicks.Children.RemoveRange(0, _canvasXAxisTicks.Children.Count)
     _canvasXAxisLabels.Children.RemoveRange(0, _canvasXAxisLabels.Children.Count)
 
@@ -183,8 +187,8 @@ Public Class LineChart
                                    .Stroke = Brushes.Black
                                    })
 
-    For i As Integer = 0 To 5
-      Dim xSegment = If(i = 0, 0, i * 200)
+    For i As Integer = 0 To _numberOfTicks
+      Dim xSegment = If(i = 0, 0, i * (1000 / _numberOfTicks))
       Dim xSegmentLabel = If(i = 0, _xFloor, _xFloor + (i * segment))
 
       Dim lineSegment = New Line With {
@@ -207,7 +211,7 @@ Public Class LineChart
   End Sub
 
   Public Shared Sub DrawYAxis(lineTrends As IList(Of LineTrend))
-    Dim segment = ((_yCeiling - _yFloor) / 5)
+    Dim segment = ((_yCeiling - _yFloor) / _numberOfTicks)
     _canvasYAxisTicks.Children.RemoveRange(0, _canvasYAxisTicks.Children.Count)
     _canvasYAxisLabels.Children.RemoveRange(0, _canvasYAxisLabels.Children.Count)
 
@@ -220,8 +224,8 @@ Public Class LineChart
                                    .Stroke = Brushes.Black
                                    })
 
-    For i As Integer = 0 To 5
-      Dim ySegment = If(i = 0, 0, i * 200)
+    For i As Integer = 0 To _numberOfTicks
+      Dim ySegment = If(i = 0, 0, i * (1000 / _numberOfTicks))
       Dim ySegmentLabel = If(i = 0, _yFloor, _yFloor + (i * segment))
 
       Dim lineSegment = New Line With {
