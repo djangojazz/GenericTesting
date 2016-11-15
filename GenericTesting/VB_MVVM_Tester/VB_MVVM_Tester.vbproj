@@ -96,7 +96,6 @@
     <Compile Include="Converters\DateValueConverter.vb" />
     <Compile Include="Converters\DecimalConverter.vb" />
     <Compile Include="Converters\NegatingConverter.vb" />
-    <Compile Include="Business\LineGraph2.vb" />
     <Compile Include="Business\LineTrend.vb" />
     <Compile Include="Business\ProducerConsumer.vb" />
     <Compile Include="Business\TemplateSelectors.vb" />

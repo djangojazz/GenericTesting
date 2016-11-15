@@ -6,9 +6,16 @@ using System.Threading.Tasks;
 
 namespace Generics
 {
-
-  public class CircularBuffer<T>
+  public interface IBuffer<T>
   {
+    bool IsEmpty { get; }
+    void Write(T value);
+    T Read();
+  }
+
+  public class CircularBuffer<T> : IBuffer<T>
+  {
+    
     private T[] _buffer;
     private int _start;
     private int _end;

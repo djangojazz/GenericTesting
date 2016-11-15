@@ -6,7 +6,61 @@
              xmlns:local="clr-namespace:VB_MVVM_Tester"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-  <Grid Background="Wheat">
+  <!--<Grid Background="Wheat">
     <TextBlock Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path=ChartTitle}" FontSize="24" Margin="5" Foreground="Black" />
-  </Grid>
+  </Grid>-->
+  <Border Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path= BackGroundColor}" CornerRadius="15" Margin="5">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+      <TextBlock Grid.Row="0" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path= ChartTitle}" FontSize="26" HorizontalAlignment="Center" 
+                 Foreground="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path= ChartForeground}" />
+      <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="15" Margin="10" Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path= BackGroundColorCanvas}" >
+        <Viewbox Stretch="Fill" RenderOptions.EdgeMode="Aliased" Margin="15" >
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="*" />
+              <RowDefinition Height="Auto" />
+              <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Canvas x:Name="PART_CanvasYAxisLabels" Grid.Row="0" Grid.Column="0" Height="1000px" Width="35px"/>
+            <Canvas x:Name="PART_CanvasYAxisTicks" Grid.Row="0" Grid.Column="1" Height="1000px" Width="50px" >
+              <Canvas.LayoutTransform>
+                <ScaleTransform ScaleX="-1" ScaleY="-1" />
+              </Canvas.LayoutTransform>
+            </Canvas>
+            <Canvas x:Name="PART_CanvasPoints" Grid.Row="0" Grid.Column="2" Height="1000px" Width="1000px">
+              <Canvas.LayoutTransform>
+                <ScaleTransform ScaleX="1" ScaleY="-1" />
+              </Canvas.LayoutTransform>
+            </Canvas>
+            <Canvas x:Name="PART_CanvasXAxisTicks" Grid.Row="1" Grid.Column="2" Height="100px" Width="1000px"/>
+            <Canvas x:Name="PART_CanvasXAxisLabels" Grid.Row="2" Grid.Column="2" Height="50px" Width="1000px" />
+          </Grid>
+        </Viewbox>
+      </Border>
+      <TextBlock Grid.Row="2" x:Name="PART_LEGENDTEXT" Text="Legend" FontSize="26" HorizontalAlignment="Center" Foreground="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path= LegendForeground}" Visibility="Hidden" />
+      <Border x:Name="PART_LEGEND" Grid.Row="3" CornerRadius="10"  BorderBrush="Black" BorderThickness="2" Margin="10" Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path= BackGroundColorLegend}">
+        <ItemsControl ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path= ChartData}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <StackPanel Orientation="Horizontal">
+                <Ellipse Height="20" Width="20" Fill="{Binding LineColor}" Margin="5 5 10 5" />
+                <TextBlock Text="{Binding SeriesName}" FontFamily="Segoe UI" FontSize="14" Margin="5 5 10 5"/>
+              </StackPanel>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </Border>
+    </Grid>
+  </Border>
 </UserControl>

@@ -10,22 +10,13 @@ namespace Generics
   {
     static void Main(string[] args)
     {
-      var employeesByName = new Dictionary<string, List<Employee>>();
-      employeesByName.Add("Development", 
-          new List<Employee> { new Employee { Name = "Brett" } });
+      var buffer = new CircularBuffer<double>();
 
-      employeesByName["Development"].Add(new Employee { Name = "Jonhn" });
-
-      foreach (var item in employeesByName)
-      {
-        foreach (var employee in item.Value)
-        {
-          Console.WriteLine(employee.Name);
-        }
-      }
+      ProcessInput(buffer);
+      ProcessBuffer(buffer);
     }
 
-    private static void ProcessBuffer(CircularBuffer<double> buffer)
+    private static void ProcessBuffer(IBuffer<Double> buffer)
     {
       var sum = 0.0;
       Console.WriteLine("Buffer: ");
@@ -37,7 +28,7 @@ namespace Generics
       Console.WriteLine(sum);
     }
 
-    private static void ProcessingUserInput(CircularBuffer<double> buffer)
+    private static void ProcessInput(IBuffer<double> buffer)
     {
       while (true)
       {

@@ -20,7 +20,7 @@ Public Class MainWindowViewModel
     ProducerConsumer.Instance.producer.Start()
     Items = New ObservableCollection(Of Stuff)(New List(Of Stuff)({New Stuff With {.Id = 1, .Value = "Stuff", .ShipType = ShipType.Owned, .MoreStuff = "More Stuff"}, New Stuff With {.Id = 2, .Value = "Another"}}))
 
-    TestText = "Line Chart"
+    TestText = "Line Chart Hello there"
     Points = "0,260 10,250 20,245 40,200 50,250 80, 200, 140,100"
 
     _lastPoints = New List(Of Point)({New Point With {.X = 650, .Y = 930}, New Point With {.X = 650, .Y = 950}})
