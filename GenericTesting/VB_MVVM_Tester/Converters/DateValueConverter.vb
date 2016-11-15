@@ -1,24 +1,16 @@
 ﻿Imports System.Globalization
 Imports System.Collections.ObjectModel
 
-Public Class ConvertDataSetToSeries
+Public Class DateValueConverter
   Inherits Control
   Implements IValueConverter
 
-#Region "Implementation of IValueConverter"
 
   Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.Convert
     Dim rawData = TryCast(value, Collection(Of LineTrend))
 
 
     Dim valueOfObject = value.GetType()
-
-    Dim valNum = Nothing
-    Dim valDate = Nothing
-
-    If valueOfObject.GetType() Is GetType(Integer) Then
-    End If
-
 
 
     If rawData IsNot Nothing Then
@@ -39,6 +31,4 @@ Public Class ConvertDataSetToSeries
   Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.ConvertBack
     Throw New NotImplementedException()
   End Function
-
-#End Region
 End Class

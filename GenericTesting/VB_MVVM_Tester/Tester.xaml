@@ -19,60 +19,9 @@
     </Style>
     <local:ConvertDataSetToSeries x:Key="ConvertDataToSeries"/>
   </Window.Resources>
-  <!--<Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="*"/>
-    </Grid.RowDefinitions>
-    <Viewbox Grid.Row="0" Stretch="Fill" RenderOptions.EdgeMode="Aliased" Margin="15" >
-      <Grid>
-        <Grid.RowDefinitions>
-          <RowDefinition Height="*" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Canvas Grid.Row="0" Height="1000px" Width="1000px">
-          <Polyline Points="0,10 300,400 800,200" Stroke="Blue" StrokeThickness="2"   />
-          <Canvas.LayoutTransform>
-            <ScaleTransform ScaleX="1" ScaleY="-1" />
-          </Canvas.LayoutTransform>
-        </Canvas>
-        <Canvas Grid.Row="1" Height="100px" Width="1000px" >
-          <Line X1="0" X2="1000" Y1="0" Y2="0" Stroke="Black" StrokeThickness="2"/>
-          <Line X1="0" X2="0" Y1="0" Y2="30" Stroke="Black" StrokeThickness="2" />
-          <Line X1="200" X2="200" Y1="0" Y2="30" Stroke="Black" StrokeThickness="2" />
-          <Line X1="400" X2="400" Y1="0" Y2="30" Stroke="Black" StrokeThickness="2" />
-          <Line X1="600" X2="600" Y1="0" Y2="30" Stroke="Black" StrokeThickness="2" />
-          <Line X1="800" X2="800" Y1="0" Y2="30" Stroke="Black" StrokeThickness="2" />
-          <Line X1="1000" X2="1000" Y1="0" Y2="30" Stroke="Black" StrokeThickness="2" />
-        </Canvas>
-        <Canvas Grid.Row="2" Height="50px" Width="1000px" >
-          <TextBlock Text="0" Canvas.Left="0" />
-          <TextBlock Text="200" Canvas.Left="190" />
-          <TextBlock Text="400" Canvas.Left="390" />
-          <TextBlock Text="600" Canvas.Left="590" />
-          <TextBlock Text="800" Canvas.Left="790" />
-          <TextBlock Text="1000" Canvas.Left="980" />
-        </Canvas>
-      </Grid>
-    </Viewbox>
-  </Grid>-->
-  <!--<local:SL_BackgroundWorker_VB />-->
-  
     
   <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="*" />
-      <RowDefinition Height="Auto" />
-    </Grid.RowDefinitions>
-    <local:LineGraph Grid.Row="0" ChartData="{Binding ChartData}"
-                     ChartTitle="Testing"
-                     ChartForeground="Wheat" 
-                     LegendForeground="Wheat" 
-                     BackGroundColor="DarkCyan" 
-                     BackGroundColorCanvas="White" 
-                     BackGroundColorLegend="White" 
-                     />
-    <Button Grid.Row="1" Height="20" Width="100" Content="Click Me" Command="{Binding TestCommand}" />
+    <local:LineChart Background="White" Grid.Row="0" ChartTitle="TestBrettAndMark" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
   </Grid>
   
       

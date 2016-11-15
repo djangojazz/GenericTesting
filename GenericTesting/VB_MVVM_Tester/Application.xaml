@@ -4,7 +4,10 @@
     xmlns:local="clr-namespace:VB_MVVM_Tester"
     StartupUri="Tester.xaml" ShutdownMode="OnMainWindowClose">
   <Application.Resources>
+    
+    
     <local:ConvertDataSetToSeries x:Key="ConvertDataToSeries"/>
+    
     <Style x:Name="ItemSelector" TargetType="{x:Type ListBoxItem}">
       <Setter Property="Template">
         <Setter.Value>
@@ -117,7 +120,6 @@
                   <RowDefinition Height="*"/>
                   <RowDefinition Height="Auto"/>
                   <RowDefinition Height="Auto"/>
-
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Text="{TemplateBinding ChartTitle}" FontSize="26" HorizontalAlignment="Center" Foreground="{TemplateBinding ChartForeground}" />
                 <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="15" Margin="10" Background="{TemplateBinding BackGroundColorCanvas}" >
@@ -133,11 +135,7 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                       </Grid.ColumnDefinitions>
-                      <Canvas x:Name="PART_CanvasYAxisLabels" Grid.Row="0" Grid.Column="0" Height="1000px" Width="35px">
-                        <!--<Canvas.LayoutTransform>
-                          <ScaleTransform ScaleX="-1" ScaleY="-1" />
-                        </Canvas.LayoutTransform>-->
-                      </Canvas>
+                      <Canvas x:Name="PART_CanvasYAxisLabels" Grid.Row="0" Grid.Column="0" Height="1000px" Width="35px"/>
                       <Canvas x:Name="PART_CanvasYAxisTicks" Grid.Row="0" Grid.Column="1" Height="1000px" Width="50px" >
                         <Canvas.LayoutTransform>
                           <ScaleTransform ScaleX="-1" ScaleY="-1" />

@@ -166,6 +166,7 @@ Public Class LineGraph
 #End Region
 
 
+#Region "Drawing Methods"
   Public Shared Sub DrawXAxis(lineTrends As IList(Of LineTrend))
     Dim segment = (_xCeiling / 5)
     _canvasXAxisTicks.Children.RemoveRange(0, _canvasXAxisTicks.Children.Count)
@@ -240,25 +241,25 @@ Public Class LineGraph
     Next
   End Sub
 
-
-
   Public Shared Sub DrawTrend(Trend As LineTrend)
     Dim t = TryCast(Trend, LineTrend)
 
     If t IsNot Nothing AndAlso t.Points IsNot Nothing Then
       Dim xFactor = (1000 / _xCeiling)
+      Dim yFactor = (1000 / _yCeiling)
 
       For i As Integer = 1 To t.Points.Count - 1
         Dim toDraw = New Line With {
           .X1 = t.Points(i - 1).X * xFactor,
-          .Y1 = t.Points(i - 1).Y,
+          .Y1 = t.Points(i - 1).Y * yFactor,
           .X2 = t.Points(i).X * xFactor,
-          .Y2 = t.Points(i).Y,
+          .Y2 = t.Points(i).Y * yFactor,
           .StrokeThickness = 2,
           .Stroke = t.LineColor}
         _canvasPoints.Children.Add(toDraw)
       Next i
     End If
   End Sub
+#End Region
 
 End Class

@@ -93,6 +93,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\DateValueConverter.vb" />
+    <Compile Include="Converters\DecimalConverter.vb" />
     <Compile Include="Converters\NegatingConverter.vb" />
     <Compile Include="Business\LineGraph2.vb" />
     <Compile Include="Business\LineTrend.vb" />
@@ -109,6 +111,9 @@
     </Compile>
     <Compile Include="Views\DynamicTemplate.xaml.vb">
       <DependentUpon>DynamicTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LineChart.xaml.vb">
+      <DependentUpon>LineChart.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProducerConsumerView.xaml.vb">
       <DependentUpon>ProducerConsumerView.xaml</DependentUpon>
@@ -147,6 +152,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DynamicTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LineChart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
