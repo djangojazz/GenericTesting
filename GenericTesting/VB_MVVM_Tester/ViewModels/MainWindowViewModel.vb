@@ -23,7 +23,7 @@ Public Class MainWindowViewModel
     TestText = "Line Chart Hello there"
     Points = "0,260 10,250 20,245 40,200 50,250 80, 200, 140,100"
 
-    _lastPoints = New List(Of Point)({New Point With {.X = 650, .Y = 930}, New Point With {.X = 650, .Y = 950}})
+    _lastPoints = New List(Of Point)({New Point With {.X = Date.Now.ToOADate, .Y = 930}, New Point With {.X = 650, .Y = 950}})
 
 
     ChartData = New Collection(Of LineTrend)({
@@ -33,11 +33,26 @@ Public Class MainWindowViewModel
                                                .LineColor = Brushes.Blue,
                                                .Points = New ObservableCollection(Of Point)(
                                                   {
-                                                  New Point With {.X = 350, .Y = 500},
-                                                  New Point With {.X = 600, .Y = 600},
+                                                  New Point With {.X = Date.Now.AddDays(-2).ToOADate, .Y = 500},
+                                                  New Point With {.X = Date.Now.AddDays(-1).ToOADate, .Y = 600},
                                                   _lastPoints(0)
                                                   })
                                                   }})
+
+
+    ChartData2 = New Collection(Of LineTrend)({
+                                         New LineTrend With
+                                           {
+                                           .SeriesName = "Looking",
+                                           .LineColor = Brushes.Blue,
+                                           .Points = New ObservableCollection(Of Point)(
+                                              {
+                                              New Point With {.X = Date.Now.AddMonths(-2).ToOADate, .Y = 10},
+                                              New Point With {.X = Date.Now.AddMonths(-1).ToOADate, .Y = 1050},
+                                              _lastPoints(0)
+                                              })
+                                              }})
+
     '},
     'New LineTrend With
     '  {
@@ -74,6 +89,17 @@ Public Class MainWindowViewModel
     Set
       _chartData = Value
       OnPropertyChanged(NameOf(ChartData))
+    End Set
+  End Property
+
+  Private _chartData2 As Collection(Of LineTrend)
+  Public Property ChartData2 As Collection(Of LineTrend)
+    Get
+      Return _chartData2
+    End Get
+    Set
+      _chartData2 = Value
+      OnPropertyChanged(NameOf(ChartData2))
     End Set
   End Property
 

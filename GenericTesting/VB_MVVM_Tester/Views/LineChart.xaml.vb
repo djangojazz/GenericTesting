@@ -3,17 +3,18 @@
 Public Class LineChart
 
 
-  Private Shared _canvasPoints As Canvas = Nothing
-  Private Shared _canvasXAxisTicks As Canvas = Nothing
-  Private Shared _canvasXAxisLabels As Canvas = Nothing
-  Private Shared _canvasYAxisTicks As Canvas = Nothing
-  Private Shared _canvasYAxisLabels As Canvas = Nothing
-  Private Shared _legendText As TextBlock = Nothing
-  Private Shared _numberOfTicks As Integer = 0
-  Private Shared _xFloor As Decimal = 0
-  Private Shared _xCeiling As Decimal = 0
-  Private Shared _yFloor As Decimal = 0
-  Private Shared _yCeiling As Decimal = 0
+  Friend _canvasPoints As Canvas = Nothing
+  Private _canvasXAxisTicks As Canvas = Nothing
+  Private _canvasXAxisLabels As Canvas = Nothing
+  Private _canvasYAxisTicks As Canvas = Nothing
+  Private _canvasYAxisLabels As Canvas = Nothing
+  Private _legendText As TextBlock = Nothing
+  Private _numberOfTicks As Integer = 0
+  Private _xValueConverter As IValueConverter = Nothing
+  Friend _xFloor As Decimal = 0
+  Friend _xCeiling As Decimal = 0
+  Private _yFloor As Decimal = 0
+  Private _yCeiling As Decimal = 0
 
   Public Sub New()
     InitializeComponent()
@@ -27,9 +28,9 @@ Public Class LineChart
   End Sub
 
 #Region "ChartData"
-  Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(IList(Of LineTrend)), GetType(LineChart), New UIPropertyMetadata(New List(Of LineTrend), AddressOf ChartDataChanged))
+  Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(Collection(Of LineTrend)), GetType(LineChart), New UIPropertyMetadata(New Collection(Of LineTrend), AddressOf LineChart.ChartDataChanged))
 
-  Public Property ChartData As IList(Of LineTrend)
+  Public Property ChartData As ObservableCollection(Of LineTrend)
     Get
       Return CType(GetValue(ChartDataProperty), IList(Of LineTrend))
     End Get
@@ -38,24 +39,26 @@ Public Class LineChart
     End Set
   End Property
 
-  Private Shared Sub ChartDataChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
+  Public Shared Sub ChartDataChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
+
+    Dim LC As LineChart = DirectCast(d, LineChart)
     Dim chartData = TryCast(e.NewValue, IList(Of LineTrend))
 
-    If _canvasPoints IsNot Nothing AndAlso chartData IsNot Nothing Then
-      _xFloor = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.X).OrderBy(Function(x) x).FirstOrDefault()
-      _xCeiling = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.X).OrderByDescending(Function(x) x).FirstOrDefault()
-      _yFloor = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.Y).OrderBy(Function(x) x).FirstOrDefault()
-      _yCeiling = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.Y).OrderByDescending(Function(x) x).FirstOrDefault()
-      _canvasPoints.Children.RemoveRange(0, _canvasPoints.Children.Count)
+    If LC._canvasPoints IsNot Nothing AndAlso chartData IsNot Nothing Then
+      LC._xFloor = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.X).OrderBy(Function(x) x).FirstOrDefault()
+      LC._xCeiling = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.X).OrderByDescending(Function(x) x).FirstOrDefault()
+      LC._yFloor = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.Y).OrderBy(Function(x) x).FirstOrDefault()
+      LC._yCeiling = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.Y).OrderByDescending(Function(x) x).FirstOrDefault()
+      LC._canvasPoints.Children.RemoveRange(0, LC._canvasPoints.Children.Count)
 
       For Each trend In chartData
-        DrawTrend(trend)
+        LC.DrawTrend(trend)
       Next trend
 
-      If _canvasXAxisTicks IsNot Nothing And _canvasYAxisTicks IsNot Nothing Then
-        If _numberOfTicks = 0 Then _numberOfTicks = 1 'I want at the very least to see a beginning and an end
-        DrawXAxis(chartData)
-        DrawYAxis(chartData)
+      If LC._canvasXAxisTicks IsNot Nothing And LC._canvasYAxisTicks IsNot Nothing Then
+        If LC._numberOfTicks = 0 Then LC._numberOfTicks = 1 'I want at the very least to see a beginning and an end
+        LC.DrawXAxis(chartData)
+        LC.DrawYAxis(chartData)
       End If
     End If
   End Sub
@@ -157,35 +160,29 @@ Public Class LineChart
   End Property
 #End Region
 
-#Region "MinorTicks"
-  Public Shared ReadOnly MinorTicksProperty As DependencyProperty = DependencyProperty.Register("MinorTicks", GetType(Integer), GetType(LineGraph), New UIPropertyMetadata(0))
 
-  Public Property MinorTicks As Integer
-    Get
-      Return DirectCast(GetValue(MinorTicksProperty), Integer)
-    End Get
-    Set
-      SetValue(MinorTicksProperty, Value)
-      _numberOfTicks = Value
-    End Set
-  End Property
+#Region "XValueConverter"
+  'Public Shared ReadOnly XValueConverterProperty As DependencyProperty = DependencyProperty.Register("XValueConverter", GetType(IValueConverter), GetType(LineChart), New UIPropertyMetadata(DependencyProperty.UnsetValue, AddressOf XValChanged))
+
+  'Public Property XValueConverter As IValueConverter
+  '  Get
+  '    Return CType(GetValue(XValueConverterProperty), IValueConverter)
+  '  End Get
+  '  Set
+  '    SetValue(XValueConverterProperty, Value)
+  '  End Set
+  'End Property
+
+  'Private Shared Sub XValChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
+  '  _xValueConverter = e.NewValue
+  'End Sub
+
+
 #End Region
 
 
-  Public Shared ReadOnly XValueConverterProperty As DependencyProperty = DependencyProperty.Register("XValueConverter", GetType(IValueConverter), GetType(LineChart), New UIPropertyMetadata(Nothing))
-
-  Public Property XValueConverter As IValueConverter
-    Get
-      Return CType(GetValue(XValueConverterProperty), IValueConverter)
-    End Get
-    Set
-      SetValue(XValueConverterProperty, Value)
-    End Set
-  End Property
-
-
 #Region "Drawing Methods"
-  Public Shared Sub DrawXAxis(lineTrends As IList(Of LineTrend))
+  Public Sub DrawXAxis(lineTrends As IList(Of LineTrend))
 
     Dim segment = ((_xCeiling - _xFloor) / _numberOfTicks)
     _canvasXAxisTicks.Children.RemoveRange(0, _canvasXAxisTicks.Children.Count)
@@ -215,15 +212,16 @@ Public Class LineChart
 
       Dim labelSegment = New TextBlock With {
         .Text = xSegmentLabel.ToString,
-        .FontSize = 20,
+        .FontSize = If(_numberOfTicks <= 10, 30, 20),
         .Margin = New Thickness(xSegment - If(i = 0, 0, If(i = 5, 30, 15)), 0, 0, 0)
       }
+      'If(_xValueConverter Is Nothing, String.Empty, _xValueConverter.Convert(xSegmentLabel, GetType(String), Nothing, Globalization.CultureInfo.InvariantCulture)),
 
       _canvasXAxisLabels.Children.Add(labelSegment)
     Next
   End Sub
 
-  Public Shared Sub DrawYAxis(lineTrends As IList(Of LineTrend))
+  Public Sub DrawYAxis(lineTrends As IList(Of LineTrend))
     Dim segment = ((_yCeiling - _yFloor) / _numberOfTicks)
     _canvasYAxisTicks.Children.RemoveRange(0, _canvasYAxisTicks.Children.Count)
     _canvasYAxisLabels.Children.RemoveRange(0, _canvasYAxisLabels.Children.Count)
@@ -252,7 +250,7 @@ Public Class LineChart
 
       Dim labelSegment = New TextBlock With {
         .Text = ySegmentLabel.ToString,
-        .FontSize = 20,
+        .FontSize = If(_numberOfTicks <= 10, 30, 20),
         .Margin = New Thickness(0, 980 - (ySegment - If(i = 0, 0, If(i = 5, 15, 5))), 0, 0)
       }
 
@@ -260,7 +258,7 @@ Public Class LineChart
     Next
   End Sub
 
-  Public Shared Sub DrawTrend(Trend As LineTrend)
+  Friend Sub DrawTrend(Trend As LineTrend)
     Dim t = TryCast(Trend, LineTrend)
 
     If t IsNot Nothing AndAlso t.Points IsNot Nothing Then

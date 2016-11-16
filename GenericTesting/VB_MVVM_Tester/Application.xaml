@@ -5,8 +5,8 @@
     StartupUri="Tester.xaml" ShutdownMode="OnMainWindowClose">
   <Application.Resources>
     
-    
     <local:ConvertDataSetToSeries x:Key="ConvertDataToSeries"/>
+    <local:DateValueConverter x:Key="DateValueConverter"/>
     
     <Style x:Name="ItemSelector" TargetType="{x:Type ListBoxItem}">
       <Setter Property="Template">
