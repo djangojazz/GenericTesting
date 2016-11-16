@@ -20,10 +20,12 @@ Public Class MainWindowViewModel
     ProducerConsumer.Instance.producer.Start()
     Items = New ObservableCollection(Of Stuff)(New List(Of Stuff)({New Stuff With {.Id = 1, .Value = "Stuff", .ShipType = ShipType.Owned, .MoreStuff = "More Stuff"}, New Stuff With {.Id = 2, .Value = "Another"}}))
 
+    Dim newers = New PlotPoint(Of String, String)
+
     TestText = "Line Chart Hello there"
     Points = "0,260 10,250 20,245 40,200 50,250 80, 200, 140,100"
 
-    _lastPoints = New List(Of Point)({New Point With {.X = Date.Now.ToOADate, .Y = 930}, New Point With {.X = 650, .Y = 950}})
+    _lastPoints = New List(Of Point)({New Point With {.X = 300, .Y = 930}, New Point With {.X = 650, .Y = 950}})
 
 
     ChartData = New Collection(Of LineTrend)({
@@ -31,27 +33,27 @@ Public Class MainWindowViewModel
                                                {
                                                .SeriesName = "First",
                                                .LineColor = Brushes.Blue,
-                                               .Points = New ObservableCollection(Of Point)(
+                                               .Points = New List(Of Point)(
                                                   {
-                                                  New Point With {.X = Date.Now.AddDays(-2).ToOADate, .Y = 500},
-                                                  New Point With {.X = Date.Now.AddDays(-1).ToOADate, .Y = 600},
+                                                  New Point With {.X = 100, .Y = 500I},
+                                                  New Point With {.X = 200, .Y = 600I},
                                                   _lastPoints(0)
                                                   })
                                                   }})
 
 
-    ChartData2 = New Collection(Of LineTrend)({
-                                         New LineTrend With
-                                           {
-                                           .SeriesName = "Looking",
-                                           .LineColor = Brushes.Blue,
-                                           .Points = New ObservableCollection(Of Point)(
-                                              {
-                                              New Point With {.X = Date.Now.AddMonths(-2).ToOADate, .Y = 10},
-                                              New Point With {.X = Date.Now.AddMonths(-1).ToOADate, .Y = 1050},
-                                              _lastPoints(0)
-                                              })
-                                              }})
+    'ChartData2 = New Collection(Of LineTrend)({
+    '                                     New LineTrend With
+    '                                       {
+    '                                       .SeriesName = "Looking",
+    '                                       .LineColor = Brushes.Blue,
+    '                                       .Points = New ObservableCollection(Of Point)(
+    '                                          {
+    '                                          New Point With {.X = 300I, .Y = 10I},
+    '                                          New Point With {.X = 200I, .Y = 1050I},
+    '                                          _lastPoints(0)
+    '                                          })
+    '                                          }})
 
     '},
     'New LineTrend With

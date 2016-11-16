@@ -9,8 +9,8 @@ Public Class LineChart
   Private _canvasYAxisTicks As Canvas = Nothing
   Private _canvasYAxisLabels As Canvas = Nothing
   Private _legendText As TextBlock = Nothing
-  Private _numberOfTicks As Integer = 0
   Private _xValueConverter As IValueConverter = Nothing
+
   Friend _xFloor As Decimal = 0
   Friend _xCeiling As Decimal = 0
   Private _yFloor As Decimal = 0
@@ -45,10 +45,24 @@ Public Class LineChart
     Dim chartData = TryCast(e.NewValue, IList(Of LineTrend))
 
     If LC._canvasPoints IsNot Nothing AndAlso chartData IsNot Nothing Then
+
+      Select Case True
+        Case IsDate(chartData(0).Points(0).X)
+
+        Case IsNumeric(chartData(0).Points(0).X)
+
+      End Select
+
       LC._xFloor = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.X).OrderBy(Function(x) x).FirstOrDefault()
       LC._xCeiling = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.X).OrderByDescending(Function(x) x).FirstOrDefault()
+
+
       LC._yFloor = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.Y).OrderBy(Function(x) x).FirstOrDefault()
       LC._yCeiling = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.Y).OrderByDescending(Function(x) x).FirstOrDefault()
+
+
+
+
       LC._canvasPoints.Children.RemoveRange(0, LC._canvasPoints.Children.Count)
 
       For Each trend In chartData
@@ -56,7 +70,7 @@ Public Class LineChart
       Next trend
 
       If LC._canvasXAxisTicks IsNot Nothing And LC._canvasYAxisTicks IsNot Nothing Then
-        If LC._numberOfTicks = 0 Then LC._numberOfTicks = 1 'I want at the very least to see a beginning and an end
+        If LC.NumberOfTicks = 0 Then LC.NumberOfTicks = 1 'I want at the very least to see a beginning and an end
         LC.DrawXAxis(chartData)
         LC.DrawYAxis(chartData)
       End If
@@ -80,7 +94,7 @@ Public Class LineChart
 #End Region
 
 #Region "BackGroundColor"
-  Public Shared ReadOnly BackGroundColorProperty As DependencyProperty = DependencyProperty.Register("BackGroundColor", GetType(Brush), GetType(LineGraph), New UIPropertyMetadata(Brushes.Black))
+  Public Shared ReadOnly BackGroundColorProperty As DependencyProperty = DependencyProperty.Register("BackGroundColor", GetType(Brush), GetType(LineChart), New UIPropertyMetadata(Brushes.Black))
 
   Public Property BackGroundColor As Brush
     Get
@@ -93,7 +107,7 @@ Public Class LineChart
 #End Region
 
 #Region "BackGroundColorCanvas"
-  Public Shared ReadOnly BackGroundColorCanvasProperty As DependencyProperty = DependencyProperty.Register("BackGroundColorCanvas", GetType(Brush), GetType(LineGraph), New UIPropertyMetadata(Brushes.Black))
+  Public Shared ReadOnly BackGroundColorCanvasProperty As DependencyProperty = DependencyProperty.Register("BackGroundColorCanvas", GetType(Brush), GetType(LineChart), New UIPropertyMetadata(Brushes.Black))
 
   Public Property BackGroundColorCanvas As Brush
     Get
@@ -106,7 +120,7 @@ Public Class LineChart
 #End Region
 
 #Region "BackGroundColorLegend"
-  Public Shared ReadOnly BackGroundColorLegendProperty As DependencyProperty = DependencyProperty.Register("BackGroundColorLegend", GetType(Brush), GetType(LineGraph), New UIPropertyMetadata(Brushes.Black))
+  Public Shared ReadOnly BackGroundColorLegendProperty As DependencyProperty = DependencyProperty.Register("BackGroundColorLegend", GetType(Brush), GetType(LineChart), New UIPropertyMetadata(Brushes.Black))
 
   Public Property BackGroundColorLegend As Brush
     Get
@@ -119,7 +133,7 @@ Public Class LineChart
 #End Region
 
 #Region "ChartForeground"
-  Public Shared ReadOnly ChartForegroundProperty As DependencyProperty = DependencyProperty.Register("ChartForeground", GetType(Brush), GetType(LineGraph), New UIPropertyMetadata(Brushes.Black))
+  Public Shared ReadOnly ChartForegroundProperty As DependencyProperty = DependencyProperty.Register("ChartForeground", GetType(Brush), GetType(LineChart), New UIPropertyMetadata(Brushes.Black))
 
   Public Property ChartForeground As Brush
     Get
@@ -132,7 +146,7 @@ Public Class LineChart
 #End Region
 
 #Region "LegendForeground"
-  Public Shared ReadOnly LegendForegroundProperty As DependencyProperty = DependencyProperty.Register("LegendForeground", GetType(Brush), GetType(LineGraph), New UIPropertyMetadata(Brushes.Black))
+  Public Shared ReadOnly LegendForegroundProperty As DependencyProperty = DependencyProperty.Register("LegendForeground", GetType(Brush), GetType(LineChart), New UIPropertyMetadata(Brushes.Black))
 
   Public Property LegendForeground As Brush
     Get
@@ -147,7 +161,7 @@ Public Class LineChart
 #End Region
 
 #Region "NumberOfTicks"
-  Public Shared ReadOnly NumberOfTicksProperty As DependencyProperty = DependencyProperty.Register("NumberOfTicks", GetType(Integer), GetType(LineGraph), New UIPropertyMetadata(0))
+  Public Shared ReadOnly NumberOfTicksProperty As DependencyProperty = DependencyProperty.Register("NumberOfTicks", GetType(Integer), GetType(LineChart), New UIPropertyMetadata(0))
 
   Public Property NumberOfTicks As Integer
     Get
@@ -155,27 +169,22 @@ Public Class LineChart
     End Get
     Set
       SetValue(NumberOfTicksProperty, Value)
-      _numberOfTicks = Value
     End Set
   End Property
 #End Region
 
 
 #Region "XValueConverter"
-  'Public Shared ReadOnly XValueConverterProperty As DependencyProperty = DependencyProperty.Register("XValueConverter", GetType(IValueConverter), GetType(LineChart), New UIPropertyMetadata(DependencyProperty.UnsetValue, AddressOf XValChanged))
+  Public Shared ReadOnly XValueConverterProperty As DependencyProperty = DependencyProperty.Register("XValueConverter", GetType(IValueConverter), GetType(LineChart), Nothing)
 
-  'Public Property XValueConverter As IValueConverter
-  '  Get
-  '    Return CType(GetValue(XValueConverterProperty), IValueConverter)
-  '  End Get
-  '  Set
-  '    SetValue(XValueConverterProperty, Value)
-  '  End Set
-  'End Property
-
-  'Private Shared Sub XValChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
-  '  _xValueConverter = e.NewValue
-  'End Sub
+  Public Property XValueConverter As IValueConverter
+    Get
+      Return CType(GetValue(XValueConverterProperty), IValueConverter)
+    End Get
+    Set
+      SetValue(XValueConverterProperty, Value)
+    End Set
+  End Property
 
 
 #End Region
@@ -184,7 +193,7 @@ Public Class LineChart
 #Region "Drawing Methods"
   Public Sub DrawXAxis(lineTrends As IList(Of LineTrend))
 
-    Dim segment = ((_xCeiling - _xFloor) / _numberOfTicks)
+    Dim segment = ((_xCeiling - _xFloor) / NumberOfTicks)
     _canvasXAxisTicks.Children.RemoveRange(0, _canvasXAxisTicks.Children.Count)
     _canvasXAxisLabels.Children.RemoveRange(0, _canvasXAxisLabels.Children.Count)
 
@@ -197,8 +206,8 @@ Public Class LineChart
                                    .Stroke = Brushes.Black
                                    })
 
-    For i As Integer = 0 To _numberOfTicks
-      Dim xSegment = If(i = 0, 0, i * (1000 / _numberOfTicks))
+    For i As Integer = 0 To NumberOfTicks
+      Dim xSegment = If(i = 0, 0, i * (1000 / NumberOfTicks))
       Dim xSegmentLabel = If(i = 0, _xFloor, _xFloor + (i * segment))
 
       Dim lineSegment = New Line With {
@@ -211,18 +220,17 @@ Public Class LineChart
       _canvasXAxisTicks.Children.Add(lineSegment)
 
       Dim labelSegment = New TextBlock With {
-        .Text = xSegmentLabel.ToString,
-        .FontSize = If(_numberOfTicks <= 10, 30, 20),
+        .Text = If(XValueConverter Is Nothing, String.Empty, XValueConverter.Convert(xSegmentLabel, GetType(String), Nothing, Globalization.CultureInfo.InvariantCulture)),
+        .FontSize = If(NumberOfTicks <= 10, 30, 20),
         .Margin = New Thickness(xSegment - If(i = 0, 0, If(i = 5, 30, 15)), 0, 0, 0)
       }
-      'If(_xValueConverter Is Nothing, String.Empty, _xValueConverter.Convert(xSegmentLabel, GetType(String), Nothing, Globalization.CultureInfo.InvariantCulture)),
 
       _canvasXAxisLabels.Children.Add(labelSegment)
     Next
   End Sub
 
   Public Sub DrawYAxis(lineTrends As IList(Of LineTrend))
-    Dim segment = ((_yCeiling - _yFloor) / _numberOfTicks)
+    Dim segment = ((_yCeiling - _yFloor) / NumberOfTicks)
     _canvasYAxisTicks.Children.RemoveRange(0, _canvasYAxisTicks.Children.Count)
     _canvasYAxisLabels.Children.RemoveRange(0, _canvasYAxisLabels.Children.Count)
 
@@ -235,8 +243,8 @@ Public Class LineChart
                                    .Stroke = Brushes.Black
                                    })
 
-    For i As Integer = 0 To _numberOfTicks
-      Dim ySegment = If(i = 0, 0, i * (1000 / _numberOfTicks))
+    For i As Integer = 0 To NumberOfTicks
+      Dim ySegment = If(i = 0, 0, i * (1000 / NumberOfTicks))
       Dim ySegmentLabel = If(i = 0, _yFloor, _yFloor + (i * segment))
 
       Dim lineSegment = New Line With {
@@ -250,7 +258,7 @@ Public Class LineChart
 
       Dim labelSegment = New TextBlock With {
         .Text = ySegmentLabel.ToString,
-        .FontSize = If(_numberOfTicks <= 10, 30, 20),
+        .FontSize = If(NumberOfTicks <= 10, 30, 20),
         .Margin = New Thickness(0, 980 - (ySegment - If(i = 0, 0, If(i = 5, 15, 5))), 0, 0)
       }
 
@@ -280,3 +288,14 @@ Public Class LineChart
 #End Region
 
 End Class
+
+Public Class AxisType(Of T)
+
+  Public Sub New()
+    If IsNumeric(GetType(T)) AndAlso Not IsDate(GetType(T)) Then Throw New InvalidOperationException("Can't chart a non numeric or date type")
+  End Sub
+  Public Property Floor As T
+  Public Property Ceiling As T
+
+End Class
+

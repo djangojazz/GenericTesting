@@ -19,14 +19,16 @@
     </Style>
     <local:ConvertDataSetToSeries x:Key="ConvertDataToSeries"/>
     <local:DateValueConverter x:Key="DateValueConverter" />
+    <local:DecimalConverter x:Key="ConvertDecimal1" />
+    <local:DecimalConverter x:Key="ConvertDecimal2" />
   </Window.Resources>
 
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="*" />
       <RowDefinition Height="Auto" />
-      <RowDefinition Height="*" />
-      <RowDefinition Height="Auto" />
+      <!--<RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />-->
     </Grid.RowDefinitions>
     <local:LineChart 
       Grid.Row ="0"
@@ -38,11 +40,12 @@
       BackGroundColorCanvas="White" 
       BackGroundColorLegend="White"    
       NumberOfTicks="5"
+      XValueConverter="{StaticResource ConvertDecimal1}"
       />
     <!--XValueConverter="{Binding ChartData, Converter = {StaticResource DateValueConverter}}"-->
         
     <Button Grid.Row="1" Height="20" Width="100" Content="Click Me" Command="{Binding TestCommand}" />
-    <local:LineChart Grid.Row="2" 
+    <!--<local:LineChart Grid.Row="2" 
       ChartData="{Binding ChartData2}"
       ChartTitle="My Test Chart"
       ChartForeground="Wheat" 
@@ -51,8 +54,9 @@
       BackGroundColorCanvas="White" 
       BackGroundColorLegend="White"    
       NumberOfTicks="5"
+       
       />
-    <Button Grid.Row="3" Height="20" Width="100" Content="Click Me" Command="{Binding TestCommand}" />
+    <Button Grid.Row="3" Height="20" Width="100" Content="Click Me" Command="{Binding TestCommand}" />-->
 
   </Grid>
 </Window>

@@ -5,22 +5,18 @@ Public Class DecimalConverter
   Inherits Control
   Implements IValueConverter
 
+  Public DecimalPositions As Integer = 2
+  Public IncludeComma As Boolean = True
+
 
   Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.Convert
-    'Dim rawData = TryCast(value, Decimal)
-    'If rawData IsNot Nothing Then
+    If Not IsNumeric(value) Then Return ""
 
-    '  If parameter = "Date_DD/MM/YYYY hh:mm:ss" Then
-    '    'Dim xs = rawData.SelectMany(Function(x) x.Points).Select(Function(x) x.X).Distinct().OrderBy(Function(x) x)
+    Dim FormatString As String = If(IncludeComma, "#,##0", "0")
+    If DecimalPositions > 0 Then FormatString &= "." & StrDup(DecimalPositions, "0"c)
 
-    '    Return New List(Of String)({"0", "", "20", "", "40", "", "60", "", "80", "", "100"})
-    '  Else
-    '    Dim ys = rawData.SelectMany(Function(x) x.Points).Select(Function(x) x.Y).Distinct().OrderBy(Function(x) x)
-    '    Return ys
-    '  End If
+    Return CType(value, Decimal).ToString(FormatString)
 
-
-    'End If
   End Function
 
   Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.ConvertBack
