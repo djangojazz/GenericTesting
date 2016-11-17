@@ -30,25 +30,10 @@ Public Class LineChart
     Dim chartData = TryCast(e.NewValue, IList(Of LineTrend))
 
     If LC.PART_CanvasPoints IsNot Nothing AndAlso chartData IsNot Nothing Then
-
-      LC._xType = chartData(0).Points(0).X.PointType
-      LC._yType = chartData(0).Points(0).Y.PointType
-
-      'X Points
-      Select Case True
-        Case LC._xType Is GetType(Integer)
-          Dim xes = chartData.SelectMany(Function(x) x.Points).Select(Function(x) DirectCast(x.X, PlotPoint(Of Integer)).Point)
-          LC._xFloor = xes.OrderBy(Function(x) x).FirstOrDefault()
-          LC._xCeiling = xes.OrderByDescending(Function(x) x).FirstOrDefault()
-      End Select
-
-      'Y Points
-      Select Case True
-        Case LC._yType Is GetType(Integer)
-          Dim yes = chartData.SelectMany(Function(x) x.Points).Select(Function(x) DirectCast(x.Y, PlotPoint(Of Integer)).Point)
-          LC._yFloor = yes.OrderBy(Function(x) x).FirstOrDefault()
-          LC._yCeiling = yes.OrderByDescending(Function(x) x).FirstOrDefault()
-      End Select
+      LC._xFloor = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.XAsDouble).OrderBy(Function(x) x).FirstOrDefault()
+      LC._xCeiling = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.XAsDouble).OrderByDescending(Function(x) x).FirstOrDefault()
+      LC._yFloor = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.YAsDouble).OrderBy(Function(x) x).FirstOrDefault()
+      LC._yCeiling = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.YAsDouble).OrderByDescending(Function(x) x).FirstOrDefault()
 
       LC.PART_CanvasPoints.Children.RemoveRange(0, LC.PART_CanvasPoints.Children.Count)
       LC.DrawTrends(chartData)
@@ -158,7 +143,6 @@ Public Class LineChart
   End Property
 #End Region
 
-
 #Region "XValueConverter"
   Public Shared ReadOnly XValueConverterProperty As DependencyProperty = DependencyProperty.Register("XValueConverter", GetType(IValueConverter), GetType(LineChart), Nothing)
 
@@ -259,28 +243,12 @@ Public Class LineChart
         Dim xFactor = (1000 / (_xCeiling - _xFloor))
         Dim yFactor = (1000 / (_yCeiling - _yFloor))
 
-        Dim xpointsOfSeries As New List(Of Double)
-        Dim ypointsOfSeries As New List(Of Double)
-
-        'X Points
-        Select Case True
-          Case _xType Is GetType(Integer)
-            xpointsOfSeries.AddRange(t.Points.Select(Function(x) CDbl(DirectCast(x.X, PlotPoint(Of Integer)).Point)))
-        End Select
-
-        'Y Points
-        Select Case True
-          Case _yType Is GetType(Integer)
-            ypointsOfSeries.AddRange(t.Points.Select(Function(x) CDbl(DirectCast(x.Y, PlotPoint(Of Integer)).Point)))
-        End Select
-
-
         For i As Integer = 1 To t.Points.Count - 1
           Dim toDraw = New Line With {
-            .X1 = (xpointsOfSeries(i - 1) - _xFloor) * xFactor,
-            .Y1 = (ypointsOfSeries(i - 1) - _yFloor) * yFactor,
-            .X2 = (xpointsOfSeries(i) - _xFloor) * xFactor,
-            .Y2 = (ypointsOfSeries(i) - _yFloor) * yFactor,
+            .X1 = (t.Points(i - 1).XAsDouble - _xFloor) * xFactor,
+            .Y1 = (t.Points(i - 1).YAsDouble - _yFloor) * yFactor,
+            .X2 = (t.Points(i).XAsDouble - _xFloor) * xFactor,
+            .Y2 = (t.Points(i).YAsDouble - _yFloor) * yFactor,
             .StrokeThickness = 2,
             .Stroke = t.LineColor}
           PART_CanvasPoints.Children.Add(toDraw)

@@ -17,7 +17,6 @@
     <Style TargetType="{x:Type DataGridRowHeader}">
       <Setter Property="Background" Value="Transparent" />
     </Style>
-    <local:ConvertDataSetToSeries x:Key="ConvertDataToSeries"/>
     <local:DateValueConverter x:Key="DateValueConverter" />
     <local:DecimalConverter x:Key="ConvertDecimal1" />
     <local:DecimalConverter x:Key="ConvertDecimal2" />

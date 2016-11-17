@@ -2,7 +2,7 @@
   Inherits PlotPoint
 
   Public Sub New(point As T)
-    If Not (GetType(T) Is GetType(Decimal) Or GetType(T) Is GetType(Integer) Or GetType(T) Is GetType(Date)) Then Throw New ArgumentException("Cannot have a plot point that is not Decimal, Integer or Date")
+    If Not (GetType(T) Is GetType(Decimal) Or GetType(T) Is GetType(Double) Or GetType(T) Is GetType(Integer) Or GetType(T) Is GetType(Date)) Then Throw New ArgumentException("Cannot have a plot point that is not Decimal, Integer or Date")
 
     Me.Point = point
   End Sub
