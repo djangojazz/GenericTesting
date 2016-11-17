@@ -18,8 +18,7 @@
       <Setter Property="Background" Value="Transparent" />
     </Style>
     <local:DateValueConverter x:Key="DateValueConverter" />
-    <local:DecimalConverter x:Key="ConvertDecimal1" />
-    <local:DecimalConverter x:Key="ConvertDecimal2" />
+    <local:DecimalConverter x:Key="ConvertDecimal" />
   </Window.Resources>
 
   <Grid>
@@ -38,8 +37,8 @@
       BackGroundColor="DarkCyan" 
       BackGroundColorCanvas="White" 
       BackGroundColorLegend="White"    
-      NumberOfTicks="5"
-      XValueConverter="{StaticResource ConvertDecimal1}"
+      NumberOfTicks="8"
+      XValueConverter="{StaticResource ConvertDecimal}"
       />
     <!--XValueConverter="{Binding ChartData, Converter = {StaticResource DateValueConverter}}"-->
         

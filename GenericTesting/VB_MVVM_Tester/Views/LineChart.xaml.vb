@@ -154,14 +154,24 @@ Public Class LineChart
       SetValue(XValueConverterProperty, Value)
     End Set
   End Property
+#End Region
 
+#Region "YValueConverter"
+  Public Shared ReadOnly YValueConverterProperty As DependencyProperty = DependencyProperty.Register("YValueConverter", GetType(IValueConverter), GetType(LineChart), Nothing)
 
+  Public Property YValueConverter As IValueConverter
+    Get
+      Return CType(GetValue(YValueConverterProperty), IValueConverter)
+    End Get
+    Set
+      SetValue(YValueConverterProperty, Value)
+    End Set
+  End Property
 #End Region
 
 
 #Region "Drawing Methods"
   Public Sub DrawXAxis(lineTrends As IList(Of LineTrend))
-
     Dim segment = ((_xCeiling - _xFloor) / NumberOfTicks)
     PART_CanvasXAxisTicks.Children.RemoveRange(0, PART_CanvasXAxisTicks.Children.Count)
     PART_CanvasXAxisLabels.Children.RemoveRange(0, PART_CanvasXAxisLabels.Children.Count)
@@ -175,9 +185,41 @@ Public Class LineChart
                                    .Stroke = Brushes.Black
                                    })
 
+    'Sizing should be done from the ceiling
+    Dim lastText = New String(If(XValueConverter Is Nothing, _xCeiling.ToString, XValueConverter.Convert(_xCeiling, GetType(String), Nothing, Globalization.CultureInfo.InvariantCulture)))
+    Dim spacingForText = lastText.Count * 6
+    Dim totalLength = spacingForText * NumberOfTicks
+    Dim fontSize = 0
+    Dim finalSpacing = 0
+    Dim lastSpaceFactor = 0
+
+    Select Case totalLength
+      Case <= 200
+        fontSize = 30
+        finalSpacing = spacingForText * 1.2
+        lastSpaceFactor = finalSpacing * 2
+      Case <= 250
+        fontSize = 20
+        finalSpacing = spacingForText * 0.9
+        lastSpaceFactor = finalSpacing * 1.75
+      Case <= 500
+        fontSize = 16
+        finalSpacing = spacingForText * 0.6
+        lastSpaceFactor = finalSpacing * 2
+      Case <= 750
+        fontSize = 12
+        finalSpacing = spacingForText * 0.45
+        lastSpaceFactor = finalSpacing * 1.8
+      Case Else
+        fontSize = 8
+        finalSpacing = spacingForText * 0.3
+        lastSpaceFactor = finalSpacing * 2
+    End Select
+
     For i As Integer = 0 To NumberOfTicks
       Dim xSegment = If(i = 0, 0, i * (1000 / NumberOfTicks))
       Dim xSegmentLabel = If(i = 0, _xFloor, _xFloor + (i * segment))
+      Dim textForLabel = New String(If(XValueConverter Is Nothing, xSegmentLabel.ToString, XValueConverter.Convert(xSegmentLabel, GetType(String), Nothing, Globalization.CultureInfo.InvariantCulture)))
 
       Dim lineSegment = New Line With {
           .X1 = xSegment,
@@ -189,9 +231,9 @@ Public Class LineChart
       PART_CanvasXAxisTicks.Children.Add(lineSegment)
 
       Dim labelSegment = New TextBlock With {
-        .Text = If(XValueConverter Is Nothing, String.Empty, XValueConverter.Convert(xSegmentLabel, GetType(String), Nothing, Globalization.CultureInfo.InvariantCulture)),
-        .FontSize = If(NumberOfTicks <= 10, 30, 20),
-        .Margin = New Thickness(xSegment - If(i = 0, 0, If(i = 5, 30, 15)), 0, 0, 0)
+        .Text = textForLabel,
+        .FontSize = fontSize,
+        .Margin = New Thickness(xSegment - If(i = 0, 0, If(i = NumberOfTicks, lastSpaceFactor, finalSpacing)), 0, 0, 0)
       }
 
       PART_CanvasXAxisLabels.Children.Add(labelSegment)
@@ -200,7 +242,6 @@ Public Class LineChart
 
   Public Sub DrawYAxis(lineTrends As IList(Of LineTrend))
     Dim segment = ((_yCeiling - _yFloor) / NumberOfTicks)
-
     PART_CanvasYAxisTicks.Children.RemoveRange(0, PART_CanvasYAxisTicks.Children.Count)
     PART_CanvasYAxisLabels.Children.RemoveRange(0, PART_CanvasYAxisLabels.Children.Count)
 
@@ -213,9 +254,34 @@ Public Class LineChart
                                    .Stroke = Brushes.Black
                                    })
 
+
+    'Sizing should be done from the ceiling
+    Dim lastText = New String(If(YValueConverter Is Nothing, _yCeiling.ToString, XValueConverter.Convert(_yCeiling, GetType(String), Nothing, Globalization.CultureInfo.InvariantCulture)))
+    Dim spacingForText = lastText.Count * 5
+    Dim totalLength = spacingForText * NumberOfTicks
+    Dim fontSize = 0
+    Dim finalSpacing = 0
+    Dim lastSpaceFactor = 0
+
+    Select Case totalLength
+      Case <= 200
+        fontSize = 30
+        finalSpacing = spacingForText * 0.5
+        lastSpaceFactor = finalSpacing * 1.9
+      Case <= 250
+        fontSize = 20
+        finalSpacing = spacingForText * 0.5
+        lastSpaceFactor = finalSpacing * 1.5
+      Case Else
+        fontSize = 16
+        finalSpacing = spacingForText * 0.25
+        lastSpaceFactor = finalSpacing * 1
+    End Select
+
     For i As Integer = 0 To NumberOfTicks
       Dim ySegment = If(i = 0, 0, i * (1000 / NumberOfTicks))
       Dim ySegmentLabel = If(i = 0, _yFloor, _yFloor + (i * segment))
+      Dim textForLabel = New String(If(XValueConverter Is Nothing, ySegmentLabel.ToString, XValueConverter.Convert(ySegmentLabel, GetType(String), Nothing, Globalization.CultureInfo.InvariantCulture)))
 
       Dim lineSegment = New Line With {
           .X1 = 0,
@@ -227,9 +293,9 @@ Public Class LineChart
       PART_CanvasYAxisTicks.Children.Add(lineSegment)
 
       Dim labelSegment = New TextBlock With {
-        .Text = ySegmentLabel.ToString,
-        .FontSize = If(NumberOfTicks <= 10, 30, 20),
-        .Margin = New Thickness(0, 980 - (ySegment - If(i = 0, 0, If(i = 5, 15, 5))), 0, 0)
+        .Text = textForLabel,
+        .FontSize = fontSize,
+        .Margin = New Thickness(0, 980 - (ySegment - If(i = 0, 0, If(i = NumberOfTicks, lastSpaceFactor, finalSpacing))), 0, 0)
       }
 
       PART_CanvasYAxisLabels.Children.Add(labelSegment)
