@@ -148,8 +148,10 @@ Public Class LineChart
     Dim LC As LineChart = DirectCast(d, LineChart)
 
     If CBool(e.NewValue) Then
-      LC.PART_GridParent.Children.Remove(LC.PART_LEGEND)
-      LC.PART_GridParent.Children.Remove(LC.PART_LEGENDTEXT)
+      LC.PART_LEGEND.Visibility = Visibility.Collapsed
+      LC.PART_LEGENDTEXT.Visibility = Visibility.Collapsed
+      'LC.PART_GridParent.Children.Remove(LC.PART_LEGEND)
+      'LC.PART_GridParent.Children.Remove(LC.PART_LEGENDTEXT)
     Else
       LC.PART_LEGENDTEXT.Visibility = Visibility.Visible
       LC.PART_LEGEND.Visibility = Visibility.Visible

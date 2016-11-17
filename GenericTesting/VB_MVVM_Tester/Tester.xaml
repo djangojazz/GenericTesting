@@ -32,7 +32,7 @@
       Grid.Row ="0"
       ChartData="{Binding ChartData}"
       ChartTitle="My Test Chart"
-      
+      ChartTitleHidden="True"
       ChartForeground="Wheat" 
       LegendForeground="Wheat"
       BackGroundColor="DarkCyan" 
@@ -41,7 +41,7 @@
       NumberOfTicks="8"
       XValueConverter="{StaticResource ConvertDecimal}"
       YValueConverter="{StaticResource ConvertDecimal}"
-      
+      LegendHidden="True"
       
       />
     <!--XValueConverter="{Binding ChartData, Converter = {StaticResource DateValueConverter}}"-->
