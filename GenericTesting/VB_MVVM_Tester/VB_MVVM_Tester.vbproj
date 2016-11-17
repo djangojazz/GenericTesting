@@ -94,6 +94,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Business\PlotPoint.vb" />
+    <Compile Include="Business\PlotPoints.vb" />
     <Compile Include="Converters\DateValueConverter.vb" />
     <Compile Include="Converters\DecimalConverter.vb" />
     <Compile Include="Converters\NegatingConverter.vb" />

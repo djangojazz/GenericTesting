@@ -11,8 +11,12 @@ Public Class LineGraph
   Private Shared _canvasYAxisTicks As Canvas = Nothing
   Private Shared _canvasYAxisLabels As Canvas = Nothing
   Private Shared _legendText As TextBlock = Nothing
-  Private Shared _xCeiling As Decimal = 0
-  Private Shared _yCeiling As Decimal = 0
+  Private _xType As Type
+  Private _xFloor As Decimal = 0
+  Private _xCeiling As Decimal = 0
+  Private _yType As Type
+  Private _yFloor As Decimal = 0
+  Private _yCeiling As Decimal = 0
 
   Shared Sub New()
     DefaultStyleKeyProperty.OverrideMetadata(GetType(LineGraph), New FrameworkPropertyMetadata(GetType(LineGraph)))
@@ -32,7 +36,7 @@ Public Class LineGraph
 
 
 #Region "ChartData"
-  Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(IList(Of LineTrend)), GetType(LineGraph), New UIPropertyMetadata(Nothing, AddressOf ChartDataChanged))
+  Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(IList(Of LineTrend)), GetType(LineGraph), New UIPropertyMetadata(Nothing, AddressOf LineGraph.ChartDataChanged))
 
   Public Property ChartData As IList(Of LineTrend)
     Get
@@ -44,20 +48,35 @@ Public Class LineGraph
   End Property
 
   Private Shared Sub ChartDataChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
+    Dim LG As LineGraph = DirectCast(d, LineGraph)
     Dim chartData = TryCast(e.NewValue, IList(Of LineTrend))
 
     If _canvasPoints IsNot Nothing AndAlso chartData IsNot Nothing Then
-      _xCeiling = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.X).OrderByDescending(Function(x) x).FirstOrDefault()
-      _yCeiling = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.Y).OrderByDescending(Function(x) x).FirstOrDefault()
+
+      LG._xType = chartData(0).Points(0).X.PointType
+      LG._yType = chartData(0).Points(0).Y.PointType
+
+      Select Case True
+        Case LG._xType Is GetType(Integer)
+          Dim xes = chartData.SelectMany(Function(x) x.Points).Select(Function(x) DirectCast(x.X, PlotPoint(Of Integer)).Point)
+          LG._xFloor = xes.OrderBy(Function(x) x).FirstOrDefault()
+          LG._xCeiling = xes.OrderByDescending(Function(x) x).FirstOrDefault()
+        Case LG._yType Is GetType(Integer)
+          Dim yes = chartData.SelectMany(Function(x) x.Points).Select(Function(x) DirectCast(x.Y, PlotPoint(Of Integer)).Point)
+          LG._yFloor = yes.OrderBy(Function(x) x).FirstOrDefault()
+          LG._yCeiling = yes.OrderByDescending(Function(x) x).FirstOrDefault()
+      End Select
+
       _canvasPoints.Children.RemoveRange(0, _canvasPoints.Children.Count)
 
-      For Each trend In chartData
-        DrawTrend(trend)
-      Next trend
+
+      LG.DrawTrends(chartData)
+
 
       If _canvasXAxisTicks IsNot Nothing And _canvasYAxisTicks IsNot Nothing Then
-        DrawXAxis(chartData)
-        DrawYAxis(chartData)
+        If LG.NumberOfTicks = 0 Then LG.NumberOfTicks = 1 'I want at the very least to see a beginning and an end
+        LG.DrawXAxis(chartData)
+        LG.DrawYAxis(chartData)
       End If
     End If
   End Sub
@@ -165,9 +184,21 @@ Public Class LineGraph
   End Sub
 #End Region
 
+#Region "NumberOfTicks"
+  Public Shared ReadOnly NumberOfTicksProperty As DependencyProperty = DependencyProperty.Register("NumberOfTicks", GetType(Integer), GetType(LineChart), New UIPropertyMetadata(0))
+
+  Public Property NumberOfTicks As Integer
+    Get
+      Return DirectCast(GetValue(NumberOfTicksProperty), Integer)
+    End Get
+    Set
+      SetValue(NumberOfTicksProperty, Value)
+    End Set
+  End Property
+#End Region
 
 #Region "Drawing Methods"
-  Public Shared Sub DrawXAxis(lineTrends As IList(Of LineTrend))
+  Public Sub DrawXAxis(lineTrends As IList(Of LineTrend))
     Dim segment = (_xCeiling / 5)
     _canvasXAxisTicks.Children.RemoveRange(0, _canvasXAxisTicks.Children.Count)
     _canvasXAxisLabels.Children.RemoveRange(0, _canvasXAxisLabels.Children.Count)
@@ -204,7 +235,7 @@ Public Class LineGraph
     Next
   End Sub
 
-  Public Shared Sub DrawYAxis(lineTrends As IList(Of LineTrend))
+  Public Sub DrawYAxis(lineTrends As IList(Of LineTrend))
     Dim segment = (_yCeiling / 5)
     _canvasYAxisTicks.Children.RemoveRange(0, _canvasYAxisTicks.Children.Count)
     _canvasYAxisLabels.Children.RemoveRange(0, _canvasYAxisLabels.Children.Count)
@@ -241,24 +272,39 @@ Public Class LineGraph
     Next
   End Sub
 
-  Public Shared Sub DrawTrend(Trend As LineTrend)
-    Dim t = TryCast(Trend, LineTrend)
+  Friend Sub DrawTrends(points As List(Of LineTrend))
 
-    If t IsNot Nothing AndAlso t.Points IsNot Nothing Then
-      Dim xFactor = (1000 / _xCeiling)
-      Dim yFactor = (1000 / _yCeiling)
+    For Each t In ChartData
+      If t.Points IsNot Nothing Then
+        Dim xFactor = (1000 / (_xCeiling - _xFloor))
+        Dim yFactor = (1000 / (_yCeiling - _yFloor))
 
-      For i As Integer = 1 To t.Points.Count - 1
-        Dim toDraw = New Line With {
-          .X1 = t.Points(i - 1).X * xFactor,
-          .Y1 = t.Points(i - 1).Y * yFactor,
-          .X2 = t.Points(i).X * xFactor,
-          .Y2 = t.Points(i).Y * yFactor,
-          .StrokeThickness = 2,
-          .Stroke = t.LineColor}
-        _canvasPoints.Children.Add(toDraw)
-      Next i
-    End If
+        Dim xpointsOfSeries As New List(Of Double)
+        Dim ypointsOfSeries As New List(Of Double)
+
+        Select Case True
+          Case _xType Is GetType(Integer)
+            xpointsOfSeries.AddRange(t.Points.Select(Function(x) DirectCast(x.X, PlotPoint(Of Integer)).Point))
+
+          Case _yType Is GetType(Integer)
+            ypointsOfSeries.AddRange(t.Points.Select(Function(x) DirectCast(x.Y, PlotPoint(Of Integer)).Point))
+        End Select
+
+
+        For i As Integer = 1 To t.Points.Count - 1
+          Dim toDraw = New Line With {
+            .X1 = (xpointsOfSeries(i - 1) - _xFloor) * xFactor,
+            .Y1 = (ypointsOfSeries(i - 1) - _yFloor) * yFactor,
+            .X2 = (xpointsOfSeries(i) - _xFloor) * xFactor,
+            .Y2 = (ypointsOfSeries(i) - _yFloor) * yFactor,
+            .StrokeThickness = 2,
+            .Stroke = t.LineColor}
+          _canvasPoints.Children.Add(toDraw)
+        Next i
+      End If
+    Next
+
+
   End Sub
 #End Region
 

@@ -9,7 +9,7 @@ Public Class MainWindowViewModel
   Private _queueFinished As Boolean = False
   Private _result As String
   'Private _currentPoints As New ObservableCollection(Of Point)
-  Private _lastPoints As List(Of Point)
+  Private _lastPoints As List(Of PlotPoints)
 
 
   Public Sub DoIt(result As String)
@@ -17,15 +17,10 @@ Public Class MainWindowViewModel
   End Sub
 
   Sub New()
-    ProducerConsumer.Instance.producer.Start()
-    Items = New ObservableCollection(Of Stuff)(New List(Of Stuff)({New Stuff With {.Id = 1, .Value = "Stuff", .ShipType = ShipType.Owned, .MoreStuff = "More Stuff"}, New Stuff With {.Id = 2, .Value = "Another"}}))
-
-    Dim newers = New PlotPoint(Of String, String)
-
     TestText = "Line Chart Hello there"
     Points = "0,260 10,250 20,245 40,200 50,250 80, 200, 140,100"
 
-    _lastPoints = New List(Of Point)({New Point With {.X = 300, .Y = 930}, New Point With {.X = 650, .Y = 950}})
+    _lastPoints = New List(Of PlotPoints)({New PlotPoints With {.x = New PlotPoint(Of Integer)(700), .Y = New PlotPoint(Of Integer)(930)}, New PlotPoints With {.x = New PlotPoint(Of Integer)(650), .Y = New PlotPoint(Of Integer)(950)}})
 
 
     ChartData = New Collection(Of LineTrend)({
@@ -33,41 +28,22 @@ Public Class MainWindowViewModel
                                                {
                                                .SeriesName = "First",
                                                .LineColor = Brushes.Blue,
-                                               .Points = New List(Of Point)(
-                                                  {
-                                                  New Point With {.X = 100, .Y = 500I},
-                                                  New Point With {.X = 200, .Y = 600I},
-                                                  _lastPoints(0)
-                                                  })
-                                                  }})
-
-
-    'ChartData2 = New Collection(Of LineTrend)({
-    '                                     New LineTrend With
-    '                                       {
-    '                                       .SeriesName = "Looking",
-    '                                       .LineColor = Brushes.Blue,
-    '                                       .Points = New ObservableCollection(Of Point)(
-    '                                          {
-    '                                          New Point With {.X = 300I, .Y = 10I},
-    '                                          New Point With {.X = 200I, .Y = 1050I},
-    '                                          _lastPoints(0)
-    '                                          })
-    '                                          }})
-
-    '},
-    'New LineTrend With
-    '  {
-    '  .SeriesName = "Second",
-    '  .LineColor = Brushes.Red,
-    '  .Points = New ObservableCollection(Of Point)(
-    '    {
-    '    New Point With {.X = 1, .Y = 1},
-    '    New Point With {.X = 300, .Y = 400},
-    '    _lastPoints(1)
-    '    })
-    '  }
-    '})
+                                               .Points = New List(Of PlotPoints)({
+                                                                              New PlotPoints With {.X = New PlotPoint(Of Integer)(300), .Y = New PlotPoint(Of Integer)(930)},
+                                                                              New PlotPoints With {.X = New PlotPoint(Of Integer)(650), .Y = New PlotPoint(Of Integer)(850)},
+                                                                              _lastPoints(0)
+                                                                              })
+                                              },
+                                              New LineTrend With
+                                              {
+                                              .SeriesName = "Second",
+                                               .LineColor = Brushes.Red,
+                                               .Points = New List(Of PlotPoints)({
+                                                                              New PlotPoints With {.X = New PlotPoint(Of Integer)(400), .Y = New PlotPoint(Of Integer)(400)},
+                                                                              New PlotPoints With {.X = New PlotPoint(Of Integer)(500), .Y = New PlotPoint(Of Integer)(300)},
+                                                                              _lastPoints(0)
+                                                                              })
+                                              }})
   End Sub
 
   Private _items As ObservableCollection(Of Stuff)
@@ -177,19 +153,19 @@ Public Class MainWindowViewModel
 
   Private Sub TestCommandExecute()
 
-    Dim newPoints = New List(Of Point)
+    Dim newPoints = New List(Of PlotPoints)
 
     For i = 1 To _lastPoints.Count
-      newPoints.Add(New Point With {.X = _lastPoints(i - 1).X + i * 50, .Y = _lastPoints(i - 1).Y * 1.05})
+      newPoints.Add(New PlotPoints With {.X = New PlotPoint(Of Integer)(DirectCast(_lastPoints(i - 1).X, PlotPoint(Of Integer)).Point + i * 50), .Y = New PlotPoint(Of Integer)(DirectCast(_lastPoints(i - 1).Y, PlotPoint(Of Integer)).Point * 1.05)})
     Next
 
     _lastPoints = newPoints
     ChartData(0).Points.Add(_lastPoints(0))
-    'ChartData(1).Points.Add(_lastPoints(1))
-    ChartData = New Collection(Of LineTrend)({New LineTrend With {.SeriesName = "First", .LineColor = Brushes.Blue, .Points = ChartData(0).Points}})
-    'New LineTrend With {.SeriesName = "First", .LineColor = Brushes.Blue, .Points = ChartData(0).Points},
-    'New LineTrend With {.SeriesName = "Second", .LineColor = Brushes.Red, .Points = ChartData(1).Points}
-    '})
+    ChartData(1).Points.Add(_lastPoints(1))
+    ChartData = New Collection(Of LineTrend)({
+    New LineTrend With {.SeriesName = "First", .LineColor = Brushes.Blue, .Points = ChartData(0).Points},
+    New LineTrend With {.SeriesName = "Second", .LineColor = Brushes.Red, .Points = ChartData(1).Points}
+    })
 
   End Sub
 
