@@ -25,7 +25,6 @@ Public Class LineChart
   End Property
 
   Public Shared Sub ChartDataChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
-
     Dim LC As LineChart = DirectCast(d, LineChart)
     Dim chartData = TryCast(e.NewValue, IList(Of LineTrend))
 
@@ -116,7 +115,7 @@ Public Class LineChart
 #End Region
 
 #Region "LegendForeground"
-  Public Shared ReadOnly LegendForegroundProperty As DependencyProperty = DependencyProperty.Register("LegendForeground", GetType(Brush), GetType(LineChart), New UIPropertyMetadata(Brushes.Black))
+  Public Shared ReadOnly LegendForegroundProperty As DependencyProperty = DependencyProperty.Register("LegendForeground", GetType(Brush), GetType(LineChart), New UIPropertyMetadata(Brushes.Black, AddressOf LineChart.ChartLegendTextChanged))
 
   Public Property LegendForeground As Brush
     Get
@@ -124,10 +123,63 @@ Public Class LineChart
     End Get
     Set
       SetValue(LegendForegroundProperty, Value)
-      PART_LEGENDTEXT.Visibility = Visibility.Visible
     End Set
   End Property
 
+  Public Shared Sub ChartLegendTextChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
+    Dim LC As LineChart = DirectCast(d, LineChart)
+    LC.PART_LEGENDTEXT.Visibility = Visibility.Visible
+  End Sub
+#End Region
+
+#Region "LegendHidden"
+  Public Shared ReadOnly LegendHiddenProperty As DependencyProperty = DependencyProperty.Register("LegendHidden", GetType(Boolean), GetType(LineChart), New UIPropertyMetadata(False, AddressOf LineChart.ChartLegendHiddenChanged))
+
+  Public Property LegendHidden As Boolean
+    Get
+      Return DirectCast(GetValue(LegendHiddenProperty), Boolean)
+    End Get
+    Set
+      SetValue(LegendHiddenProperty, Value)
+    End Set
+  End Property
+
+  Public Shared Sub ChartLegendHiddenChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
+    Dim LC As LineChart = DirectCast(d, LineChart)
+
+    If CBool(e.NewValue) Then
+      LC.PART_GridParent.Children.Remove(LC.PART_LEGEND)
+      LC.PART_GridParent.Children.Remove(LC.PART_LEGENDTEXT)
+    Else
+      LC.PART_LEGENDTEXT.Visibility = Visibility.Visible
+      LC.PART_LEGEND.Visibility = Visibility.Visible
+    End If
+
+  End Sub
+#End Region
+
+#Region "ChartTitleHidden"
+  Public Shared ReadOnly ChartTitleHiddenProperty As DependencyProperty = DependencyProperty.Register("ChartTitleHidden", GetType(Boolean), GetType(LineChart), New UIPropertyMetadata(False, AddressOf LineChart.ChartTitleHiddenChanged))
+
+  Public Property ChartTitleHidden As Boolean
+    Get
+      Return DirectCast(GetValue(ChartTitleHiddenProperty), Boolean)
+    End Get
+    Set
+      SetValue(ChartTitleHiddenProperty, Value)
+    End Set
+  End Property
+
+  Public Shared Sub ChartTitleHiddenChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
+    Dim LC As LineChart = DirectCast(d, LineChart)
+
+    If CBool(e.NewValue) Then
+      LC.PART_GridParent.Children.Remove(LC.PART_ChartTitle)
+    Else
+      LC.PART_ChartTitle.Visibility = Visibility.Visible
+    End If
+
+  End Sub
 #End Region
 
 #Region "NumberOfTicks"

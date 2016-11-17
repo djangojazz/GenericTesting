@@ -7,14 +7,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
   <Border Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path= BackGroundColor}" CornerRadius="15" Margin="5">
-    <Grid>
+    <Grid x:Name="PART_GridParent">
       <Grid.RowDefinitions>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="*"/>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
-      <TextBlock Grid.Row="0" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path= ChartTitle}" FontSize="26" HorizontalAlignment="Center" 
+      <TextBlock x:Name="PART_ChartTitle" Grid.Row="0" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path= ChartTitle}" FontSize="26" HorizontalAlignment="Center" 
                  Foreground="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path= ChartForeground}" />
       <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="15" Margin="10" Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path= BackGroundColorCanvas}" >
         <Viewbox Stretch="Fill" RenderOptions.EdgeMode="Aliased" Margin="15" >
@@ -56,6 +56,11 @@
               </StackPanel>
             </DataTemplate>
           </ItemsControl.ItemTemplate>
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <StackPanel Orientation="Horizontal" />
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
         </ItemsControl>
       </Border>
     </Grid>

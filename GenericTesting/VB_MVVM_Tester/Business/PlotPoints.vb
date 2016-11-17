@@ -2,7 +2,7 @@
   Public Property X As PlotPoint
   Public Property Y As PlotPoint
 
-  Public ReadOnly Property XAsDouble As Decimal
+  Public ReadOnly Property XAsDouble As Double
     Get
       Dim val As Double = 0
 
@@ -21,7 +21,7 @@
     End Get
   End Property
 
-  Public ReadOnly Property YAsDouble As Decimal
+  Public ReadOnly Property YAsDouble As Double
     Get
       Dim val As Double = 0
 
