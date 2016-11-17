@@ -12,6 +12,7 @@ Public Class LineChart
     InitializeComponent()
   End Sub
 
+#Region "Dependent Properties"
 #Region "ChartData"
   Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(IList(Of LineTrend)), GetType(LineChart), New UIPropertyMetadata(New Collection(Of LineTrend), AddressOf LineChart.ChartDataChanged))
 
@@ -36,7 +37,6 @@ Public Class LineChart
 
       LC.PART_CanvasPoints.Children.RemoveRange(0, LC.PART_CanvasPoints.Children.Count)
       LC.DrawTrends(chartData)
-
 
       If LC.PART_CanvasXAxisTicks IsNot Nothing And LC.PART_CanvasYAxisTicks IsNot Nothing Then
         If LC.NumberOfTicks = 0 Then LC.NumberOfTicks = 1 'I want at the very least to see a beginning and an end
@@ -150,8 +150,6 @@ Public Class LineChart
     If CBool(e.NewValue) Then
       LC.PART_LEGEND.Visibility = Visibility.Collapsed
       LC.PART_LEGENDTEXT.Visibility = Visibility.Collapsed
-      'LC.PART_GridParent.Children.Remove(LC.PART_LEGEND)
-      'LC.PART_GridParent.Children.Remove(LC.PART_LEGENDTEXT)
     Else
       LC.PART_LEGENDTEXT.Visibility = Visibility.Visible
       LC.PART_LEGEND.Visibility = Visibility.Visible
@@ -176,7 +174,7 @@ Public Class LineChart
     Dim LC As LineChart = DirectCast(d, LineChart)
 
     If CBool(e.NewValue) Then
-      LC.PART_GridParent.Children.Remove(LC.PART_ChartTitle)
+      LC.PART_ChartTitle.Visibility = Visibility.Collapsed
     Else
       LC.PART_ChartTitle.Visibility = Visibility.Visible
     End If
@@ -222,7 +220,7 @@ Public Class LineChart
     End Set
   End Property
 #End Region
-
+#End Region
 
 #Region "Drawing Methods"
   Public Sub DrawXAxis(lineTrends As IList(Of LineTrend))
@@ -310,7 +308,7 @@ Public Class LineChart
 
 
     'Sizing should be done from the ceiling
-    Dim lastText = New String(If(YValueConverter Is Nothing, _yCeiling.ToString, XValueConverter.Convert(_yCeiling, GetType(String), Nothing, Globalization.CultureInfo.InvariantCulture)))
+    Dim lastText = New String(If(YValueConverter Is Nothing, _yCeiling.ToString, YValueConverter.Convert(_yCeiling, GetType(String), Nothing, Globalization.CultureInfo.InvariantCulture)))
     Dim spacingForText = lastText.Count * 5
     Dim totalLength = spacingForText * NumberOfTicks
     Dim fontSize = 0
@@ -335,7 +333,7 @@ Public Class LineChart
     For i As Integer = 0 To NumberOfTicks
       Dim ySegment = If(i = 0, 0, i * (1000 / NumberOfTicks))
       Dim ySegmentLabel = If(i = 0, _yFloor, _yFloor + (i * segment))
-      Dim textForLabel = New String(If(XValueConverter Is Nothing, ySegmentLabel.ToString, XValueConverter.Convert(ySegmentLabel, GetType(String), Nothing, Globalization.CultureInfo.InvariantCulture)))
+      Dim textForLabel = New String(If(YValueConverter Is Nothing, ySegmentLabel.ToString, YValueConverter.Convert(ySegmentLabel, GetType(String), Nothing, Globalization.CultureInfo.InvariantCulture)))
 
       Dim lineSegment = New Line With {
           .X1 = 0,

@@ -20,7 +20,7 @@ Public Class MainWindowViewModel
     TestText = "Line Chart Hello there"
     Points = "0,260 10,250 20,245 40,200 50,250 80, 200, 140,100"
 
-    _lastPoints = New List(Of PlotPoints)({New PlotPoints With {.X = New PlotPoint(Of Double)(700), .Y = New PlotPoint(Of Double)(930)}, New PlotPoints With {.X = New PlotPoint(Of Double)(650), .Y = New PlotPoint(Of Double)(950)}})
+    _lastPoints = New List(Of PlotPoints)({New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now), .Y = New PlotPoint(Of Double)(930)}, New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now), .Y = New PlotPoint(Of Double)(950)}})
 
 
     ChartData = New Collection(Of LineTrend)({
@@ -29,8 +29,8 @@ Public Class MainWindowViewModel
                                                .SeriesName = "First",
                                                .LineColor = Brushes.Blue,
                                                .Points = New List(Of PlotPoints)({
-                                                                              New PlotPoints With {.X = New PlotPoint(Of Double)(300), .Y = New PlotPoint(Of Double)(930)},
-                                                                              New PlotPoints With {.X = New PlotPoint(Of Double)(650), .Y = New PlotPoint(Of Double)(850)},
+                                                                              New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-10)), .Y = New PlotPoint(Of Double)(930)},
+                                                                              New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-5)), .Y = New PlotPoint(Of Double)(850)},
                                                                               _lastPoints(0)
                                                                               })
                                               },
@@ -39,8 +39,8 @@ Public Class MainWindowViewModel
                                               .SeriesName = "Second",
                                                .LineColor = Brushes.Red,
                                                .Points = New List(Of PlotPoints)({
-                                                                              New PlotPoints With {.X = New PlotPoint(Of Double)(400), .Y = New PlotPoint(Of Double)(400)},
-                                                                              New PlotPoints With {.X = New PlotPoint(Of Double)(500), .Y = New PlotPoint(Of Double)(300)},
+                                                                              New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-8)), .Y = New PlotPoint(Of Double)(400)},
+                                                                              New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-3)), .Y = New PlotPoint(Of Double)(300)},
                                                                               _lastPoints(0)
                                                                               })
                                               }})
@@ -156,7 +156,8 @@ Public Class MainWindowViewModel
     Dim newPoints = New List(Of PlotPoints)
 
     For i = 1 To _lastPoints.Count
-      newPoints.Add(New PlotPoints With {.X = New PlotPoint(Of Double)((DirectCast(_lastPoints(i - 1).X, PlotPoint(Of Double)).Point + i) * 10), .Y = New PlotPoint(Of Double)(DirectCast(_lastPoints(i - 1).Y, PlotPoint(Of Double)).Point * 1.95)})
+      'newPoints.Add(New PlotPoints With {.X = New PlotPoint(Of Double)((DirectCast(_lastPoints(i - 1).X, PlotPoint(Of Double)).Point + i) * 10), .Y = New PlotPoint(Of Double)(DirectCast(_lastPoints(i - 1).Y, PlotPoint(Of Double)).Point * 1.95)})
+      newPoints.Add(New PlotPoints With {.X = New PlotPoint(Of DateTime)((DirectCast(_lastPoints(i - 1).X, PlotPoint(Of DateTime)).Point).AddDays(1)), .Y = New PlotPoint(Of Double)(DirectCast(_lastPoints(i - 1).Y, PlotPoint(Of Double)).Point * 1.95)})
     Next
 
     _lastPoints = newPoints

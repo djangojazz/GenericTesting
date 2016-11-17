@@ -14,7 +14,9 @@
         Case X.PointType Is GetType(Decimal)
           val = CDbl(DirectCast(X, PlotPoint(Of Decimal)).Point)
         Case X.PointType Is GetType(Date)
-          val = CDbl(DirectCast(X, PlotPoint(Of Date)).Point.ToOADate)
+          val = CDbl(DirectCast(X, PlotPoint(Of Date)).Point.Ticks)
+        Case X.PointType Is GetType(DateTime)
+          val = CDbl(DirectCast(X, PlotPoint(Of DateTime)).Point.Ticks)
       End Select
 
       Return val
@@ -33,7 +35,9 @@
         Case Y.PointType Is GetType(Decimal)
           val = CDbl(DirectCast(Y, PlotPoint(Of Decimal)).Point)
         Case Y.PointType Is GetType(Date)
-          val = CDbl(DirectCast(Y, PlotPoint(Of Date)).Point.ToOADate)
+          val = CDbl(DirectCast(Y, PlotPoint(Of Date)).Point.Ticks)
+        Case Y.PointType Is GetType(DateTime)
+          val = CDbl(DirectCast(Y, PlotPoint(Of DateTime)).Point.Ticks)
       End Select
 
       Return val

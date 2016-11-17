@@ -5,8 +5,9 @@ Public Class DecimalConverter
   Inherits Control
   Implements IValueConverter
 
-  Public DecimalPositions As Integer = 2
-  Public IncludeComma As Boolean = True
+
+  Public Property DecimalPositions As Integer = 2
+  Public Property IncludeComma As Boolean = True
 
 
   Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.Convert

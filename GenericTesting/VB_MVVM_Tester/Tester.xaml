@@ -17,8 +17,8 @@
     <Style TargetType="{x:Type DataGridRowHeader}">
       <Setter Property="Background" Value="Transparent" />
     </Style>
-    <local:DateValueConverter x:Key="DateValueConverter" />
-    <local:DecimalConverter x:Key="ConvertDecimal" />
+    <local:DateValueConverter x:Key="DateValueConverter" DateFormat="MM/dd/yy" />
+    <local:DecimalConverter x:Key="ConvertDecimal" IncludeComma="True" DecimalPositions="0" />
   </Window.Resources>
 
   <Grid>
@@ -32,17 +32,14 @@
       Grid.Row ="0"
       ChartData="{Binding ChartData}"
       ChartTitle="My Test Chart"
-      ChartTitleHidden="True"
       ChartForeground="Wheat" 
-      LegendForeground="Wheat"
+      LegendForeground="WhiteSmoke"
       BackGroundColor="DarkCyan" 
       BackGroundColorCanvas="White" 
       BackGroundColorLegend="White"    
       NumberOfTicks="8"
-      XValueConverter="{StaticResource ConvertDecimal}"
+      XValueConverter="{StaticResource DateValueConverter}"
       YValueConverter="{StaticResource ConvertDecimal}"
-      LegendHidden="True"
-      
       />
     <!--XValueConverter="{Binding ChartData, Converter = {StaticResource DateValueConverter}}"-->
         

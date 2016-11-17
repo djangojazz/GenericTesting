@@ -15,14 +15,11 @@ namespace GenericTesting
   class Program
   {
     
-
     static void Main(string[] args)
     {
-      int n = 5;
-      var ls = new int[]{ 3, 9, 2, 15, 3 };
-
-      GiveResultNonDegenerateTriangles(ls.ToList());
-
+      var groups = new Dictionary<string, int> { { "A", 10 }, { "B", 12 }, { "C", 13 }, { "D", 9 } };
+      var topThreeGroups = groups.OrderByDescending(x => x.Value).Take(3).ToList();
+      
       Console.ReadLine();
     }
   }
