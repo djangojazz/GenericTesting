@@ -20,8 +20,8 @@ Public Class MainWindowViewModel
     TestText = "Line Chart Hello there"
     Points = "0,260 10,250 20,245 40,200 50,250 80, 200, 140,100"
 
+    '_lastPoints = New List(Of PlotPoints)({New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now), .Y = New PlotPoint(Of Double)(930)}, New PlotPoints With {.X = New PlotPoint(Of Double)(500), .Y = New PlotPoint(Of Double)(950)}})
     _lastPoints = New List(Of PlotPoints)({New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now), .Y = New PlotPoint(Of Double)(930)}, New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now), .Y = New PlotPoint(Of Double)(950)}})
-
 
     ChartData = New Collection(Of LineTrend)({
                                              New LineTrend With
@@ -33,17 +33,42 @@ Public Class MainWindowViewModel
                                                                               New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-5)), .Y = New PlotPoint(Of Double)(850)},
                                                                               _lastPoints(0)
                                                                               })
-                                              },
-                                              New LineTrend With
-                                              {
-                                              .SeriesName = "Second",
-                                               .LineColor = Brushes.Red,
-                                               .Points = New List(Of PlotPoints)({
-                                                                              New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-8)), .Y = New PlotPoint(Of Double)(400)},
-                                                                              New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-3)), .Y = New PlotPoint(Of Double)(300)},
-                                                                              _lastPoints(0)
-                                                                              })
-                                              }})
+                                                                                },
+    New LineTrend With
+    {
+    .SeriesName = "Second",
+     .LineColor = Brushes.Red,
+     .Points = New List(Of PlotPoints)({
+                                    New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-8)), .Y = New PlotPoint(Of Double)(600)},
+                                    New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-4)), .Y = New PlotPoint(Of Double)(720)},
+                                    _lastPoints(0)
+                                    })
+    }})
+
+
+    '  },
+    'New LineTrend With
+    '{
+    '.SeriesName = "Second",
+    ' .LineColor = Brushes.Red,
+    ' .Points = New List(Of PlotPoints)({
+    '                                New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-8)), .Y = New PlotPoint(Of Double)(600)},
+    '                                New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-4)), .Y = New PlotPoint(Of Double)(720)},
+    '                                _lastPoints(0)
+    '                                })
+    '}})
+    '},
+    'New LineTrend With
+    '{
+    '.SeriesName = "Second",
+    ' .LineColor = Brushes.Red,
+    ' .Points = New List(Of PlotPoints)({
+    '                                New PlotPoints With {.X = New PlotPoint(Of Double)(300), .Y = New PlotPoint(Of Double)(400)},
+    '                                New PlotPoints With {.X = New PlotPoint(Of Double)(400), .Y = New PlotPoint(Of Double)(300)},
+    '                                _lastPoints(0)
+    '                                })
+    '}})
+
   End Sub
 
   Private _items As ObservableCollection(Of Stuff)

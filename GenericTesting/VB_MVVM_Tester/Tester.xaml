@@ -37,7 +37,7 @@
       BackGroundColor="DarkCyan" 
       BackGroundColorCanvas="White" 
       BackGroundColorLegend="White"    
-      NumberOfTicks="8"
+      NumberOfTicks="5"
       XValueConverter="{StaticResource DateValueConverter}"
       YValueConverter="{StaticResource ConvertDecimal}"
       />

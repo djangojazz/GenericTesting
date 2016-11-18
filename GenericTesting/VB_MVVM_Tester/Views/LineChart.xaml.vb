@@ -30,6 +30,18 @@ Public Class LineChart
     Dim chartData = TryCast(e.NewValue, IList(Of LineTrend))
 
     If LC.PART_CanvasPoints IsNot Nothing AndAlso chartData IsNot Nothing Then
+      If chartData.Count > 1 Then
+
+        'Uniformity check of X and Y types.  EG: You cannot have a DateTime and a Number for different X axis or Y axis sets.
+        If chartData.ToList().Select(Function(x) x.Points(0).X.GetType).Distinct.GroupBy(Function(x) x).Count > 1 Or chartData.ToList().Select(Function(x) x.Points(0).Y.GetType).Distinct.GroupBy(Function(x) x).Count > 1 Then
+          LC.PART_CanvasPoints.LayoutTransform = New ScaleTransform(1, 1)
+          LC.PART_CanvasPoints.UpdateLayout()
+          LC.PART_CanvasPoints.Children.Add(New TextBlock With {.Text = "Type Mismatch cannot render!", .FontSize = 64, .Margin = New Thickness(40, 500, 0, 0)})
+          LC.PART_CanvasPoints.Children.Add(New TextBlock With {.Text = "Either the X or Y plot points are of different types.", .FontSize = 48, .Margin = New Thickness(-50, 620, 0, 0)})
+          Return
+        End If
+      End If
+
       LC._xFloor = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.XAsDouble).OrderBy(Function(x) x).FirstOrDefault()
       LC._xCeiling = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.XAsDouble).OrderByDescending(Function(x) x).FirstOrDefault()
       LC._yFloor = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.YAsDouble).OrderBy(Function(x) x).FirstOrDefault()

@@ -16,22 +16,13 @@ Module Module1
                                              Return "example split".Split(" "c)
                                            End Function)
 
-  'Public Sub test()
-  '  example.Value
-  'End Sub
-
   Sub Main()
-    'Dim allowedValues = "abcdefghijklmnopqrstuvwxyz".ToCharArray()
-    'Dim someGoodSomeBad = "#@#$#@okay@#$#@"
+    Dim ls = New List(Of Type)
+    ls.Add(String.Empty.GetType)
+    ls.Add(String.Empty.GetType)
+    ls.Add(0.GetType)
 
-    'Dim onlyGood = New String(someGoodSomeBad.ToCharArray().Where(Function(x) allowedValues.Contains(x)).ToArray)
-
-    'Console.WriteLine(onlyGood)
-
-    Dim nProcess = New System.Diagnostics.Process()
-    nProcess.Start($"D:\Learning\BasicsOfCompilerDesign.pdf")
-
-
+    Console.WriteLine(ls.Distinct().GroupBy(Function(x) x).Count)
 
     Console.ReadLine()
   End Sub
