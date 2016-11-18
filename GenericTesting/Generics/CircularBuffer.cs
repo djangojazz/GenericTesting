@@ -4,47 +4,6 @@ using System.Collections.Generic;
 
 namespace Generics
 {
-  public interface IBuffer<T> : IEnumerable<T>
-  {
-    bool IsEmpty { get; }
-    void Write(T value);
-    T Read();
-  }
-
-  public class Buffer<T> : IBuffer<T>
-  {
-    protected Queue<T> _queue = new Queue<T>();
-
-    public virtual bool IsEmpty
-    {
-      get { return _queue.Count == 0; }
-      
-    }
-    
-    public virtual T Read()
-    {
-      return _queue.Dequeue();
-    }
-
-    public virtual void Write(T value)
-    {
-      _queue.Enqueue(value);
-    }
-
-    public IEnumerator<T> GetEnumerator()
-    {
-      foreach (var item in _queue)
-      {
-        yield return item;
-      }
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return this.GetEnumerator();
-    }
-  }
-
   public class CircularBuffer<T> : Buffer<T>
   {
     int _capacity;

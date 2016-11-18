@@ -6,43 +6,19 @@ using System.Threading.Tasks;
 
 namespace Generics
 {
-  public class EmployeeComparer : IEqualityComparer<Employee>, IComparer<Employee>
-  {
-    public bool Equals(Employee x, Employee y)
-    {
-      return String.Equals(x.Name, y.Name);
-    }
-
-    public int GetHashCode(Employee obj)
-    {
-      return obj.Name.GetHashCode();
-    }
-
-    public int Compare(Employee x, Employee y)
-    {
-      return String.Compare(x.Name, y.Name);
-    }
-  }
-
-  public class DeparmentCollection : SortedDictionary<string, SortedSet<Employee>>
-  {
-    public DeparmentCollection Add(string deparmentName, Employee employee)
-    {
-      if(!ContainsKey(deparmentName))
-      {
-        Add(deparmentName, new SortedSet<Employee>(new EmployeeComparer()));
-      }
-      this[deparmentName].Add(employee);
-      return this;
-    }
-  }
-
   class Program
   {
     static void Main(string[] args)
     {
+      RunBufferProgram();
+
+      Console.ReadLine();
+    }
+
+    private static void DepartmentCollectionFun()
+    {
       var departments = new DeparmentCollection();
-      
+
       departments.Add("Sales", new Employee { Name = "Emily" })
           .Add("Sales", new Employee { Name = "Chris" })
           .Add("Sales", new Employee { Name = "Emily" });
@@ -51,7 +27,7 @@ namespace Generics
         .Add("Engineering", new Employee { Name = "Mark" })
         .Add("Engineering", new Employee { Name = "John" });
 
-      
+
       foreach (var item in departments)
       {
         Console.WriteLine(item.Key);
@@ -60,8 +36,6 @@ namespace Generics
           Console.WriteLine("\t" + employee.Name);
         }
       }
-
-      Console.ReadLine();
     }
 
     private static void RunBufferProgram()
@@ -70,7 +44,9 @@ namespace Generics
 
       ProcessInput(buffer);
 
-      foreach (var item in buffer)
+      var asInts = buffer.AsEnumerable<int>();
+
+      foreach (var item in asInts)
       {
         Console.WriteLine(item);
       }
