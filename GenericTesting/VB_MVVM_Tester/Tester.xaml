@@ -28,6 +28,7 @@
       <!--<RowDefinition Height="*" />
       <RowDefinition Height="Auto" />-->
     </Grid.RowDefinitions>
+    <!--<TextBlock Text="Test" FontSize="60" HorizontalAlignment="Center" Foreground="Wheat" FontFamily="Algerian"/>-->
     <local:LineChart 
       Grid.Row ="0"
       ChartData="{Binding ChartData}"
@@ -40,6 +41,7 @@
       NumberOfTicks="5"
       XValueConverter="{StaticResource DateValueConverter}"
       YValueConverter="{StaticResource ConvertDecimal}"
+      FontType="Algerian"
       />
     <!--XValueConverter="{Binding ChartData, Converter = {StaticResource DateValueConverter}}"-->
         

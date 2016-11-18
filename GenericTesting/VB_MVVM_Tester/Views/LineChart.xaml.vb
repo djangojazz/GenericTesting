@@ -36,8 +36,11 @@ Public Class LineChart
         If chartData.ToList().Select(Function(x) x.Points(0).X.GetType).Distinct.GroupBy(Function(x) x).Count > 1 Or chartData.ToList().Select(Function(x) x.Points(0).Y.GetType).Distinct.GroupBy(Function(x) x).Count > 1 Then
           LC.PART_CanvasPoints.LayoutTransform = New ScaleTransform(1, 1)
           LC.PART_CanvasPoints.UpdateLayout()
-          LC.PART_CanvasPoints.Children.Add(New TextBlock With {.Text = "Type Mismatch cannot render!", .FontSize = 64, .Margin = New Thickness(40, 500, 0, 0)})
-          LC.PART_CanvasPoints.Children.Add(New TextBlock With {.Text = "Either the X or Y plot points are of different types.", .FontSize = 48, .Margin = New Thickness(-50, 620, 0, 0)})
+          Dim fontFamily = If(LC.FontType IsNot Nothing, LC.FontType, New FontFamily("Segoe UI"))
+          Dim stackPanel = New StackPanel
+          stackPanel.Children.Add(New TextBlock With {.Text = "Type Mismatch cannot render!", .FontSize = 54, .FontFamily = fontFamily})
+          stackPanel.Children.Add(New TextBlock With {.Text = "Either the X or Y plot points are of different types.", .FontSize = 32, .FontFamily = fontFamily})
+          LC.PART_CanvasPoints.Children.Add(stackPanel)
           Return
         End If
       End If
@@ -229,6 +232,19 @@ Public Class LineChart
     End Get
     Set
       SetValue(YValueConverterProperty, Value)
+    End Set
+  End Property
+#End Region
+
+#Region "FontType"
+  Public Shared ReadOnly FontTypeProperty As DependencyProperty = DependencyProperty.Register("FontType", GetType(FontFamily), GetType(LineChart), Nothing)
+
+  Public Property FontType As FontFamily
+    Get
+      Return CType(GetValue(FontTypeProperty), FontFamily)
+    End Get
+    Set
+      SetValue(FontTypeProperty, Value)
     End Set
   End Property
 #End Region
