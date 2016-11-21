@@ -22,9 +22,7 @@ namespace Generics
     {
       return _queue.Dequeue();
     }
-
     
-
     public virtual void Write(T value)
     {
       _queue.Enqueue(value);

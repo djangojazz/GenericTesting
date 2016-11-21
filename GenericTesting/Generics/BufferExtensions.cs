@@ -9,22 +9,17 @@ namespace Generics
 {
   public static class BufferExtensions
   {
-    public static IEnumerable<TOutput> AsEnumerableOf<T, TOutput>(this IBuffer<T> buffer)
+    public static void Dump<T>(this IBuffer<T> buffer, Action<T> print)
     {
-      var converter = TypeDescriptor.GetConverter(typeof(T));
       foreach (var item in buffer)
       {
-        TOutput result = (TOutput)converter.ConvertTo(item, typeof(TOutput));
-        yield return result;
+        print(item);
       }
     }
 
-    public static void Dump<T>(this IBuffer<T> buffer)
+    public static IEnumerable<TOutput> Map<T, TOutput>(this IBuffer<T> buffer, Converter<T, TOutput> converter)
     {
-      foreach (var item in buffer)
-      {
-        Console.WriteLine(item);
-      }
+      return buffer.Select(i => converter(i));
     }
   }
 }

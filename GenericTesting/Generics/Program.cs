@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Generics.BufferExtensions;
 
 namespace Generics
 {
   class Program
   {
+
     static void Main(string[] args)
     {
       RunBufferProgram();
@@ -40,19 +42,18 @@ namespace Generics
 
     private static void RunBufferProgram()
     {
-      var buffer = new Buffer<double>();
+      var buffer = new CircularBuffer<double>(capacity:3);
+      buffer.ItemDiscarded += ItemDiscarded;
 
       ProcessInput(buffer);
-      buffer.Dump();
-
-      var asInts = buffer.AsEnumerableOf<double, int>();
-
-      foreach (var item in asInts)
-      {
-        Console.WriteLine(item);
-      }
+      buffer.Dump(d => Console.WriteLine(d));
 
       ProcessBuffer(buffer);
+    }
+
+    private static void ItemDiscarded(object sender, ItemDiscardedEventArgs<double> e)
+    {
+      Console.WriteLine($"Buffer full. Discarding {e.ItemDiscarded} New item is {e.NewItem}");
     }
 
     private static void ProcessBuffer(IBuffer<Double> buffer)
