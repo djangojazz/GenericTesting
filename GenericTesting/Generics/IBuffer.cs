@@ -6,7 +6,6 @@ namespace Generics
   {
     bool IsEmpty { get; }
     void Write(T value);
-    IEnumerable<TOutput> AsEnumerable<TOutput>();
     T Read();
   }
 }

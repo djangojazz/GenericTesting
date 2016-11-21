@@ -23,16 +23,7 @@ namespace Generics
       return _queue.Dequeue();
     }
 
-    public IEnumerable<TOutput> AsEnumerable<TOutput>()
-    {
-      var converter = TypeDescriptor.GetConverter(typeof(T));
-      foreach (var item in _queue)
-      {
-        var result = converter.ConvertTo(item, typeof(TOutput));
-        yield return (TOutput)result;
-      }
-
-    }
+    
 
     public virtual void Write(T value)
     {

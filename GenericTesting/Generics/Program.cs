@@ -43,8 +43,9 @@ namespace Generics
       var buffer = new Buffer<double>();
 
       ProcessInput(buffer);
+      buffer.Dump();
 
-      var asInts = buffer.AsEnumerable<int>();
+      var asInts = buffer.AsEnumerableOf<double, int>();
 
       foreach (var item in asInts)
       {

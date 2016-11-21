@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buffer.cs" />
+    <Compile Include="BufferExtensions.cs" />
     <Compile Include="CircularBuffer.cs" />
     <Compile Include="Department.cs" />
     <Compile Include="DepartmentCollection.cs" />
