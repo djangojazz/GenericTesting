@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,9 +13,27 @@ namespace Generics
 
     static void Main(string[] args)
     {
-      RunBufferProgram();
+      Database.SetInitializer(new DropCreateDatabaseAlways<EmployeeDb>());
+
+      using (IRepository<Employee> employeeRepository = new SqlRepository<Employee>(new EmployeeDb()))
+      {
+        AddEmployees(employeeRepository);
+        CountEmployees(employeeRepository);
+      }
 
       Console.ReadLine();
+    }
+
+    private static void CountEmployees(IRepository<Employee> employeeRepository)
+    {
+      Console.WriteLine(employeeRepository.FindAll().Count());
+    }
+
+    private static void AddEmployees(IRepository<Employee> employeeRepository)
+    {
+      employeeRepository.Add(new Employee { Name = "Brett" });
+      employeeRepository.Add(new Employee { Name = "John" });
+      employeeRepository.Commit();
     }
 
     private static void DepartmentCollectionFun()
@@ -40,9 +59,10 @@ namespace Generics
       }
     }
 
+    #region "Buffer Methods"
     private static void RunBufferProgram()
     {
-      var buffer = new CircularBuffer<double>(capacity:3);
+      var buffer = new CircularBuffer<double>(capacity: 3);
       buffer.ItemDiscarded += ItemDiscarded;
 
       ProcessInput(buffer);
@@ -82,6 +102,7 @@ namespace Generics
         }
         break;
       }
-    }
+    } 
+    #endregion
   }
 }
