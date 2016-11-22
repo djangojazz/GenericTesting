@@ -15,6 +15,7 @@ End Class
 
 Public Class Order
   Public Property OrderId As Integer
+  Public Property PersonId As Integer
   Public Property Description As String
 End Class
 

@@ -69,9 +69,7 @@ Public Class LineGraph
 
       _canvasPoints.Children.RemoveRange(0, _canvasPoints.Children.Count)
 
-
       LG.DrawTrends(chartData)
-
 
       If _canvasXAxisTicks IsNot Nothing And _canvasYAxisTicks IsNot Nothing Then
         If LG.NumberOfTicks = 0 Then LG.NumberOfTicks = 1 'I want at the very least to see a beginning and an end

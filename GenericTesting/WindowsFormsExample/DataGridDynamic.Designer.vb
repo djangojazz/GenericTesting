@@ -23,23 +23,23 @@ Partial Class DataGridDynamic
   <System.Diagnostics.DebuggerStepThrough()> _
   Private Sub InitializeComponent()
     Me.dgv = New System.Windows.Forms.DataGridView()
+    Me.OrderId = New System.Windows.Forms.DataGridViewComboBoxColumn()
     Me.ds = New System.Data.DataSet()
     Me.tOrders = New System.Data.DataTable()
     Me.DataColumn1 = New System.Data.DataColumn()
     Me.DataColumn2 = New System.Data.DataColumn()
-    Me.lTest = New System.Windows.Forms.Label()
-    Me.tTest = New System.Windows.Forms.TextBox()
-    Me.bDoIt = New System.Windows.Forms.Button()
-    Me.btnGetIt = New System.Windows.Forms.Button()
-    Me.OrderId = New System.Windows.Forms.DataGridViewComboBoxColumn()
-    Me.PersonId = New System.Windows.Forms.DataGridViewTextBoxColumn()
-    Me.FirstName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-    Me.LastName = New System.Windows.Forms.DataGridViewTextBoxColumn()
     Me.tPeople = New System.Data.DataTable()
     Me.DataColumn3 = New System.Data.DataColumn()
     Me.DataColumn4 = New System.Data.DataColumn()
     Me.DataColumn5 = New System.Data.DataColumn()
     Me.DataColumn6 = New System.Data.DataColumn()
+    Me.PersonId = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.FirstName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.LastName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.lTest = New System.Windows.Forms.Label()
+    Me.tTest = New System.Windows.Forms.TextBox()
+    Me.bDoIt = New System.Windows.Forms.Button()
+    Me.btnGetIt = New System.Windows.Forms.Button()
     CType(Me.dgv, System.ComponentModel.ISupportInitialize).BeginInit()
     CType(Me.ds, System.ComponentModel.ISupportInitialize).BeginInit()
     CType(Me.tOrders, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -52,8 +52,21 @@ Partial Class DataGridDynamic
     Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.OrderId, Me.PersonId, Me.FirstName, Me.LastName})
     Me.dgv.Location = New System.Drawing.Point(13, 13)
     Me.dgv.Name = "dgv"
-    Me.dgv.Size = New System.Drawing.Size(523, 150)
+    Me.dgv.Size = New System.Drawing.Size(523, 219)
     Me.dgv.TabIndex = 0
+    '
+    'OrderId
+    '
+    Me.OrderId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+    Me.OrderId.DataPropertyName = "OrderId"
+    Me.OrderId.DataSource = Me.ds
+    Me.OrderId.DisplayMember = "tOrders.Description"
+    Me.OrderId.FillWeight = 30.0!
+    Me.OrderId.HeaderText = "ORDER"
+    Me.OrderId.Name = "OrderId"
+    Me.OrderId.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+    Me.OrderId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+    Me.OrderId.ValueMember = "tOrders.OrderId"
     '
     'ds
     '
@@ -74,53 +87,27 @@ Partial Class DataGridDynamic
     '
     Me.DataColumn2.ColumnName = "Description"
     '
-    'lTest
+    'tPeople
     '
-    Me.lTest.AutoSize = True
-    Me.lTest.Location = New System.Drawing.Point(13, 196)
-    Me.lTest.Name = "lTest"
-    Me.lTest.Size = New System.Drawing.Size(96, 13)
-    Me.lTest.TabIndex = 1
-    Me.lTest.Text = "TEST For the label"
+    Me.tPeople.Columns.AddRange(New System.Data.DataColumn() {Me.DataColumn3, Me.DataColumn4, Me.DataColumn5, Me.DataColumn6})
+    Me.tPeople.TableName = "tPeople"
     '
-    'tTest
+    'DataColumn3
     '
-    Me.tTest.Location = New System.Drawing.Point(115, 189)
-    Me.tTest.Name = "tTest"
-    Me.tTest.Size = New System.Drawing.Size(100, 20)
-    Me.tTest.TabIndex = 2
-    Me.tTest.Text = "1"
+    Me.DataColumn3.ColumnName = "OrderId"
+    Me.DataColumn3.DataType = GetType(Integer)
     '
-    'bDoIt
+    'DataColumn4
     '
-    Me.bDoIt.Location = New System.Drawing.Point(236, 187)
-    Me.bDoIt.Name = "bDoIt"
-    Me.bDoIt.Size = New System.Drawing.Size(75, 23)
-    Me.bDoIt.TabIndex = 3
-    Me.bDoIt.Text = "Do It"
-    Me.bDoIt.UseVisualStyleBackColor = True
+    Me.DataColumn4.ColumnName = "PersonId"
     '
-    'btnGetIt
+    'DataColumn5
     '
-    Me.btnGetIt.Location = New System.Drawing.Point(329, 186)
-    Me.btnGetIt.Name = "btnGetIt"
-    Me.btnGetIt.Size = New System.Drawing.Size(75, 23)
-    Me.btnGetIt.TabIndex = 4
-    Me.btnGetIt.Text = "GetIt"
-    Me.btnGetIt.UseVisualStyleBackColor = True
+    Me.DataColumn5.ColumnName = "FirstName"
     '
-    'OrderId
+    'DataColumn6
     '
-    Me.OrderId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-    Me.OrderId.DataPropertyName = "OrderId"
-    Me.OrderId.DataSource = Me.ds
-    Me.OrderId.DisplayMember = "tOrders.Description"
-    Me.OrderId.FillWeight = 30.0!
-    Me.OrderId.HeaderText = "ORDER"
-    Me.OrderId.Name = "OrderId"
-    Me.OrderId.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-    Me.OrderId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-    Me.OrderId.ValueMember = "tOrders.OrderId"
+    Me.DataColumn6.ColumnName = "LastName"
     '
     'PersonId
     '
@@ -146,27 +133,40 @@ Partial Class DataGridDynamic
     Me.LastName.HeaderText = "LastName"
     Me.LastName.Name = "LastName"
     '
-    'tPeople
+    'lTest
     '
-    Me.tPeople.Columns.AddRange(New System.Data.DataColumn() {Me.DataColumn3, Me.DataColumn4, Me.DataColumn5, Me.DataColumn6})
-    Me.tPeople.TableName = "tPeople"
+    Me.lTest.AutoSize = True
+    Me.lTest.Location = New System.Drawing.Point(11, 248)
+    Me.lTest.Name = "lTest"
+    Me.lTest.Size = New System.Drawing.Size(96, 13)
+    Me.lTest.TabIndex = 1
+    Me.lTest.Text = "TEST For the label"
     '
-    'DataColumn3
+    'tTest
     '
-    Me.DataColumn3.ColumnName = "OrderId"
-    Me.DataColumn3.DataType = GetType(Integer)
+    Me.tTest.Location = New System.Drawing.Point(113, 241)
+    Me.tTest.Name = "tTest"
+    Me.tTest.Size = New System.Drawing.Size(100, 20)
+    Me.tTest.TabIndex = 2
+    Me.tTest.Text = "1"
     '
-    'DataColumn4
+    'bDoIt
     '
-    Me.DataColumn4.ColumnName = "PersonId"
+    Me.bDoIt.Location = New System.Drawing.Point(234, 239)
+    Me.bDoIt.Name = "bDoIt"
+    Me.bDoIt.Size = New System.Drawing.Size(75, 23)
+    Me.bDoIt.TabIndex = 3
+    Me.bDoIt.Text = "Do It"
+    Me.bDoIt.UseVisualStyleBackColor = True
     '
-    'DataColumn5
+    'btnGetIt
     '
-    Me.DataColumn5.ColumnName = "FirstName"
-    '
-    'DataColumn6
-    '
-    Me.DataColumn6.ColumnName = "LastName"
+    Me.btnGetIt.Location = New System.Drawing.Point(327, 238)
+    Me.btnGetIt.Name = "btnGetIt"
+    Me.btnGetIt.Size = New System.Drawing.Size(75, 23)
+    Me.btnGetIt.TabIndex = 4
+    Me.btnGetIt.Text = "GetIt"
+    Me.btnGetIt.UseVisualStyleBackColor = True
     '
     'DataGridDynamic
     '
