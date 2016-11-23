@@ -22,7 +22,7 @@ namespace Generics
     int Commit();
   }
 
-  public class SqlRepository<T> : IRepository<T> where T : class
+  public class SqlRepository<T> : IRepository<T> where T : class, IEntity
   {
     DbContext _ctx;
     DbSet<T> _set;
@@ -35,17 +35,20 @@ namespace Generics
 
     public void Add(T newEntity)
     {
-      _set.Add(newEntity);
+      if (newEntity.IsValid())
+      {
+        _set.Add(newEntity);
+      }
     }
     
     public void Delete(T entity)
     {
-      throw new NotImplementedException();
+      _set.Remove(entity);
     }
 
     public T FindById(int id)
     {
-      throw new NotImplementedException();
+      return _set.Find(id);
     }
 
     public IQueryable<T> FindAll()

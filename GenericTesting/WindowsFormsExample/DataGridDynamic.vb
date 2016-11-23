@@ -63,7 +63,7 @@ Public Class DataGridDynamic
         num += val
       Next
 
-      If num > -4 And num < 4 Then btnGetIt.Enabled = False : Exit Sub Else btnGetIt.Enabled = True
+      If num > -(row.Cells.Count) And num < (row.Cells.Count) Then btnGetIt.Enabled = False : Exit Sub Else btnGetIt.Enabled = True
     Next
   End Sub
 

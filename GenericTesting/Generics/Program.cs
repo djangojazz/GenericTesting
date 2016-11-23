@@ -19,9 +19,16 @@ namespace Generics
       {
         AddEmployees(employeeRepository);
         CountEmployees(employeeRepository);
+        QueryEmployees(employeeRepository);
       }
 
       Console.ReadLine();
+    }
+
+    private static void QueryEmployees(IRepository<Employee> employeeRepository)
+    {
+      var employee = employeeRepository.FindById(1);
+      Console.WriteLine(employee.Name);
     }
 
     private static void CountEmployees(IRepository<Employee> employeeRepository)
