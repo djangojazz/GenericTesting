@@ -13,13 +13,21 @@ namespace Generics
     public DbSet<Employee> Employees { get; set; }
   }
 
-  public interface IRepository<T> : IDisposable
+  public interface IReadOnlyRepository<out T> : IDisposable
+  {
+    T FindById(int id);
+    IQueryable<T> FindAll();
+  }
+
+  public interface IWriteOnlyRepository<in T> : IDisposable
   {
     void Add(T newEntity);
     void Delete(T entity);
-    T FindById(int id);
-    IQueryable<T> FindAll();
     int Commit();
+  }
+
+  public interface IRepository<T> : IWriteOnlyRepository<T>, IReadOnlyRepository<T>
+  {
   }
 
   public class SqlRepository<T> : IRepository<T> where T : class, IEntity
