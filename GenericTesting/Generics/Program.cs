@@ -13,6 +13,31 @@ namespace Generics
 
     static void Main(string[] args)
     {
+      var employeeList = CreateCollection(typeof(List<>), typeof(Employee));
+      Console.Write(employeeList.GetType().Name);
+      var genericArguments = employeeList.GetType().GenericTypeArguments;
+      foreach (var arg in genericArguments)
+      {
+        Console.Write($"[{arg.Name}]");
+      }
+      
+      var employee = new Employee();
+      var employeeType = typeof(Employee);
+      var methodInfo = employeeType.GetMethod("Speak");
+      methodInfo = methodInfo.MakeGenericMethod(typeof(DateTime));
+      methodInfo.Invoke(employee, null);
+      
+      Console.ReadLine();
+    }
+
+    private static object CreateCollection(Type collectionType, Type itemType)
+    {
+      var closedType = collectionType.MakeGenericType(itemType);
+      return Activator.CreateInstance(closedType);
+    }
+
+    private static void RepositoryExample()
+    {
       Database.SetInitializer(new DropCreateDatabaseAlways<EmployeeDb>());
 
       using (IRepository<Employee> employeeRepository = new SqlRepository<Employee>(new EmployeeDb()))
@@ -23,8 +48,6 @@ namespace Generics
         QueryEmployees(employeeRepository);
         DumpPeople(employeeRepository);
       }
-
-      Console.ReadLine();
     }
 
     private static void AddManagers(IWriteOnlyRepository<Manager> employeeRepository)

@@ -28,6 +28,11 @@ namespace Generics
     {
       Console.WriteLine("Doing real work");
     }
+
+    public void Speak<T>()
+    {
+      Console.WriteLine(typeof(T).Name);
+    }
   }
 
   public class Manager : Employee
