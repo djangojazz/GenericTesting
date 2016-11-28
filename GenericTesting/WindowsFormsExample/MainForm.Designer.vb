@@ -32,17 +32,19 @@ Partial Class MainForm
     Me.DynamicComboBoxDoubleFillToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.mnuDynamicComboBoxDoubleFillSO = New System.Windows.Forms.ToolStripMenuItem()
     Me.dgvComboBoxTest = New System.Windows.Forms.ToolStripMenuItem()
+    Me.ResizingExamplesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.SimpleErrorCheckingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.checkdialogs = New System.Windows.Forms.ToolStripMenuItem()
     Me.CheckGenericDialogBoxToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.CheckTwoButtonGenericDialogBoxToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-    Me.ResizingExamplesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+    Me.AsyncToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+    Me.mnuAsyncListViewBW = New System.Windows.Forms.ToolStripMenuItem()
     Me.MenuStrip1.SuspendLayout()
     Me.SuspendLayout()
     '
     'MenuStrip1
     '
-    Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mDataGrids, Me.SimpleErrorCheckingToolStripMenuItem, Me.checkdialogs})
+    Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mDataGrids, Me.SimpleErrorCheckingToolStripMenuItem, Me.checkdialogs, Me.AsyncToolStripMenuItem})
     Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
     Me.MenuStrip1.Name = "MenuStrip1"
     Me.MenuStrip1.Size = New System.Drawing.Size(658, 24)
@@ -104,6 +106,12 @@ Partial Class MainForm
     Me.dgvComboBoxTest.Size = New System.Drawing.Size(248, 22)
     Me.dgvComboBoxTest.Text = "ComboBox In DataGrid View"
     '
+    'ResizingExamplesToolStripMenuItem
+    '
+    Me.ResizingExamplesToolStripMenuItem.Name = "ResizingExamplesToolStripMenuItem"
+    Me.ResizingExamplesToolStripMenuItem.Size = New System.Drawing.Size(248, 22)
+    Me.ResizingExamplesToolStripMenuItem.Text = "Resizing Examples"
+    '
     'SimpleErrorCheckingToolStripMenuItem
     '
     Me.SimpleErrorCheckingToolStripMenuItem.Name = "SimpleErrorCheckingToolStripMenuItem"
@@ -129,11 +137,18 @@ Partial Class MainForm
     Me.CheckTwoButtonGenericDialogBoxToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
     Me.CheckTwoButtonGenericDialogBoxToolStripMenuItem.Text = "Check Two Button Generic Dialog Box"
     '
-    'ResizingExamplesToolStripMenuItem
+    'AsyncToolStripMenuItem
     '
-    Me.ResizingExamplesToolStripMenuItem.Name = "ResizingExamplesToolStripMenuItem"
-    Me.ResizingExamplesToolStripMenuItem.Size = New System.Drawing.Size(248, 22)
-    Me.ResizingExamplesToolStripMenuItem.Text = "Resizing Examples"
+    Me.AsyncToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuAsyncListViewBW})
+    Me.AsyncToolStripMenuItem.Name = "AsyncToolStripMenuItem"
+    Me.AsyncToolStripMenuItem.Size = New System.Drawing.Size(51, 20)
+    Me.AsyncToolStripMenuItem.Text = "Async"
+    '
+    'mnuAsyncListViewBW
+    '
+    Me.mnuAsyncListViewBW.Name = "mnuAsyncListViewBW"
+    Me.mnuAsyncListViewBW.Size = New System.Drawing.Size(184, 22)
+    Me.mnuAsyncListViewBW.Text = "ListView Background"
     '
     'MainForm
     '
@@ -166,4 +181,6 @@ Partial Class MainForm
   Friend WithEvents mnuDynamicComboBoxDoubleFillSO As ToolStripMenuItem
   Friend WithEvents dgvComboBoxTest As ToolStripMenuItem
   Friend WithEvents ResizingExamplesToolStripMenuItem As ToolStripMenuItem
+  Friend WithEvents AsyncToolStripMenuItem As ToolStripMenuItem
+  Friend WithEvents mnuAsyncListViewBW As ToolStripMenuItem
 End Class

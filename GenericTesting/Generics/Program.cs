@@ -10,8 +10,23 @@ namespace Generics
 {
   class Program
   {
+    public enum Steps
+    {
+      Step1,
+      Step2,
+      Step3
+    } 
 
     static void Main(string[] args)
+    {
+      var input = "Step1";
+      Steps value = input.ParseEnum<Steps>();
+      Console.WriteLine(value);
+
+      Console.ReadLine();
+    }
+
+    private static void CreateCollectionWithReflection()
     {
       var employeeList = CreateCollection(typeof(List<>), typeof(Employee));
       Console.Write(employeeList.GetType().Name);
@@ -20,14 +35,12 @@ namespace Generics
       {
         Console.Write($"[{arg.Name}]");
       }
-      
+
       var employee = new Employee();
       var employeeType = typeof(Employee);
       var methodInfo = employeeType.GetMethod("Speak");
       methodInfo = methodInfo.MakeGenericMethod(typeof(DateTime));
       methodInfo.Invoke(employee, null);
-      
-      Console.ReadLine();
     }
 
     private static object CreateCollection(Type collectionType, Type itemType)

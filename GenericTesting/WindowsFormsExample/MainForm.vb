@@ -1,5 +1,5 @@
 ﻿Public Class MainForm
-  Private Sub Opener(sender As Object, e As EventArgs) Handles SimpleErrorCheckingToolStripMenuItem.Click, mSimpleDataGrid.Click, mDynamicDataGrid.Click, ListGridToolStripMenuItem.Click, TreeViewToolStripMenuItem.Click, OpenDataGridViewToolStripMenuItem.Click, CheckTwoButtonGenericDialogBoxToolStripMenuItem.Click, CheckGenericDialogBoxToolStripMenuItem.Click, DynamicComboBoxDoubleFillToolStripMenuItem.Click, mnuDynamicComboBoxDoubleFillSO.Click, dgvComboBoxTest.Click, ResizingExamplesToolStripMenuItem.Click
+  Private Sub Opener(sender As Object, e As EventArgs) Handles SimpleErrorCheckingToolStripMenuItem.Click, mSimpleDataGrid.Click, mDynamicDataGrid.Click, ListGridToolStripMenuItem.Click, TreeViewToolStripMenuItem.Click, OpenDataGridViewToolStripMenuItem.Click, CheckTwoButtonGenericDialogBoxToolStripMenuItem.Click, CheckGenericDialogBoxToolStripMenuItem.Click, DynamicComboBoxDoubleFillToolStripMenuItem.Click, mnuDynamicComboBoxDoubleFillSO.Click, dgvComboBoxTest.Click, ResizingExamplesToolStripMenuItem.Click, mnuAsyncListViewBW.Click
     Dim newWindow = New Form()
 
     Select Case True
@@ -53,6 +53,8 @@
         newWindow = New ComboBoxTesting()
       Case sender Is ResizingExamplesToolStripMenuItem
         newWindow = New ResizingPracticeForDataGrids()
+      Case sender Is mnuAsyncListViewBW
+        newWindow = New BackGroundWorkerAsync()
     End Select
 
     If newWindow IsNot Nothing Then newWindow.Show()
