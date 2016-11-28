@@ -39,6 +39,7 @@ Partial Class MainForm
     Me.CheckTwoButtonGenericDialogBoxToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.AsyncToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.mnuAsyncListViewBW = New System.Windows.Forms.ToolStripMenuItem()
+    Me.mnuDelayForm = New System.Windows.Forms.ToolStripMenuItem()
     Me.MenuStrip1.SuspendLayout()
     Me.SuspendLayout()
     '
@@ -139,7 +140,7 @@ Partial Class MainForm
     '
     'AsyncToolStripMenuItem
     '
-    Me.AsyncToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuAsyncListViewBW})
+    Me.AsyncToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuAsyncListViewBW, Me.mnuDelayForm})
     Me.AsyncToolStripMenuItem.Name = "AsyncToolStripMenuItem"
     Me.AsyncToolStripMenuItem.Size = New System.Drawing.Size(51, 20)
     Me.AsyncToolStripMenuItem.Text = "Async"
@@ -149,6 +150,12 @@ Partial Class MainForm
     Me.mnuAsyncListViewBW.Name = "mnuAsyncListViewBW"
     Me.mnuAsyncListViewBW.Size = New System.Drawing.Size(184, 22)
     Me.mnuAsyncListViewBW.Text = "ListView Background"
+    '
+    'mnuDelayForm
+    '
+    Me.mnuDelayForm.Name = "mnuDelayForm"
+    Me.mnuDelayForm.Size = New System.Drawing.Size(184, 22)
+    Me.mnuDelayForm.Text = "Delay before firing"
     '
     'MainForm
     '
@@ -183,4 +190,5 @@ Partial Class MainForm
   Friend WithEvents ResizingExamplesToolStripMenuItem As ToolStripMenuItem
   Friend WithEvents AsyncToolStripMenuItem As ToolStripMenuItem
   Friend WithEvents mnuAsyncListViewBW As ToolStripMenuItem
+  Friend WithEvents mnuDelayForm As ToolStripMenuItem
 End Class
