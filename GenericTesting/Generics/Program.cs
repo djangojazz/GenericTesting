@@ -17,11 +17,39 @@ namespace Generics
       Step3
     } 
 
+    public class Item<T> : Item
+    {
+      public Item()
+      {
+        InstanceCount += 1;
+      }
+    }
+    public class Item
+    {
+      //public Item()
+      //{
+      //  InstanceCount += 1;
+      //}
+
+      public static int InstanceCount;
+    }
+
+    static void ExampleOfHowToAddMultipleGenericClassTypes()
+    {
+      var list = new List<Item>();
+
+      list.Add(new Item<int>());
+      list.Add(new Item<double>());
+    }
+
     static void Main(string[] args)
     {
-      var input = "Step1";
-      Steps value = input.ParseEnum<Steps>();
-      Console.WriteLine(value);
+      var a = new Item<int>();
+      var b = new Item<int>();
+      var c = new Item<string>();
+
+      Console.WriteLine(Item.InstanceCount);
+      Console.WriteLine(Item<int>.InstanceCount);
 
       Console.ReadLine();
     }
