@@ -165,6 +165,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="MyButtonCell.vb" />
+    <Compile Include="Producer.vb" />
     <Compile Include="ResizingPracticeForDataGrids.Designer.vb">
       <DependentUpon>ResizingPracticeForDataGrids.vb</DependentUpon>
     </Compile>

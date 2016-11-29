@@ -34,14 +34,13 @@
       ChartData="{Binding ChartData}"
       ChartTitle="My Test Chart"
       ChartForeground="Wheat" 
-      LegendForeground="WhiteSmoke"
       BackGroundColor="DarkCyan" 
       BackGroundColorCanvas="White" 
       BackGroundColorLegend="White"    
       NumberOfTicks="5"
       XValueConverter="{StaticResource DateValueConverter}"
       YValueConverter="{StaticResource ConvertDecimal}"
-      FontType="Algerian"
+      FontType="Tahoma"
       />
     <!--XValueConverter="{Binding ChartData, Converter = {StaticResource DateValueConverter}}"-->
         

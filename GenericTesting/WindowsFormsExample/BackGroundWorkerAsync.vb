@@ -8,14 +8,14 @@
     bwList.RunWorkerAsync()
   End Sub
 
-  'Private Sub AddListItem(lstItem As ListViewItem)
-  '  If Me.lvItems.InvokeRequired Then 'Invoke if required...
-  '    Dim d As New SetListItem(AddressOf AddListItem) 'Your delegate...
-  '    Me.Invoke(d, New Object() {lstItem})
-  '  Else 'Otherwise, no invoke required...
-  '    Me.lvItems.Items.Add(lstItem)
-  '  End If
-  'End Sub
+  Private Sub AddListItem(lstItem As ListViewItem)
+    If Me.lvItems.InvokeRequired Then 'Invoke if required...
+      Dim d As New SetListItem(AddressOf AddListItem) 'Your delegate...
+      Me.Invoke(d, New Object() {lstItem})
+    Else 'Otherwise, no invoke required...
+      Me.lvItems.Items.Add(lstItem)
+    End If
+  End Sub
 
   Private Sub bwList_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bwList.DoWork
     Dim intComplete As Integer = 0
@@ -24,8 +24,7 @@
       If Not (bwList.CancellationPending) Then
         Dim li = New ListViewItem
         li.Text = "Item " & i.ToString
-        'AddListItem(li)
-        Me.lvItems.Items.Add(li)
+        AddListItem(li)
         Threading.Thread.Sleep(1) 'Give the thread a very..very short break...
       ElseIf (bwList.CancellationPending) Then
         e.Cancel = True
@@ -36,10 +35,6 @@
       If intComplete < 100 Then
         bwList.ReportProgress(intComplete)
       End If
-
-      'If li IsNot Nothing Then
-      '  li = Nothing
-      'End If
     Next
 
   End Sub
