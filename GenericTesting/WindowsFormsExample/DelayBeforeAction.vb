@@ -20,35 +20,15 @@ Public Class DelayBeforeAction
 
   Private Sub txtTest_TextChanged(sender As Object, e As EventArgs) Handles txtTest.TextChanged
     If _loaded Then
-      'Producer.QueueRequest(txtTest.Text)
-      'Dim source As New CancellationTokenSource()
-      'Dim token As CancellationToken = source.Token
-
-      _sw.Start()
-
-      DelayExecute(Sub()
-                     If _sw.ElapsedMilliseconds > CInt(txtWait.Text) Then
-                       _sw.Reset()
-                       bw.RunWorkerAsync()
-                     Else
-                       _sw.Restart()
-                       bw.CancelAsync()
-                     End If
-                   End Sub, CInt(txtWait.Text))
+      Producer.QueueRequest(txtTest.Text)
     End If
   End Sub
 
 
   Private Sub ShowResult(sender As Object, e As ProducerEventArg) Handles Producer.ProductionComplete
-    MessageBox.Show(e.ResultingString)
+    Dim s = e.ResultingString
+    txtOut.Text = s
   End Sub
 
-  Private Async Sub DelayExecute(action As Action, timeout As Integer)
-    Await Task.Delay(timeout)
-    action()
-  End Sub
 
-  Private Sub bw_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bw.DoWork
-    If Not bw.CancellationPending Then MessageBox.Show(txtTest.Text) Else e.Cancel = True
-  End Sub
 End Class

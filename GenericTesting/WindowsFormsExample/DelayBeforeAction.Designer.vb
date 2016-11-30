@@ -51,6 +51,9 @@ Partial Class DelayBeforeAction
     Me.bw.WorkerReportsProgress = True
     Me.bw.WorkerSupportsCancellation = True
     '
+    'timer
+    '
+    '
     'txtOut
     '
     Me.txtOut.Location = New System.Drawing.Point(12, 93)

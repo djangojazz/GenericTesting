@@ -1,5 +1,6 @@
 ﻿Imports System.Collections.Concurrent
 Imports System.Threading
+Imports System.Windows.Threading
 
 Public Class Producer
   Implements IDisposable
@@ -8,36 +9,37 @@ Public Class Producer
   Private CloseControl As Boolean
   Public Event ProductionComplete(sender As Object, e As ProducerEventArg)
   Public EvokeThread As Thread
-  Private _concurrentDictionary As New ConcurrentDictionary(Of Decimal, String)
+  Private _workingString As String = String.Empty
+  Private _stringLock As New Object
   Private RequestNumber As Int64
+  Private _invokeThread As Dispatcher
 
   Public Sub New()
+    _invokeThread = Dispatcher.CurrentDispatcher
     EvokeThread = New Thread(AddressOf BackgroundOperation)
     EvokeThread.Start()
   End Sub
 
   Public Sub QueueRequest(text As String)
-    RequestNumber += 1
-    _concurrentDictionary.TryAdd(RequestNumber, text)
+    SyncLock _stringLock
+      _workingString = text
+    End SyncLock
   End Sub
 
   Private Sub BackgroundOperation()
     Do While CloseControl = False
-      Do While Not _concurrentDictionary.Any
-      Loop
+      Dim returnString As String = _workingString
 
       Thread.Sleep(Delay)
 
-      Dim ReturnString As String = String.Empty
-      If _concurrentDictionary.Any Then
-        Dim LastPoint = _concurrentDictionary.First.Key
-        _concurrentDictionary.TryGetValue(LastPoint, ReturnString)
-        For Each o In _concurrentDictionary
-          If o.Key <= LastPoint Then _concurrentDictionary.TryRemove(o.Key, Nothing)
-        Next
-      End If
-      If Not String.IsNullOrEmpty(ReturnString) Then RaiseEvent ProductionComplete(Me, New ProducerEventArg(ReturnString))
+      Dim previousString As String = _workingString
 
+      If Not String.IsNullOrEmpty(returnString) AndAlso returnString = previousString Then
+        _invokeThread.Invoke(Sub() RaiseEvent ProductionComplete(Me, New ProducerEventArg(returnString)))
+        SyncLock _stringLock
+          _workingString = String.Empty
+        End SyncLock
+      End If
     Loop
   End Sub
 
@@ -53,7 +55,7 @@ Public Class Producer
     If Not disposedValue Then
       If disposing Then
         CloseControl = True
-        _concurrentDictionary = Nothing
+        _workingString = Nothing
       End If
     End If
     disposedValue = True
