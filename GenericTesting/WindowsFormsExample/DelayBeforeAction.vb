@@ -25,17 +25,29 @@ Public Class DelayBeforeAction
     If _loaded Then
       timer.Stop()
       timer.Start()
+      '_producer.QueueRequest(txtTest.Text)
+      '_sw.Start()
+
+      'Dim source As New CancellationTokenSource()
+      'Dim token As CancellationToken = source.Token
+
+      'DelayExecute(Sub() If _sw.ElapsedMilliseconds > CInt(txtWait.Text) Then _sw.Reset() : MessageBox.Show(txtTest.Text) Else _sw.Restart(), CInt(txtWait.Text), token)
     End If
   End Sub
 
 
   Private Sub ShowResult(sender As Object, e As ProducerEventArg) Handles _producer.ProductionComplete
-    Dim s = e.ResultingString
-    txtOut.Text = s
+    MessageBox.Show(e.ResultingString)
   End Sub
 
   Private Sub timer_Tick(sender As Object, e As EventArgs) Handles timer.Tick
-    MessageBox.Show(txtTest.Text)
     timer.Stop()
+    MessageBox.Show(txtTest.Text)
+
+  End Sub
+
+  Private Async Sub DelayExecute(action As Action, timeout As Integer, token As CancellationToken)
+    Await Task.Delay(timeout, token)
+    action()
   End Sub
 End Class
