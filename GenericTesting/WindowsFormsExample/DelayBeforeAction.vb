@@ -12,15 +12,19 @@ Public Class DelayBeforeAction
   Public Sub New()
     InitializeComponent()
     _loaded = True
+    timer.Interval = 1000
   End Sub
 
   Private Sub ChangeDelay(sender As Object, e As EventArgs) Handles txtWait.TextChanged
     _producer.Delay = If(Not IsNumeric(txtWait.Text) Or CInt(txtWait.Text) < 1000, 1000, CInt(txtWait.Text))
   End Sub
 
+
+
   Private Sub txtTest_TextChanged(sender As Object, e As EventArgs) Handles txtTest.TextChanged
     If _loaded Then
-      _producer.QueueRequest(txtTest.Text)
+      timer.Stop()
+      timer.Start()
     End If
   End Sub
 
@@ -30,5 +34,8 @@ Public Class DelayBeforeAction
     txtOut.Text = s
   End Sub
 
-
+  Private Sub timer_Tick(sender As Object, e As EventArgs) Handles timer.Tick
+    MessageBox.Show(txtTest.Text)
+    timer.Stop()
+  End Sub
 End Class
