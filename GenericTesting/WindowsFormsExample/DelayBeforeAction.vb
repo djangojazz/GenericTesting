@@ -6,7 +6,7 @@ Public Class DelayBeforeAction
   Delegate Sub SetTextBox(text As String)
 
   Private _loaded As Boolean = False
-  Private WithEvents Producer As New Producer With {.Delay = 1000I}
+  Private WithEvents _producer As New Producer With {.Delay = 1000I}
   Private Shared _sw As Stopwatch = New Stopwatch()
 
   Public Sub New()
@@ -15,17 +15,17 @@ Public Class DelayBeforeAction
   End Sub
 
   Private Sub ChangeDelay(sender As Object, e As EventArgs) Handles txtWait.TextChanged
-    Producer.Delay = If(Not IsNumeric(txtWait.Text) Or CInt(txtWait.Text) < 1000, 1000, CInt(txtWait.Text))
+    _producer.Delay = If(Not IsNumeric(txtWait.Text) Or CInt(txtWait.Text) < 1000, 1000, CInt(txtWait.Text))
   End Sub
 
   Private Sub txtTest_TextChanged(sender As Object, e As EventArgs) Handles txtTest.TextChanged
     If _loaded Then
-      Producer.QueueRequest(txtTest.Text)
+      _producer.QueueRequest(txtTest.Text)
     End If
   End Sub
 
 
-  Private Sub ShowResult(sender As Object, e As ProducerEventArg) Handles Producer.ProductionComplete
+  Private Sub ShowResult(sender As Object, e As ProducerEventArg) Handles _producer.ProductionComplete
     Dim s = e.ResultingString
     txtOut.Text = s
   End Sub

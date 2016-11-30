@@ -1,5 +1,4 @@
-﻿Imports System.Collections.Concurrent
-Imports System.Threading
+﻿Imports System.Threading
 Imports System.Windows.Threading
 
 Public Class Producer
