@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Generics.BufferExtensions;
 
 namespace Generics
 {
@@ -41,12 +38,16 @@ namespace Generics
       list.Add(new Item<int>());
       list.Add(new Item<double>());
     }
-
+    
     static void Main(string[] args)
     {
       var a = new Item<int>();
       var b = new Item<int>();
       var c = new Item<string>();
+
+      //int y = 0;
+      //int x = 1;
+      //int z = x / y;
 
       Console.WriteLine(Item.InstanceCount);
       Console.WriteLine(Item<int>.InstanceCount);
