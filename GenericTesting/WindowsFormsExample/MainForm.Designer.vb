@@ -28,7 +28,6 @@ Partial Class MainForm
     Me.mSimpleDataGrid = New System.Windows.Forms.ToolStripMenuItem()
     Me.mDynamicDataGrid = New System.Windows.Forms.ToolStripMenuItem()
     Me.ListGridToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-    Me.TreeViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.DynamicComboBoxDoubleFillToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.mnuDynamicComboBoxDoubleFillSO = New System.Windows.Forms.ToolStripMenuItem()
     Me.dgvComboBoxTest = New System.Windows.Forms.ToolStripMenuItem()
@@ -40,12 +39,13 @@ Partial Class MainForm
     Me.AsyncToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.mnuAsyncListViewBW = New System.Windows.Forms.ToolStripMenuItem()
     Me.mnuDelayForm = New System.Windows.Forms.ToolStripMenuItem()
+    Me.TreeViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.MenuStrip1.SuspendLayout()
     Me.SuspendLayout()
     '
     'MenuStrip1
     '
-    Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mDataGrids, Me.SimpleErrorCheckingToolStripMenuItem, Me.checkdialogs, Me.AsyncToolStripMenuItem})
+    Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mDataGrids, Me.SimpleErrorCheckingToolStripMenuItem, Me.checkdialogs, Me.AsyncToolStripMenuItem, Me.TreeViewToolStripMenuItem})
     Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
     Me.MenuStrip1.Name = "MenuStrip1"
     Me.MenuStrip1.Size = New System.Drawing.Size(658, 24)
@@ -54,7 +54,7 @@ Partial Class MainForm
     '
     'mDataGrids
     '
-    Me.mDataGrids.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenDataGridViewToolStripMenuItem, Me.mSimpleDataGrid, Me.mDynamicDataGrid, Me.ListGridToolStripMenuItem, Me.TreeViewToolStripMenuItem, Me.DynamicComboBoxDoubleFillToolStripMenuItem, Me.mnuDynamicComboBoxDoubleFillSO, Me.dgvComboBoxTest, Me.ResizingExamplesToolStripMenuItem})
+    Me.mDataGrids.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenDataGridViewToolStripMenuItem, Me.mSimpleDataGrid, Me.mDynamicDataGrid, Me.ListGridToolStripMenuItem, Me.DynamicComboBoxDoubleFillToolStripMenuItem, Me.mnuDynamicComboBoxDoubleFillSO, Me.dgvComboBoxTest, Me.ResizingExamplesToolStripMenuItem})
     Me.mDataGrids.Name = "mDataGrids"
     Me.mDataGrids.Size = New System.Drawing.Size(70, 20)
     Me.mDataGrids.Text = "DataGrids"
@@ -82,12 +82,6 @@ Partial Class MainForm
     Me.ListGridToolStripMenuItem.Name = "ListGridToolStripMenuItem"
     Me.ListGridToolStripMenuItem.Size = New System.Drawing.Size(248, 22)
     Me.ListGridToolStripMenuItem.Text = "ListGrid"
-    '
-    'TreeViewToolStripMenuItem
-    '
-    Me.TreeViewToolStripMenuItem.Name = "TreeViewToolStripMenuItem"
-    Me.TreeViewToolStripMenuItem.Size = New System.Drawing.Size(248, 22)
-    Me.TreeViewToolStripMenuItem.Text = "TreeView"
     '
     'DynamicComboBoxDoubleFillToolStripMenuItem
     '
@@ -157,6 +151,12 @@ Partial Class MainForm
     Me.mnuDelayForm.Size = New System.Drawing.Size(184, 22)
     Me.mnuDelayForm.Text = "Delay before firing"
     '
+    'TreeViewToolStripMenuItem
+    '
+    Me.TreeViewToolStripMenuItem.Name = "TreeViewToolStripMenuItem"
+    Me.TreeViewToolStripMenuItem.Size = New System.Drawing.Size(66, 20)
+    Me.TreeViewToolStripMenuItem.Text = "TreeView"
+    '
     'MainForm
     '
     Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -179,7 +179,6 @@ Partial Class MainForm
   Friend WithEvents mSimpleDataGrid As ToolStripMenuItem
   Friend WithEvents mDynamicDataGrid As ToolStripMenuItem
   Friend WithEvents ListGridToolStripMenuItem As ToolStripMenuItem
-  Friend WithEvents TreeViewToolStripMenuItem As ToolStripMenuItem
   Friend WithEvents OpenDataGridViewToolStripMenuItem As ToolStripMenuItem
   Friend WithEvents checkdialogs As ToolStripMenuItem
   Friend WithEvents CheckGenericDialogBoxToolStripMenuItem As ToolStripMenuItem
@@ -191,4 +190,5 @@ Partial Class MainForm
   Friend WithEvents AsyncToolStripMenuItem As ToolStripMenuItem
   Friend WithEvents mnuAsyncListViewBW As ToolStripMenuItem
   Friend WithEvents mnuDelayForm As ToolStripMenuItem
+  Friend WithEvents TreeViewToolStripMenuItem As ToolStripMenuItem
 End Class

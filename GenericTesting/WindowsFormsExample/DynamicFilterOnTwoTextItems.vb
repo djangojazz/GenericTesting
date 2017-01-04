@@ -9,18 +9,15 @@ Public Class DynamicFilterOnTwoTextItems
     Public Property ProductId As Integer
     Public Property SkuID As Integer
     Public Property Description As String
-
   End Class
-
 
   Private _products As List(Of ProductSku) = New List(Of ProductSku)
   Private _initialLoadDone As Boolean = False
-  Private _currentRow As Integer? = Nothing
 
   Private Sub DynamicComboBoxDoubleFill_Load(sender As Object, e As EventArgs) Handles MyBase.Load
     dgv.AutoGenerateColumns = False
 
-    _products = New List(Of ProductSku)({
+    Dim products = New List(Of ProductSku)({
                                      New ProductSku With {.ProductId = 1, .SkuID = 1, .Description = "Offline"},
                                      New ProductSku With {.ProductId = 1, .SkuID = 2, .Description = "Offline2"},
                                      New ProductSku With {.ProductId = 2, .SkuID = 1, .Description = "Online"},
@@ -35,7 +32,6 @@ Public Class DynamicFilterOnTwoTextItems
       row("Desc") = o.Description
       ds.Tables("tProducts").Rows.Add(row)
     Next
-
 
     dgv.AutoGenerateColumns = False
     dgv.DataSource = ds.Tables("tProducts")

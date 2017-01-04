@@ -20,7 +20,17 @@ Module Module1
                                            End Function)
 
   Sub Main()
-    TaskFactoryCancellationMethod()
+    'Representations from ASCII Table http://www.asciitable.com/
+    Dim perMile = Chr(137)
+
+    'Write it out as char array to prove it works
+    Console.WriteLine($"{perMile}")
+
+    'tell me the numbers I used dynamically
+    Dim perAsc = Asc(perMile)
+    Dim array() As Byte = Encoding.ASCII.GetBytes(perMile)
+
+    Console.WriteLine($"{perAsc} {array(0)}")
 
     Console.ReadLine()
   End Sub

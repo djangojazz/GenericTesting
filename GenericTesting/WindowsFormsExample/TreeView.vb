@@ -19,14 +19,17 @@ Public Class TreeView
 
 
   Private Sub AttachChild(parentNode As TreeNode)
-    Dim childProductFormatChange = _treeResults.SingleOrDefault(Function(x) x.ParentId = TryCast(parentNode.Tag, TreeTest).Id)
+    _treeResults.Where(Function(x) x.ParentId = TryCast(parentNode.Tag, TreeTest).Id).ToList() _
+      .ForEach(Sub(childProductFormatChange)
 
-    If childProductFormatChange IsNot Nothing Then
-      Dim childNode = ReturnNodeFromProductFormatChange(childProductFormatChange)
+                 If childProductFormatChange IsNot Nothing Then
+                   Dim childNode = ReturnNodeFromProductFormatChange(childProductFormatChange)
 
-      AttachChild(childNode)
-      parentNode.Nodes.Add(childNode)
-    End If
+                   AttachChild(childNode)
+                   parentNode.Nodes.Add(childNode)
+                 End If
+
+               End Sub)
   End Sub
 
   Private Sub TreeViewLoad()

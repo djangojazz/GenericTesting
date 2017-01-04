@@ -20,56 +20,10 @@ Public Class MainWindowViewModel
     TestText = "Line Chart Hello there"
     Points = "0,260 10,250 20,245 40,200 50,250 80, 200, 140,100"
 
-    '_lastPoints = New List(Of PlotPoints)({New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now), .Y = New PlotPoint(Of Double)(930)}, New PlotPoints With {.X = New PlotPoint(Of Double)(500), .Y = New PlotPoint(Of Double)(950)}})
-    _lastPoints = New List(Of PlotPoints)({New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now), .Y = New PlotPoint(Of Double)(930)}, New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now), .Y = New PlotPoint(Of Double)(950)}})
-
-    ChartData = New Collection(Of LineTrend)({
-                                             New LineTrend With
-                                               {
-                                               .SeriesName = "First",
-                                               .LineColor = Brushes.Blue,
-                                               .Points = New List(Of PlotPoints)({
-                                                                              New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-10)), .Y = New PlotPoint(Of Double)(930)},
-                                                                              New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-5)), .Y = New PlotPoint(Of Double)(850)},
-                                                                              _lastPoints(0)
-                                                                              })
-                                                                                },
-    New LineTrend With
-    {
-    .SeriesName = "Second",
-     .LineColor = Brushes.Red,
-     .Points = New List(Of PlotPoints)({
-                                    New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-8)), .Y = New PlotPoint(Of Double)(600)},
-                                    New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-4)), .Y = New PlotPoint(Of Double)(720)},
-                                    _lastPoints(0)
-                                    })
-    }})
-
-
-    '  },
-    'New LineTrend With
-    '{
-    '.SeriesName = "Second",
-    ' .LineColor = Brushes.Red,
-    ' .Points = New List(Of PlotPoints)({
-    '                                New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-8)), .Y = New PlotPoint(Of Double)(600)},
-    '                                New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-4)), .Y = New PlotPoint(Of Double)(720)},
-    '                                _lastPoints(0)
-    '                                })
-    '}})
-    '},
-    'New LineTrend With
-    '{
-    '.SeriesName = "Second",
-    ' .LineColor = Brushes.Red,
-    ' .Points = New List(Of PlotPoints)({
-    '                                New PlotPoints With {.X = New PlotPoint(Of Double)(300), .Y = New PlotPoint(Of Double)(400)},
-    '                                New PlotPoints With {.X = New PlotPoint(Of Double)(400), .Y = New PlotPoint(Of Double)(300)},
-    '                                _lastPoints(0)
-    '                                })
-    '}})
-
+    TreeData = New ObservableCollection(Of TreeViewItem)({New TreeViewItem With {.Header = "Test"}})
   End Sub
+
+
 
   Private _items As ObservableCollection(Of Stuff)
 
@@ -81,6 +35,17 @@ Public Class MainWindowViewModel
     Set(ByVal value As String)
       _points = value
       OnPropertyChanged(NameOf(Points))
+    End Set
+  End Property
+
+  Private _treeData As ObservableCollection(Of TreeViewItem)
+  Public Property TreeData As ObservableCollection(Of TreeViewItem)
+    Get
+      Return _treeData
+    End Get
+    Set
+      _treeData = Value
+      OnPropertyChanged(NameOf(TreeData))
     End Set
   End Property
 
@@ -177,7 +142,37 @@ Public Class MainWindowViewModel
   End Property
 
   Private Sub TestCommandExecute()
+    TreeData.Add(New TreeViewItem With {.Header = "Child"})
+  End Sub
 
+#Region "Line Graph parts"
+  Private Sub AddingLinesForLineChart()
+    _lastPoints = New List(Of PlotPoints)({New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now), .Y = New PlotPoint(Of Double)(930)}, New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now), .Y = New PlotPoint(Of Double)(950)}})
+
+    ChartData = New Collection(Of LineTrend)({
+                                             New LineTrend With
+                                               {
+                                               .SeriesName = "First",
+                                               .LineColor = Brushes.Blue,
+                                               .Points = New List(Of PlotPoints)({
+                                                                              New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-10)), .Y = New PlotPoint(Of Double)(930)},
+                                                                              New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-5)), .Y = New PlotPoint(Of Double)(850)},
+                                                                              _lastPoints(0)
+                                                                              })
+                                                                                },
+    New LineTrend With
+    {
+    .SeriesName = "Second",
+     .LineColor = Brushes.Red,
+     .Points = New List(Of PlotPoints)({
+                                    New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-8)), .Y = New PlotPoint(Of Double)(600)},
+                                    New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-4)), .Y = New PlotPoint(Of Double)(720)},
+                                    _lastPoints(0)
+                                    })
+    }})
+  End Sub
+
+  Private Sub LinePlotAdding()
     Dim newPoints = New List(Of PlotPoints)
 
     For i = 1 To _lastPoints.Count
@@ -192,9 +187,9 @@ Public Class MainWindowViewModel
     New LineTrend With {.SeriesName = "First", .LineColor = Brushes.Blue, .Points = ChartData(0).Points},
     New LineTrend With {.SeriesName = "Second", .LineColor = Brushes.Red, .Points = ChartData(1).Points}
     })
-
   End Sub
 
+#End Region
 
   Private Sub StartCommandProdConsExecute()
     TestText = "Start"

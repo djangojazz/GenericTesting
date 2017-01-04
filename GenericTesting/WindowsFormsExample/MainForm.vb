@@ -1,7 +1,7 @@
 ﻿Public Class MainForm
-  Private Sub Opener(sender As Object, e As EventArgs) Handles SimpleErrorCheckingToolStripMenuItem.Click, mSimpleDataGrid.Click, mDynamicDataGrid.Click, ListGridToolStripMenuItem.Click, TreeViewToolStripMenuItem.Click,
+  Private Sub Opener(sender As Object, e As EventArgs) Handles SimpleErrorCheckingToolStripMenuItem.Click, mSimpleDataGrid.Click, mDynamicDataGrid.Click, ListGridToolStripMenuItem.Click,
     OpenDataGridViewToolStripMenuItem.Click, CheckTwoButtonGenericDialogBoxToolStripMenuItem.Click, CheckGenericDialogBoxToolStripMenuItem.Click, DynamicComboBoxDoubleFillToolStripMenuItem.Click, mnuDynamicComboBoxDoubleFillSO.Click,
-    dgvComboBoxTest.Click, ResizingExamplesToolStripMenuItem.Click, mnuAsyncListViewBW.Click, mnuDelayForm.Click
+    dgvComboBoxTest.Click, ResizingExamplesToolStripMenuItem.Click, mnuAsyncListViewBW.Click, mnuDelayForm.Click, TreeViewToolStripMenuItem.Click
     Dim newWindow = New Form()
 
     Select Case True
