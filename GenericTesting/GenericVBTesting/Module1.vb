@@ -20,17 +20,18 @@ Module Module1
                                            End Function)
 
   Sub Main()
-    'Representations from ASCII Table http://www.asciitable.com/
-    Dim perMile = Chr(137)
+    Dim d = New List(Of Tuple(Of Integer, Integer?, Decimal?))
 
-    'Write it out as char array to prove it works
-    Console.WriteLine($"{perMile}")
+    Using myReader = New Enterprise.Select.DemandAS400LocationDistribution()
+      While myReader.Read
 
-    'tell me the numbers I used dynamically
-    Dim perAsc = Asc(perMile)
-    Dim array() As Byte = Encoding.ASCII.GetBytes(perMile)
+        d.Add(New Tuple(Of Integer, Integer?, Decimal?)(myReader.Int(Enterprise.Select.DemandAS400LocationDistribution.EInts.DemandAS400LocationDistributionId),
+              myReader.Int(Enterprise.Select.DemandAS400LocationDistribution.EInts.ParentDemandAS400LocationDistributionId),
+              myReader.Dec(Enterprise.Select.DemandAS400LocationDistribution.EDecimels.PercentDistribution)))
+      End While
+    End Using
 
-    Console.WriteLine($"{perAsc} {array(0)}")
+    d.ToList().ForEach(Sub(x) Console.WriteLine($"{x.Item1} {x.Item2} {x.Item3}"))
 
     Console.ReadLine()
   End Sub
