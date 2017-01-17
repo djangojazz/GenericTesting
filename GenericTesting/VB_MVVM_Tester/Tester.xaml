@@ -26,6 +26,6 @@
       <RowDefinition Height="*" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <local:TreeViewExample />
+    <local:CustomToggleCombobox />
   </Grid>
 </Window>
