@@ -109,6 +109,9 @@
     <Compile Include="Views\CustomMarqueeControl.xaml.vb">
       <DependentUpon>CustomMarqueeControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CustomToggleCombobox.xaml.vb">
+      <DependentUpon>CustomToggleCombobox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DynamicTemplate.xaml.vb">
       <DependentUpon>DynamicTemplate.xaml</DependentUpon>
     </Compile>
@@ -151,6 +154,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\CustomMarqueeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomToggleCombobox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
