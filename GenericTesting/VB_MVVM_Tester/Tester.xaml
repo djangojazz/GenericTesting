@@ -27,5 +27,6 @@
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
     <local:CustomToggleCombobox />
+    <Button Grid.Row="1" Height="30" Content="Test"/>
   </Grid>
 </Window>
