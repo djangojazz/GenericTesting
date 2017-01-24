@@ -20,18 +20,17 @@ Module Module1
                                            End Function)
 
   Sub Main()
-    Dim d = New List(Of Tuple(Of Integer, Integer?, Decimal?))
+    Dim dt As DataTable = New DataTable()
+    dt.Columns.Add(New DataColumn("Id", GetType(Integer)))
+    Dim row As DataRow = dt.NewRow()
+    row("Id") = 1
+    dt.Rows.Add(row)
+    Dim row2 As DataRow = dt.NewRow()
+    row2("Id") = 2
+    dt.Rows.Add(row2)
 
-    Using myReader = New Enterprise.Select.DemandAS400LocationDistribution()
-      While myReader.Read
-
-        d.Add(New Tuple(Of Integer, Integer?, Decimal?)(myReader.Int(Enterprise.Select.DemandAS400LocationDistribution.EInts.DemandAS400LocationDistributionId),
-              myReader.Int(Enterprise.Select.DemandAS400LocationDistribution.EInts.ParentDemandAS400LocationDistributionId),
-              myReader.Dec(Enterprise.Select.DemandAS400LocationDistribution.EDecimels.PercentDistribution)))
-      End While
-    End Using
-
-    d.ToList().ForEach(Sub(x) Console.WriteLine($"{x.Item1} {x.Item2} {x.Item3}"))
+    'Shows 2 rows
+    Console.WriteLine(dt.Select().ToList().Count)
 
     Console.ReadLine()
   End Sub

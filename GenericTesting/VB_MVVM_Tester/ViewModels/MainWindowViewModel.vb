@@ -21,6 +21,7 @@ Public Class MainWindowViewModel
     Points = "0,260 10,250 20,245 40,200 50,250 80, 200, 140,100"
 
     TreeData = New ObservableCollection(Of TreeViewItem)({New TreeViewItem With {.Header = "Test"}})
+    _items = New ObservableCollection(Of Stuff)(New List(Of Stuff)({New Stuff With {.Id = 1, .ShipType = ShipType.Owned, .Value = "Boat1"}, New Stuff With {.Id = 2, .ShipType = ShipType.Other, .Value = "Boat2"}}))
   End Sub
 
 
@@ -71,7 +72,7 @@ Public Class MainWindowViewModel
     End Set
   End Property
 
-  Public Property Items() As ObservableCollection(Of Stuff)
+  Public Property Items As ObservableCollection(Of Stuff)
     Get
       Return _items
     End Get

@@ -72,8 +72,8 @@
           <ControlTemplate TargetType="ComboBox">
             <Grid>
               <!--<ToggleButton Style="{StaticResource ExpanderDownHeaderStyle}" />-->
-              <ToggleButton Grid.Column="2" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" >
-                <ToggleButton.Template>
+              <ToggleButton Grid.Column="2" Focusable="false" Style="{StaticResource ExpanderDownHeaderStyle}" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" >
+                <!--<ToggleButton.Template>
                   <ControlTemplate>
                     <Grid>
                       <Grid.ColumnDefinitions>
@@ -93,7 +93,7 @@
                       </Trigger>
                     </ControlTemplate.Triggers>
                   </ControlTemplate>
-                </ToggleButton.Template>
+                </ToggleButton.Template>-->
               </ToggleButton>
               <ContentPresenter Name="ContentSite" IsHitTestVisible="False"  Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Margin="3"  />
               <TextBox x:Name="PART_EditableTextBox" Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}"/>
@@ -115,7 +115,9 @@
   </UserControl.Resources>
   <StackPanel Margin="10">
     <Border Grid.Row="4" Grid.Column="1" Margin="5" Padding="2" Style="{StaticResource Border.Round.Standard}" >
-      <ToggleButton Height="30" Style="{StaticResource ExpanderDownHeaderStyle}" />
+      <ToggleButton Height="30" Style="{StaticResource ExpanderDownHeaderStyle}">
+        
+      </ToggleButton>
     </Border>
     
     <ComboBox VerticalAlignment="Top" Width="120" Style="{StaticResource ComboBoxTest2}">

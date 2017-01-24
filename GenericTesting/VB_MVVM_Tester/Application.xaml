@@ -7,6 +7,7 @@
     
     <local:DateValueConverter x:Key="DateValueConverter"/>
     
+    <!-- Styles -->
     <Style x:Name="ItemSelector" TargetType="{x:Type ListBoxItem}">
       <Setter Property="Template">
         <Setter.Value>
@@ -44,70 +45,6 @@
         </EventTrigger>
       </Style.Triggers>
     </Style>
-    <DataTemplate x:Key="MainTemplate">
-      <Border CornerRadius="15" Background="{DynamicResource brushMainBoard}" Margin="5" >
-      <StackPanel Margin="5">
-        <TextBlock FontWeight="Bold" Text="{Binding Id}" />
-        <TextBlock FontWeight="Bold" Text="{Binding Value}" />
-        <TextBlock FontWeight="Bold" Text="{Binding MoreStuff}" />
-      </StackPanel>
-      </Border>
-    </DataTemplate>
-    <DataTemplate x:Key="OtherTemplate">
-      <StackPanel Margin="5">
-        <TextBlock Text="{Binding Id}" />
-        <TextBlock Text="{Binding Value}" />
-      </StackPanel>
-    </DataTemplate>
-    <local:TemplateSelectorMain x:Key="BoatTemplateSelector" MainTemplate="{StaticResource MainTemplate}" OtherTemplate="{StaticResource OtherTemplate}" />
-    
-
-    <LinearGradientBrush x:Key="brushMainBoard" EndPoint="0.5,1" StartPoint="0.5,0">
-      <GradientStop Color="#FF0C1526" Offset="1"/>
-      <GradientStop Color="#FF347F71"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="brushLegendCustomDataGrid" EndPoint="0.5,1" StartPoint="0.5,0">
-      <GradientStop Color="#FFE8E8E8" Offset="1"/>
-      <GradientStop Color="#F9CBAF73" Offset="0.35"/>
-      <GradientStop Color="#FFCB9D3B" Offset="0.837"/>
-      <GradientStop Color="#E5AAA986"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="brushTextCustomDataGrid" EndPoint="0.5,1" StartPoint="0.5,0">
-      <GradientStop Color="White" Offset="1"/>
-      <GradientStop Color="#F9A08860" Offset="0.273"/>
-      <GradientStop Color="#FFFFEBC6" Offset="0.813"/>
-      <GradientStop Color="#E5F1EADE"/>
-    </LinearGradientBrush>
-
-    <DataTemplate x:Key ="marqueeControl">
-      <StackPanel Orientation="Horizontal" x:Name="stack">
-        <StackPanel.Resources>
-          <local:NegatingConverter x:Key="NegatingConverter" />
-          <Storyboard x:Key="slide">
-            <DoubleAnimation From="0" To="{Binding Width, ElementName=canvas, Converter={StaticResource NegatingConverter}}" Duration="{Binding MarqueeTimeSpan}"
-                      Storyboard.TargetProperty="X"
-                      Storyboard.TargetName="thing"
-                      RepeatBehavior="Forever"/>
-          </Storyboard>
-        </StackPanel.Resources>
-        <StackPanel.RenderTransform>
-          <TranslateTransform x:Name="thing" />
-        </StackPanel.RenderTransform>
-        <StackPanel.Triggers>
-          <EventTrigger RoutedEvent="StackPanel.Loaded">
-            <BeginStoryboard Storyboard="{StaticResource slide}" />
-          </EventTrigger>
-          <EventTrigger RoutedEvent="StackPanel.SizeChanged">
-            <BeginStoryboard Storyboard="{StaticResource slide}" />
-          </EventTrigger>
-        </StackPanel.Triggers>
-        <Canvas x:Name="canvas" Width="{Binding ActualWidth, ElementName=stack}">
-          <TextBlock Text="{Binding MarqueeText}" FontSize="25"  x:Name="textToScroll" Canvas.Left="0"/>
-          <TextBlock Text="{Binding Text, ElementName=textToScroll}" FontSize="25" Canvas.Left="{Binding Width, ElementName=canvas}"/>
-        </Canvas>
-      </StackPanel>
-    </DataTemplate>
-
     <Style TargetType="{x:Type local:LineGraph}">
       <Setter Property="Template">
         <Setter.Value>
@@ -169,6 +106,72 @@
         </Setter.Value>
       </Setter>
     </Style>
+
+    <local:TemplateSelectorMain x:Key="BoatTemplateSelector" MainTemplate="{StaticResource MainTemplate}" OtherTemplate="{StaticResource OtherTemplate}" />
+    
+<!-- Brushes-->
+    <LinearGradientBrush x:Key="brushMainBoard" EndPoint="0.5,1" StartPoint="0.5,0">
+      <GradientStop Color="#FF0C1526" Offset="1"/>
+      <GradientStop Color="#FF347F71"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="brushLegendCustomDataGrid" EndPoint="0.5,1" StartPoint="0.5,0">
+      <GradientStop Color="#FFE8E8E8" Offset="1"/>
+      <GradientStop Color="#F9CBAF73" Offset="0.35"/>
+      <GradientStop Color="#FFCB9D3B" Offset="0.837"/>
+      <GradientStop Color="#E5AAA986"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="brushTextCustomDataGrid" EndPoint="0.5,1" StartPoint="0.5,0">
+      <GradientStop Color="White" Offset="1"/>
+      <GradientStop Color="#F9A08860" Offset="0.273"/>
+      <GradientStop Color="#FFFFEBC6" Offset="0.813"/>
+      <GradientStop Color="#E5F1EADE"/>
+    </LinearGradientBrush>
+
+    <!-- Data Templates-->
+    <DataTemplate x:Key ="marqueeControl">
+      <StackPanel Orientation="Horizontal" x:Name="stack">
+        <StackPanel.Resources>
+          <local:NegatingConverter x:Key="NegatingConverter" />
+          <Storyboard x:Key="slide">
+            <DoubleAnimation From="0" To="{Binding Width, ElementName=canvas, Converter={StaticResource NegatingConverter}}" Duration="{Binding MarqueeTimeSpan}"
+                      Storyboard.TargetProperty="X"
+                      Storyboard.TargetName="thing"
+                      RepeatBehavior="Forever"/>
+          </Storyboard>
+        </StackPanel.Resources>
+        <StackPanel.RenderTransform>
+          <TranslateTransform x:Name="thing" />
+        </StackPanel.RenderTransform>
+        <StackPanel.Triggers>
+          <EventTrigger RoutedEvent="StackPanel.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource slide}" />
+          </EventTrigger>
+          <EventTrigger RoutedEvent="StackPanel.SizeChanged">
+            <BeginStoryboard Storyboard="{StaticResource slide}" />
+          </EventTrigger>
+        </StackPanel.Triggers>
+        <Canvas x:Name="canvas" Width="{Binding ActualWidth, ElementName=stack}">
+          <TextBlock Text="{Binding MarqueeText}" FontSize="25"  x:Name="textToScroll" Canvas.Left="0"/>
+          <TextBlock Text="{Binding Text, ElementName=textToScroll}" FontSize="25" Canvas.Left="{Binding Width, ElementName=canvas}"/>
+        </Canvas>
+      </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="MainTemplate">
+      <Border CornerRadius="15" Background="{DynamicResource brushMainBoard}" Margin="5" >
+        <StackPanel Margin="5">
+          <TextBlock FontWeight="Bold" Text="{Binding Id}" />
+          <TextBlock FontWeight="Bold" Text="{Binding Value}" />
+          <TextBlock FontWeight="Bold" Text="{Binding MoreStuff}" />
+        </StackPanel>
+      </Border>
+    </DataTemplate>
+    <DataTemplate x:Key="OtherTemplate">
+      <StackPanel Margin="5">
+        <TextBlock Text="{Binding Id}" />
+        <TextBlock Text="{Binding Value}" />
+      </StackPanel>
+    </DataTemplate>
+    
   </Application.Resources>
   
 </Application>

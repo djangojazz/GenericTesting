@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26020.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericTesting", "GenericTesting\GenericTesting.csproj", "{5DF8C118-ADA7-4C49-BAF2-964F4F6D2C1A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityTesting", "EntityTesting\EntityTesting.csproj", "{9F179A93-C352-4320-A1B5-7FE1B4A516B0}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CodeRunner", "CodeRunner\CodeRunner.vbproj", "{09D20F73-967C-492D-81DE-E8DBB02C4799}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SimpleCalc", "SimpleCalc\SimpleCalc.vbproj", "{DD82534D-C26E-4CC5-987A-48E1A5B88232}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VB_MVVM_Tester", "VB_MVVM_Tester\VB_MVVM_Tester.vbproj", "{1D899537-DFD0-4180-A121-6BF4AEE4CC01}"
 EndProject
@@ -63,10 +61,6 @@ Global
 		{09D20F73-967C-492D-81DE-E8DBB02C4799}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09D20F73-967C-492D-81DE-E8DBB02C4799}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09D20F73-967C-492D-81DE-E8DBB02C4799}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DD82534D-C26E-4CC5-987A-48E1A5B88232}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD82534D-C26E-4CC5-987A-48E1A5B88232}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD82534D-C26E-4CC5-987A-48E1A5B88232}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD82534D-C26E-4CC5-987A-48E1A5B88232}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1D899537-DFD0-4180-A121-6BF4AEE4CC01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1D899537-DFD0-4180-A121-6BF4AEE4CC01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D899537-DFD0-4180-A121-6BF4AEE4CC01}.Release|Any CPU.ActiveCfg = Release|Any CPU
