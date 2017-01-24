@@ -9,12 +9,12 @@
   <StackPanel>
     <Label x:Name="lblCustomDataGridHeader" Content="CUSTOM DATAGRID VIEWS" Foreground="{StaticResource brushLegendCustomDataGrid}" HorizontalAlignment="Center" FontSize="24"/>
 
-    <Border BorderThickness="3" BorderBrush="Aqua" CornerRadius="10" Padding="2"
+    <Border BorderThickness="3" BorderBrush="Transparent" CornerRadius="15" Margin="20"
         HorizontalAlignment="Center" VerticalAlignment="Center">
 
       <Grid>
         <!-- Rounded mask (stretches to fill Grid) -->
-        <Border Name="mask" Background="White" CornerRadius="7"/>
+        <Border Name="mask" Background="White" CornerRadius="15" />
 
         <!-- Main content container -->
         <StackPanel>
@@ -25,36 +25,12 @@
           </StackPanel.OpacityMask>
 
           <!-- Any content -->
-          <DataGrid Grid.Row="1" ItemsSource="{Binding Items}" Foreground="{StaticResource brushTextCustomDataGrid}" BorderThickness="0"              
-                    IsReadOnly="True" FontSize="20" AutoGenerateColumns="False" >
+          <DataGrid Grid.Row="1" ItemsSource="{Binding Items}" Foreground="{StaticResource brushTextCustomDataGrid}" Style="{StaticResource DataGridCustom}" FontSize="18" >
             <DataGrid.Columns>
               <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
-              <DataGridTextColumn Header="Value" Binding="{Binding Value}" />
-              <DataGridComboBoxColumn Header="ShipsTypes" ItemsSource="{Binding MyEnums}" SelectedItemBinding="{Binding ShipType}" />
+              <!--<DataGridTextColumn Header="Value" Binding="{Binding Value}" />
+              <DataGridComboBoxColumn Header="ShipsTypes" ItemsSource="{Binding MyEnums}" SelectedItemBinding="{Binding ShipType}" />-->
             </DataGrid.Columns>
-            <DataGrid.CellStyle>
-              <Style TargetType="DataGridCell">
-                <Setter Property="Padding" Value="20" />
-                <Setter Property="Template">
-                  <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type DataGridCell}">
-                      <Border Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                        <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                      </Border>
-                    </ControlTemplate>
-                  </Setter.Value>
-                </Setter>
-              </Style>
-            </DataGrid.CellStyle>
-            <DataGrid.Resources>
-              <Style TargetType="{x:Type DataGridColumnHeader}">
-                <Setter Property="Background" Value="Transparent" />
-                <Setter Property="FontWeight" Value="Bold" />
-              </Style>
-              <Style TargetType="{x:Type DataGridRowHeader}">
-                <Setter Property="Background" Value="Transparent" />
-              </Style>
-            </DataGrid.Resources>
           </DataGrid>
 
         </StackPanel>

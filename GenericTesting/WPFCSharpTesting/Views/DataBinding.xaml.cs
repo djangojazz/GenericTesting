@@ -18,11 +18,6 @@ namespace WPFCSharpTesting.Views
       DataContext = Employee.GetEmployee();
       // part 3 binding DataContext = Employee.GetEmployees();
     }
-
-    private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
-    {
-      emp.Name = "Brett";
-      emp.Title = "Developer";
-    }
+                        
   }
 }

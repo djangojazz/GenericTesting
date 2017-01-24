@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TesterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="teAddress">
+          <Key>
+            <PropertyRef Name="AddressId" />
+          </Key>
+          <Property Name="AddressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StreetAddress" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="StreetAddressExtended" Type="varchar" MaxLength="256" />
+          <Property Name="City" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="State" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="ZipCode" Type="int" Nullable="false" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+          <Property Name="GeographyPoint" Type="geography" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="teOrder">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="32" />
+        </EntityType>
+        <EntityType Name="tePerson">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="128" />
+          <Property Name="LastName" Type="varchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="teSku">
+          <Key>
+            <PropertyRef Name="SkuId" />
+          </Key>
+          <Property Name="SkuId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="int" />
+          <Property Name="Description" Type="varchar" MaxLength="128" />
+        </EntityType>
+        <Association Name="FK_Order_Person_PersonID">
+          <End Role="tePerson" Type="Self.tePerson" Multiplicity="1" />
+          <End Role="teOrder" Type="Self.teOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tePerson">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="teOrder">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_teSku_OrderId">
+          <End Role="teOrder" Type="Self.teOrder" Multiplicity="0..1" />
+          <End Role="teSku" Type="Self.teSku" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teOrder">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="teSku">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TesterModelStoreContainer">
+          <EntitySet Name="teAddress" EntityType="Self.teAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="teOrder" EntityType="Self.teOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tePerson" EntityType="Self.tePerson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="teSku" EntityType="Self.teSku" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Order_Person_PersonID" Association="Self.FK_Order_Person_PersonID">
+            <End Role="tePerson" EntitySet="tePerson" />
+            <End Role="teOrder" EntitySet="teOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_teSku_OrderId" Association="Self.FK_teSku_OrderId">
+            <End Role="teOrder" EntitySet="teOrder" />
+            <End Role="teSku" EntitySet="teSku" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TesterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="teAddress">
+          <Key>
+            <PropertyRef Name="AddressId" />
+          </Key>
+          <Property Name="AddressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StreetAddress" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StreetAddressExtended" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ZipCode" Type="Int32" Nullable="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <Property Name="GeographyPoint" Type="Geography" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="teOrder">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tePerson" Relationship="Self.FK_Order_Person_PersonID" FromRole="teOrder" ToRole="tePerson" />
+          <NavigationProperty Name="teSku" Relationship="Self.FK_teSku_OrderId" FromRole="teOrder" ToRole="teSku" />
+        </EntityType>
+        <EntityType Name="tePerson">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="teOrder" Relationship="Self.FK_Order_Person_PersonID" FromRole="tePerson" ToRole="teOrder" />
+        </EntityType>
+        <EntityType Name="teSku">
+          <Key>
+            <PropertyRef Name="SkuId" />
+          </Key>
+          <Property Name="SkuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="teOrder" Relationship="Self.FK_teSku_OrderId" FromRole="teSku" ToRole="teOrder" />
+        </EntityType>
+        <Association Name="FK_Order_Person_PersonID">
+          <End Role="tePerson" Type="Self.tePerson" Multiplicity="1" />
+          <End Role="teOrder" Type="Self.teOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tePerson">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="teOrder">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_teSku_OrderId">
+          <End Role="teOrder" Type="Self.teOrder" Multiplicity="0..1" />
+          <End Role="teSku" Type="Self.teSku" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teOrder">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="teSku">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TesterEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="teAddress" EntityType="Self.teAddress" />
+          <EntitySet Name="teOrder" EntityType="Self.teOrder" />
+          <EntitySet Name="tePerson" EntityType="Self.tePerson" />
+          <EntitySet Name="teSku" EntityType="Self.teSku" />
+          <AssociationSet Name="FK_Order_Person_PersonID" Association="Self.FK_Order_Person_PersonID">
+            <End Role="tePerson" EntitySet="tePerson" />
+            <End Role="teOrder" EntitySet="teOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_teSku_OrderId" Association="Self.FK_teSku_OrderId">
+            <End Role="teOrder" EntitySet="teOrder" />
+            <End Role="teSku" EntitySet="teSku" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TesterModelStoreContainer" CdmEntityContainer="TesterEntities">
+          <EntitySetMapping Name="teAddress">
+            <EntityTypeMapping TypeName="TesterModel.teAddress">
+              <MappingFragment StoreEntitySet="teAddress">
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+                <ScalarProperty Name="StreetAddress" ColumnName="StreetAddress" />
+                <ScalarProperty Name="StreetAddressExtended" ColumnName="StreetAddressExtended" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="GeographyPoint" ColumnName="GeographyPoint" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="teOrder">
+            <EntityTypeMapping TypeName="TesterModel.teOrder">
+              <MappingFragment StoreEntitySet="teOrder">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tePerson">
+            <EntityTypeMapping TypeName="TesterModel.tePerson">
+              <MappingFragment StoreEntitySet="tePerson">
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="teSku">
+            <EntityTypeMapping TypeName="TesterModel.teSku">
+              <MappingFragment StoreEntitySet="teSku">
+                <ScalarProperty Name="SkuId" ColumnName="SkuId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
