@@ -8,9 +8,11 @@ Public Class MainWindowViewModel
   Private _locationAddress As String
   Private _queueFinished As Boolean = False
   Private _result As String
-  'Private _currentPoints As New ObservableCollection(Of Point)
+  Private _currentPoints As New ObservableCollection(Of Point)
   Private _lastPoints As List(Of PlotPoints)
-
+  Private _testText As String
+  Private _points As String
+  Private _mouseMove As String
 
   Public Sub DoIt(result As String)
     MessageBox.Show(result)
@@ -18,38 +20,17 @@ Public Class MainWindowViewModel
 
   Sub New()
     TestText = "Line Chart Hello there"
-    Points = "0,260 10,250 20,245 40,200 50,250 80, 200, 140,100"
+    'Points = "0,260 10,250 20,245 40,200 50,250 80, 200, 140,100"
 
-    TreeData = New ObservableCollection(Of TreeViewItem)({New TreeViewItem With {.Header = "Test"}})
-    _items = New ObservableCollection(Of Stuff)(New List(Of Stuff)({New Stuff With {.Id = 1, .ShipType = ShipType.Owned, .Value = "Boat1"}, New Stuff With {.Id = 2, .ShipType = ShipType.Other, .Value = "Boat2"}}))
+    'TreeData = New ObservableCollection(Of TreeViewItem)({New TreeViewItem With {.Header = "Test"}})
+
+    Items.ClearAndAddRange({New Stuff With {.Id = 1, .ShipType = ShipType.Owned, .Value = "Boat1"}, New Stuff With {.Id = 2, .ShipType = ShipType.Other, .Value = "Boat2"}})
+    AddingLinesForLineChart()
+    '    _Items = New ObservableCollection(Of Stuff)(New List(Of Stuff)({New Stuff With {.Id = 1, .ShipType = ShipType.Owned, .Value = "Boat1"}, New Stuff With {.Id = 2, .ShipType = ShipType.Other, .Value = "Boat2"}}))
   End Sub
 
-
-
-  Private _items As ObservableCollection(Of Stuff)
-
-  Private _points As String
-  Public Property Points As String
-    Get
-      Return _points
-    End Get
-    Set(ByVal value As String)
-      _points = value
-      OnPropertyChanged(NameOf(Points))
-    End Set
-  End Property
-
-  Private _treeData As ObservableCollection(Of TreeViewItem)
-  Public Property TreeData As ObservableCollection(Of TreeViewItem)
-    Get
-      Return _treeData
-    End Get
-    Set
-      _treeData = Value
-      OnPropertyChanged(NameOf(TreeData))
-    End Set
-  End Property
-
+  Public ReadOnly Property Items As New ObservableCollection(Of Stuff)
+  Public ReadOnly Property TreeData As New ObservableCollection(Of TreeViewItem)
   Private _chartData As Collection(Of LineTrend)
   Public Property ChartData As Collection(Of LineTrend)
     Get
@@ -72,17 +53,17 @@ Public Class MainWindowViewModel
     End Set
   End Property
 
-  Public Property Items As ObservableCollection(Of Stuff)
+  Public Property Points As String
     Get
-      Return _items
+      Return _points
     End Get
-    Set(ByVal value As ObservableCollection(Of Stuff))
-      _items = value
-      OnPropertyChanged(NameOf(Items))
+    Set(ByVal value As String)
+      _points = value
+      OnPropertyChanged(NameOf(Points))
     End Set
   End Property
 
-  Private _testText As String
+
   Public Property TestText As String
     Get
       Return _testText
@@ -93,7 +74,7 @@ Public Class MainWindowViewModel
     End Set
   End Property
 
-  Private _mouseMove As String
+
   Public Property MouseMove As String
     Get
       Return _mouseMove
@@ -143,11 +124,15 @@ Public Class MainWindowViewModel
   End Property
 
   Private Sub TestCommandExecute()
-    TreeData.Add(New TreeViewItem With {.Header = "Child"})
+    'Items.Add(New Stuff With {.Id = 3, .ShipType = ShipType.Other, .Value = "Boat3"})
+    'TestText += " some more stuff"
+    LinePlotAdding()
   End Sub
 
 #Region "Line Graph parts"
   Private Sub AddingLinesForLineChart()
+    _lastPoints = New List(Of PlotPoints)({New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now), .Y = New PlotPoint(Of Double)(930)}, New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now), .Y = New PlotPoint(Of Double)(950)}})
+
     _lastPoints = New List(Of PlotPoints)({New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now), .Y = New PlotPoint(Of Double)(930)}, New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now), .Y = New PlotPoint(Of Double)(950)}})
 
     ChartData = New Collection(Of LineTrend)({
@@ -171,6 +156,28 @@ Public Class MainWindowViewModel
                                     _lastPoints(0)
                                     })
     }})
+
+    'ChartData.ClearAndAddRange({
+    '                                         New LineTrend With
+    '                                           {
+    '                                           .SeriesName = "First",
+    '                                           .LineColor = Brushes.Blue,
+    '                                           .Points = New List(Of PlotPoints)({
+    '                                                                          New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-10)), .Y = New PlotPoint(Of Double)(930)},
+    '                                                                          New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-5)), .Y = New PlotPoint(Of Double)(850)},
+    '                                                                          _lastPoints(0)
+    '                                                                          })
+    '                                                                            },
+    'New LineTrend With
+    '{
+    '.SeriesName = "Second",
+    ' .LineColor = Brushes.Red,
+    ' .Points = New List(Of PlotPoints)({
+    '                                New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-8)), .Y = New PlotPoint(Of Double)(600)},
+    '                                New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-4)), .Y = New PlotPoint(Of Double)(720)},
+    '                                _lastPoints(0)
+    '                                })
+    '}})
   End Sub
 
   Private Sub LinePlotAdding()
@@ -193,7 +200,7 @@ Public Class MainWindowViewModel
 #End Region
 
   Private Sub StartCommandProdConsExecute()
-    TestText = "Start"
+    'TestText = "Start"
 
     For i As Integer = 1 To 10
       'Dim singleton = ProducerConsumer.Instance
@@ -201,7 +208,7 @@ Public Class MainWindowViewModel
     Next
 
     Dim value = ProducerConsumer.Instance.Thing.Id
-    TestText = $"{value}"
+    'TestText = $"{value}"
   End Sub
 #End Region
 

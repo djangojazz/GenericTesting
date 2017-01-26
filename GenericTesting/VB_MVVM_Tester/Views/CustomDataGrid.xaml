@@ -8,6 +8,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
   <StackPanel>
     <Label x:Name="lblCustomDataGridHeader" Content="CUSTOM DATAGRID VIEWS" Foreground="{StaticResource brushLegendCustomDataGrid}" HorizontalAlignment="Center" FontSize="24"/>
+    <Label Content="{Binding TestText}" />
 
     <Border BorderThickness="3" BorderBrush="Aqua" CornerRadius="10" Padding="2"
         HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -62,6 +63,7 @@
       </Grid>
 
     </Border>
+    <Button Command="{Binding TestCommand}" Content="Add A Ship" />
   </StackPanel>
 
 </UserControl>

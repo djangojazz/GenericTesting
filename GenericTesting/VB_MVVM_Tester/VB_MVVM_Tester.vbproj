@@ -101,13 +101,18 @@
     <Compile Include="Business\LineTrend.vb" />
     <Compile Include="Business\ProducerConsumer.vb" />
     <Compile Include="Business\TemplateSelectors.vb" />
+    <Compile Include="ExtensionMethods.vb" />
     <Compile Include="Model\Delegates.vb" />
     <Compile Include="Model\POCO.vb" />
     <Compile Include="Business\LineGraph.vb" />
+    <Compile Include="T.vb" />
     <Compile Include="ViewModels\LineChartViewModel.vb" />
     <Compile Include="ViewModels\MarqueeViewModel.vb" />
     <Compile Include="Views\CustomMarqueeControl.xaml.vb">
       <DependentUpon>CustomMarqueeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomSelectMultiChoice.xaml.vb">
+      <DependentUpon>CustomSelectMultiChoice.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CustomToggleCombobox.xaml.vb">
       <DependentUpon>CustomToggleCombobox.xaml</DependentUpon>
@@ -154,6 +159,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\CustomMarqueeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomSelectMultiChoice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

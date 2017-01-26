@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:VB_MVVM_Tester"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-  <Border Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path= BackGroundColor}" CornerRadius="15" Margin="5">
+             d:DesignHeight="300" d:DesignWidth="300" Name="LChart">
+  <Border Background="{Binding ElementName=LChart, Path= BackGroundColor}" CornerRadius="15" Margin="5">
     <Grid x:Name="PART_GridParent">
       <Grid.RowDefinitions>
         <RowDefinition Height="Auto"/>
@@ -14,11 +14,11 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
-      <TextBlock x:Name="PART_ChartTitle" Grid.Row="0" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path= ChartTitle}" FontSize="26" HorizontalAlignment="Center" 
-                 Foreground="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path= ChartForeground}"
-                 FontFamily="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path= FontType}"
+      <TextBlock x:Name="PART_ChartTitle" Grid.Row="0" Text="{Binding ElementName=LChart, Path= ChartTitle}" FontSize="26" HorizontalAlignment="Center" 
+                 Foreground="{Binding ElementName=LChart, Path= ChartForeground}"
+                 FontFamily="{Binding ElementName=LChart, Path= FontType}"
                  />
-      <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="15" Margin="10" Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path= BackGroundColorCanvas}" >
+      <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="15" Margin="10" Background="{Binding ElementName=LChart, Path= BackGroundColorCanvas}" >
         <Viewbox Stretch="Fill" RenderOptions.EdgeMode="Aliased" Margin="15" >
           <Grid>
             <Grid.RowDefinitions>
@@ -47,15 +47,15 @@
           </Grid>
         </Viewbox>
       </Border>
-      <TextBlock Grid.Row="2" x:Name="PART_LEGENDTEXT" Text="Legend" FontSize="26" HorizontalAlignment="Center" Foreground="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path= LegendForeground}" Visibility="Hidden"
-                 FontFamily="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path= FontType}"/>
-      <Border x:Name="PART_LEGEND" Grid.Row="3" CornerRadius="10"  BorderBrush="Black" BorderThickness="2" Margin="10" Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path= BackGroundColorLegend}">
-        <ItemsControl ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path= ChartData}">
+      <TextBlock Grid.Row="2" x:Name="PART_LEGENDTEXT" Text="Legend" FontSize="26" HorizontalAlignment="Center" Foreground="{Binding ElementName=LChart, Path= LegendForeground}" Visibility="Hidden"
+                 FontFamily="{Binding ElementName=LChart, Path= FontType}"/>
+      <Border x:Name="PART_LEGEND" Grid.Row="3" CornerRadius="10"  BorderBrush="Black" BorderThickness="2" Margin="10" Background="{Binding ElementName=LChart, Path= BackGroundColorLegend}">
+        <ItemsControl ItemsSource="{Binding ElementName=LChart, Path= ChartData}">
           <ItemsControl.ItemTemplate>
             <DataTemplate>
               <StackPanel Orientation="Horizontal">
                 <Ellipse Height="20" Width="20" Fill="{Binding LineColor}" Margin="5 5 10 5" />
-                <TextBlock Text="{Binding SeriesName}" FontFamily="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineChart}}, Path= FontType}" FontSize="14" Margin="5 5 10 5"/>
+                <TextBlock Text="{Binding SeriesName}" FontFamily="{Binding ElementName=LChart, Path= FontType}" FontSize="14" Margin="5 5 10 5"/>
               </StackPanel>
             </DataTemplate>
           </ItemsControl.ItemTemplate>

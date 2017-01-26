@@ -15,6 +15,24 @@
   </Window.Resources>
 
   <Grid>
-    <local:CustomDataGrid />
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <local:LineChart 
+      Grid.Row ="0"
+      ChartData="{Binding ChartData}"
+      ChartTitle="My Test Chart"
+      ChartForeground="Wheat" 
+      LegendForeground="WhiteSmoke"
+      BackGroundColor="DarkCyan" 
+      BackGroundColorCanvas="White" 
+      BackGroundColorLegend="White"    
+      NumberOfTicks="5"
+      XValueConverter="{StaticResource DateValueConverter}"
+      YValueConverter="{StaticResource ConvertDecimal}"
+      FontType="Algerian"
+      />
+    <Button Grid.Row="1" Command="{Binding TestCommand}" Height="30" Content="Add more lines" />
   </Grid>
 </Window>
