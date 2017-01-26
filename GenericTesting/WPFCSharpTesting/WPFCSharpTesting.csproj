@@ -35,9 +35,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,7 +67,35 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DateConverter.cs" />
+    <Compile Include="DelegateCommand.cs" />
     <Compile Include="Employee.cs" />
+    <Compile Include="teAddress.cs">
+      <DependentUpon>Tester.tt</DependentUpon>
+    </Compile>
+    <Compile Include="teOrder.cs">
+      <DependentUpon>Tester.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tePerson.cs">
+      <DependentUpon>Tester.tt</DependentUpon>
+    </Compile>
+    <Compile Include="teSku.cs">
+      <DependentUpon>Tester.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tester.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Tester.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tester.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Tester.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tester.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Tester.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Animations.xaml.cs">
       <DependentUpon>Animations.xaml</DependentUpon>
     </Compile>
@@ -70,6 +107,9 @@
     </Compile>
     <Compile Include="Views\DataBinding.xaml.cs">
       <DependentUpon>DataBinding.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataGridExamples.xaml.cs">
+      <DependentUpon>DataGridExamples.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EnterpriseWPF.xaml.cs">
       <DependentUpon>EnterpriseWPF.xaml</DependentUpon>
@@ -109,6 +149,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\DataGridExamples.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EnterpriseWPF.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -141,14 +185,37 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <EntityDeploy Include="Tester.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Tester.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Tester.edmx.diagram">
+      <DependentUpon>Tester.edmx</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Tester.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Tester.Context.cs</LastGenOutput>
+      <DependentUpon>Tester.edmx</DependentUpon>
+    </Content>
+    <Content Include="Tester.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Tester.edmx</DependentUpon>
+      <LastGenOutput>Tester.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

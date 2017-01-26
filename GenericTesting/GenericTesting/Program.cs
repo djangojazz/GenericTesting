@@ -29,15 +29,9 @@ namespace GenericTesting
     
     static void Main(string[] args)
     {
-      var s = "I have seen a great many things." + Environment.NewLine + "There are greater things.";
-      var item = "have";
-
-      var word = s.Substring(s.IndexOf(item), item.Length);
-
-
-
-      Console.WriteLine(word);
-
+      var ls = new List<string> { "a", "b", "c", "d", "d", "e" };
+      ls.Distinct().Skip(2).Take(3).ToList().ForEach(x => Console.WriteLine($"I have {x}"));
+                                                     
       //var studentCollection = new List<Student> { new Student { StudentID = 1, FirstName = "Brett", LastName = "X" }, new Student { StudentID = 2, FirstName = "John", LastName = "Y" } };
       ////var testResultCollection = new List<StudentTestScores> { new StudentTestScores { StudentID = 1, TestScoreGen = 94 }, new StudentTestScores { StudentID = 2, TestScoreGen = 86 } };
       //var testResultCollection = new List<StudentTestScores> { new StudentTestScores { StudentID = 1 }, new StudentTestScores { StudentID = 2 } };

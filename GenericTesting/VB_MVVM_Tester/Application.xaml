@@ -108,6 +108,39 @@
         </Setter.Value>
       </Setter>
     </Style>
+    <Style x:Key="DataGridCustom" TargetType="DataGrid">
+      <Setter Property="FontSize" Value="20" />
+      <Setter Property="Background" Value="Black" />
+      <Setter Property="RowBackground" Value="White" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="HorizontalAlignment" Value="Center" />
+      <Setter Property="AutoGenerateColumns" Value="False" />
+      <Setter Property="HorizontalGridLinesBrush" Value="Aqua" />
+      <Setter Property="VerticalGridLinesBrush" Value="Aqua" />
+      <Style.Resources>
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+          <Setter Property="Background" Value="Transparent" />
+          <Setter Property="FontWeight" Value="Bold" />
+          <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="{x:Type DataGridRowHeader}">
+          <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style TargetType="{x:Type DataGridCell}">
+          <Setter Property="Padding" Value="100, 0" />
+          <Setter Property="Template">
+            <Setter.Value>
+              <ControlTemplate TargetType="{x:Type DataGridCell}">
+                <Border Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                  <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                </Border>
+              </ControlTemplate>
+            </Setter.Value>
+          </Setter>
+        </Style>
+      </Style.Resources>
+    </Style>
+
 
     <local:TemplateSelectorMain x:Key="BoatTemplateSelector" MainTemplate="{StaticResource MainTemplate}" OtherTemplate="{StaticResource OtherTemplate}" />
     
