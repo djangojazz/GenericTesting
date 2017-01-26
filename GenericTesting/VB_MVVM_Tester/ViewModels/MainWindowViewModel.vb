@@ -1,5 +1,6 @@
 ﻿
 Imports System.Collections.ObjectModel
+Imports VB_MVVM_Tester
 
 Public Class MainWindowViewModel
   Inherits BaseViewModel
@@ -20,38 +21,55 @@ Public Class MainWindowViewModel
 
   Sub New()
     TestText = "Line Chart Hello there"
-    'Points = "0,260 10,250 20,245 40,200 50,250 80, 200, 140,100"
-
     'TreeData = New ObservableCollection(Of TreeViewItem)({New TreeViewItem With {.Header = "Test"}})
 
-    Items.ClearAndAddRange({New Stuff With {.Id = 1, .ShipType = ShipType.Owned, .Value = "Boat1"}, New Stuff With {.Id = 2, .ShipType = ShipType.Other, .Value = "Boat2"}})
+    AvailableItems.ClearAndAddRange({
+                                    New Stuff With {.Id = 1, .ShipType = ShipType.Owned, .Value = "Boat1"},
+                                    New Stuff With {.Id = 2, .ShipType = ShipType.Other, .Value = "Boat2"},
+                                    New Stuff With {.Id = 3, .ShipType = ShipType.Other, .Value = "Boat3"},
+                                    New Stuff With {.Id = 4, .ShipType = ShipType.Other, .Value = "Boat4"}
+                                    })
     AddingLinesForLineChart()
-    '    _Items = New ObservableCollection(Of Stuff)(New List(Of Stuff)({New Stuff With {.Id = 1, .ShipType = ShipType.Owned, .Value = "Boat1"}, New Stuff With {.Id = 2, .ShipType = ShipType.Other, .Value = "Boat2"}}))
+    AddHandler ChartData.OnCollectionItemChanged, AddressOf ChartDataChanged
+    AddHandler ChartData.CollectionChanged, AddressOf ChartDataChanged
+    AddHandler ChartData2.OnCollectionItemChanged, AddressOf ChartDataChanged2
+    AddHandler ChartData2.CollectionChanged, AddressOf ChartDataChanged2
   End Sub
 
-  Public ReadOnly Property Items As New ObservableCollection(Of Stuff)
-  Public ReadOnly Property TreeData As New ObservableCollection(Of TreeViewItem)
-  Private _chartData As Collection(Of LineTrend)
-  Public Property ChartData As Collection(Of LineTrend)
-    Get
-      Return _chartData
-    End Get
-    Set
-      _chartData = Value
-      OnPropertyChanged(NameOf(ChartData))
-    End Set
-  End Property
+  Private Sub ChartDataChanged(sender As Object, e As EventArgs)
+    Me.OnPropertyChanged(NameOf(ChartData))
+  End Sub
 
-  Private _chartData2 As Collection(Of LineTrend)
-  Public Property ChartData2 As Collection(Of LineTrend)
-    Get
-      Return _chartData2
-    End Get
-    Set
-      _chartData2 = Value
-      OnPropertyChanged(NameOf(ChartData2))
-    End Set
-  End Property
+  Private Sub ChartDataChanged2(sender As Object, e As EventArgs)
+    Me.OnPropertyChanged(NameOf(ChartData2))
+  End Sub
+
+  Public ReadOnly Property AvailableItems As New ObservableCollection(Of Stuff)
+  Public ReadOnly Property SelectedAvailableItems As New ObservableCollection(Of Stuff)
+  Public ReadOnly Property Items As New ObservableCollection(Of Stuff)
+
+  Public ReadOnly Property TreeData As New ObservableCollection(Of TreeViewItem)
+  'Private _chartData As Collection(Of LineTrend)
+  Public ReadOnly Property ChartData As New ObservableCollectionContentNotifying(Of LineTrend)
+  '  Get
+  '    Return _chartData
+  '  End Get
+  '  Set
+  '    _chartData = Value
+  '    OnPropertyChanged(NameOf(ChartData))
+  '  End Set
+  'End Property
+
+  '  Private _chartData2 As Collection(Of LineTrend)
+  Public ReadOnly Property ChartData2 As New ObservableCollectionContentNotifying(Of LineTrend)
+  '  Get
+  '    Return _chartData2
+  '  End Get
+  '  Set
+  '    _chartData2 = Value
+  '    OnPropertyChanged(NameOf(ChartData2))
+  '  End Set
+  'End Property
 
   Public Property Points As String
     Get
@@ -63,7 +81,6 @@ Public Class MainWindowViewModel
     End Set
   End Property
 
-
   Public Property TestText As String
     Get
       Return _testText
@@ -73,7 +90,6 @@ Public Class MainWindowViewModel
       OnPropertyChanged(NameOf(TestText))
     End Set
   End Property
-
 
   Public Property MouseMove As String
     Get
@@ -114,14 +130,21 @@ Public Class MainWindowViewModel
     End Set
   End Property
 
-#Region "Test Command"
-  Private _testCommand As New Lazy(Of DelegateCommand(Of Object))(Function() New DelegateCommand(Of Object)(AddressOf TestCommandExecute))
+#Region "Commands"
+  Public ReadOnly Property TestCommand As New DelegateCommand(Of Object)(AddressOf TestCommandExecute)
+  Public ReadOnly Property AddCommand As New DelegateCommand(Of Object)(AddressOf AddCommandExecute)
 
-  Public ReadOnly Property TestCommand As ICommand
-    Get
-      Return _testCommand.Value
-    End Get
-  End Property
+  Private Sub AddCommandExecute(obj As Object)
+    Dim s = String.Empty
+    SelectedAvailableItems.Select(Function(x) $"{x.Id} {x.Value}").ToList().ForEach(Sub(x) s += x)
+    MessageBox.Show(s)
+  End Sub
+
+  Public ReadOnly Property DeleteCommand As New DelegateCommand(Of Object)(AddressOf DeleteCommandExecute)
+
+  Private Sub DeleteCommandExecute(obj As Object)
+    Throw New NotImplementedException()
+  End Sub
 
   Private Sub TestCommandExecute()
     'Items.Add(New Stuff With {.Id = 3, .ShipType = ShipType.Other, .Value = "Boat3"})
@@ -129,33 +152,30 @@ Public Class MainWindowViewModel
     LinePlotAdding()
   End Sub
 
+
+
 #Region "Line Graph parts"
   Private Sub AddingLinesForLineChart()
-    _lastPoints = New List(Of PlotPoints)({New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now), .Y = New PlotPoint(Of Double)(930)}, New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now), .Y = New PlotPoint(Of Double)(950)}})
+    _lastPoints = New List(Of PlotPoints)({New PlotPoints(New PlotPoint(Of DateTime)(DateTime.Now), New PlotPoint(Of Double)(930)), New PlotPoints(New PlotPoint(Of DateTime)(DateTime.Now), New PlotPoint(Of Double)(950))})
 
-    _lastPoints = New List(Of PlotPoints)({New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now), .Y = New PlotPoint(Of Double)(930)}, New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now), .Y = New PlotPoint(Of Double)(950)}})
+    Dim o = New ObservableCollection(Of PlotPoints)({New PlotPoints(New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-10)), New PlotPoint(Of Double)(930)),
+                                                                              New PlotPoints(New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-5)), New PlotPoint(Of Double)(850)),
+                                                                              _lastPoints(0)})
 
-    ChartData = New Collection(Of LineTrend)({
-                                             New LineTrend With
-                                               {
-                                               .SeriesName = "First",
-                                               .LineColor = Brushes.Blue,
-                                               .Points = New List(Of PlotPoints)({
-                                                                              New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-10)), .Y = New PlotPoint(Of Double)(930)},
-                                                                              New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-5)), .Y = New PlotPoint(Of Double)(850)},
-                                                                              _lastPoints(0)
-                                                                              })
-                                                                                },
-    New LineTrend With
-    {
-    .SeriesName = "Second",
-     .LineColor = Brushes.Red,
-     .Points = New List(Of PlotPoints)({
-                                    New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-8)), .Y = New PlotPoint(Of Double)(600)},
-                                    New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-4)), .Y = New PlotPoint(Of Double)(720)},
-                                    _lastPoints(0)
-                                    })
-    }})
+    Dim o2 = New List(Of PlotPoints)({New PlotPoints(New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-8)), New PlotPoint(Of Double)(600)),
+                                    New PlotPoints(New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-4)), New PlotPoint(Of Double)(720)),
+                                    _lastPoints(0)})
+
+    ChartData.ClearAndAddRange({New LineTrend("First", Brushes.Blue, New Thickness(2), o), New LineTrend("Second", Brushes.Red, New Thickness(2), o2)})
+
+    '                                                                            
+    'New LineTrend With
+    '{
+    '.SeriesName = "Second",
+    ' .LineColor = Brushes.Red,
+    ' .Points = 
+    '                                })
+    '}})
 
     'ChartData.ClearAndAddRange({
     '                                         New LineTrend With
@@ -185,16 +205,16 @@ Public Class MainWindowViewModel
 
     For i = 1 To _lastPoints.Count
       'newPoints.Add(New PlotPoints With {.X = New PlotPoint(Of Double)((DirectCast(_lastPoints(i - 1).X, PlotPoint(Of Double)).Point + i) * 10), .Y = New PlotPoint(Of Double)(DirectCast(_lastPoints(i - 1).Y, PlotPoint(Of Double)).Point * 1.95)})
-      newPoints.Add(New PlotPoints With {.X = New PlotPoint(Of DateTime)((DirectCast(_lastPoints(i - 1).X, PlotPoint(Of DateTime)).Point).AddDays(1)), .Y = New PlotPoint(Of Double)(DirectCast(_lastPoints(i - 1).Y, PlotPoint(Of Double)).Point * 1.95)})
+      newPoints.Add(New PlotPoints(New PlotPoint(Of DateTime)((DirectCast(_lastPoints(i - 1).X, PlotPoint(Of DateTime)).Point).AddDays(1)), New PlotPoint(Of Double)(DirectCast(_lastPoints(i - 1).Y, PlotPoint(Of Double)).Point * 1.95)))
     Next
 
     _lastPoints = newPoints
     ChartData(0).Points.Add(_lastPoints(0))
     ChartData(1).Points.Add(_lastPoints(1))
-    ChartData = New Collection(Of LineTrend)({
-    New LineTrend With {.SeriesName = "First", .LineColor = Brushes.Blue, .Points = ChartData(0).Points},
-    New LineTrend With {.SeriesName = "Second", .LineColor = Brushes.Red, .Points = ChartData(1).Points}
-    })
+    'ChartData = New Collection(Of LineTrend)({
+    'New LineTrend With {.SeriesName = "First", .LineColor = Brushes.Blue, .Points = ChartData(0).Points},
+    'New LineTrend With {.SeriesName = "Second", .LineColor = Brushes.Red, .Points = ChartData(1).Points}
+    '})
   End Sub
 
 #End Region

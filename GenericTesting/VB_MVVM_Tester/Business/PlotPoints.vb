@@ -1,6 +1,14 @@
 ﻿Public Class PlotPoints
-  Public Property X As PlotPoint
-  Public Property Y As PlotPoint
+  Inherits BaseViewModel
+
+  'Private _x As PlotPoint
+  Public ReadOnly Property X As PlotPoint
+  Public ReadOnly Property Y As PlotPoint
+
+  Public Sub New(x As PlotPoint, y As PlotPoint)
+    Me.X = x
+    Me.Y = y
+  End Sub
 
   Public ReadOnly Property XAsDouble As Double
     Get
@@ -43,5 +51,9 @@
       Return val
     End Get
   End Property
+
+  Public Overrides Function ToString() As String
+    Return $"X {XAsDouble } Y {YAsDouble}"
+  End Function
 
 End Class

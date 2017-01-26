@@ -105,7 +105,7 @@
     <Compile Include="Model\Delegates.vb" />
     <Compile Include="Model\POCO.vb" />
     <Compile Include="Business\LineGraph.vb" />
-    <Compile Include="T.vb" />
+    <Compile Include="ObservableCollectionContentNotifying.vb" />
     <Compile Include="ViewModels\LineChartViewModel.vb" />
     <Compile Include="ViewModels\MarqueeViewModel.vb" />
     <Compile Include="Views\CustomMarqueeControl.xaml.vb">

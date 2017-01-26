@@ -12,7 +12,17 @@
       <ColumnDefinition Width="Auto"/>
       <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
-    <DataGrid x:Name="Choices" AutoGenerateColumns="False">
+    <DataGrid x:Name="Choices" AutoGenerateColumns="False" ItemsSource="{Binding AvailableItems}" >
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
+        <DataGridTextColumn Header="Value" Binding="{Binding Value}" />
+      </DataGrid.Columns>
+    </DataGrid>
+    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+      <Button Content="Add" Command="{Binding AddCommand}" />
+      <Button Content="Remove" Command="{Binding RemoveCommand}" />
+    </StackPanel>
+    <DataGrid Grid.Column="2" x:Name="Selected" AutoGenerateColumns="False" ItemsSource="{Binding Items}">
       <DataGrid.Columns>
         <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
         <DataGridTextColumn Header="Value" Binding="{Binding Value}" />

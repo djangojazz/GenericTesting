@@ -1,6 +1,10 @@
 ﻿Imports System.Collections.ObjectModel
+Imports System.ComponentModel
+Imports VB_MVVM_Tester
 
 Public Class LineChart
+
+  'VARIABLES
   Private _xType As Type
   Private _xFloor As Decimal = 0
   Private _xCeiling As Decimal = 0
@@ -14,11 +18,11 @@ Public Class LineChart
 
 #Region "Dependent Properties"
 #Region "ChartData"
-  Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(IList(Of LineTrend)), GetType(LineChart), New UIPropertyMetadata(New Collection(Of LineTrend), AddressOf LineChart.ChartDataChanged))
+  Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(ObservableCollectionContentNotifying(Of LineTrend)), GetType(LineChart), New UIPropertyMetadata(New ObservableCollectionContentNotifying(Of LineTrend), AddressOf LineChart.ChartDataChanged))
 
-  Public Property ChartData As IList(Of LineTrend)
+  Public Property ChartData As ObservableCollectionContentNotifying(Of LineTrend)
     Get
-      Return CType(GetValue(ChartDataProperty), IList(Of LineTrend))
+      Return CType(GetValue(ChartDataProperty), ObservableCollectionContentNotifying(Of LineTrend))
     End Get
     Set
       SetValue(ChartDataProperty, Value)
@@ -27,36 +31,42 @@ Public Class LineChart
 
   Public Shared Sub ChartDataChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
     Dim LC As LineChart = DirectCast(d, LineChart)
-    Dim chartData = TryCast(e.NewValue, IList(Of LineTrend))
+    Dim chartData = TryCast(e.NewValue, ObservableCollectionContentNotifying(Of LineTrend))
 
-    If LC.PART_CanvasPoints IsNot Nothing AndAlso chartData IsNot Nothing Then
-      If chartData.Count > 1 Then
+    AddHandler LC.ChartData.OnCollectionItemChanged, Sub(o As Object, ev As EventArgs) LC.CalculatePlotTrends()
+    AddHandler LC.ChartData.CollectionChanged, Sub(o As Object, ev As EventArgs) LC.CalculatePlotTrends()
+    LC.CalculatePlotTrends()
+  End Sub
+
+  Public Sub CalculatePlotTrends()
+    If Me.PART_CanvasPoints IsNot Nothing AndAlso ChartData IsNot Nothing Then
+      If ChartData.Count > 1 Then
 
         'Uniformity check of X and Y types.  EG: You cannot have a DateTime and a Number for different X axis or Y axis sets.
-        If chartData.ToList().Select(Function(x) x.Points(0).X.GetType).Distinct.GroupBy(Function(x) x).Count > 1 Or chartData.ToList().Select(Function(x) x.Points(0).Y.GetType).Distinct.GroupBy(Function(x) x).Count > 1 Then
-          LC.PART_CanvasPoints.LayoutTransform = New ScaleTransform(1, 1)
-          LC.PART_CanvasPoints.UpdateLayout()
-          Dim fontFamily = If(LC.FontType IsNot Nothing, LC.FontType, New FontFamily("Segoe UI"))
+        If ChartData.ToList().Select(Function(x) x.Points(0).X.GetType).Distinct.GroupBy(Function(x) x).Count > 1 Or ChartData.ToList().Select(Function(x) x.Points(0).Y.GetType).Distinct.GroupBy(Function(x) x).Count > 1 Then
+          Me.PART_CanvasPoints.LayoutTransform = New ScaleTransform(1, 1)
+          Me.PART_CanvasPoints.UpdateLayout()
+          Dim fontFamily = If(Me.FontType IsNot Nothing, Me.FontType, New FontFamily("Segoe UI"))
           Dim stackPanel = New StackPanel
           stackPanel.Children.Add(New TextBlock With {.Text = "Type Mismatch cannot render!", .FontSize = 54, .FontFamily = fontFamily})
           stackPanel.Children.Add(New TextBlock With {.Text = "Either the X or Y plot points are of different types.", .FontSize = 32, .FontFamily = fontFamily})
-          LC.PART_CanvasPoints.Children.Add(stackPanel)
+          Me.PART_CanvasPoints.Children.Add(stackPanel)
           Return
         End If
       End If
 
-      LC._xFloor = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.XAsDouble).OrderBy(Function(x) x).FirstOrDefault()
-      LC._xCeiling = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.XAsDouble).OrderByDescending(Function(x) x).FirstOrDefault()
-      LC._yFloor = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.YAsDouble).OrderBy(Function(x) x).FirstOrDefault()
-      LC._yCeiling = chartData.SelectMany(Function(x) x.Points).Select(Function(x) x.YAsDouble).OrderByDescending(Function(x) x).FirstOrDefault()
+      Me._xFloor = ChartData.SelectMany(Function(x) x.Points).Select(Function(x) x.XAsDouble).OrderBy(Function(x) x).FirstOrDefault()
+      Me._xCeiling = ChartData.SelectMany(Function(x) x.Points).Select(Function(x) x.XAsDouble).OrderByDescending(Function(x) x).FirstOrDefault()
+      Me._yFloor = ChartData.SelectMany(Function(x) x.Points).Select(Function(x) x.YAsDouble).OrderBy(Function(x) x).FirstOrDefault()
+      Me._yCeiling = ChartData.SelectMany(Function(x) x.Points).Select(Function(x) x.YAsDouble).OrderByDescending(Function(x) x).FirstOrDefault()
 
-      LC.PART_CanvasPoints.Children.RemoveRange(0, LC.PART_CanvasPoints.Children.Count)
-      LC.DrawTrends(chartData)
+      Me.PART_CanvasPoints.Children.RemoveRange(0, Me.PART_CanvasPoints.Children.Count)
+      Me.DrawTrends(ChartData)
 
-      If LC.PART_CanvasXAxisTicks IsNot Nothing And LC.PART_CanvasYAxisTicks IsNot Nothing Then
-        If LC.NumberOfTicks = 0 Then LC.NumberOfTicks = 1 'I want at the very least to see a beginning and an end
-        LC.DrawXAxis(chartData)
-        LC.DrawYAxis(chartData)
+      If Me.PART_CanvasXAxisTicks IsNot Nothing And Me.PART_CanvasYAxisTicks IsNot Nothing Then
+        If Me.NumberOfTicks = 0 Then Me.NumberOfTicks = 1 'I want at the very least to see a beginning and an end
+        Me.DrawXAxis(ChartData)
+        Me.DrawYAxis(ChartData)
       End If
     End If
   End Sub
