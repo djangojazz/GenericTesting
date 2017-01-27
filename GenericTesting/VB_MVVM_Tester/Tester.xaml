@@ -20,7 +20,7 @@
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <local:LineChart 
+    <!--<local:LineChart 
       Grid.Row ="0"
       ChartData="{Binding ChartData}"
       ChartTitle="My Test Chart"
@@ -33,9 +33,9 @@
       XValueConverter="{StaticResource DateValueConverter}"
       YValueConverter="{StaticResource ConvertDecimal}"
       FontType="Algerian"
-      />
-    <!--<local:CustomSelectMultiChoice />
-    <Label Grid.Row="1" Content="{Binding TestText}" Height="30" />-->
+      />-->
+    <local:CustomSelectMultiChoice />
+    <Label Grid.Row="1" Content="{Binding TestText}" Height="30" />
     <Button Grid.Row="2" Command="{Binding TestCommand}" Height="30" Content="Add more lines" />
   </Grid>
 </Window>

@@ -12,12 +12,31 @@
       <ColumnDefinition Width="Auto"/>
       <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
-    <DataGrid x:Name="Choices" AutoGenerateColumns="False" ItemsSource="{Binding AvailableItems}" >
-      <DataGrid.Columns>
-        <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
-        <DataGridTextColumn Header="Value" Binding="{Binding Value}" />
-      </DataGrid.Columns>
-    </DataGrid>
+    <ListView Name="Lsv" ItemsSource="{Binding AvailableItems}"
+              local:ListViewLayoutManager.Enabled="True"
+              local:DoubleClick.Command ="{Binding CommandSingleMaintainEmployee}"
+              local:DoubleClick.CommandParameter="{Binding ElementName=Lsv, Path=SelectedItem}">
+      <ListView.View>
+        <GridView>
+          <GridViewColumn Header="Id" local:ProportionalColumn.Width="1" >
+            <GridViewColumn.CellTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding Id}" />
+                <!--Foreground="{Binding Active, Converter={x:Static Conv:Converters.BoolToActiveColorOrInactiveColor}}"/>-->
+              </DataTemplate>
+            </GridViewColumn.CellTemplate>
+          </GridViewColumn>
+          <GridViewColumn Header="Value" local:ProportionalColumn.Width="1">
+            <GridViewColumn.CellTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding Value}" />
+                <!--Foreground="{Binding Active, Converter={x:Static Conv:Converters.BoolToActiveColorOrInactiveColor}}"/>-->
+              </DataTemplate>
+            </GridViewColumn.CellTemplate>
+          </GridViewColumn>
+        </GridView>
+      </ListView.View>
+    </ListView>
     <StackPanel Grid.Column="1" VerticalAlignment="Center">
       <Button Content="Add" Command="{Binding AddCommand}" />
       <Button Content="Remove" Command="{Binding RemoveCommand}" />
