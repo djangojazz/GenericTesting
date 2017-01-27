@@ -49,27 +49,8 @@ Public Class MainWindowViewModel
   Public ReadOnly Property Items As New ObservableCollection(Of Stuff)
 
   Public ReadOnly Property TreeData As New ObservableCollection(Of TreeViewItem)
-  'Private _chartData As Collection(Of LineTrend)
   Public ReadOnly Property ChartData As New ObservableCollectionContentNotifying(Of LineTrend)
-  '  Get
-  '    Return _chartData
-  '  End Get
-  '  Set
-  '    _chartData = Value
-  '    OnPropertyChanged(NameOf(ChartData))
-  '  End Set
-  'End Property
-
-  '  Private _chartData2 As Collection(Of LineTrend)
   Public ReadOnly Property ChartData2 As New ObservableCollectionContentNotifying(Of LineTrend)
-  '  Get
-  '    Return _chartData2
-  '  End Get
-  '  Set
-  '    _chartData2 = Value
-  '    OnPropertyChanged(NameOf(ChartData2))
-  '  End Set
-  'End Property
 
   Public Property Points As String
     Get
