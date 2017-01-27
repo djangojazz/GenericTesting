@@ -1,5 +1,4 @@
 ﻿Public Class PlotPoints
-  Inherits BaseViewModel
 
   'Private _x As PlotPoint
   Public ReadOnly Property X As PlotPoint

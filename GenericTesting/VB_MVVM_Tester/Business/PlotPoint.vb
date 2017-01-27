@@ -13,7 +13,6 @@
       Return GetType(T)
     End Get
   End Property
-
 End Class
 
 Public MustInherit Class PlotPoint
