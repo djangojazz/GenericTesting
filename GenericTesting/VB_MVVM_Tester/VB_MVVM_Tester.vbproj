@@ -50,7 +50,34 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.6.2.0\lib\net45\Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Unity.Wpf, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Unity.6.2.0\lib\net45\Prism.Unity.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Wpf, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.6.2.0\lib\net45\Prism.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.6.2.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System" />
@@ -95,13 +122,28 @@
     </ApplicationDefinition>
     <Compile Include="Business\PlotPoint.vb" />
     <Compile Include="Business\PlotPoints.vb" />
+    <Compile Include="Converters\Converters.vb" />
     <Compile Include="Converters\DateValueConverter.vb" />
     <Compile Include="Converters\DecimalConverter.vb" />
     <Compile Include="Converters\NegatingConverter.vb" />
     <Compile Include="Business\LineTrend.vb" />
     <Compile Include="Business\ProducerConsumer.vb" />
     <Compile Include="Business\TemplateSelectors.vb" />
+    <Compile Include="Converters\Sub\ConverterBitmapSourceToGrayscale.vb" />
+    <Compile Include="Converters\Sub\ConverterBoolToColor.vb" />
+    <Compile Include="Converters\Sub\ConverterBoolToVisibility.vb" />
+    <Compile Include="Converters\Sub\ConverterColorToSolidColorBrush.vb" />
+    <Compile Include="Converters\Sub\ConverterNullableOfDecimalToString.vb" />
+    <Compile Include="Converters\Sub\ConverterStringLengthToBool.vb" />
+    <Compile Include="Converters\Sub\ConverterTrimString.vb" />
+    <Compile Include="Converters\Sub\ConverterValidationError.vb" />
     <Compile Include="ExtensionMethods.vb" />
+    <Compile Include="Extensions\DoubleClickBehavior.vb" />
+    <Compile Include="Extensions\FixedColumn.vb" />
+    <Compile Include="Extensions\LayoutColumn.vb" />
+    <Compile Include="Extensions\ListViewLayoutManager.vb" />
+    <Compile Include="Extensions\ProportionalColumn.vb" />
+    <Compile Include="Extensions\RangeColumn.vb" />
     <Compile Include="Model\Delegates.vb" />
     <Compile Include="Model\POCO.vb" />
     <Compile Include="Business\LineGraph.vb" />
@@ -249,5 +291,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
