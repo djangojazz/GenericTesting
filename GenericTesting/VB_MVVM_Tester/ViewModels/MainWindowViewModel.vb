@@ -45,7 +45,6 @@ Public Class MainWindowViewModel
   End Sub
 
   Public ReadOnly Property AvailableItems As New ObservableCollection(Of Stuff)
-  Public ReadOnly Property SelectedAvailableItems As New ObservableCollection(Of Stuff)
   Public ReadOnly Property Items As New ObservableCollection(Of Stuff)
 
   Public ReadOnly Property TreeData As New ObservableCollection(Of TreeViewItem)
@@ -114,17 +113,32 @@ Public Class MainWindowViewModel
 #Region "Commands"
   Public ReadOnly Property TestCommand As New DelegateCommand(Of Object)(AddressOf TestCommandExecute)
   Public ReadOnly Property AddCommand As New DelegateCommand(Of Object)(AddressOf AddCommandExecute)
+  Public ReadOnly Property DeleteCommand As New DelegateCommand(Of Collection(Of Object))(AddressOf DeleteCommandExecute)
 
-  Private Sub AddCommandExecute(obj As Object)
-    Dim s = String.Empty
-    SelectedAvailableItems.Select(Function(x) $"{x.Id} {x.Value}").ToList().ForEach(Sub(x) s += x)
-    MessageBox.Show(s)
+  Private Sub AddCommandExecute(obj As Collection(Of Object))
+    If obj Is Nothing Then Exit Sub
+
+    Dim itemsToRemove = New List(Of Stuff)
+
+    For Each s In obj
+      Items.Add(s)
+      itemsToRemove.Add(s)
+    Next
+
+    AvailableItems.ClearAndAddRange(_AvailableItems.ToList().Where(Function(x) Not itemsToRemove.Contains(x)))
   End Sub
 
-  Public ReadOnly Property DeleteCommand As New DelegateCommand(Of Object)(AddressOf DeleteCommandExecute)
+  Private Sub DeleteCommandExecute(obj As Collection(Of Object))
+    If obj Is Nothing Then Exit Sub
 
-  Private Sub DeleteCommandExecute(obj As Object)
-    Throw New NotImplementedException()
+    Dim itemsToRemove = New List(Of Stuff)
+
+    For Each s In obj
+      AvailableItems.Add(s)
+      itemsToRemove.Add(s)
+    Next
+
+    Items.ClearAndAddRange(_Items.ToList().Where(Function(x) Not itemsToRemove.Contains(x)))
   End Sub
 
   Private Sub TestCommandExecute()
@@ -132,8 +146,6 @@ Public Class MainWindowViewModel
     'TestText += " some more stuff"
     LinePlotAdding()
   End Sub
-
-
 
 #Region "Line Graph parts"
   Private Sub AddingLinesForLineChart()
@@ -148,54 +160,18 @@ Public Class MainWindowViewModel
                                     _lastPoints(0)})
 
     ChartData.ClearAndAddRange({New LineTrend("First", Brushes.Blue, New Thickness(2), o), New LineTrend("Second", Brushes.Red, New Thickness(2), o2)})
-
-    '                                                                            
-    'New LineTrend With
-    '{
-    '.SeriesName = "Second",
-    ' .LineColor = Brushes.Red,
-    ' .Points = 
-    '                                })
-    '}})
-
-    'ChartData.ClearAndAddRange({
-    '                                         New LineTrend With
-    '                                           {
-    '                                           .SeriesName = "First",
-    '                                           .LineColor = Brushes.Blue,
-    '                                           .Points = New List(Of PlotPoints)({
-    '                                                                          New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-10)), .Y = New PlotPoint(Of Double)(930)},
-    '                                                                          New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-5)), .Y = New PlotPoint(Of Double)(850)},
-    '                                                                          _lastPoints(0)
-    '                                                                          })
-    '                                                                            },
-    'New LineTrend With
-    '{
-    '.SeriesName = "Second",
-    ' .LineColor = Brushes.Red,
-    ' .Points = New List(Of PlotPoints)({
-    '                                New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-8)), .Y = New PlotPoint(Of Double)(600)},
-    '                                New PlotPoints With {.X = New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-4)), .Y = New PlotPoint(Of Double)(720)},
-    '                                _lastPoints(0)
-    '                                })
-    '}})
   End Sub
 
   Private Sub LinePlotAdding()
     Dim newPoints = New List(Of PlotPoints)
 
     For i = 1 To _lastPoints.Count
-      'newPoints.Add(New PlotPoints With {.X = New PlotPoint(Of Double)((DirectCast(_lastPoints(i - 1).X, PlotPoint(Of Double)).Point + i) * 10), .Y = New PlotPoint(Of Double)(DirectCast(_lastPoints(i - 1).Y, PlotPoint(Of Double)).Point * 1.95)})
       newPoints.Add(New PlotPoints(New PlotPoint(Of DateTime)((DirectCast(_lastPoints(i - 1).X, PlotPoint(Of DateTime)).Point).AddDays(1)), New PlotPoint(Of Double)(DirectCast(_lastPoints(i - 1).Y, PlotPoint(Of Double)).Point * 1.95)))
     Next
 
     _lastPoints = newPoints
     ChartData(0).Points.Add(_lastPoints(0))
     ChartData(1).Points.Add(_lastPoints(1))
-    'ChartData = New Collection(Of LineTrend)({
-    'New LineTrend With {.SeriesName = "First", .LineColor = Brushes.Blue, .Points = ChartData(0).Points},
-    'New LineTrend With {.SeriesName = "Second", .LineColor = Brushes.Red, .Points = ChartData(1).Points}
-    '})
   End Sub
 
 #End Region
