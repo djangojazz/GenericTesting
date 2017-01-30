@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Web.Script.Serialization;
 using System.Text;
 using static GenericTesting.HackerRankChallenges.Algorithms;
+using EntityTesting;
 
 namespace GenericTesting
 {
@@ -31,13 +32,24 @@ namespace GenericTesting
     
     static void Main(string[] args)
     {
-      var ord = new teOrder { OrderId = 99, tePersons = new List<tePerson> { new tePerson { PersonId = 1, FirstName = "Test" } } };
-
       using (var context = new TesterEntities())
       {
-        context.teOrders.Add(ord);
-        context.SaveChanges();
+        var peopleOrders = context.tePerson.Include("teOrder").First(p => p.PersonId == 1).teOrder.ToList();
+        peopleOrders.ForEach(x => Console.WriteLine($"{x.OrderId} {x.Description}"));
       }
+
+      
+
+        //.ForEach(x => s += x + " ");
+        //'Console.WriteLine(s);
+
+        //var ord = new teOrder { OrderId = 99, tePersons = new List<tePerson> { new tePerson { PersonId = 1, FirstName = "Test" } } };
+
+        //using (var context = new TesterEntities())
+        //{
+        //  context.teOrders.Add(ord);
+        //  context.SaveChanges();
+        //}
 
         //var studentCollection = new List<Student> { new Student { StudentID = 1, FirstName = "Brett", LastName = "X" }, new Student { StudentID = 2, FirstName = "John", LastName = "Y" } };
         ////var testResultCollection = new List<StudentTestScores> { new StudentTestScores { StudentID = 1, TestScoreGen = 94 }, new StudentTestScores { StudentID = 2, TestScoreGen = 86 } };

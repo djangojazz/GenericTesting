@@ -78,55 +78,21 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringBoxingAndUnboxingToADictionary.cs" />
-    <Compile Include="teOrder.cs">
-      <DependentUpon>Test.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tePerson.cs">
-      <DependentUpon>Test.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Test.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Test.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Test.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Test.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Test.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Test.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Timers.cs" />
     <Compile Include="TimeZoneInfoHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <EntityDeploy Include="Test.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Test.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Test.edmx.diagram">
-      <DependentUpon>Test.edmx</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Test.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Test.edmx</DependentUpon>
-      <LastGenOutput>Test.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Test.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Test.edmx</DependentUpon>
-      <LastGenOutput>Test.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EntityTesting\EntityTesting.csproj">
+      <Project>{9f179a93-c352-4320-a1b5-7fe1b4a516b0}</Project>
+      <Name>EntityTesting</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

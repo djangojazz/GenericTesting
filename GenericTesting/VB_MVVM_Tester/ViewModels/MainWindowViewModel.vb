@@ -113,7 +113,7 @@ Public Class MainWindowViewModel
 #Region "Commands"
   Public ReadOnly Property TestCommand As New DelegateCommand(Of Object)(AddressOf TestCommandExecute)
   Public ReadOnly Property AddCommand As New DelegateCommand(Of Object)(AddressOf AddCommandExecute)
-  Public ReadOnly Property DeleteCommand As New DelegateCommand(Of Collection(Of Object))(AddressOf DeleteCommandExecute)
+  Public ReadOnly Property DeleteCommand As New DelegateCommand(Of Object)(AddressOf DeleteCommandExecute)
 
   Private Sub AddCommandExecute(obj As Collection(Of Object))
     If obj Is Nothing Then Exit Sub

@@ -20,17 +20,20 @@ Module Module1
                                            End Function)
 
   Sub Main()
-    Dim dt As DataTable = New DataTable()
-    dt.Columns.Add(New DataColumn("Id", GetType(Integer)))
-    Dim row As DataRow = dt.NewRow()
-    row("Id") = 1
-    dt.Rows.Add(row)
-    Dim row2 As DataRow = dt.NewRow()
-    row2("Id") = 2
-    dt.Rows.Add(row2)
+    Dim ls1 = New List(Of String)({"a", "b", "c", "d"})
+    Dim ls2 = New List(Of String)
+    Dim ls3 = New List(Of String)({"e", "f"})
 
-    'Shows 2 rows
-    Console.WriteLine(dt.Select().ToList().Count)
+    ls2.AddRange(ls1)
+    ls1.Clear()
+
+    ls2.AddRange(ls3)
+    ls3.Clear()
+
+    Console.WriteLine($"Count of List1: {ls1.Count}")
+    Console.WriteLine($"Count of List2: {ls2.Count}")
+    Console.WriteLine($"Count of List3: {ls3.Count}")
+    ls2.ForEach(Sub(x) Console.WriteLine(x))
 
     Console.ReadLine()
   End Sub

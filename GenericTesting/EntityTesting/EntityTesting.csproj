@@ -50,53 +50,53 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Order.cs">
-      <DependentUpon>TestDbEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Person.cs">
-      <DependentUpon>TestDbEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestDbEntity.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TestDbEntity.Context.tt</DependentUpon>
+    <Compile Include="teOrder.cs">
+      <DependentUpon>Tester.tt</DependentUpon>
     </Compile>
-    <Compile Include="TestDbEntity.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TestDbEntity.tt</DependentUpon>
+    <Compile Include="tePerson.cs">
+      <DependentUpon>Tester.tt</DependentUpon>
     </Compile>
-    <Compile Include="TestDbEntity.Designer.cs">
+    <Compile Include="Tester.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TestDbEntity.edmx</DependentUpon>
+      <DependentUpon>Tester.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tester.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Tester.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tester.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Tester.edmx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <EntityDeploy Include="TestDbEntity.edmx">
+    <EntityDeploy Include="Tester.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TestDbEntity.Designer.cs</LastGenOutput>
+      <LastGenOutput>Tester.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="TestDbEntity.edmx.diagram">
-      <DependentUpon>TestDbEntity.edmx</DependentUpon>
+    <None Include="Tester.edmx.diagram">
+      <DependentUpon>Tester.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestDbEntity.Context.tt">
+    <Content Include="Tester.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TestDbEntity.edmx</DependentUpon>
-      <LastGenOutput>TestDbEntity.Context.cs</LastGenOutput>
+      <DependentUpon>Tester.edmx</DependentUpon>
+      <LastGenOutput>Tester.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="TestDbEntity.tt">
+    <Content Include="Tester.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TestDbEntity.edmx</DependentUpon>
-      <LastGenOutput>TestDbEntity.cs</LastGenOutput>
+      <DependentUpon>Tester.edmx</DependentUpon>
+      <LastGenOutput>Tester.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

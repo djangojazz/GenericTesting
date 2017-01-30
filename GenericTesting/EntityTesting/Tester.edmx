@@ -4,13 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TesterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Tester.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="teOrder">
           <Key>
             <PropertyRef Name="OrderId" />
           </Key>
           <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="128" />
+          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="32" />
         </EntityType>
         <EntityType Name="tePerson">
           <Key>
@@ -19,47 +20,40 @@
           <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FirstName" Type="varchar" MaxLength="128" />
           <Property Name="LastName" Type="varchar" MaxLength="128" />
-          <Property Name="OrderId" Type="int" />
         </EntityType>
-        <Association Name="FK_Person_Order_OrderId">
-          <End Role="teOrder" Type="Self.teOrder" Multiplicity="0..1" />
-          <End Role="tePerson" Type="Self.tePerson" Multiplicity="*" />
+        <Association Name="FK_Order_Person_PersonID">
+          <End Role="tePerson" Type="Self.tePerson" Multiplicity="1" />
+          <End Role="teOrder" Type="Self.teOrder" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="teOrder">
-              <PropertyRef Name="OrderId" />
+            <Principal Role="tePerson">
+              <PropertyRef Name="PersonId" />
             </Principal>
-            <Dependent Role="tePerson">
-              <PropertyRef Name="OrderId" />
+            <Dependent Role="teOrder">
+              <PropertyRef Name="PersonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TesterModelStoreContainer">
+        <EntityContainer Name="TesterStoreContainer">
           <EntitySet Name="teOrder" EntityType="Self.teOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tePerson" EntityType="Self.tePerson" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Person_Order_OrderId" Association="Self.FK_Person_Order_OrderId">
-            <End Role="teOrder" EntitySet="teOrder" />
+          <AssociationSet Name="FK_Order_Person_PersonID" Association="Self.FK_Order_Person_PersonID">
             <End Role="tePerson" EntitySet="tePerson" />
+            <End Role="teOrder" EntitySet="teOrder" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="TesterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="TesterEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="teOrders" EntityType="TesterModel.teOrder" />
-          <EntitySet Name="tePersons" EntityType="TesterModel.tePerson" />
-          <AssociationSet Name="FK_Person_Order_OrderId" Association="TesterModel.FK_Person_Order_OrderId">
-            <End Role="teOrder" EntitySet="teOrders" />
-            <End Role="tePerson" EntitySet="tePersons" />
-          </AssociationSet>
-        </EntityContainer>
+      <Schema Namespace="Tester" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="teOrder">
           <Key>
             <PropertyRef Name="OrderId" />
           </Key>
           <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tePersons" Relationship="TesterModel.FK_Person_Order_OrderId" FromRole="teOrder" ToRole="tePerson" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tePerson" Relationship="Self.FK_Order_Person_PersonID" FromRole="teOrder" ToRole="tePerson" />
         </EntityType>
         <EntityType Name="tePerson">
           <Key>
@@ -68,42 +62,49 @@
           <Property Name="PersonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FirstName" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="LastName" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="OrderId" Type="Int32" />
-          <NavigationProperty Name="teOrder" Relationship="TesterModel.FK_Person_Order_OrderId" FromRole="tePerson" ToRole="teOrder" />
+          <NavigationProperty Name="teOrder" Relationship="Self.FK_Order_Person_PersonID" FromRole="tePerson" ToRole="teOrder" />
         </EntityType>
-        <Association Name="FK_Person_Order_OrderId">
-          <End Type="TesterModel.teOrder" Role="teOrder" Multiplicity="0..1" />
-          <End Type="TesterModel.tePerson" Role="tePerson" Multiplicity="*" />
+        <Association Name="FK_Order_Person_PersonID">
+          <End Role="tePerson" Type="Self.tePerson" Multiplicity="1" />
+          <End Role="teOrder" Type="Self.teOrder" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="teOrder">
-              <PropertyRef Name="OrderId" />
+            <Principal Role="tePerson">
+              <PropertyRef Name="PersonId" />
             </Principal>
-            <Dependent Role="tePerson">
-              <PropertyRef Name="OrderId" />
+            <Dependent Role="teOrder">
+              <PropertyRef Name="PersonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        </Schema>
+        <EntityContainer Name="TesterEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="teOrder" EntityType="Self.teOrder" />
+          <EntitySet Name="tePerson" EntityType="Self.tePerson" />
+          <AssociationSet Name="FK_Order_Person_PersonID" Association="Self.FK_Order_Person_PersonID">
+            <End Role="tePerson" EntitySet="tePerson" />
+            <End Role="teOrder" EntitySet="teOrder" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="TesterModelStoreContainer" CdmEntityContainer="TesterEntities">
-          <EntitySetMapping Name="teOrders">
-            <EntityTypeMapping TypeName="TesterModel.teOrder">
+        <EntityContainerMapping StorageEntityContainer="TesterStoreContainer" CdmEntityContainer="TesterEntities">
+          <EntitySetMapping Name="teOrder">
+            <EntityTypeMapping TypeName="Tester.teOrder">
               <MappingFragment StoreEntitySet="teOrder">
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tePersons">
-            <EntityTypeMapping TypeName="TesterModel.tePerson">
+          <EntitySetMapping Name="tePerson">
+            <EntityTypeMapping TypeName="Tester.tePerson">
               <MappingFragment StoreEntitySet="tePerson">
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -121,7 +122,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

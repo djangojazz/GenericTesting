@@ -13,10 +13,10 @@ namespace EntityTesting
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TestDbEntities : DbContext
+    public partial class TesterEntities : DbContext
     {
-        public TestDbEntities()
-            : base("name=TestDbEntities")
+        public TesterEntities()
+            : base("name=TesterEntities")
         {
         }
     
@@ -25,7 +25,7 @@ namespace EntityTesting
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<Person> People { get; set; }
+        public virtual DbSet<teOrder> teOrder { get; set; }
+        public virtual DbSet<tePerson> tePerson { get; set; }
     }
 }
