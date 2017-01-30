@@ -70,10 +70,12 @@
     <Compile Include="Events\BasicEvents.cs" />
     <Compile Include="Events\JoesChallenge.cs" />
     <Compile Include="Events\ChainedEvents.cs" />
+    <Compile Include="ExtensionHelper.cs" />
     <Compile Include="HackerRankChallenges\Algorithms.cs" />
     <Compile Include="InheritanceExample.cs" />
     <Compile Include="Lambdas\LambdaEvents.cs" />
     <Compile Include="Lambdas\BasicLambdas.cs" />
+    <Compile Include="Models\models.cs" />
     <Compile Include="POCO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -20,20 +20,19 @@ Module Module1
                                            End Function)
 
   Sub Main()
-    Dim ls1 = New List(Of String)({"a", "b", "c", "d"})
-    Dim ls2 = New List(Of String)
-    Dim ls3 = New List(Of String)({"e", "f"})
+    Dim allocations = New DemandAS400LocationDistributionDateDistributions With {
+      .DateFrom = DateTime.UtcNow.AddDays(-2),
+      .DateTo = DateTime.UtcNow.AddDays(1),
+      .locations =
+        New List(Of DemandAS400LocationDistributionDateDistribution)({
+          New DemandAS400LocationDistributionDateDistribution With {.DemandAS400LocationDistributionID = 23, .PercentUsed = 0.5},
+          New DemandAS400LocationDistributionDateDistribution With {.DemandAS400LocationDistributionID = 49, .PercentUsed = 0.5}
+          })
+      }
 
-    ls2.AddRange(ls1)
-    ls1.Clear()
+    Dim serialized = allocations.SerializeToXml()
 
-    ls2.AddRange(ls3)
-    ls3.Clear()
-
-    Console.WriteLine($"Count of List1: {ls1.Count}")
-    Console.WriteLine($"Count of List2: {ls2.Count}")
-    Console.WriteLine($"Count of List3: {ls3.Count}")
-    ls2.ForEach(Sub(x) Console.WriteLine(x))
+    Dim deserialized = serialized.DeserializeXml(Of DemandAS400LocationDistributionDateDistributions)
 
     Console.ReadLine()
   End Sub

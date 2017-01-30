@@ -9,6 +9,7 @@ using System.Web.Script.Serialization;
 using System.Text;
 using static GenericTesting.HackerRankChallenges.Algorithms;
 using EntityTesting;
+using GenericTesting.Models;
 
 namespace GenericTesting
 {
@@ -29,52 +30,22 @@ namespace GenericTesting
 
   class Program
   {
-    
+
     static void Main(string[] args)
     {
-      using (var context = new TesterEntities())
-      {
-        var peopleOrders = context.tePerson.Include("teOrder").First(p => p.PersonId == 1).teOrder.ToList();
-        peopleOrders.ForEach(x => Console.WriteLine($"{x.OrderId} {x.Description}"));
-      }
+      var locations = new List<Location>
+        {
+          new Location { Id = 1, PercentUsed = 0.5, ExtraGarbage = "really important I'm sure"},
+          new Location { Id = 2, PercentUsed = 0.6},
+          new Location { Id = 3, PercentUsed = 0.7},
+        };
 
-      
+      var serialized = locations.SerializeToXml();
 
-        //.ForEach(x => s += x + " ");
-        //'Console.WriteLine(s);
+      var deserialized = serialized.DeserializeXml<List<Location>>();
 
-        //var ord = new teOrder { OrderId = 99, tePersons = new List<tePerson> { new tePerson { PersonId = 1, FirstName = "Test" } } };
-
-        //using (var context = new TesterEntities())
-        //{
-        //  context.teOrders.Add(ord);
-        //  context.SaveChanges();
-        //}
-
-        //var studentCollection = new List<Student> { new Student { StudentID = 1, FirstName = "Brett", LastName = "X" }, new Student { StudentID = 2, FirstName = "John", LastName = "Y" } };
-        ////var testResultCollection = new List<StudentTestScores> { new StudentTestScores { StudentID = 1, TestScoreGen = 94 }, new StudentTestScores { StudentID = 2, TestScoreGen = 86 } };
-        //var testResultCollection = new List<StudentTestScores> { new StudentTestScores { StudentID = 1 }, new StudentTestScores { StudentID = 2 } };
-        //var props = testResultCollection.First().GetType().GetProperties();
-
-        ////Check my properties
-        //props.ToList().ForEach(x => Console.WriteLine(x));
-
-        //var testResults = from student in studentCollection
-        //                  join testResult in testResultCollection
-        //                    on student.StudentID equals testResult.StudentID
-        //                  select new
-        //                  {
-        //                    student.StudentID,
-        //                    student.FirstName,
-        //                    student.LastName,
-        //                    resultName = props.Count() > 1 ? testResult.GetType().GetProperty(props[1]?.Name)?.ToString() : "Nothing",
-        //                    result = props.Count() > 1 ? testResult.GetType().GetProperty(props[1]?.Name).GetValue(testResult, null) : "0"
-        //                  };
-
-        //testResults.ToList().ForEach(x => Console.WriteLine($"{x.StudentID} {x.FirstName} {x.LastName} {x.resultName} {x.result}"));
-
-        Console.ReadLine();
+      Console.ReadLine();
     }
   }
-  
+
 }
