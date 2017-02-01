@@ -20,19 +20,23 @@ Module Module1
                                            End Function)
 
   Sub Main()
-    Dim allocations = New DemandAS400LocationDistributionDateDistributions With {
-      .DateFrom = DateTime.UtcNow.AddDays(-2),
-      .DateTo = DateTime.UtcNow.AddDays(1),
-      .locations =
+    Dim allocations =
+      New DemandAS400LocationDistributionDateDistributionCollection(
+       New DemandAS400LocationDistributionDateDistributions(DateTime.Now.Date.AddDays(-2).ToShortDateString,
         New List(Of DemandAS400LocationDistributionDateDistribution)({
-          New DemandAS400LocationDistributionDateDistribution With {.DemandAS400LocationDistributionID = 23, .PercentUsed = 0.5},
-          New DemandAS400LocationDistributionDateDistribution With {.DemandAS400LocationDistributionID = 49, .PercentUsed = 0.5}
-          })
-      }
+          New DemandAS400LocationDistributionDateDistribution(23, 0.5),
+          New DemandAS400LocationDistributionDateDistribution(49, 0.5)
+          })),
+      New DemandAS400LocationDistributionDateDistributions(DateTime.Now.Date.AddDays(-1).ToShortDateString,
+        New List(Of DemandAS400LocationDistributionDateDistribution)({
+          New DemandAS400LocationDistributionDateDistribution(23, 0.55),
+          New DemandAS400LocationDistributionDateDistribution(49, 0.45)
+          }))
+    )
 
     Dim serialized = allocations.SerializeToXml()
 
-    Dim deserialized = serialized.DeserializeXml(Of DemandAS400LocationDistributionDateDistributions)
+    Dim deserialized = serialized.DeserializeXml(Of DemandAS400LocationDistributionDateDistributionCollection)
 
     Console.ReadLine()
   End Sub
