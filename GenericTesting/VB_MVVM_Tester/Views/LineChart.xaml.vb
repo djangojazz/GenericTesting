@@ -45,9 +45,6 @@ Public Class LineChart
       SetValue(ChartDataProperty, Value)
     End Set
   End Property
-
-
-
 #End Region
 
 #Region "ChartTitle"

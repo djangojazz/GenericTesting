@@ -12,11 +12,11 @@ namespace GenericTesting.Models
   {                                                                                
     [XmlAttribute()]
     public int Id { get; set; }
-    [XmlAttribute()]
+    [XmlElement]
     public double PercentUsed { get; set; }
     [XmlElement]
     public string ExtraGarbage { get; set; }
-    [XmlText]
+    [XmlElement]
     public string UsedOnceInTheUniverse { get; set; }
   }
 
