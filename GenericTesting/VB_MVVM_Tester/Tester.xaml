@@ -22,7 +22,6 @@
     </Grid.RowDefinitions>
     <local:LineChart 
       Grid.Row ="0"
-      Height="300"
       ChartData="{Binding ChartData}"
       ChartTitle="My Test Chart"
       ChartForeground="Wheat" 

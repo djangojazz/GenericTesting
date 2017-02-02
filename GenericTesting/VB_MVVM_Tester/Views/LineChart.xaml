@@ -31,21 +31,19 @@
               <ColumnDefinition Width="Auto" />
               <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Canvas x:Name="PART_CanvasYAxisLabels" Grid.Row="0" Grid.Column="0"  Width="75px" />
-            <Canvas x:Name="PART_CanvasYAxisTicks" Grid.Row="0" Grid.Column="1"  Width="50px" >
-                    <!--Height="{Binding ElementName=PART_CanvasBorder, Path=ActualHeight}" Width="50px" >-->
+            <Canvas x:Name="PART_CanvasYAxisLabels" Grid.Row="0" Grid.Column="0" />
+            <Canvas x:Name="PART_CanvasYAxisTicks" Grid.Row="0" Grid.Column="1"  >
               <Canvas.LayoutTransform>
                 <ScaleTransform ScaleX="-1" ScaleY="-1" />
               </Canvas.LayoutTransform>
             </Canvas>
-            <Canvas x:Name="PART_CanvasPoints" Grid.Row="0" Grid.Column="2"  Width="1000px">
-                    <!--Height="{Binding ElementName=PART_CanvasBorder, Path=ActualHeight}" Width="1000px">-->
+            <Canvas x:Name="PART_CanvasPoints" Grid.Row="0" Grid.Column="2" Height="1000px" Width="1000px">
               <Canvas.LayoutTransform>
                 <ScaleTransform ScaleX="1" ScaleY="-1" />
               </Canvas.LayoutTransform>
             </Canvas>
-            <Canvas x:Name="PART_CanvasXAxisTicks" Grid.Row="1" Grid.Column="2" Height="50px" Width="1000px"/>
-            <Canvas x:Name="PART_CanvasXAxisLabels" Grid.Row="2" Grid.Column="2" Height="30px" Width="1000px" />
+            <Canvas x:Name="PART_CanvasXAxisTicks" Grid.Row="1" Grid.Column="2" />
+            <Canvas x:Name="PART_CanvasXAxisLabels" Grid.Row="2" Grid.Column="2" />
           </Grid>
         </Viewbox>
       </Border>

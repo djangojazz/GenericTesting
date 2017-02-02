@@ -1,5 +1,6 @@
 ﻿Imports System.Collections.ObjectModel
 Imports System.ComponentModel
+Imports System.Windows.Threading
 Imports VB_MVVM_Tester
 
 Public Class LineChart
@@ -17,15 +18,8 @@ Public Class LineChart
   Private _tickHeight As Double = 0
   Private _labelWidth As Double = 0
   Private _labelHeight As Double = 0
-
-  Public Sub New()
-    InitializeComponent()
-  End Sub
-
-  Public Sub Form_Load()
-
-  End Sub
-
+  Private _timer As New DispatcherTimer
+  Private _defaultTimeSpan As New TimeSpan(1000)
 
   Private ReadOnly Property Ratio As Double
     Get
@@ -33,33 +27,12 @@ Public Class LineChart
     End Get
   End Property
 
+  Public Sub New()
+    InitializeComponent()
+    _timer.Interval = _defaultTimeSpan
+  End Sub
+
 #Region "Dependent Properties"
-
-  '#Region "ViewWidth"
-  '  Public Shared ReadOnly ViewWidthProperty As DependencyProperty = DependencyProperty.Register("ViewWidth", GetType(Double), GetType(LineChart), New UIPropertyMetadata(10.0R))
-
-  '  Public Property ViewWidth As Double
-  '    Get
-  '      Return CDbl(GetValue(ViewWidthProperty))
-  '    End Get
-  '    Set
-  '      SetValue(ViewWidthProperty, Value)
-  '    End Set
-  '  End Property
-  '#End Region
-
-  '#Region "ViewHeight"
-  '  Public Shared ReadOnly ViewHeightProperty As DependencyProperty = DependencyProperty.Register("ViewHeight", GetType(Double), GetType(LineChart), New UIPropertyMetadata(10.0R))
-
-  '  Public Property ViewHeight As Double
-  '    Get
-  '      Return CDbl(GetValue(ViewHeightProperty))
-  '    End Get
-  '    Set
-  '      SetValue(ViewHeightProperty, Value)
-  '    End Set
-  '  End Property
-  '#End Region
 
 #Region "ChartData"
   Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(ObservableCollectionContentNotifying(Of LineTrend)), GetType(LineChart), New UIPropertyMetadata(New ObservableCollectionContentNotifying(Of LineTrend), AddressOf LineChart.ChartDataChanged))
@@ -73,90 +46,6 @@ Public Class LineChart
     End Set
   End Property
 
-  Public Shared Sub ChartDataChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
-    Dim LC As LineChart = DirectCast(d, LineChart)
-    Dim chartData = TryCast(e.NewValue, ObservableCollectionContentNotifying(Of LineTrend))
-
-    AddHandler LC.ChartData.OnCollectionItemChanged, Sub(o As Object, ev As EventArgs) LC.CalculatePlotTrends()
-    AddHandler LC.ChartData.CollectionChanged, Sub(o As Object, ev As EventArgs) LC.CalculatePlotTrends()
-    AddHandler LC.Loaded, Sub() LC.AfterLoaded(LC)
-
-  End Sub
-
-  Private Sub AfterLoaded(lc As LineChart)
-    SetupInternalHeightAndWidths()
-    SetupHeightAndWidthsOfObjects()
-    lc.CalculatePlotTrends()
-  End Sub
-
-  Private Sub SetupHeightAndWidthsOfObjects()
-
-    '<Canvas x : Name = "PART_CanvasXAxisTicks" Grid.Row="1" Grid.Column="2" Height="50px" Width="1000px"/>
-    '        <Canvas x : Name = "PART_CanvasXAxisLabels" Grid.Row="2" Grid.Column="2" Height="30px" Width="1000px" />
-    '<Canvas x : Name = "PART_CanvasYAxisLabels" Grid.Row="0" Grid.Column="0"  Width="75px" />
-    '        <Canvas x : Name = "PART_CanvasYAxisTicks" Grid.Row="0" Grid.Column="1"  Width="50px" >
-
-    PART_CanvasYAxisLabels.Height = _viewHeight
-    PART_CanvasYAxisTicks.Height = _viewHeight
-    PART_CanvasPoints.Height = _viewHeight
-  End Sub
-
-  'Private _tickWidth As Double = 0
-  'Private _tickHeight As Double = 0
-  'Private _labelWidth As Double = 0
-  'Private _labelHeight As Double = 0
-
-
-  Private Sub SetupInternalHeightAndWidths()
-    Dim margin = 0.99
-    'Dim DetermineSetting
-
-    If Ratio > 1 Then
-      _viewHeight = 1000
-      _viewWidth = (1000 / Ratio) * margin
-      _tickHeight = 50
-      _tickWidth = (50 / Ratio) * margin
-    Else
-      _viewHeight = (1000 * Ratio) * margin
-      _viewWidth = 1000
-      _tickHeight = (50 * Ratio) * margin
-      _tickWidth = 50
-    End If
-
-  End Sub
-
-  Public Sub CalculatePlotTrends()
-    If Me.PART_CanvasPoints IsNot Nothing AndAlso ChartData IsNot Nothing Then
-      If ChartData.Count > 1 Then
-
-        'Uniformity check of X and Y types.  EG: You cannot have a DateTime and a Number for different X axis or Y axis sets.
-        If ChartData.ToList().Select(Function(x) x.Points(0).X.GetType).Distinct.GroupBy(Function(x) x).Count > 1 Or ChartData.ToList().Select(Function(x) x.Points(0).Y.GetType).Distinct.GroupBy(Function(x) x).Count > 1 Then
-          Me.PART_CanvasPoints.LayoutTransform = New ScaleTransform(1, 1)
-          Me.PART_CanvasPoints.UpdateLayout()
-          Dim fontFamily = If(Me.FontType IsNot Nothing, Me.FontType, New FontFamily("Segoe UI"))
-          Dim stackPanel = New StackPanel
-          stackPanel.Children.Add(New TextBlock With {.Text = "Type Mismatch cannot render!", .FontSize = 54, .FontFamily = fontFamily})
-          stackPanel.Children.Add(New TextBlock With {.Text = "Either the X or Y plot points are of different types.", .FontSize = 32, .FontFamily = fontFamily})
-          Me.PART_CanvasPoints.Children.Add(stackPanel)
-          Return
-        End If
-      End If
-
-      Me._xFloor = ChartData.SelectMany(Function(x) x.Points).Select(Function(x) x.XAsDouble).OrderBy(Function(x) x).FirstOrDefault()
-      Me._xCeiling = ChartData.SelectMany(Function(x) x.Points).Select(Function(x) x.XAsDouble).OrderByDescending(Function(x) x).FirstOrDefault()
-      Me._yFloor = ChartData.SelectMany(Function(x) x.Points).Select(Function(x) x.YAsDouble).OrderBy(Function(x) x).FirstOrDefault()
-      Me._yCeiling = ChartData.SelectMany(Function(x) x.Points).Select(Function(x) x.YAsDouble).OrderByDescending(Function(x) x).FirstOrDefault()
-
-      Me.PART_CanvasPoints.Children.RemoveRange(0, Me.PART_CanvasPoints.Children.Count)
-      Me.DrawTrends(ChartData)
-
-      If Me.PART_CanvasXAxisTicks IsNot Nothing And Me.PART_CanvasYAxisTicks IsNot Nothing Then
-        If Me.NumberOfTicks = 0 Then Me.NumberOfTicks = 1 'I want at the very least to see a beginning and an end
-        Me.DrawXAxis(ChartData)
-        Me.DrawYAxis(ChartData)
-      End If
-    End If
-  End Sub
 
 
 #End Region
@@ -347,6 +236,113 @@ Public Class LineChart
 #End Region
 #End Region
 
+#Region "DataChangedAndTimingEvents"
+
+  Public Shared Sub ChartDataChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
+    Dim LC As LineChart = DirectCast(d, LineChart)
+    Dim chartData = TryCast(e.NewValue, ObservableCollectionContentNotifying(Of LineTrend))
+
+    AddHandler LC.ChartData.OnCollectionItemChanged, Sub(o As Object, ev As EventArgs) LC.CalculatePlotTrends()
+    AddHandler LC.ChartData.CollectionChanged, Sub(o As Object, ev As EventArgs) LC.CalculatePlotTrends()
+    AddHandler LC.Loaded, Sub() LC.ResizeAndPlotPoints(LC)
+    AddHandler LC.SizeChanged, Sub() LC.Resized()
+    AddHandler LC._timer.Tick, Sub() LC.OnTick(LC)
+  End Sub
+
+  Private Sub OnTick(lc As LineChart)
+    _timer.Stop()
+    lc.ResizeAndPlotPoints(lc)
+  End Sub
+
+  Private Sub Resized()
+    _timer.Stop()
+    _timer.Start()
+  End Sub
+#End Region
+
+#Region "ResivingAndPlotPoints"
+  Private Sub ResizeAndPlotPoints(lc As LineChart)
+    SetupInternalHeightAndWidths()
+    SetupHeightAndWidthsOfObjects()
+    lc.CalculatePlotTrends()
+  End Sub
+
+  Private Sub SetupHeightAndWidthsOfObjects()
+    PART_CanvasYAxisLabels.Height = _viewHeight
+    PART_CanvasYAxisLabels.Width = _labelWidth
+    PART_CanvasYAxisTicks.Height = _viewHeight
+    PART_CanvasYAxisTicks.Width = _tickWidth
+
+    PART_CanvasXAxisLabels.Height = _labelHeight
+    PART_CanvasXAxisLabels.Width = _viewWidth
+    PART_CanvasXAxisTicks.Height = _tickHeight
+    PART_CanvasXAxisTicks.Width = _viewWidth
+
+    PART_CanvasPoints.Height = _viewHeight
+    PART_CanvasPoints.Width = _viewWidth
+  End Sub
+
+  Private Sub SetupInternalHeightAndWidths()
+    Dim margin = 0.99
+
+    'True for Height having a larger aspect, False for Width having a larger aspect.  I am setting a floor for 25, anything smaller and it looks like crap.
+    Dim SetHeightOrWidth As Func(Of Integer, Boolean, Double) = Function(x, y)
+                                                                  Dim val = If(y, ((x / Ratio) * margin), ((x * Ratio) * margin))
+                                                                  Return If(val <= 25, 25, val)
+                                                                End Function
+
+    If Ratio > 1 Then
+      _viewHeight = 1000
+      _viewWidth = SetHeightOrWidth(1000, True)
+      _tickHeight = 50
+      _tickWidth = SetHeightOrWidth(50, True)
+      _labelHeight = 30
+      _labelWidth = SetHeightOrWidth(75, True)
+    Else
+      _viewHeight = SetHeightOrWidth(1000, False)
+      _viewWidth = 1000
+      _tickHeight = SetHeightOrWidth(50, False)
+      _tickWidth = 50
+      _labelHeight = SetHeightOrWidth(30, False)
+      _labelWidth = 75
+    End If
+
+  End Sub
+
+  Public Sub CalculatePlotTrends()
+    If Me.PART_CanvasPoints IsNot Nothing AndAlso ChartData IsNot Nothing Then
+      If ChartData.Count > 1 Then
+
+        'Uniformity check of X and Y types.  EG: You cannot have a DateTime and a Number for different X axis or Y axis sets.
+        If ChartData.ToList().Select(Function(x) x.Points(0).X.GetType).Distinct.GroupBy(Function(x) x).Count > 1 Or ChartData.ToList().Select(Function(x) x.Points(0).Y.GetType).Distinct.GroupBy(Function(x) x).Count > 1 Then
+          Me.PART_CanvasPoints.LayoutTransform = New ScaleTransform(1, 1)
+          Me.PART_CanvasPoints.UpdateLayout()
+          Dim fontFamily = If(Me.FontType IsNot Nothing, Me.FontType, New FontFamily("Segoe UI"))
+          Dim stackPanel = New StackPanel
+          stackPanel.Children.Add(New TextBlock With {.Text = "Type Mismatch cannot render!", .FontSize = 54, .FontFamily = fontFamily})
+          stackPanel.Children.Add(New TextBlock With {.Text = "Either the X or Y plot points are of different types.", .FontSize = 32, .FontFamily = fontFamily})
+          Me.PART_CanvasPoints.Children.Add(stackPanel)
+          Return
+        End If
+      End If
+
+      Me._xFloor = ChartData.SelectMany(Function(x) x.Points).Select(Function(x) x.XAsDouble).OrderBy(Function(x) x).FirstOrDefault()
+      Me._xCeiling = ChartData.SelectMany(Function(x) x.Points).Select(Function(x) x.XAsDouble).OrderByDescending(Function(x) x).FirstOrDefault()
+      Me._yFloor = ChartData.SelectMany(Function(x) x.Points).Select(Function(x) x.YAsDouble).OrderBy(Function(x) x).FirstOrDefault()
+      Me._yCeiling = ChartData.SelectMany(Function(x) x.Points).Select(Function(x) x.YAsDouble).OrderByDescending(Function(x) x).FirstOrDefault()
+
+      Me.PART_CanvasPoints.Children.RemoveRange(0, Me.PART_CanvasPoints.Children.Count)
+      Me.DrawTrends(ChartData)
+
+      If Me.PART_CanvasXAxisTicks IsNot Nothing And Me.PART_CanvasYAxisTicks IsNot Nothing Then
+        If Me.NumberOfTicks = 0 Then Me.NumberOfTicks = 1 'I want at the very least to see a beginning and an end
+        Me.DrawXAxis(ChartData)
+        Me.DrawYAxis(ChartData)
+      End If
+    End If
+  End Sub
+#End Region
+
 #Region "Drawing Methods"
   Public Sub DrawXAxis(lineTrends As IList(Of LineTrend))
     Dim segment = ((_xCeiling - _xFloor) / NumberOfTicks)
@@ -355,7 +351,7 @@ Public Class LineChart
 
     PART_CanvasXAxisTicks.Children.Add(New Line With {
                                    .X1 = 0,
-                                   .X2 = 1000,
+                                   .X2 = _viewWidth,
                                    .Y1 = 0,
                                    .Y2 = 0,
                                    .StrokeThickness = 2,
@@ -394,7 +390,7 @@ Public Class LineChart
     End Select
 
     For i As Integer = 0 To NumberOfTicks
-      Dim xSegment = If(i = 0, 0, i * (1000 / NumberOfTicks))
+      Dim xSegment = If(i = 0, 0, i * (_viewWidth / NumberOfTicks))
       Dim xSegmentLabel = If(i = 0, _xFloor, _xFloor + (i * segment))
       Dim textForLabel = New String(If(XValueConverter Is Nothing, xSegmentLabel.ToString, XValueConverter.Convert(xSegmentLabel, GetType(String), Nothing, Globalization.CultureInfo.InvariantCulture)))
 
@@ -402,7 +398,7 @@ Public Class LineChart
           .X1 = xSegment,
           .X2 = xSegment,
           .Y1 = 0,
-          .Y2 = 30,
+          .Y2 = _labelHeight,
           .StrokeThickness = 2,
           .Stroke = Brushes.Black}
       PART_CanvasXAxisTicks.Children.Add(lineSegment)
@@ -422,14 +418,11 @@ Public Class LineChart
     PART_CanvasYAxisTicks.Children.RemoveRange(0, PART_CanvasYAxisTicks.Children.Count)
     PART_CanvasYAxisLabels.Children.RemoveRange(0, PART_CanvasYAxisLabels.Children.Count)
 
-    Dim heightToUse = _viewHeight
-
-    'TODO CHANGE THIS ONCE DYNAMIC WORKS
     PART_CanvasYAxisTicks.Children.Add(New Line With {
                                    .X1 = 0,
                                    .X2 = 0,
                                    .Y1 = 0,
-                                   .Y2 = heightToUse,
+                                   .Y2 = _viewHeight,
                                    .StrokeThickness = 2,
                                    .Stroke = Brushes.Black
                                    })
@@ -459,13 +452,13 @@ Public Class LineChart
     End Select
 
     For i As Integer = 0 To NumberOfTicks
-      Dim ySegment = If(i = 0, 0, i * (heightToUse / NumberOfTicks))
+      Dim ySegment = If(i = 0, 0, i * (_viewHeight / NumberOfTicks))
       Dim ySegmentLabel = If(i = 0, _yFloor, _yFloor + (i * segment))
       Dim textForLabel = New String(If(YValueConverter Is Nothing, ySegmentLabel.ToString, YValueConverter.Convert(ySegmentLabel, GetType(String), Nothing, Globalization.CultureInfo.InvariantCulture)))
 
       Dim lineSegment = New Line With {
           .X1 = 0,
-          .X2 = 30,
+          .X2 = _labelHeight,
           .Y1 = ySegment,
           .Y2 = ySegment,
           .StrokeThickness = 2,
@@ -475,7 +468,7 @@ Public Class LineChart
       Dim labelSegment = New TextBlock With {
         .Text = textForLabel,
         .FontSize = fontSize,
-        .Margin = New Thickness(0, heightToUse - 20 - (ySegment - If(i = 0, 0, If(i = NumberOfTicks, lastSpaceFactor, finalSpacing))), 0, 0)
+        .Margin = New Thickness(0, _viewHeight - 20 - (ySegment - If(i = 0, 0, If(i = NumberOfTicks, lastSpaceFactor, finalSpacing))), 0, 0)
       }
 
       PART_CanvasYAxisLabels.Children.Add(labelSegment)
@@ -486,7 +479,7 @@ Public Class LineChart
 
     For Each t In ChartData
       If t.Points IsNot Nothing Then
-        Dim xFactor = (1000 / (_xCeiling - _xFloor))
+        Dim xFactor = (_viewWidth / (_xCeiling - _xFloor))
         Dim yFactor = (_viewHeight / (_yCeiling - _yFloor))
 
         For i As Integer = 1 To t.Points.Count - 1
