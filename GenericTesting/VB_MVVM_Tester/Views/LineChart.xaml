@@ -19,8 +19,8 @@
                  FontFamily="{Binding ElementName=LChart, Path= FontType}"
                  />
       <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="15" Margin="10" Background="{Binding ElementName=LChart, Path= BackGroundColorCanvas}" >
-        <Viewbox Stretch="Fill" RenderOptions.EdgeMode="Aliased" Margin="15" >
-          <Grid>
+        <Viewbox x:Name="PART_CanvasBorder" Stretch="Fill" RenderOptions.EdgeMode="Aliased" Margin="15" >
+          <Grid >
             <Grid.RowDefinitions>
               <RowDefinition Height="*" />
               <RowDefinition Height="Auto" />
@@ -31,13 +31,15 @@
               <ColumnDefinition Width="Auto" />
               <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Canvas x:Name="PART_CanvasYAxisLabels" Grid.Row="0" Grid.Column="0" Height="1000px" Width="75px" />
-            <Canvas x:Name="PART_CanvasYAxisTicks" Grid.Row="0" Grid.Column="1" Height="1000px" Width="50px" >
+            <Canvas x:Name="PART_CanvasYAxisLabels" Grid.Row="0" Grid.Column="0"  Width="75px" />
+            <Canvas x:Name="PART_CanvasYAxisTicks" Grid.Row="0" Grid.Column="1"  Width="50px" >
+                    <!--Height="{Binding ElementName=PART_CanvasBorder, Path=ActualHeight}" Width="50px" >-->
               <Canvas.LayoutTransform>
                 <ScaleTransform ScaleX="-1" ScaleY="-1" />
               </Canvas.LayoutTransform>
             </Canvas>
-            <Canvas x:Name="PART_CanvasPoints" Grid.Row="0" Grid.Column="2" Height="1000px" Width="1000px">
+            <Canvas x:Name="PART_CanvasPoints" Grid.Row="0" Grid.Column="2"  Width="1000px">
+                    <!--Height="{Binding ElementName=PART_CanvasBorder, Path=ActualHeight}" Width="1000px">-->
               <Canvas.LayoutTransform>
                 <ScaleTransform ScaleX="1" ScaleY="-1" />
               </Canvas.LayoutTransform>

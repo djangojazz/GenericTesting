@@ -20,8 +20,9 @@
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <!--<local:LineChart 
+    <local:LineChart 
       Grid.Row ="0"
+      Height="300"
       ChartData="{Binding ChartData}"
       ChartTitle="My Test Chart"
       ChartForeground="Wheat" 
@@ -32,9 +33,8 @@
       NumberOfTicks="5"
       XValueConverter="{StaticResource DateValueConverter}"
       YValueConverter="{StaticResource ConvertDecimal}"
-      FontType="Algerian"
-      />-->
-    <local:CustomSelectMultiChoice />
+      FontType="Tahoma"
+      />
     <Label Grid.Row="1" Content="{Binding TestText}" Height="30" />
     <Button Grid.Row="2" Command="{Binding TestCommand}" Height="30" Content="Add more lines" />
   </Grid>

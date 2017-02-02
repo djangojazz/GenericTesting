@@ -11,12 +11,56 @@ Public Class LineChart
   Private _yType As Type
   Private _yFloor As Decimal = 0
   Private _yCeiling As Decimal = 0
+  Private _viewHeight As Double = 0
+  Private _viewWidth As Double = 0
+  Private _tickWidth As Double = 0
+  Private _tickHeight As Double = 0
+  Private _labelWidth As Double = 0
+  Private _labelHeight As Double = 0
 
   Public Sub New()
     InitializeComponent()
   End Sub
 
+  Public Sub Form_Load()
+
+  End Sub
+
+
+  Private ReadOnly Property Ratio As Double
+    Get
+      Return PART_CanvasBorder.ActualHeight / PART_CanvasBorder.ActualWidth
+    End Get
+  End Property
+
 #Region "Dependent Properties"
+
+  '#Region "ViewWidth"
+  '  Public Shared ReadOnly ViewWidthProperty As DependencyProperty = DependencyProperty.Register("ViewWidth", GetType(Double), GetType(LineChart), New UIPropertyMetadata(10.0R))
+
+  '  Public Property ViewWidth As Double
+  '    Get
+  '      Return CDbl(GetValue(ViewWidthProperty))
+  '    End Get
+  '    Set
+  '      SetValue(ViewWidthProperty, Value)
+  '    End Set
+  '  End Property
+  '#End Region
+
+  '#Region "ViewHeight"
+  '  Public Shared ReadOnly ViewHeightProperty As DependencyProperty = DependencyProperty.Register("ViewHeight", GetType(Double), GetType(LineChart), New UIPropertyMetadata(10.0R))
+
+  '  Public Property ViewHeight As Double
+  '    Get
+  '      Return CDbl(GetValue(ViewHeightProperty))
+  '    End Get
+  '    Set
+  '      SetValue(ViewHeightProperty, Value)
+  '    End Set
+  '  End Property
+  '#End Region
+
 #Region "ChartData"
   Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(ObservableCollectionContentNotifying(Of LineTrend)), GetType(LineChart), New UIPropertyMetadata(New ObservableCollectionContentNotifying(Of LineTrend), AddressOf LineChart.ChartDataChanged))
 
@@ -35,7 +79,50 @@ Public Class LineChart
 
     AddHandler LC.ChartData.OnCollectionItemChanged, Sub(o As Object, ev As EventArgs) LC.CalculatePlotTrends()
     AddHandler LC.ChartData.CollectionChanged, Sub(o As Object, ev As EventArgs) LC.CalculatePlotTrends()
-    LC.CalculatePlotTrends()
+    AddHandler LC.Loaded, Sub() LC.AfterLoaded(LC)
+
+  End Sub
+
+  Private Sub AfterLoaded(lc As LineChart)
+    SetupInternalHeightAndWidths()
+    SetupHeightAndWidthsOfObjects()
+    lc.CalculatePlotTrends()
+  End Sub
+
+  Private Sub SetupHeightAndWidthsOfObjects()
+
+    '<Canvas x : Name = "PART_CanvasXAxisTicks" Grid.Row="1" Grid.Column="2" Height="50px" Width="1000px"/>
+    '        <Canvas x : Name = "PART_CanvasXAxisLabels" Grid.Row="2" Grid.Column="2" Height="30px" Width="1000px" />
+    '<Canvas x : Name = "PART_CanvasYAxisLabels" Grid.Row="0" Grid.Column="0"  Width="75px" />
+    '        <Canvas x : Name = "PART_CanvasYAxisTicks" Grid.Row="0" Grid.Column="1"  Width="50px" >
+
+    PART_CanvasYAxisLabels.Height = _viewHeight
+    PART_CanvasYAxisTicks.Height = _viewHeight
+    PART_CanvasPoints.Height = _viewHeight
+  End Sub
+
+  'Private _tickWidth As Double = 0
+  'Private _tickHeight As Double = 0
+  'Private _labelWidth As Double = 0
+  'Private _labelHeight As Double = 0
+
+
+  Private Sub SetupInternalHeightAndWidths()
+    Dim margin = 0.99
+    'Dim DetermineSetting
+
+    If Ratio > 1 Then
+      _viewHeight = 1000
+      _viewWidth = (1000 / Ratio) * margin
+      _tickHeight = 50
+      _tickWidth = (50 / Ratio) * margin
+    Else
+      _viewHeight = (1000 * Ratio) * margin
+      _viewWidth = 1000
+      _tickHeight = (50 * Ratio) * margin
+      _tickWidth = 50
+    End If
+
   End Sub
 
   Public Sub CalculatePlotTrends()
@@ -335,11 +422,14 @@ Public Class LineChart
     PART_CanvasYAxisTicks.Children.RemoveRange(0, PART_CanvasYAxisTicks.Children.Count)
     PART_CanvasYAxisLabels.Children.RemoveRange(0, PART_CanvasYAxisLabels.Children.Count)
 
+    Dim heightToUse = _viewHeight
+
+    'TODO CHANGE THIS ONCE DYNAMIC WORKS
     PART_CanvasYAxisTicks.Children.Add(New Line With {
                                    .X1 = 0,
                                    .X2 = 0,
                                    .Y1 = 0,
-                                   .Y2 = 1000,
+                                   .Y2 = heightToUse,
                                    .StrokeThickness = 2,
                                    .Stroke = Brushes.Black
                                    })
@@ -369,7 +459,7 @@ Public Class LineChart
     End Select
 
     For i As Integer = 0 To NumberOfTicks
-      Dim ySegment = If(i = 0, 0, i * (1000 / NumberOfTicks))
+      Dim ySegment = If(i = 0, 0, i * (heightToUse / NumberOfTicks))
       Dim ySegmentLabel = If(i = 0, _yFloor, _yFloor + (i * segment))
       Dim textForLabel = New String(If(YValueConverter Is Nothing, ySegmentLabel.ToString, YValueConverter.Convert(ySegmentLabel, GetType(String), Nothing, Globalization.CultureInfo.InvariantCulture)))
 
@@ -385,7 +475,7 @@ Public Class LineChart
       Dim labelSegment = New TextBlock With {
         .Text = textForLabel,
         .FontSize = fontSize,
-        .Margin = New Thickness(0, 980 - (ySegment - If(i = 0, 0, If(i = NumberOfTicks, lastSpaceFactor, finalSpacing))), 0, 0)
+        .Margin = New Thickness(0, heightToUse - 20 - (ySegment - If(i = 0, 0, If(i = NumberOfTicks, lastSpaceFactor, finalSpacing))), 0, 0)
       }
 
       PART_CanvasYAxisLabels.Children.Add(labelSegment)
@@ -397,7 +487,7 @@ Public Class LineChart
     For Each t In ChartData
       If t.Points IsNot Nothing Then
         Dim xFactor = (1000 / (_xCeiling - _xFloor))
-        Dim yFactor = (1000 / (_yCeiling - _yFloor))
+        Dim yFactor = (_viewHeight / (_yCeiling - _yFloor))
 
         For i As Integer = 1 To t.Points.Count - 1
           Dim toDraw = New Line With {

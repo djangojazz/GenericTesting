@@ -49,9 +49,9 @@ Public Module Models
     <XmlElement("location")>
     Public Property Locations As List(Of DemandAS400LocationDistributionDateDistribution)
 
-    Public Sub New(dateAllocated As DateTime, locations As List(Of DemandAS400LocationDistributionDateDistribution))
+    Public Sub New(dateAllocated As DateTime, ParamArray location() As DemandAS400LocationDistributionDateDistribution)
       Me.DateAllocated = dateAllocated
-      Me.Locations = locations
+      Me.Locations = location.ToList
     End Sub
 
     Public Sub New()

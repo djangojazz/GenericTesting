@@ -69,6 +69,7 @@
     <Compile Include="DateConverter.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="Employee.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="teAddress.cs">
       <DependentUpon>Tester.tt</DependentUpon>
     </Compile>

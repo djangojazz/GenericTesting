@@ -23,16 +23,12 @@ Module Module1
     Dim allocations =
       New DemandAS400LocationDistributionDateDistributionCollection(
        New DemandAS400LocationDistributionDateDistributions(DateTime.Now.Date.AddDays(-2).ToShortDateString,
-        New List(Of DemandAS400LocationDistributionDateDistribution)({
           New DemandAS400LocationDistributionDateDistribution(23, 0.5),
-          New DemandAS400LocationDistributionDateDistribution(49, 0.5)
-          })),
+          New DemandAS400LocationDistributionDateDistribution(49, 0.5)),
       New DemandAS400LocationDistributionDateDistributions(DateTime.Now.Date.AddDays(-1).ToShortDateString,
-        New List(Of DemandAS400LocationDistributionDateDistribution)({
           New DemandAS400LocationDistributionDateDistribution(23, 0.55),
-          New DemandAS400LocationDistributionDateDistribution(49, 0.45)
-          }))
-    )
+          New DemandAS400LocationDistributionDateDistribution(49, 0.45)))
+
 
     Dim serialized = allocations.SerializeToXml()
 

@@ -25,6 +25,7 @@ namespace GenericTesting
   public class StudentTestScore
   {
     public int StudentID { get; set; }
+    public string Subject { get; set; }
     public int Score { get; set; }
   }
 
@@ -33,17 +34,22 @@ namespace GenericTesting
 
     static void Main(string[] args)
     {
-      var locations = new List<Location>
+      var students = new List<Student>
         {
-          new Location { Id = 1, PercentUsed = 0.5, ExtraGarbage = "really important I'm sure"},
-          new Location { Id = 2, PercentUsed = 0.6},
-          new Location { Id = 3, PercentUsed = 0.7},
+        new Student { StudentID = 1, FirstName = "Brett", LastName = "X" },
+        new Student { StudentID = 2, FirstName = "John", LastName = "X" }
         };
+      var grades = new List<StudentTestScore> {
+        new StudentTestScore { StudentID = 1, Subject = "Math", Score = 98 },
+        new StudentTestScore { StudentID = 1, Subject = "Science", Score = 92 },
+        new StudentTestScore { StudentID = 1, Subject = "History", Score = 86 },
+        new StudentTestScore { StudentID = 2, Subject = "Math", Score = 80 },
+        new StudentTestScore { StudentID = 2, Subject = "Science", Score = 88 },
+        new StudentTestScore { StudentID = 2, Subject = "History", Score = 91 }
+      };
 
-      var serialized = locations.SerializeToXml();
-
-      var deserialized = serialized.DeserializeXml<List<Location>>();
-
+      var index = 1;
+     
       Console.ReadLine();
     }
   }
