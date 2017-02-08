@@ -148,7 +148,6 @@
     <Compile Include="Model\POCO.vb" />
     <Compile Include="Business\LineGraph.vb" />
     <Compile Include="ObservableCollectionContentNotifying.vb" />
-    <Compile Include="ViewModels\LineChartViewModel.vb" />
     <Compile Include="ViewModels\MarqueeViewModel.vb" />
     <Compile Include="Views\CustomMarqueeControl.xaml.vb">
       <DependentUpon>CustomMarqueeControl.xaml</DependentUpon>
