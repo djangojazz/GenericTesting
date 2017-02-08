@@ -1,6 +1,18 @@
-﻿Imports System.Windows.Threading
+﻿Imports System.Collections.ObjectModel
+Imports System.ComponentModel
+Imports System.Windows.Threading
+Imports WPFControls
+
 
 Public Class LineChart
+  Implements INotifyPropertyChanged
+
+  Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
+
+  Public Sub Notify(ByVal propertyName As String)
+    RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+  End Sub
+
 
   'VARIABLES
   Private _xType As Type
@@ -26,13 +38,21 @@ Public Class LineChart
 
   Public Sub New()
     InitializeComponent()
+
+    Part_Layout.DataContext = Me
     _timer.Interval = _defaultTimeSpan
+
+    ''DELETE BELOW
+    'Dim o = New ObservableCollection(Of WPFControls.PlotPoints)({New WPFControls.PlotPoints(New WPFControls.PlotPoint(Of DateTime)(DateTime.Now.AddDays(-10)), New WPFControls.PlotPoint(Of Double)(930)),
+    '                                                                          New WPFControls.PlotPoints(New WPFControls.PlotPoint(Of DateTime)(DateTime.Now.AddDays(-5)), New WPFControls.PlotPoint(Of Double)(850))})
+
+    'ChartData.ClearAndAddRange({New PlotTrend("First", Brushes.Blue, New Thickness(2), o)})
   End Sub
 
 #Region "Dependent Properties"
 
 #Region "ChartData"
-  Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(ObservableCollectionContentNotifying(Of PlotTrend)), GetType(LineChart), New UIPropertyMetadata(New ObservableCollectionContentNotifying(Of PlotTrend), AddressOf LineChart.ChartDataChanged))
+  Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(ObservableCollectionContentNotifying(Of PlotTrend)), GetType(LineChart), New UIPropertyMetadata(New ObservableCollectionContentNotifying(Of PlotTrend), AddressOf ChartDataChanged))
 
   Public Property ChartData As ObservableCollectionContentNotifying(Of PlotTrend)
     Get
@@ -232,16 +252,30 @@ Public Class LineChart
 
 #Region "DataChangedAndTimingEvents"
 
-  Public Shared Sub ChartDataChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
-    Dim LC As LineChart = DirectCast(d, LineChart)
-    Dim chartData = TryCast(e.NewValue, ObservableCollectionContentNotifying(Of PlotTrend))
 
-    AddHandler LC.ChartData.OnCollectionItemChanged, Sub(o As Object, ev As EventArgs) LC.CalculatePlotTrends()
-    AddHandler LC.ChartData.CollectionChanged, Sub(o As Object, ev As EventArgs) LC.CalculatePlotTrends()
-    AddHandler LC.Loaded, Sub() LC.ResizeAndPlotPoints(LC)
-    AddHandler LC.SizeChanged, Sub() LC.Resized()
-    AddHandler LC._timer.Tick, Sub() LC.OnTick(LC)
+  Public Shared Sub ChartDataChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
+
+    Dim LC As LineChart = DirectCast(d, LineChart)
+
+
+    If Not IsNothing(e.OldValue) Then
+      Dim OldCollection = TryCast(e.OldValue, ObservableCollectionContentNotifying(Of PlotTrend))
+      RemoveHandler OldCollection.OnCollectionItemChanged, AddressOf LC.CalculatePlotTrends
+      RemoveHandler OldCollection.CollectionChanged, AddressOf LC.CalculatePlotTrends
+    End If
+
+    If Not IsNothing(e.NewValue) Then
+      Dim NewCollection = TryCast(e.NewValue, ObservableCollectionContentNotifying(Of PlotTrend))
+      AddHandler NewCollection.OnCollectionItemChanged, AddressOf LC.CalculatePlotTrends
+      AddHandler NewCollection.CollectionChanged, AddressOf LC.CalculatePlotTrends
+      AddHandler LC.Loaded, Sub() LC.ResizeAndPlotPoints(LC)
+      AddHandler LC.SizeChanged, Sub() LC.Resized()
+      AddHandler LC._timer.Tick, Sub() LC.OnTick(LC)
+    End If
+
   End Sub
+
+
 
   Private Sub OnTick(lc As LineChart)
     _timer.Stop()
@@ -303,6 +337,9 @@ Public Class LineChart
 
   End Sub
 
+  Public Sub CalculatePlotTrends(o As Object, ev As EventArgs)
+    CalculatePlotTrends()
+  End Sub
   Public Sub CalculatePlotTrends()
     If Me.PART_CanvasPoints IsNot Nothing AndAlso ChartData IsNot Nothing Then
       If ChartData.Count > 1 Then

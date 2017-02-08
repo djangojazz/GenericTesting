@@ -75,7 +75,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="BaseViewModel.vb" />
     <Compile Include="Charting\PlotPoint.vb" />
     <Compile Include="Charting\PlotPoints.vb" />
     <Compile Include="Charting\PlotTrend.vb" />

@@ -1,7 +1,8 @@
 ﻿Imports System.Collections.ObjectModel
+Imports System.ComponentModel
 
 Public Class PlotTrend
-  Inherits BaseViewModel
+  Implements INotifyPropertyChanged
 
   Private _seriesName As String
   Public Property SeriesName As String
@@ -50,4 +51,11 @@ Public Class PlotTrend
   Private Sub NotifyChangedCollection(sender As Object, e As EventArgs)
     Me.OnPropertyChanged(NameOf(Points))
   End Sub
+
+  Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
+
+  Public Sub OnPropertyChanged(ByVal info As String)
+    RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(info))
+  End Sub
+
 End Class

@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFControls"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" Name="LTest">
-    <Grid>
-    <TextBlock Text="{Binding ElementName=Ltest, Path=TestTitle}" Height="30" Background="White" Foreground="Black" />
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Name="PART_TestLayout">
+    <TextBlock Text="{Binding TestTitle}" Height="30" Background="White" Foreground="Black" />
   </Grid>
 </UserControl>
