@@ -5,14 +5,6 @@ Imports WPFControls
 Imports WPFControls.WPFControls
 
 Public Class LineChart
-  Implements INotifyPropertyChanged
-
-  Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
-
-  Public Sub Notify(ByVal propertyName As String)
-    RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
-  End Sub
-
 
   'VARIABLES
   Private _xType As Type

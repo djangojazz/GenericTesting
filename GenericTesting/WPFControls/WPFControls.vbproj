@@ -60,6 +60,9 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Charting\BaseChart.xaml.vb">
+      <DependentUpon>BaseChart.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Charting\LineChart\LineChart.xaml.vb">
       <DependentUpon>LineChart.xaml</DependentUpon>
     </Compile>
@@ -67,6 +70,10 @@
     <Compile Include="Views\Test.xaml.vb">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
+    <Page Include="Charting\BaseChart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Charting\LineChart\LineChart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
