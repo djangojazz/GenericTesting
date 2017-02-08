@@ -60,11 +60,17 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ObservableCollectionContentNotifying.vb" />
+    <Page Include="Charting\LineChart\LineChart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="BaseViewModel.vb" />
+    <Compile Include="Charting\LineChart\LineChart.xaml.vb" />
     <Compile Include="Charting\PlotPoint.vb" />
     <Compile Include="Charting\PlotPoints.vb" />
     <Compile Include="Charting\PlotTrend.vb" />
@@ -119,8 +125,6 @@
   <ItemGroup>
     <Resource Include="Readme.html" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Charting\LineChart\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

@@ -1,5 +1,4 @@
 ﻿Imports System.Collections.ObjectModel
-Imports VB_MVVM_Tester
 
 Public Class PlotTrend
   Inherits BaseViewModel
