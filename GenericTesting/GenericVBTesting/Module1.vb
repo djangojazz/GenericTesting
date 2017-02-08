@@ -20,79 +20,28 @@ Module Module1
                                            End Function)
 
   Sub Main()
-    Dim allocations =
-      New DemandAS400LocationDistributionDateDistributionCollection(
-       New DemandAS400LocationDistributionDateDistributions(DateTime.Now.Date.AddDays(-2).ToShortDateString,
-          New DemandAS400LocationDistributionDateDistribution(23, 0.5),
-          New DemandAS400LocationDistributionDateDistribution(49, 0.5)),
-      New DemandAS400LocationDistributionDateDistributions(DateTime.Now.Date.AddDays(-1).ToShortDateString,
-          New DemandAS400LocationDistributionDateDistribution(23, 0.55),
-          New DemandAS400LocationDistributionDateDistribution(49, 0.45)))
+    Dim startDate = DateTime.Now.AddDays(-5).Date
+    Dim endDate = DateTime.Now.Date
 
+    Console.WriteLine($"{endDate.Subtract(startDate)}")
 
-    Dim serialized = allocations.SerializeToXml()
+    'Dim allocations =
+    '  New DemandAS400LocationDistributionDateAllocationCollection(
+    '   New DemandAS400LocationDistributionDateDistributions(New DemandAS400LocationDistribution(1, "1", "1", "1", "Test"), DateTime.Now.Date.AddDays(-2).ToShortDateString,
+    '      New DemandAS400LocationDistributionDateDistribution(23, 0.5),
+    '      New DemandAS400LocationDistributionDateDistribution(49, 0.5)),
+    '  New DemandAS400LocationDistributionDateDistributions(New DemandAS400LocationDistribution(1, "1", "1", "1", "Test"), DateTime.Now.Date.AddDays(-1).ToShortDateString,
+    '      New DemandAS400LocationDistributionDateDistribution(23, 0.55),
+    '      New DemandAS400LocationDistributionDateDistribution(49, 0.45)))
 
-    Dim deserialized = serialized.DeserializeXml(Of DemandAS400LocationDistributionDateDistributionCollection)
+    'Dim serialized = allocations.SerializeToXml()
+
+    'Dim deserialized = serialized.DeserializeXml(Of DemandAS400LocationDistributionDateAllocationCollection)
+    'Console.WriteLine($"{allocations.Distributions.OrderBy(Function(x) x.DateAllocated).FirstOrDefault()?.ParentDemandAS400LocationDistribution.ToString}  
+    '  {allocations.Distributions.OrderBy(Function(x) x.DateAllocated).FirstOrDefault()?.DateAllocated.ToShortDateString} 
+    '  {allocations.Distributions.OrderByDescending(Function(x) x.DateAllocated).FirstOrDefault()?.DateAllocated.ToShortDateString}")
 
     Console.ReadLine()
-  End Sub
-
-  Private Sub TaskFactoryCancellationMethod()
-    ' Define the cancellation token.
-    Dim source As New CancellationTokenSource()
-    Dim token As CancellationToken = source.Token
-
-    Dim lockObj As New Object()
-    Dim rnd As New Random
-
-    Dim tasks As New List(Of Task(Of Integer()))
-    Dim factory As New TaskFactory(token)
-    For taskCtr As Integer = 0 To 10
-      Dim iteration As Integer = taskCtr + 1
-      tasks.Add(factory.StartNew(Function()
-                                   Dim value, values(9) As Integer
-                                   For ctr As Integer = 1 To 10
-                                     SyncLock lockObj
-                                       value = rnd.Next(0, 101)
-                                     End SyncLock
-                                     If value = 0 Then
-                                       source.Cancel()
-                                       Console.WriteLine("Cancelling at task {0}", iteration)
-                                       Exit For
-                                     End If
-                                     values(ctr - 1) = value
-                                   Next
-                                   Return values
-                                 End Function, token))
-
-    Next
-    Try
-      Dim fTask As Task(Of Double) = factory.ContinueWhenAll(tasks.ToArray(),
-                                                         Function(results)
-                                                           Console.WriteLine("Calculating overall mean...")
-                                                           Dim sum As Long
-                                                           Dim n As Integer
-                                                           For Each t In results
-                                                             For Each r In t.Result
-                                                               sum += r
-                                                               n += 1
-                                                             Next
-                                                           Next
-                                                           Return sum / n
-                                                         End Function, token)
-      Console.WriteLine("The mean is {0}.", fTask.Result)
-    Catch ae As AggregateException
-      For Each e In ae.InnerExceptions
-        If TypeOf e Is TaskCanceledException Then
-          Console.WriteLine("Unable to compute mean: {0}",
-                                 CType(e, TaskCanceledException).Message)
-        Else
-          Console.WriteLine("Exception: " + e.GetType().Name)
-        End If
-      Next
-    Finally
-      source.Dispose()
-    End Try
   End Sub
 
   Private Sub writeIt(header As String)

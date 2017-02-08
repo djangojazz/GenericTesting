@@ -33,18 +33,43 @@ namespace GenericTesting
   {                                                                           
     static void Main(string[] args)
     {
-      var locations = new List<Location>
-        {
-          new Location { Id = 1, PercentUsed = 0.5, ExtraGarbage = "really important I'm sure"},
-          new Location { Id = 2, PercentUsed = 0.6},
-          new Location { Id = 3, PercentUsed = 0.7},
-        };
+      using (var context = new EntityTesting.TesterEntities())
+      {
+        var nPerson = new tePerson { FirstName = "Test", LastName = "Tester" };
 
-      var serialized = locations.SerializeToXml();
+        context.tePerson.Add(nPerson);
+        context.SaveChanges();
+      }
 
-      var deserialized = serialized.DeserializeXml<List<Location>>();
 
-      Console.ReadLine();
+        //    var thingie = new QADailyXValueCalCheck
+        //    {
+        //      Regs = "40CFR75",
+        //      BasisTStamp = "2016-02-15 05:18",
+        //      DAsWriteTStamp = "2016-02-15 05:40",
+        //      InjEndTime = "2016-02-15 05:23",
+        //      Manual = 0,       //Boolean This will probably mess up  Changed to Int
+        //      RefValue = 169.7M,
+        //      MeasValue = 169.27M,
+        //      Online = 14,  //Mismatch Type?  Change to Int
+        //      AllowableDrift = 15,
+        //      FailAbove = 0,     //Boolean This will probably mess up   Changed to Int
+        //      FailBelow = 0,     //Boolean This will probably mess up    Changed to Int
+        //      InstSpan = 300,
+        //      GasLevel = "MID",     //This is marked as a decimal?                                                     
+        //      CId = "111",             
+        //      MId =  "N10",
+        //      CylinderId= "CC357464",
+        //      CylinderExpDate ="2022-08-12",
+        //      CylinderVendorId = "B22014",
+        //      CylinderGasTypeCode = "BALN,SO2,NO,CO2"
+        //};
+
+        //  var serialized = thingie.SerializeToXml();
+
+        //  var deserialized = serialized.DeserializeXml<QADailyXValueCalCheck>();
+
+        Console.ReadLine();
     }
   }
 

@@ -72,6 +72,7 @@
     <Compile Include="DatabaseAccess.vb" />
     <Compile Include="DataConverter.vb" />
     <Compile Include="Enterprise\SelectDemandAS400LocationDistribution.vb" />
+    <Compile Include="Enterprise\SelectDemandAS400LocationDistributionDateAllocation.vb" />
     <Compile Include="Models.vb" />
     <Compile Include="SQLTalker.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
