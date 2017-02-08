@@ -7,6 +7,23 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Name="PART_TestLayout">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
     <TextBlock Text="{Binding TestTitle}" Height="30" Background="White" Foreground="Black" />
+    <TextBlock Name="PART_Text2" Grid.Row="1" Background="White" />
+    <DataGrid Name="PART_dg" Grid.Row="2" ItemsSource="{Binding T}" AutoGenerateColumns="False">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Strings" Binding="{Binding}" />
+      </DataGrid.Columns>
+    </DataGrid>
+    <DataGrid Name="PART_dgChart" Grid.Row="3" ItemsSource="{Binding ChartData}" AutoGenerateColumns="False">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="SeriesName" Binding="{Binding SeriesName}" />
+      </DataGrid.Columns>
+    </DataGrid>
   </Grid>
 </UserControl>

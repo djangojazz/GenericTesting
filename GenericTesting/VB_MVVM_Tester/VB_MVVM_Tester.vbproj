@@ -120,13 +120,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Business\PlotPoint.vb" />
-    <Compile Include="Business\PlotPoints.vb" />
     <Compile Include="Converters\Converters.vb" />
     <Compile Include="Converters\DateValueConverter.vb" />
     <Compile Include="Converters\DecimalConverter.vb" />
     <Compile Include="Converters\NegatingConverter.vb" />
-    <Compile Include="Business\PlotTrend.vb" />
     <Compile Include="Business\ProducerConsumer.vb" />
     <Compile Include="Business\TemplateSelectors.vb" />
     <Compile Include="Converters\Sub\ConverterBitmapSourceToGrayscale.vb" />
@@ -146,8 +143,6 @@
     <Compile Include="Extensions\RangeColumn.vb" />
     <Compile Include="Model\Delegates.vb" />
     <Compile Include="Model\POCO.vb" />
-    <Compile Include="Business\LineGraph.vb" />
-    <Compile Include="ObservableCollectionContentNotifying.vb" />
     <Compile Include="ViewModels\MarqueeViewModel.vb" />
     <Compile Include="Views\CustomMarqueeControl.xaml.vb">
       <DependentUpon>CustomMarqueeControl.xaml</DependentUpon>
@@ -160,9 +155,6 @@
     </Compile>
     <Compile Include="Views\DynamicTemplate.xaml.vb">
       <DependentUpon>DynamicTemplate.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\LineChart.xaml.vb">
-      <DependentUpon>LineChart.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProducerConsumerView.xaml.vb">
       <DependentUpon>ProducerConsumerView.xaml</DependentUpon>
@@ -212,10 +204,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DynamicTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\LineChart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

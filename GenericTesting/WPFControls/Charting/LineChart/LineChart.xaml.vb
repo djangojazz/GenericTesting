@@ -2,7 +2,7 @@
 Imports System.ComponentModel
 Imports System.Windows.Threading
 Imports WPFControls
-
+Imports WPFControls.WPFControls
 
 Public Class LineChart
   Implements INotifyPropertyChanged
@@ -254,9 +254,7 @@ Public Class LineChart
 
 
   Public Shared Sub ChartDataChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
-
     Dim LC As LineChart = DirectCast(d, LineChart)
-
 
     If Not IsNothing(e.OldValue) Then
       Dim OldCollection = TryCast(e.OldValue, ObservableCollectionContentNotifying(Of PlotTrend))

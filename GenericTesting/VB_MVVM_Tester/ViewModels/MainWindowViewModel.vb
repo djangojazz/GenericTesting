@@ -1,6 +1,8 @@
 ﻿
 Imports System.Collections.ObjectModel
 Imports VB_MVVM_Tester
+Imports WPFControls
+Imports WPFControls.WPFControls
 
 Public Class MainWindowViewModel
   Inherits BaseViewModel
@@ -30,10 +32,11 @@ Public Class MainWindowViewModel
                                     New Stuff With {.Id = 4, .ShipType = ShipType.Other, .Value = "Boat4"}
                                     })
     AddingLinesForLineChart()
-    AddHandler ChartData.OnCollectionItemChanged, AddressOf ChartDataChanged
-    AddHandler ChartData.CollectionChanged, AddressOf ChartDataChanged
-    AddHandler ChartData2.OnCollectionItemChanged, AddressOf ChartDataChanged2
-    AddHandler ChartData2.CollectionChanged, AddressOf ChartDataChanged2
+    TestList.ClearAndAddRange(New List(Of String)({"a", "b", "c"}))
+    'AddHandler ChartData.OnCollectionItemChanged, AddressOf ChartDataChanged
+    'AddHandler ChartData.CollectionChanged, AddressOf ChartDataChanged
+    'AddHandler ChartData2.OnCollectionItemChanged, AddressOf ChartDataChanged2
+    'AddHandler ChartData2.CollectionChanged, AddressOf ChartDataChanged2
   End Sub
 
   Private Sub ChartDataChanged(sender As Object, e As EventArgs)
@@ -50,6 +53,7 @@ Public Class MainWindowViewModel
   Public ReadOnly Property TreeData As New ObservableCollection(Of TreeViewItem)
   Public ReadOnly Property ChartData As New ObservableCollectionContentNotifying(Of PlotTrend)
   Public ReadOnly Property ChartData2 As New ObservableCollectionContentNotifying(Of PlotTrend)
+  Public ReadOnly Property TestList As New ObservableCollection(Of String)
 
   Public Property Points As String
     Get
@@ -145,6 +149,8 @@ Public Class MainWindowViewModel
     'Items.Add(New Stuff With {.Id = 3, .ShipType = ShipType.Other, .Value = "Boat3"})
     'TestText += " some more stuff"
     LinePlotAdding()
+    TestList.Add($"{DateTime.Now.ToLongDateString}")
+    TestText = "Line Chart Hello there" + DateTime.Now.ToLongTimeString
   End Sub
 
 #Region "Line Graph parts"

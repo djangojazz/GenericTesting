@@ -18,4 +18,3 @@ End Class
 Public MustInherit Class PlotPoint
   MustOverride ReadOnly Property PointType As Type
 End Class
-
