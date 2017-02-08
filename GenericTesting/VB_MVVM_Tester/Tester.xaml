@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+        xmlns:cntrls="clr-namespace:WPFControls;assembly=WPFControls"
         xmlns:local="clr-namespace:VB_MVVM_Tester"
         mc:Ignorable="d"
         Height="800"
@@ -20,7 +20,7 @@
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <local:LineChart 
+    <!--<cntrls:LineChart 
       Grid.Row ="0"
       ChartData="{Binding ChartData}"
       ChartTitle="My Test Chart"
@@ -33,7 +33,8 @@
       XValueConverter="{StaticResource DateValueConverter}"
       YValueConverter="{StaticResource ConvertDecimal}"
       FontType="Tahoma"
-      />
+      />-->
+    <cntrls:Test TestTitle="My Test" />
     <Label Grid.Row="1" Content="{Binding TestText}" Height="30" />
     <Button Grid.Row="2" Command="{Binding TestCommand}" Height="30" Content="Add more lines" />
   </Grid>

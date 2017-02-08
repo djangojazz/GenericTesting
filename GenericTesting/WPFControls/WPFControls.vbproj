@@ -60,23 +60,29 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Charting\LineChart\LineChart.xaml.vb">
+      <DependentUpon>LineChart.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ObservableCollectionContentNotifying.vb" />
+    <Compile Include="Views\Test.xaml.vb">
+      <DependentUpon>Test.xaml</DependentUpon>
+    </Compile>
     <Page Include="Charting\LineChart\LineChart.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="BaseViewModel.vb" />
-    <Compile Include="Charting\LineChart\LineChart.xaml.vb" />
     <Compile Include="Charting\PlotPoint.vb" />
     <Compile Include="Charting\PlotPoints.vb" />
     <Compile Include="Charting\PlotTrend.vb" />
-    <Compile Include="CustomControl1.vb">
-      <SubType>Code</SubType>
-    </Compile>
+    <Page Include="Views\Test.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Import Include="System.Threading.Tasks" />

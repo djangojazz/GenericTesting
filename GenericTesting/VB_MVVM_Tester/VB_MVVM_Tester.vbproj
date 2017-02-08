@@ -290,6 +290,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\WPFControls\WPFControls.vbproj">
+      <Project>{cfd8e45d-08cc-419b-85df-01014796d005}</Project>
+      <Name>WPFControls</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
