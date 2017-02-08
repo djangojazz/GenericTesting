@@ -48,8 +48,8 @@ Public Class MainWindowViewModel
   Public ReadOnly Property Items As New ObservableCollection(Of Stuff)
 
   Public ReadOnly Property TreeData As New ObservableCollection(Of TreeViewItem)
-  Public ReadOnly Property ChartData As New ObservableCollectionContentNotifying(Of LineTrend)
-  Public ReadOnly Property ChartData2 As New ObservableCollectionContentNotifying(Of LineTrend)
+  Public ReadOnly Property ChartData As New ObservableCollectionContentNotifying(Of PlotTrend)
+  Public ReadOnly Property ChartData2 As New ObservableCollectionContentNotifying(Of PlotTrend)
 
   Public Property Points As String
     Get
@@ -159,7 +159,7 @@ Public Class MainWindowViewModel
                                     New PlotPoints(New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-4)), New PlotPoint(Of Double)(720)),
                                     _lastPoints(0)})
 
-    ChartData.ClearAndAddRange({New LineTrend("First", Brushes.Blue, New Thickness(2), o), New LineTrend("Second", Brushes.Red, New Thickness(2), o2)})
+    ChartData.ClearAndAddRange({New PlotTrend("First", Brushes.Blue, New Thickness(2), o), New PlotTrend("Second", Brushes.Red, New Thickness(2), o2)})
   End Sub
 
   Private Sub LinePlotAdding()

@@ -36,11 +36,11 @@ Public Class LineGraph
 
 
 #Region "ChartData"
-  Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(IList(Of LineTrend)), GetType(LineGraph), New UIPropertyMetadata(Nothing, AddressOf LineGraph.ChartDataChanged))
+  Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(IList(Of PlotTrend)), GetType(LineGraph), New UIPropertyMetadata(Nothing, AddressOf LineGraph.ChartDataChanged))
 
-  Public Property ChartData As IList(Of LineTrend)
+  Public Property ChartData As IList(Of PlotTrend)
     Get
-      Return DirectCast(GetValue(ChartDataProperty), IList(Of LineTrend))
+      Return DirectCast(GetValue(ChartDataProperty), IList(Of PlotTrend))
     End Get
     Set
       SetValue(ChartDataProperty, Value)
@@ -49,7 +49,7 @@ Public Class LineGraph
 
   Private Shared Sub ChartDataChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
     Dim LG As LineGraph = DirectCast(d, LineGraph)
-    Dim chartData = TryCast(e.NewValue, IList(Of LineTrend))
+    Dim chartData = TryCast(e.NewValue, IList(Of PlotTrend))
 
     If _canvasPoints IsNot Nothing AndAlso chartData IsNot Nothing Then
 
@@ -196,7 +196,7 @@ Public Class LineGraph
 #End Region
 
 #Region "Drawing Methods"
-  Public Sub DrawXAxis(lineTrends As IList(Of LineTrend))
+  Public Sub DrawXAxis(lineTrends As IList(Of PlotTrend))
     Dim segment = (_xCeiling / 5)
     _canvasXAxisTicks.Children.RemoveRange(0, _canvasXAxisTicks.Children.Count)
     _canvasXAxisLabels.Children.RemoveRange(0, _canvasXAxisLabels.Children.Count)
@@ -233,7 +233,7 @@ Public Class LineGraph
     Next
   End Sub
 
-  Public Sub DrawYAxis(lineTrends As IList(Of LineTrend))
+  Public Sub DrawYAxis(lineTrends As IList(Of PlotTrend))
     Dim segment = (_yCeiling / 5)
     _canvasYAxisTicks.Children.RemoveRange(0, _canvasYAxisTicks.Children.Count)
     _canvasYAxisLabels.Children.RemoveRange(0, _canvasYAxisLabels.Children.Count)
@@ -270,7 +270,7 @@ Public Class LineGraph
     Next
   End Sub
 
-  Friend Sub DrawTrends(points As List(Of LineTrend))
+  Friend Sub DrawTrends(points As List(Of PlotTrend))
 
     For Each t In ChartData
       If t.Points IsNot Nothing Then

@@ -1,7 +1,7 @@
 ﻿Imports System.Collections.ObjectModel
 Imports VB_MVVM_Tester
 
-Public Class LineTrend
+Public Class PlotTrend
   Inherits BaseViewModel
 
   Private _seriesName As String

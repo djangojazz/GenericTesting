@@ -35,11 +35,11 @@ Public Class LineChart
 #Region "Dependent Properties"
 
 #Region "ChartData"
-  Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(ObservableCollectionContentNotifying(Of PlotTrend)), GetType(LineChart), New UIPropertyMetadata(New ObservableCollectionContentNotifying(Of PlotTrend), AddressOf LineChart.ChartDataChanged))
+  Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(ObservableCollectionContentNotifying(Of LineTrend)), GetType(LineChart), New UIPropertyMetadata(New ObservableCollectionContentNotifying(Of LineTrend), AddressOf LineChart.ChartDataChanged))
 
-  Public Property ChartData As ObservableCollectionContentNotifying(Of PlotTrend)
+  Public Property ChartData As ObservableCollectionContentNotifying(Of LineTrend)
     Get
-      Return CType(GetValue(ChartDataProperty), ObservableCollectionContentNotifying(Of PlotTrend))
+      Return CType(GetValue(ChartDataProperty), ObservableCollectionContentNotifying(Of LineTrend))
     End Get
     Set
       SetValue(ChartDataProperty, Value)
@@ -237,7 +237,7 @@ Public Class LineChart
 
   Public Shared Sub ChartDataChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
     Dim LC As LineChart = DirectCast(d, LineChart)
-    Dim chartData = TryCast(e.NewValue, ObservableCollectionContentNotifying(Of PlotTrend))
+    Dim chartData = TryCast(e.NewValue, ObservableCollectionContentNotifying(Of LineTrend))
 
     AddHandler LC.ChartData.OnCollectionItemChanged, Sub(o As Object, ev As EventArgs) LC.CalculatePlotTrends()
     AddHandler LC.ChartData.CollectionChanged, Sub(o As Object, ev As EventArgs) LC.CalculatePlotTrends()
@@ -341,7 +341,7 @@ Public Class LineChart
 #End Region
 
 #Region "Drawing Methods"
-  Public Sub DrawXAxis(lineTrends As IList(Of PlotTrend))
+  Public Sub DrawXAxis(lineTrends As IList(Of LineTrend))
     Dim segment = ((_xCeiling - _xFloor) / NumberOfTicks)
     PART_CanvasXAxisTicks.Children.RemoveRange(0, PART_CanvasXAxisTicks.Children.Count)
     PART_CanvasXAxisLabels.Children.RemoveRange(0, PART_CanvasXAxisLabels.Children.Count)
@@ -410,7 +410,7 @@ Public Class LineChart
     Next
   End Sub
 
-  Public Sub DrawYAxis(lineTrends As IList(Of PlotTrend))
+  Public Sub DrawYAxis(lineTrends As IList(Of LineTrend))
     Dim segment = ((_yCeiling - _yFloor) / NumberOfTicks)
     PART_CanvasYAxisTicks.Children.RemoveRange(0, PART_CanvasYAxisTicks.Children.Count)
     PART_CanvasYAxisLabels.Children.RemoveRange(0, PART_CanvasYAxisLabels.Children.Count)
@@ -472,7 +472,7 @@ Public Class LineChart
     Next
   End Sub
 
-  Friend Sub DrawTrends(points As IList(Of PlotTrend))
+  Friend Sub DrawTrends(points As IList(Of LineTrend))
 
     For Each t In ChartData
       If t.Points IsNot Nothing Then
