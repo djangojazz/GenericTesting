@@ -29,49 +29,6 @@ Public Class Test
   End Sub
 #End Region
 
-#Region "T"
-  Public Shared ReadOnly TProperty As DependencyProperty = DependencyProperty.Register("T", GetType(ObservableCollection(Of String)), GetType(Test), New UIPropertyMetadata(New ObservableCollection(Of String), AddressOf TChanged))
-
-  Public Property T As ObservableCollection(Of String)
-    Get
-      Return CType(GetValue(TProperty), ObservableCollection(Of String))
-    End Get
-    Set
-      SetValue(TProperty, Value)
-    End Set
-  End Property
-
-  Private Shared Sub TChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
-    Dim m = DirectCast(d, Test)
-  End Sub
-#End Region
-
-#Region "ChartData"
-  Public Shared ReadOnly ChartDataProperty As DependencyProperty = DependencyProperty.Register("ChartData", GetType(ObservableCollection(Of PlotTrend)), GetType(Test), New UIPropertyMetadata(New ObservableCollection(Of PlotTrend), AddressOf ChartDataChanged))
-
-  Public Property ChartData As ObservableCollection(Of PlotTrend)
-    Get
-      Return CType(GetValue(ChartDataProperty), ObservableCollection(Of PlotTrend))
-    End Get
-    Set
-      SetValue(ChartDataProperty, Value)
-    End Set
-  End Property
-#End Region
-
-  Public Shared Sub ChartDataChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
-    Dim m = DirectCast(d, Test)
-
-    If Not IsNothing(e.OldValue) Then
-      Dim OldCollection = TryCast(e.OldValue, ObservableCollection(Of PlotTrend))
-    End If
-
-    If Not IsNothing(e.NewValue) Then
-      Dim NewCollection = TryCast(e.NewValue, ObservableCollection(Of PlotTrend))
-    End If
-
-  End Sub
-
   Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
 
   Public Sub OnPropertyChanged(ByVal info As String)
