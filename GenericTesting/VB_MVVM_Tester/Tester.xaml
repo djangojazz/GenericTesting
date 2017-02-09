@@ -18,12 +18,12 @@
       <RowDefinition Height="*" />
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
     <!--<cntrls:LineChart 
       Grid.Row ="0"
       ChartData="{Binding ChartData}"
-      ChartTitle="My Test Chart"
-      ChartForeground="Wheat" 
+     
       LegendForeground="WhiteSmoke"
       BackGroundColor="DarkCyan" 
       BackGroundColorCanvas="White" 
@@ -33,8 +33,8 @@
       YValueConverter="{StaticResource ConvertDecimal}"
       FontType="Tahoma"
       />-->
-    <cntrls:Test TestTitle="{Binding TestText}"  />
-    <Label Grid.Row="1" Content="{Binding TestText}" Height="30" />
-    <Button Grid.Row="2" Command="{Binding TestCommand}" Height="30" Content="Add more lines" />
+    <cntrls:HeaderSection Grid.Row="1" ChartTitle="Test" ChartTitleForeground="White" ChartTitleHidden="True" />
+    <Label Grid.Row="2" Content="{Binding TestText}" Height="30" />
+    <Button Grid.Row="3" Command="{Binding TestCommand}" Height="30" Content="Add more lines" />
   </Grid>
 </Window>

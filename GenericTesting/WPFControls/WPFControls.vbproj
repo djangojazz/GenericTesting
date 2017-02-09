@@ -60,24 +60,28 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Charting\BaseChart.xaml.vb">
-      <DependentUpon>BaseChart.xaml</DependentUpon>
+    <Compile Include="Charting\HeaderSection.xaml.vb">
+      <DependentUpon>HeaderSection.xaml</DependentUpon>
     </Compile>
     <Compile Include="Charting\LineChart\LineChart.xaml.vb">
       <DependentUpon>LineChart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Charting\LineChart\Simple.xaml.vb">
+      <DependentUpon>Simple.xaml</DependentUpon>
     </Compile>
     <Compile Include="ObservableCollectionContentNotifying.vb" />
     <Compile Include="Views\Test.xaml.vb">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TestInheritance.xaml.vb">
-      <DependentUpon>TestInheritance.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Charting\BaseChart.xaml">
+    <Page Include="Charting\HeaderSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Charting\LineChart\LineChart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Charting\LineChart\Simple.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -89,10 +93,6 @@
     <Compile Include="Charting\PlotPoints.vb" />
     <Compile Include="Charting\PlotTrend.vb" />
     <Page Include="Views\Test.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\TestInheritance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFControls"
+             xmlns:cntrls="clr-namespace:WPFControls;assembly=WPFControls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
   <Border Name="Part_Layout" Background="{Binding BackGroundColor}" CornerRadius="15" Margin="5">
@@ -14,10 +15,11 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
-      <TextBlock x:Name="PART_ChartTitle" Grid.Row="0" Text="{Binding ChartTitle}" FontSize="26" HorizontalAlignment="Center" 
+      
+      <!--<TextBlock x:Name="PART_ChartTitle" Grid.Row="0" Text="{Binding ChartTitle}" FontSize="26" HorizontalAlignment="Center" 
                  Foreground="{Binding ChartForeground}"
                  FontFamily="{Binding FontType}"
-                 />
+                 />-->
       <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="15" Margin="10" Background="{Binding BackGroundColorCanvas}" >
         <Viewbox x:Name="PART_CanvasBorder" Stretch="Fill" RenderOptions.EdgeMode="Aliased" Margin="15" >
           <Grid >

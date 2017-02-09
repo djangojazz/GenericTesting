@@ -1,9 +1,6 @@
-﻿Imports System.Collections.ObjectModel
-Imports System.ComponentModel
-Imports WPFControls.WPFControls
+﻿Imports System.ComponentModel
 
 Public Class Test
-  Implements INotifyPropertyChanged
 
 
   Public Sub New()
@@ -29,9 +26,4 @@ Public Class Test
   End Sub
 #End Region
 
-  Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
-
-  Public Sub OnPropertyChanged(ByVal info As String)
-    RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(info))
-  End Sub
 End Class
