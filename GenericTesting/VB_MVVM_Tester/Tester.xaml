@@ -39,7 +39,7 @@
       YValueConverter="{StaticResource ConvertDecimal}"
       FontType="Tahoma"
       />
-    <!--<TextBlock Grid.Row="1" Text="Test Text" Foreground="{StaticResource test}" />-->
+    <cntrls:TestControl  Grid.Row="1" Test="{Binding TestText}" />
     <Label Grid.Row="2" Content="{Binding TestText}" Height="30" />
     <Button Grid.Row="3" Command="{Binding TestCommand}" Height="30" Content="Add more lines" />
   </Grid>

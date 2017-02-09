@@ -64,6 +64,7 @@
       <DependentUpon>LineChart.xaml</DependentUpon>
     </Compile>
     <Compile Include="ObservableCollectionContentNotifying.vb" />
+    <Compile Include="TestControl.vb" />
     <Compile Include="Views\BaseTest.vb" />
     <Compile Include="Views\Test.xaml.vb">
       <DependentUpon>Test.xaml</DependentUpon>
