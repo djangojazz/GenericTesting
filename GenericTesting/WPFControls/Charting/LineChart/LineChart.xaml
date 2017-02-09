@@ -15,11 +15,10 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
-      
-      <!--<TextBlock x:Name="PART_ChartTitle" Grid.Row="0" Text="{Binding ChartTitle}" FontSize="26" HorizontalAlignment="Center" 
+      <TextBlock x:Name="PART_ChartTitle" Grid.Row="0" Text="{Binding ChartTitle}" FontSize="26" HorizontalAlignment="Center" 
                  Foreground="{Binding ChartForeground}"
                  FontFamily="{Binding FontType}"
-                 />-->
+                 />
       <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="15" Margin="10" Background="{Binding BackGroundColorCanvas}" >
         <Viewbox x:Name="PART_CanvasBorder" Stretch="Fill" RenderOptions.EdgeMode="Aliased" Margin="15" >
           <Grid >

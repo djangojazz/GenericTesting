@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:WPFControls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-  
-    <TextBlock x:Name="SECTION_ChartTitle" Height="30" Grid.Row="0" Text="{Binding ChartTitle}" FontSize="26" HorizontalAlignment="Center" Foreground="{Binding ChartTitleForeground}" FontFamily="{Binding FontType}" />
-  
+  <Grid Name="Grid">
+    <TextBlock x:Name="SECTION_ChartTitle" Height="30" Grid.Row="0" Foreground="Wheat" Text="{Binding ChartTitle}" FontSize="26" HorizontalAlignment="Center" />
+  </Grid>
   
 </UserControl>

@@ -56,18 +56,55 @@ Public Class LineChart
   End Property
 #End Region
 
-  '#Region "ChartTitle"
-  '  Public Shared ReadOnly ChartTitleProperty As DependencyProperty = DependencyProperty.Register("ChartTitle", GetType(String), GetType(LineChart), New UIPropertyMetadata(String.Empty))
+#Region "ChartTitle"
+  Public Shared ReadOnly ChartTitleProperty As DependencyProperty = DependencyProperty.Register("ChartTitle", GetType(String), GetType(LineChart), New UIPropertyMetadata(String.Empty))
 
-  '  Public Property ChartTitle As String
-  '    Get
-  '      Return CType(GetValue(ChartTitleProperty), String)
-  '    End Get
-  '    Set
-  '      SetValue(ChartTitleProperty, Value)
-  '    End Set
-  '  End Property
-  '#End Region
+  Public Property ChartTitle As String
+    Get
+      Return CType(GetValue(ChartTitleProperty), String)
+    End Get
+    Set
+      SetValue(ChartTitleProperty, Value)
+    End Set
+  End Property
+#End Region
+
+#Region "ChartForeground"
+  Public Shared ReadOnly ChartForegroundProperty As DependencyProperty = DependencyProperty.Register("ChartForeground", GetType(Brush), GetType(LineChart), New UIPropertyMetadata(Brushes.Black))
+
+  Public Property ChartForeground As Brush
+    Get
+      Return DirectCast(GetValue(ChartForegroundProperty), Brush)
+    End Get
+    Set
+      SetValue(ChartForegroundProperty, Value)
+    End Set
+  End Property
+#End Region
+
+#Region "ChartTitleHidden"
+  Public Shared ReadOnly ChartTitleHiddenProperty As DependencyProperty = DependencyProperty.Register("ChartTitleHidden", GetType(Boolean), GetType(LineChart), New UIPropertyMetadata(False, AddressOf LineChart.ChartTitleHiddenChanged))
+
+  Public Property ChartTitleHidden As Boolean
+    Get
+      Return DirectCast(GetValue(ChartTitleHiddenProperty), Boolean)
+    End Get
+    Set
+      SetValue(ChartTitleHiddenProperty, Value)
+    End Set
+  End Property
+
+  Public Shared Sub ChartTitleHiddenChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
+    Dim LC As LineChart = DirectCast(d, LineChart)
+
+    If CBool(e.NewValue) Then
+      LC.PART_ChartTitle.Visibility = Visibility.Collapsed
+    Else
+      LC.PART_ChartTitle.Visibility = Visibility.Visible
+    End If
+
+  End Sub
+#End Region
 
 #Region "BackGroundColor"
   Public Shared ReadOnly BackGroundColorProperty As DependencyProperty = DependencyProperty.Register("BackGroundColor", GetType(Brush), GetType(LineChart), New UIPropertyMetadata(Brushes.Black))
@@ -108,18 +145,7 @@ Public Class LineChart
   End Property
 #End Region
 
-  '#Region "ChartForeground"
-  '  Public Shared ReadOnly ChartForegroundProperty As DependencyProperty = DependencyProperty.Register("ChartForeground", GetType(Brush), GetType(LineChart), New UIPropertyMetadata(Brushes.Black))
 
-  '  Public Property ChartForeground As Brush
-  '    Get
-  '      Return DirectCast(GetValue(ChartForegroundProperty), Brush)
-  '    End Get
-  '    Set
-  '      SetValue(ChartForegroundProperty, Value)
-  '    End Set
-  '  End Property
-  '#End Region
 
 #Region "LegendForeground"
   Public Shared ReadOnly LegendForegroundProperty As DependencyProperty = DependencyProperty.Register("LegendForeground", GetType(Brush), GetType(LineChart), New UIPropertyMetadata(Brushes.Black, AddressOf LineChart.ChartLegendTextChanged))
