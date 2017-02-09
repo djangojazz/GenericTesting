@@ -10,8 +10,13 @@
         Width="800"
         Background="{StaticResource brushMainBoard}">
   <Window.Resources>
-    <local:DateValueConverter x:Key="DateValueConverter" DateFormat="MM/dd/yy" />
-    <local:DecimalConverter x:Key="ConvertDecimal" IncludeComma="True" DecimalPositions="0" />
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/WPFControls;component/styles.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+      <local:DateValueConverter x:Key="DateValueConverter" DateFormat="MM/dd/yy" />
+      <local:DecimalConverter x:Key="ConvertDecimal" IncludeComma="True" DecimalPositions="0" />
+    </ResourceDictionary>
   </Window.Resources>
   <Grid>
     <Grid.RowDefinitions>
@@ -34,7 +39,7 @@
       YValueConverter="{StaticResource ConvertDecimal}"
       FontType="Tahoma"
       />
-    <cntrls:HeaderSection Grid.Row="1" ChartTitle="Test"  />
+    <!--<TextBlock Grid.Row="1" Text="Test Text" Foreground="{StaticResource test}" />-->
     <Label Grid.Row="2" Content="{Binding TestText}" Height="30" />
     <Button Grid.Row="3" Command="{Binding TestCommand}" Height="30" Content="Add more lines" />
   </Grid>
