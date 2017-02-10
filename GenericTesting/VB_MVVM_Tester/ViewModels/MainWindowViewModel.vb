@@ -55,16 +55,6 @@ Public Class MainWindowViewModel
   Public ReadOnly Property ChartData2 As New ObservableCollectionContentNotifying(Of PlotTrend)
   Public ReadOnly Property TestList As New ObservableCollection(Of String)
 
-  Public Property Points As String
-    Get
-      Return _points
-    End Get
-    Set(ByVal value As String)
-      _points = value
-      OnPropertyChanged(NameOf(Points))
-    End Set
-  End Property
-
   Public Property TestText As String
     Get
       Return _testText
