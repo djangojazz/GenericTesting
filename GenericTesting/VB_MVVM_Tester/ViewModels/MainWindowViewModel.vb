@@ -11,8 +11,6 @@ Public Class MainWindowViewModel
   Private _locationAddress As String
   Private _queueFinished As Boolean = False
   Private _result As String
-  Private _currentPoints As New ObservableCollection(Of Point)
-  Private _lastPoints As List(Of PlotPoints)
   Private _testText As String
   Private _points As String
   Private _mouseMove As String
@@ -31,28 +29,13 @@ Public Class MainWindowViewModel
                                     New Stuff With {.Id = 3, .ShipType = ShipType.Other, .Value = "Boat3"},
                                     New Stuff With {.Id = 4, .ShipType = ShipType.Other, .Value = "Boat4"}
                                     })
-    AddingLinesForLineChart()
     TestList.ClearAndAddRange(New List(Of String)({"a", "b", "c"}))
-    'AddHandler ChartData.OnCollectionItemChanged, AddressOf ChartDataChanged
-    'AddHandler ChartData.CollectionChanged, AddressOf ChartDataChanged
-    'AddHandler ChartData2.OnCollectionItemChanged, AddressOf ChartDataChanged2
-    'AddHandler ChartData2.CollectionChanged, AddressOf ChartDataChanged2
-  End Sub
-
-  Private Sub ChartDataChanged(sender As Object, e As EventArgs)
-    Me.OnPropertyChanged(NameOf(ChartData))
-  End Sub
-
-  Private Sub ChartDataChanged2(sender As Object, e As EventArgs)
-    Me.OnPropertyChanged(NameOf(ChartData2))
   End Sub
 
   Public ReadOnly Property AvailableItems As New ObservableCollection(Of Stuff)
   Public ReadOnly Property Items As New ObservableCollection(Of Stuff)
 
   Public ReadOnly Property TreeData As New ObservableCollection(Of TreeViewItem)
-  Public ReadOnly Property ChartData As New ObservableCollectionContentNotifying(Of PlotTrend)
-  Public ReadOnly Property ChartData2 As New ObservableCollectionContentNotifying(Of PlotTrend)
   Public ReadOnly Property TestList As New ObservableCollection(Of String)
 
   Public Property TestText As String
@@ -136,41 +119,9 @@ Public Class MainWindowViewModel
   End Sub
 
   Private Sub TestCommandExecute()
-    'Items.Add(New Stuff With {.Id = 3, .ShipType = ShipType.Other, .Value = "Boat3"})
-    'TestText += " some more stuff"
-    LinePlotAdding()
     TestList.Add($"{DateTime.Now.ToLongDateString}")
     TestText = "Line Chart Hello there" + DateTime.Now.ToLongTimeString
   End Sub
-
-#Region "Line Graph parts"
-  Private Sub AddingLinesForLineChart()
-    _lastPoints = New List(Of PlotPoints)({New PlotPoints(New PlotPoint(Of DateTime)(DateTime.Now), New PlotPoint(Of Double)(930)), New PlotPoints(New PlotPoint(Of DateTime)(DateTime.Now), New PlotPoint(Of Double)(950))})
-
-    Dim o = New ObservableCollection(Of PlotPoints)({New PlotPoints(New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-10)), New PlotPoint(Of Double)(930)),
-                                                                              New PlotPoints(New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-5)), New PlotPoint(Of Double)(850)),
-                                                                              _lastPoints(0)})
-
-    Dim o2 = New List(Of PlotPoints)({New PlotPoints(New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-8)), New PlotPoint(Of Double)(600)),
-                                    New PlotPoints(New PlotPoint(Of DateTime)(DateTime.Now.AddDays(-4)), New PlotPoint(Of Double)(720)),
-                                    _lastPoints(0)})
-
-    ChartData.ClearAndAddRange({New PlotTrend("First", Brushes.Blue, New Thickness(2), o), New PlotTrend("Second", Brushes.Red, New Thickness(2), o2)})
-  End Sub
-
-  Private Sub LinePlotAdding()
-    Dim newPoints = New List(Of PlotPoints)
-
-    For i = 1 To _lastPoints.Count
-      newPoints.Add(New PlotPoints(New PlotPoint(Of DateTime)((DirectCast(_lastPoints(i - 1).X, PlotPoint(Of DateTime)).Point).AddDays(1)), New PlotPoint(Of Double)(DirectCast(_lastPoints(i - 1).Y, PlotPoint(Of Double)).Point * 1.95)))
-    Next
-
-    _lastPoints = newPoints
-    ChartData(0).Points.Add(_lastPoints(0))
-    ChartData(1).Points.Add(_lastPoints(1))
-  End Sub
-
-#End Region
 
   Private Sub StartCommandProdConsExecute()
     'TestText = "Start"

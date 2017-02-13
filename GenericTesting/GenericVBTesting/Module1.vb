@@ -19,12 +19,47 @@ Module Module1
                                              Return "example split".Split(" "c)
                                            End Function)
 
+  Public Sub ExamineForReUseOfCommonMethod(o As Object)
+    Select Case True
+      Case TypeOf o Is X Or TypeOf o Is Y
+        o.DoIt()
+      Case TypeOf o Is Z
+        o.DoItDifferent()
+    End Select
+  End Sub
+
+  Public Class X
+    Public Property Name As String
+
+    Public Sub DoIt()
+      Console.WriteLine("I am X's Do It!")
+    End Sub
+  End Class
+
+  Public Class Y
+    Public Property Name As String
+
+    Public Sub DoIt()
+      Console.WriteLine("I am Y's Do It!")
+    End Sub
+  End Class
+
+  Public Class Z
+    Public Property Name As String
+
+    Public Sub DoItDifferent()
+      Console.WriteLine("I am slightly different at Z!")
+    End Sub
+  End Class
+
   Sub Main()
-    Dim startDate = DateTime.Now.AddDays(-5).Date
-    Dim endDate = DateTime.Now.Date
+    Dim p = New X With {.Name = "P"}
+    Dim q = New Y With {.Name = "Q"}
+    Dim r = New Z With {.Name = "R"}
 
-    Console.WriteLine($"{endDate.Subtract(startDate)}")
-
+    ExamineForReUseOfCommonMethod(p)
+    ExamineForReUseOfCommonMethod(q)
+    ExamineForReUseOfCommonMethod(r)
     'Dim allocations =
     '  New DemandAS400LocationDistributionDateAllocationCollection(
     '   New DemandAS400LocationDistributionDateDistributions(New DemandAS400LocationDistribution(1, "1", "1", "1", "Test"), DateTime.Now.Date.AddDays(-2).ToShortDateString,
@@ -51,3 +86,4 @@ Module Module1
     _treeResults.ForEach(Sub(x) Console.WriteLine($"{x.Id} {x.Val} {x.ParentId} {x.Created} {x.Modified} {x.Active}"))
   End Sub
 End Module
+
