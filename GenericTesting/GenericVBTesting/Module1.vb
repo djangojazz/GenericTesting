@@ -19,47 +19,34 @@ Module Module1
                                              Return "example split".Split(" "c)
                                            End Function)
 
-  Public Sub ExamineForReUseOfCommonMethod(o As Object)
-    Select Case True
-      Case TypeOf o Is X Or TypeOf o Is Y
-        o.DoIt()
-      Case TypeOf o Is Z
-        o.DoItDifferent()
-    End Select
-  End Sub
 
-  Public Class X
-    Public Property Name As String
 
-    Public Sub DoIt()
-      Console.WriteLine("I am X's Do It!")
+  Public Class Container
+    Public Property Color As String
+    Public Property Fields As List(Of Field)
+
+    Public Sub New(color As String, ParamArray fields() As Field)
+      Me.Color = color
+      Me.Fields = fields.ToList
     End Sub
   End Class
 
-  Public Class Y
-    Public Property Name As String
+  Public Class Field
+    Public Property X As Date
+    Public Property Y As Double
 
-    Public Sub DoIt()
-      Console.WriteLine("I am Y's Do It!")
-    End Sub
-  End Class
-
-  Public Class Z
-    Public Property Name As String
-
-    Public Sub DoItDifferent()
-      Console.WriteLine("I am slightly different at Z!")
+    Public Sub New(x As Date, y As Double)
+      Me.X = x
+      Me.Y = y
     End Sub
   End Class
 
   Sub Main()
-    Dim p = New X With {.Name = "P"}
-    Dim q = New Y With {.Name = "Q"}
-    Dim r = New Z With {.Name = "R"}
+    Dim dpi = New DemandPlanInquiry With {.FIKey = 1, .DemandDate = "2017-1-1", .LocationCollection = New List(Of Integer)({1, 2, 3}), .ChartDatesCollection = New List(Of Integer)({4, 5, 6})}
+    Dim serialized = dpi.SerializeToXml()
 
-    ExamineForReUseOfCommonMethod(p)
-    ExamineForReUseOfCommonMethod(q)
-    ExamineForReUseOfCommonMethod(r)
+    Dim deserialized = serialized.DeserializeXml(Of DemandPlanInquiry)
+
     'Dim allocations =
     '  New DemandAS400LocationDistributionDateAllocationCollection(
     '   New DemandAS400LocationDistributionDateDistributions(New DemandAS400LocationDistribution(1, "1", "1", "1", "Test"), DateTime.Now.Date.AddDays(-2).ToShortDateString,

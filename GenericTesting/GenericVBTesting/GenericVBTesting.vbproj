@@ -78,8 +78,9 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="biz\ProductFormats.vb" />
-    <Compile Include="biz\ProductionPlanning.vb" />
+    <Compile Include="Models\DemandPlanInquiry.vb" />
+    <Compile Include="Models\ProductFormats.vb" />
+    <Compile Include="Models\ProductionPlanning.vb" />
     <Compile Include="EnumParsing.vb" />
     <Compile Include="Extensions.vb" />
     <Compile Include="InvoiceExample.vb" />
