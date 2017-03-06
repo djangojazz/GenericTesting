@@ -13,11 +13,6 @@
     <local:DecimalConverter x:Key="ConvertDecimal" IncludeComma="True" DecimalPositions="0" />
   </Window.Resources>
   <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
-    </Grid.RowDefinitions>
-    <Label  Content="{Binding TestText}" Height="30" />
-    <Button Grid.Row="1" Command="{Binding TestCommand}" Height="30" Content="Add more lines" />
+    <local:CustomSelectMultiChoice />
   </Grid>
 </Window>

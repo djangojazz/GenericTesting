@@ -29,47 +29,34 @@ namespace GenericTesting
     public int Score { get; set; }
   }
 
+  public class Hldr : IComparable<Hldr>
+  {
+    public int Id { get; set; }
+    public int Id2 { get; set; }
+    public string Name { get; set; }
+
+    int IComparable<Hldr>.CompareTo(Hldr o)
+    {
+      return (Id == o.Id) && (Id2 == o.Id2) ? 0 : -1;       
+    }        
+  }
+         
   class Program
-  {                                                                           
+  {
     static void Main(string[] args)
     {
-      using (var context = new EntityTesting.TesterEntities())
-      {
-        var nPerson = new tePerson { FirstName = "Test", LastName = "Tester" };
+      //var newDate = #1/1/2017#
 
-        context.tePerson.Add(nPerson);
-        context.SaveChanges();
-      }
+      var items = new List<Hldr> {
+        new Hldr { Id =  1, Id2 = 0, Name = "John"},
+        new Hldr { Id =  1, Id2 = 1, Name = "Bill"},
+        new Hldr { Id =  2, Id2 = 0, Name = "Jane"},
+        new Hldr { Id =  2, Id2 = 1, Name = "Bob"},
+      };
 
+      items.OrderBy(x => new { x.Id2, x.Id }).ToList().ForEach(x => Console.WriteLine($"{x.Id} {x.Id2} {x.Name}"));
 
-        //    var thingie = new QADailyXValueCalCheck
-        //    {
-        //      Regs = "40CFR75",
-        //      BasisTStamp = "2016-02-15 05:18",
-        //      DAsWriteTStamp = "2016-02-15 05:40",
-        //      InjEndTime = "2016-02-15 05:23",
-        //      Manual = 0,       //Boolean This will probably mess up  Changed to Int
-        //      RefValue = 169.7M,
-        //      MeasValue = 169.27M,
-        //      Online = 14,  //Mismatch Type?  Change to Int
-        //      AllowableDrift = 15,
-        //      FailAbove = 0,     //Boolean This will probably mess up   Changed to Int
-        //      FailBelow = 0,     //Boolean This will probably mess up    Changed to Int
-        //      InstSpan = 300,
-        //      GasLevel = "MID",     //This is marked as a decimal?                                                     
-        //      CId = "111",             
-        //      MId =  "N10",
-        //      CylinderId= "CC357464",
-        //      CylinderExpDate ="2022-08-12",
-        //      CylinderVendorId = "B22014",
-        //      CylinderGasTypeCode = "BALN,SO2,NO,CO2"
-        //};
-
-        //  var serialized = thingie.SerializeToXml();
-
-        //  var deserialized = serialized.DeserializeXml<QADailyXValueCalCheck>();
-
-        Console.ReadLine();
+      Console.ReadLine();
     }
   }
 

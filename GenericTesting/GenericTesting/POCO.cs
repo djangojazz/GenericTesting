@@ -29,7 +29,7 @@ namespace GenericTesting
     public string StateName;
   }
 
-  public class POC
+  public class Holder
   {
     public int Id { get; set; }
     public string Desc { get; set; }
@@ -44,13 +44,13 @@ namespace GenericTesting
 
   public class POCOTesting
   {
-    public static List<POC> GetPOCOs()
+    public static List<Holder> GetPOCOs()
     {
-      return new List<POC>
+      return new List<Holder>
       {
-          new POC { Id = 1, Desc = "John"},
-          new POC { Id = 2, Desc = "Jane" },
-          new POC { Id = 3, Desc = "Joey" }
+          new Holder { Id = 1, Desc = "John"},
+          new Holder { Id = 2, Desc = "Jane" },
+          new Holder { Id = 3, Desc = "Joey" }
       };
     }
 
@@ -66,13 +66,13 @@ namespace GenericTesting
       return orders;
     }
 
-    public static List<POC> GetPOCOsAndOrders()
+    public static List<Holder> GetPOCOsAndOrders()
     {
-      return new List<POC>
+      return new List<Holder>
       {
-          new POC { Id = 1, Desc = "John", Orders = GetOrders(1)},
-          new POC { Id = 2, Desc = "Jane", Orders = GetOrders(2) },
-          new POC { Id = 3, Desc = "Joey" , Orders = GetOrders(3)}
+          new Holder { Id = 1, Desc = "John", Orders = GetOrders(1)},
+          new Holder { Id = 2, Desc = "Jane", Orders = GetOrders(2) },
+          new Holder { Id = 3, Desc = "Joey" , Orders = GetOrders(3)}
       };
     }
   }

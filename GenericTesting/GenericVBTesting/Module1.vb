@@ -8,6 +8,8 @@ Imports GenericVBTesting.Models
 Imports System.Collections.Generic
 Imports System.Threading
 Imports System.Threading.Tasks
+Imports System.Data.SqlClient
+Imports System.IO
 
 Module Module1
 
@@ -15,37 +17,26 @@ Module Module1
   Private _treeResults As New List(Of TreeTest)
   Private _products As New List(Of Product)
 
-  Private example As New Lazy(Of String())(Function()
-                                             Return "example split".Split(" "c)
-                                           End Function)
-
-
-
-  Public Class Container
-    Public Property Color As String
-    Public Property Fields As List(Of Field)
-
-    Public Sub New(color As String, ParamArray fields() As Field)
-      Me.Color = color
-      Me.Fields = fields.ToList
-    End Sub
-  End Class
-
-  Public Class Field
-    Public Property X As Date
-    Public Property Y As Double
-
-    Public Sub New(x As Date, y As Double)
-      Me.X = x
-      Me.Y = y
-    End Sub
-  End Class
+  Public Sub WriteTextToFile(text As String, location As String)
+    Using sw = New StreamWriter(location)
+      sw.Write(text)
+    End Using
+  End Sub
 
   Sub Main()
-    Dim dpi = New DemandPlanInquiry With {.FIKey = 1, .DemandDate = "2017-1-1", .LocationCollection = New List(Of Integer)({1, 2, 3}), .ChartDatesCollection = New List(Of Integer)({4, 5, 6})}
-    Dim serialized = dpi.SerializeToXml()
+    Dim ls = New List(Of DemandLocation)({
+                                         New DemandLocation(1, "1", "1", "1", "Place A"),
+                                         New DemandLocation(1, "1", "1", "2", "Place B"),
+                                         New DemandLocation(1, "1", "1", "3", "Place C")
+                                         })
 
-    Dim deserialized = serialized.DeserializeXml(Of DemandPlanInquiry)
+    ls(2).IsUsed = True
+    ls(0).IsUsed = True
+
+    Dim itemsSelected = ls.Where(Function(x) x.IsUsed = True).Select(Function(x) x.ToString).ToList()
+    Dim headerUpdated = If(itemsSelected.Any, String.Join(", ", itemsSelected), "No Items")
+
+    Console.WriteLine(headerUpdated)
 
     'Dim allocations =
     '  New DemandAS400LocationDistributionDateAllocationCollection(

@@ -78,6 +78,8 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DemandTrendOutput.vb" />
+    <Compile Include="Models\DemandLocation.vb" />
     <Compile Include="Models\DemandPlanInquiry.vb" />
     <Compile Include="Models\ProductFormats.vb" />
     <Compile Include="Models\ProductionPlanning.vb" />
