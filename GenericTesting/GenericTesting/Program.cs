@@ -10,51 +10,29 @@ using System.Text;
 using static GenericTesting.HackerRankChallenges.Algorithms;
 using EntityTesting;
 using GenericTesting.Models;
+using System.Xml.Serialization;
+using System.Xml;
+using System.IO;
 
 namespace GenericTesting
-{
-  public class Student
-  {
-    public int StudentID { get; set; }
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-
-    public List<StudentTestScore> Scores { get; set; }
-  }
-
-  public class StudentTestScore
-  {
-    public int StudentID { get; set; }
-    public string Subject { get; set; }
-    public int Score { get; set; }
-  }
-
-  public class Hldr : IComparable<Hldr>
-  {
-    public int Id { get; set; }
-    public int Id2 { get; set; }
-    public string Name { get; set; }
-
-    int IComparable<Hldr>.CompareTo(Hldr o)
-    {
-      return (Id == o.Id) && (Id2 == o.Id2) ? 0 : -1;       
-    }        
-  }
-         
+{   
   class Program
   {
     static void Main(string[] args)
     {
-      //var newDate = #1/1/2017#
+      var current = DateTime.Now.Date;
 
-      var items = new List<Hldr> {
-        new Hldr { Id =  1, Id2 = 0, Name = "John"},
-        new Hldr { Id =  1, Id2 = 1, Name = "Bill"},
-        new Hldr { Id =  2, Id2 = 0, Name = "Jane"},
-        new Hldr { Id =  2, Id2 = 1, Name = "Bob"},
-      };
+      var demandTrend = new DemandTrendInput(111, current, current.AddDays(5), TrendChoices.FiscalWeek, new List<int> { 1, 2, 3 });
+      var demandTrend2 = new DemandTrendInput(222, current, current.AddDays(5), TrendChoices.FiscalWeek, new List<int> { 4, 5, 6 });
 
-      items.OrderBy(x => new { x.Id2, x.Id }).ToList().ForEach(x => Console.WriteLine($"{x.Id} {x.Id2} {x.Name}"));
+      var person = new Person("Brett");
+      var serialized = person.SerializeToXml();
+      var container = new SerializeContainer<Person>("Test", person);
+      var serialized2 = container.SerializeToXml();
+      
+      //var demandTrends = new List<DemandTrendInput> { demandTrend, demandTrend2 };
+                                           
+      //Console.WriteLine(serialized);
 
       Console.ReadLine();
     }

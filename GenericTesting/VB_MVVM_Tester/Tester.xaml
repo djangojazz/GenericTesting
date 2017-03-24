@@ -11,8 +11,9 @@
   <Window.Resources>
     <local:DateValueConverter x:Key="DateValueConverter" DateFormat="MM/dd/yy" />
     <local:DecimalConverter x:Key="ConvertDecimal" IncludeComma="True" DecimalPositions="0" />
+    
   </Window.Resources>
   <Grid>
-    <local:CustomSelectMultiChoice />
+    <TextBox></TextBox>
   </Grid>
 </Window>
