@@ -97,6 +97,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Tester.edmx</DependentUpon>
     </Compile>
+    <Compile Include="TestInheritance\TestBase.cs" />
+    <Compile Include="TestInheritance\TestUC.xaml.cs">
+      <DependentUpon>TestUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Animations.xaml.cs">
       <DependentUpon>Animations.xaml</DependentUpon>
     </Compile>
@@ -134,6 +138,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="TestInheritance\TestUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Animations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
