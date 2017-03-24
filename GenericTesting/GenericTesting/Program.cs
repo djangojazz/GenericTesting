@@ -14,6 +14,7 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.IO;
 using GenericTesting.Business;
+using GenericTesting.DataAccess;
 
 namespace GenericTesting
 {   
@@ -30,19 +31,18 @@ namespace GenericTesting
 
       var demandTrend = new DemandTrendInput(111, current, current.AddDays(5), TrendChoices.FiscalWeek, new List<int> { 1, 2, 3 });
       var demandTrend2 = new DemandTrendInput(222, current, current.AddDays(5), TrendChoices.FiscalWeek, new List<int> { 4, 5, 6 });
+                    
+      var d = new SerializableDictionary<string, DemandTrendInput>{ {"A", demandTrend }, {"B", demandTrend2} };
 
-      var person = new Person("Brett");
-      var person2 = new Person("Mark");
+      var serialized = d.SerializeToXml();
+      serialized.SaveXMLToAppResources(4, 1, 2, 744);
 
-      var d = new SerializableDictionary<string, Person> { { "A", person }, { "B", person2 } };
-      var test = d.SerializeToXml();
-      var d2 = new SerializableDictionary<string, DemandTrendInput>{ {"A", demandTrend }, {"B", demandTrend2} };
+      var sqlTalker = new SQLTalker("DEV-ENTERPRISE", "AppResources", "sqluser", "pa55word");
+      var data = sqlTalker.GetData("EXEC dbo.AppXmlRecords_Select");
 
-      var test2 = d2.SerializeToXml();
-      var items = test2.DeserializeXml<SerializableDictionary<string, DemandTrendInput>>();      
+      //var items = serialized.DeserializeXml<SerializableDictionary<string, DemandTrendInput>>();      
 
       Console.ReadLine();
     }
-  }
-
+  }                                                                  
 }

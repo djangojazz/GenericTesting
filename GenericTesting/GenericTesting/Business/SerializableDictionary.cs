@@ -31,7 +31,7 @@ namespace GenericTesting.Business
       return null;
     }
 
-    public void ReadXml(System.Xml.XmlReader reader)
+    public void ReadXml(XmlReader reader)
     {
       XmlSerializer keySerializer = new XmlSerializer(typeof(TKey), string.Empty);
       XmlSerializer valueSerializer = new XmlSerializer(typeof(TValue), string.Empty);

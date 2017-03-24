@@ -202,7 +202,29 @@
         }
       }
 
-      public string Procer(string sql, bool counts)
+    public bool ProcerWithSuccess(string sql)
+    {
+      using (SqlConnection cn = new SqlConnection(Cnx))
+      using (SqlCommand cmd = new SqlCommand(sql, cn))
+      {
+        cmd.CommandTimeout = 60;
+        var sb = new StringBuilder();
+        cn.Open();
+
+        SqlParameter rtn = cmd.Parameters.Add("return", SqlDbType.Int);
+        rtn.Direction = ParameterDirection.ReturnValue;
+        cmd.ExecuteNonQuery();
+
+        if ((int)rtn.Value == 0)
+          return true;
+        else
+          return false;
+
+        cn.Close();             
+      }
+    }
+
+    public string Procer(string sql, bool counts)
       {
         using (SqlConnection cn = new SqlConnection(Cnx))
         using (SqlCommand cmd = new SqlCommand(sql, cn))
