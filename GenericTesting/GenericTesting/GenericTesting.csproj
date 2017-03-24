@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\SerializableDictionary.cs" />
     <Compile Include="CartesianHelper.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="DataAccess\DataConverter.cs" />
@@ -77,11 +78,9 @@
     <Compile Include="Lambdas\LambdaEvents.cs" />
     <Compile Include="Lambdas\BasicLambdas.cs" />
     <Compile Include="Models\DemandTrendInput.cs" />
-    <Compile Include="Models\ISerializeContainer.cs" />
     <Compile Include="Models\ISerializedXMLString.cs" />
     <Compile Include="Models\models.cs" />
     <Compile Include="Models\Person.cs" />
-    <Compile Include="Models\SerializeContainer.cs" />
     <Compile Include="POCO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

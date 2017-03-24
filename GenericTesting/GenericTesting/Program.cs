@@ -13,9 +13,15 @@ using GenericTesting.Models;
 using System.Xml.Serialization;
 using System.Xml;
 using System.IO;
+using GenericTesting.Business;
 
 namespace GenericTesting
 {   
+  public class POC
+  {
+    public string Name { get; set; }
+  }
+
   class Program
   {
     static void Main(string[] args)
@@ -26,13 +32,14 @@ namespace GenericTesting
       var demandTrend2 = new DemandTrendInput(222, current, current.AddDays(5), TrendChoices.FiscalWeek, new List<int> { 4, 5, 6 });
 
       var person = new Person("Brett");
-      var serialized = person.SerializeToXml();
-      var container = new SerializeContainer<Person>("Test", person);
-      var serialized2 = container.SerializeToXml();
-      
-      //var demandTrends = new List<DemandTrendInput> { demandTrend, demandTrend2 };
-                                           
-      //Console.WriteLine(serialized);
+      var person2 = new Person("Mark");
+
+      var d = new SerializableDictionary<string, Person> { { "A", person }, { "B", person2 } };
+      var test = d.SerializeToXml();
+      var d2 = new SerializableDictionary<string, DemandTrendInput>{ {"A", demandTrend }, {"B", demandTrend2} };
+
+      var test2 = d2.SerializeToXml();
+      var items = test2.DeserializeXml<SerializableDictionary<string, DemandTrendInput>>();      
 
       Console.ReadLine();
     }
