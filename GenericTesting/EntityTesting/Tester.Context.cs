@@ -12,6 +12,8 @@ namespace EntityTesting
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class TesterEntities : DbContext
     {
@@ -27,5 +29,14 @@ namespace EntityTesting
     
         public virtual DbSet<teOrder> teOrder { get; set; }
         public virtual DbSet<tePerson> tePerson { get; set; }
+    
+        public virtual ObjectResult<pDynamicGroupTest_Result> pDynamicGroupTest(string xml)
+        {
+            var xmlParameter = xml != null ?
+                new ObjectParameter("Xml", xml) :
+                new ObjectParameter("Xml", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pDynamicGroupTest_Result>("pDynamicGroupTest", xmlParameter);
+        }
     }
 }

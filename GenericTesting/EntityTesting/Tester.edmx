@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Tester.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Tester.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="teOrder">
           <Key>
             <PropertyRef Name="OrderId" />
@@ -33,6 +33,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="pDynamicGroupTest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Xml" Type="xml" Mode="In" />
+        </Function>
         <EntityContainer Name="TesterStoreContainer">
           <EntitySet Name="teOrder" EntityType="Self.teOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tePerson" EntityType="Self.tePerson" Schema="dbo" store:Type="Tables" />
@@ -41,8 +44,7 @@
             <End Role="teOrder" EntitySet="teOrder" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Tester" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -83,7 +85,16 @@
             <End Role="tePerson" EntitySet="tePerson" />
             <End Role="teOrder" EntitySet="teOrder" />
           </AssociationSet>
+          <FunctionImport Name="pDynamicGroupTest" ReturnType="Collection(Tester.pDynamicGroupTest_Result)">
+            <Parameter Name="Xml" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="pDynamicGroupTest_Result">
+          <Property Type="Int32" Name="CategoryId" Nullable="true" />
+          <Property Type="String" Name="GroupName" Nullable="true" MaxLength="4" />
+          <Property Type="DateTime" Name="GroupStart" Nullable="true" />
+          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="19" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -108,6 +119,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pDynamicGroupTest" FunctionName="Tester.Store.pDynamicGroupTest">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Tester.pDynamicGroupTest_Result">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="GroupStart" ColumnName="GroupStart" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

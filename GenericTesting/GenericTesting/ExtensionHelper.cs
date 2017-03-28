@@ -74,5 +74,12 @@ namespace GenericTesting
         return new XmlSerializer(typeToSerialize);
       }
     }
+
+    public static void ClearAndAddRange<T>(this IList<T> input, IEnumerable<T> array)
+    {
+      if (input == null) return;
+      input.Clear();
+      foreach (var x in array) input.Add(x);
+    }
   }
 }

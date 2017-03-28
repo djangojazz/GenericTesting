@@ -45,9 +45,11 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.Extensions" />
@@ -61,7 +63,9 @@
     <Compile Include="Business\SerializableDictionary.cs" />
     <Compile Include="CartesianHelper.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="DataAccess\DatabaseAccess.cs" />
     <Compile Include="DataAccess\DataConverter.cs" />
+    <Compile Include="DataAccess\Enterprise\Selects.cs" />
     <Compile Include="DataAccess\SQLTalker.cs" />
     <Compile Include="Delegates\AnnonymousDelegates.cs" />
     <Compile Include="Delegates\BasicDelegates.cs" />
@@ -77,7 +81,13 @@
     <Compile Include="InheritanceExample.cs" />
     <Compile Include="Lambdas\LambdaEvents.cs" />
     <Compile Include="Lambdas\BasicLambdas.cs" />
+    <Compile Include="Models\Charting\PlotPoint.cs" />
+    <Compile Include="Models\Charting\PlotPoints.cs" />
+    <Compile Include="Models\Charting\PlotTrend.cs" />
+    <Compile Include="Models\DemandLocation.cs" />
+    <Compile Include="Models\DemandLocationDb.cs" />
     <Compile Include="Models\DemandTrendInput.cs" />
+    <Compile Include="Models\DemandTrendOutput.cs" />
     <Compile Include="Models\ISerializedXMLString.cs" />
     <Compile Include="Models\models.cs" />
     <Compile Include="Models\Person.cs" />
@@ -101,6 +111,7 @@
       <Name>EntityTesting</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
