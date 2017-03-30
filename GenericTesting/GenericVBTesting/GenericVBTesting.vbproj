@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DemandTrendOutput.vb" />
+    <Compile Include="Models\DemandAS400LocationDistributionDateAllocation.vb" />
     <Compile Include="Models\DemandLocation.vb" />
     <Compile Include="Models\DemandPlanInquiry.vb" />
     <Compile Include="Models\ProductFormats.vb" />

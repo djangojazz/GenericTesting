@@ -10,6 +10,7 @@ Imports System.Threading
 Imports System.Threading.Tasks
 Imports System.Data.SqlClient
 Imports System.IO
+Imports GenericVBTesting.Data.Objects.Serialization
 
 Module Module1
 
@@ -24,30 +25,17 @@ Module Module1
   End Sub
 
   Sub Main()
-    Dim ls = New List(Of DemandLocation)({
-                                         New DemandLocation(1, "1", "1", "1", "Place A"),
-                                         New DemandLocation(1, "1", "1", "2", "Place B"),
-                                         New DemandLocation(1, "1", "1", "3", "Place C")
-                                         })
 
-    ls(2).IsUsed = True
-    ls(0).IsUsed = True
+    Dim allocations =
+      New DemandAS400LocationDistributionDateAllocationCollection(
+       New DemandAS400LocationDistributionDateAllocations(New DemandAS400LocationDistribution(1, "1", "1", "1", "Test"), DateTime.Now.Date.AddDays(-2).ToShortDateString,
+          New DemandAS400LocationDistributionDateAllocation(1, 23, DateTime.Now.Date.AddDays(-7), 0.5),
+          New DemandAS400LocationDistributionDateAllocation(2, 49, DateTime.Now.Date.AddDays(-5), 0.5)),
+      New DemandAS400LocationDistributionDateAllocations(New DemandAS400LocationDistribution(1, "1", "1", "1", "Test"), DateTime.Now.Date.AddDays(-1).ToShortDateString,
+          New DemandAS400LocationDistributionDateAllocation(3, 23, DateTime.Now.Date.AddDays(-3), 0.55),
+          New DemandAS400LocationDistributionDateAllocation(4, 49, DateTime.Now.Date.AddDays(-1), 0.45)))
 
-    Dim itemsSelected = ls.Where(Function(x) x.IsUsed = True).Select(Function(x) x.ToString).ToList()
-    Dim headerUpdated = If(itemsSelected.Any, String.Join(", ", itemsSelected), "No Items")
-
-    Console.WriteLine(headerUpdated)
-
-    'Dim allocations =
-    '  New DemandAS400LocationDistributionDateAllocationCollection(
-    '   New DemandAS400LocationDistributionDateDistributions(New DemandAS400LocationDistribution(1, "1", "1", "1", "Test"), DateTime.Now.Date.AddDays(-2).ToShortDateString,
-    '      New DemandAS400LocationDistributionDateDistribution(23, 0.5),
-    '      New DemandAS400LocationDistributionDateDistribution(49, 0.5)),
-    '  New DemandAS400LocationDistributionDateDistributions(New DemandAS400LocationDistribution(1, "1", "1", "1", "Test"), DateTime.Now.Date.AddDays(-1).ToShortDateString,
-    '      New DemandAS400LocationDistributionDateDistribution(23, 0.55),
-    '      New DemandAS400LocationDistributionDateDistribution(49, 0.45)))
-
-    'Dim serialized = allocations.SerializeToXml()
+    Dim serialized = allocations.SerializeToXml()
 
     'Dim deserialized = serialized.DeserializeXml(Of DemandAS400LocationDistributionDateAllocationCollection)
     'Console.WriteLine($"{allocations.Distributions.OrderBy(Function(x) x.DateAllocated).FirstOrDefault()?.ParentDemandAS400LocationDistribution.ToString}  
