@@ -23,7 +23,6 @@ Partial Class DataGridDynamic
   <System.Diagnostics.DebuggerStepThrough()> _
   Private Sub InitializeComponent()
     Me.dgv = New System.Windows.Forms.DataGridView()
-    Me.OrderId = New System.Windows.Forms.DataGridViewComboBoxColumn()
     Me.ds = New System.Data.DataSet()
     Me.tOrders = New System.Data.DataTable()
     Me.DataColumn1 = New System.Data.DataColumn()
@@ -33,13 +32,14 @@ Partial Class DataGridDynamic
     Me.DataColumn4 = New System.Data.DataColumn()
     Me.DataColumn5 = New System.Data.DataColumn()
     Me.DataColumn6 = New System.Data.DataColumn()
-    Me.PersonId = New System.Windows.Forms.DataGridViewTextBoxColumn()
-    Me.FirstName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-    Me.LastName = New System.Windows.Forms.DataGridViewTextBoxColumn()
     Me.lTest = New System.Windows.Forms.Label()
     Me.tTest = New System.Windows.Forms.TextBox()
     Me.bDoIt = New System.Windows.Forms.Button()
     Me.btnGetIt = New System.Windows.Forms.Button()
+    Me.OrderId = New System.Windows.Forms.DataGridViewComboBoxColumn()
+    Me.PersonId = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.FirstName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.LastName = New System.Windows.Forms.DataGridViewTextBoxColumn()
     CType(Me.dgv, System.ComponentModel.ISupportInitialize).BeginInit()
     CType(Me.ds, System.ComponentModel.ISupportInitialize).BeginInit()
     CType(Me.tOrders, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -54,19 +54,6 @@ Partial Class DataGridDynamic
     Me.dgv.Name = "dgv"
     Me.dgv.Size = New System.Drawing.Size(523, 219)
     Me.dgv.TabIndex = 0
-    '
-    'OrderId
-    '
-    Me.OrderId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-    Me.OrderId.DataPropertyName = "OrderId"
-    Me.OrderId.DataSource = Me.ds
-    Me.OrderId.DisplayMember = "tOrders.Description"
-    Me.OrderId.FillWeight = 30.0!
-    Me.OrderId.HeaderText = "ORDER"
-    Me.OrderId.Name = "OrderId"
-    Me.OrderId.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-    Me.OrderId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-    Me.OrderId.ValueMember = "tOrders.OrderId"
     '
     'ds
     '
@@ -109,30 +96,6 @@ Partial Class DataGridDynamic
     '
     Me.DataColumn6.ColumnName = "LastName"
     '
-    'PersonId
-    '
-    Me.PersonId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-    Me.PersonId.DataPropertyName = "PersonID"
-    Me.PersonId.FillWeight = 20.0!
-    Me.PersonId.HeaderText = "PersonID"
-    Me.PersonId.Name = "PersonId"
-    '
-    'FirstName
-    '
-    Me.FirstName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-    Me.FirstName.DataPropertyName = "FirstName"
-    Me.FirstName.FillWeight = 25.0!
-    Me.FirstName.HeaderText = "FirstName"
-    Me.FirstName.Name = "FirstName"
-    '
-    'LastName
-    '
-    Me.LastName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-    Me.LastName.DataPropertyName = "LastName"
-    Me.LastName.FillWeight = 25.0!
-    Me.LastName.HeaderText = "LastName"
-    Me.LastName.Name = "LastName"
-    '
     'lTest
     '
     Me.lTest.AutoSize = True
@@ -168,6 +131,40 @@ Partial Class DataGridDynamic
     Me.btnGetIt.Text = "GetIt"
     Me.btnGetIt.UseVisualStyleBackColor = True
     '
+    'OrderId
+    '
+    Me.OrderId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+    Me.OrderId.DataPropertyName = "OrderId"
+    Me.OrderId.FillWeight = 30.0!
+    Me.OrderId.HeaderText = "ORDER"
+    Me.OrderId.Name = "OrderId"
+    Me.OrderId.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+    Me.OrderId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+    '
+    'PersonId
+    '
+    Me.PersonId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+    Me.PersonId.DataPropertyName = "PersonID"
+    Me.PersonId.FillWeight = 20.0!
+    Me.PersonId.HeaderText = "PersonID"
+    Me.PersonId.Name = "PersonId"
+    '
+    'FirstName
+    '
+    Me.FirstName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+    Me.FirstName.DataPropertyName = "FirstName"
+    Me.FirstName.FillWeight = 25.0!
+    Me.FirstName.HeaderText = "FirstName"
+    Me.FirstName.Name = "FirstName"
+    '
+    'LastName
+    '
+    Me.LastName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+    Me.LastName.DataPropertyName = "LastName"
+    Me.LastName.FillWeight = 25.0!
+    Me.LastName.HeaderText = "LastName"
+    Me.LastName.Name = "LastName"
+    '
     'DataGridDynamic
     '
     Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -198,13 +195,13 @@ Partial Class DataGridDynamic
   Friend WithEvents tTest As TextBox
   Friend WithEvents bDoIt As Button
   Friend WithEvents btnGetIt As Button
-  Friend WithEvents OrderId As DataGridViewComboBoxColumn
-  Friend WithEvents PersonId As DataGridViewTextBoxColumn
-  Friend WithEvents FirstName As DataGridViewTextBoxColumn
-  Friend WithEvents LastName As DataGridViewTextBoxColumn
   Friend WithEvents tPeople As DataTable
   Friend WithEvents DataColumn3 As DataColumn
   Friend WithEvents DataColumn4 As DataColumn
   Friend WithEvents DataColumn5 As DataColumn
   Friend WithEvents DataColumn6 As DataColumn
+  Friend WithEvents OrderId As DataGridViewComboBoxColumn
+  Friend WithEvents PersonId As DataGridViewTextBoxColumn
+  Friend WithEvents FirstName As DataGridViewTextBoxColumn
+  Friend WithEvents LastName As DataGridViewTextBoxColumn
 End Class

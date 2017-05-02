@@ -5,7 +5,7 @@ Imports System.Text.RegularExpressions
 Public Class DataGridDynamic
 
   Private _talker As SQLTalker = New SQLTalker(GetTesterDatabase)
-  Private _people As DataTable = New DataTable
+  Private _people As  DataTable = New DataTable
   Private _orders As List(Of Order) = New List(Of Order)
 
   Private Sub DataGridDynamic_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -17,12 +17,9 @@ Public Class DataGridDynamic
       _orders = DirectCast(DataConverter.ConvertTo(Of Order)(_talker.GetData("Select OrderId, PersonId, Description From dbo.teOrder")), List(Of Order))
 
       Dim s = ""
-      For Each o In _orders
-        Dim row As DataRow = ds.Tables("tOrders").NewRow
-        row("OrderId") = o.OrderId
-        row("Description") = o.Description
-        ds.Tables("tOrders").Rows.Add(row)
-      Next
+      OrderId.DataSource = _orders
+      OrderId.DisplayMember = "Description"
+      OrderId.ValueMember = "OrderId"
     Catch ex As Exception
 
       lTest.Text = ex.InnerException.ToString

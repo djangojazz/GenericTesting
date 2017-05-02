@@ -62,7 +62,6 @@
   <ItemGroup>
     <Compile Include="Business\SerializableDictionary.cs" />
     <Compile Include="CartesianHelper.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="DataAccess\DatabaseAccess.cs" />
     <Compile Include="DataAccess\DataConverter.cs" />
     <Compile Include="DataAccess\Enterprise\Selects.cs" />

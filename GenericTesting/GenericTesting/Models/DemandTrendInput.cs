@@ -11,7 +11,7 @@ namespace GenericTesting.Models
   [XmlRoot]
   public class DemandTrendInput 
   {
-    [XmlAttribute]
+    [XmlIgnore]
     public string DemandTrendName { get; set; }
     [XmlAttribute]
     public string Grouping { get; set; }
@@ -27,8 +27,9 @@ namespace GenericTesting.Models
     {
     }
 
-    public DemandTrendInput(int fiKey, System.DateTime startDate, System.DateTime endDate, TrendChoices grouping, List<int> demandLocations)
+    public DemandTrendInput(string demandTrendName, int fiKey, System.DateTime startDate, System.DateTime endDate, TrendChoices grouping, List<int> demandLocations)
     {
+      DemandTrendName = demandTrendName;
       FIKey = fiKey;
       StartDate = startDate;
       EndDate = endDate;

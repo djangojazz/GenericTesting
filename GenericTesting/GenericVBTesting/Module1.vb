@@ -26,16 +26,39 @@ Module Module1
 
   Sub Main()
 
-    Dim allocations =
-      New DemandAS400LocationDistributionDateAllocationCollection(
-       New DemandAS400LocationDistributionDateAllocations(New DemandAS400LocationDistribution(1, "1", "1", "1", "Test"), DateTime.Now.Date.AddDays(-2).ToShortDateString,
-          New DemandAS400LocationDistributionDateAllocation(1, 23, DateTime.Now.Date.AddDays(-7), 0.5),
-          New DemandAS400LocationDistributionDateAllocation(2, 49, DateTime.Now.Date.AddDays(-5), 0.5)),
-      New DemandAS400LocationDistributionDateAllocations(New DemandAS400LocationDistribution(1, "1", "1", "1", "Test"), DateTime.Now.Date.AddDays(-1).ToShortDateString,
-          New DemandAS400LocationDistributionDateAllocation(3, 23, DateTime.Now.Date.AddDays(-3), 0.55),
-          New DemandAS400LocationDistributionDateAllocation(4, 49, DateTime.Now.Date.AddDays(-1), 0.45)))
+    Dim ls = New List(Of String)
 
-    Dim serialized = allocations.SerializeToXml()
+    Using myReader As New APCLocal.Select.test("DEV-APC1")
+      Do While myReader.Read
+        ls.Add(APCLocal.Select.test.EStrings.ProductionPlanGroupDescription)
+      Loop
+    End Using
+
+    Console.WriteLine(ls.Count)
+
+    'Dim scores = New List(Of Integer)
+
+    'For i = 0 To 4
+    '  Dim previousScore = 0
+    '  Dim score = (i + 1) * 100
+    '  scores.Add(score)
+    '  If ((i - 1) >= 0) Then
+    '    previousScore = scores(i - 1)
+    '  End If
+
+    '  Console.WriteLine($"Current Score {score} Previous Score{previousScore}")
+    'Next
+
+    'Dim allocations =
+    '  New DemandAS400LocationDistributionDateAllocationCollection(
+    '   New DemandAS400LocationDistributionDateAllocations(New DemandAS400LocationDistribution(1, "1", "1", "1", "Test"), DateTime.Now.Date.AddDays(-2).ToShortDateString,
+    '      New DemandAS400LocationDistributionDateAllocation(1, 23, DateTime.Now.Date.AddDays(-7), 0.5),
+    '      New DemandAS400LocationDistributionDateAllocation(2, 49, DateTime.Now.Date.AddDays(-5), 0.5)),
+    '  New DemandAS400LocationDistributionDateAllocations(New DemandAS400LocationDistribution(1, "1", "1", "1", "Test"), DateTime.Now.Date.AddDays(-1).ToShortDateString,
+    '      New DemandAS400LocationDistributionDateAllocation(3, 23, DateTime.Now.Date.AddDays(-3), 0.55),
+    '      New DemandAS400LocationDistributionDateAllocation(4, 49, DateTime.Now.Date.AddDays(-1), 0.45)))
+
+    'Dim serialized = allocations.SerializeToXml()
 
     'Dim deserialized = serialized.DeserializeXml(Of DemandAS400LocationDistributionDateAllocationCollection)
     'Console.WriteLine($"{allocations.Distributions.OrderBy(Function(x) x.DateAllocated).FirstOrDefault()?.ParentDemandAS400LocationDistribution.ToString}  
