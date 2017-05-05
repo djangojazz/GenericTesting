@@ -26,15 +26,47 @@ Module Module1
 
   Sub Main()
 
-    Dim ls = New List(Of String)
+    Dim dt As DataTable = New DataTable()
+    dt.Columns.Add(New DataColumn("Id", GetType(Integer)))
+    dt.Columns.Add(New DataColumn("Id2", GetType(Integer)))
+    dt.Columns.Add(New DataColumn("Id3", GetType(Integer)))
 
-    Using myReader As New APCLocal.Select.test("DEV-APC1")
-      Do While myReader.Read
-        ls.Add(APCLocal.Select.test.EStrings.ProductionPlanGroupDescription)
-      Loop
-    End Using
+    For i = 1 To 5
+      Dim row As DataRow = dt.NewRow
+      row("Id") = i
+      row("Id2") = i + 1
+      row("Id3") = i + 2
+      dt.Rows.Add(row)
+    Next
 
-    Console.WriteLine(ls.Count)
+    For Each row In dt.Select(Nothing, Nothing, DataViewRowState.CurrentRows)
+      For Each column In dt.Columns
+        Console.Write(vbTab & row(column).ToString())
+      Next
+
+      Dim rowState As String =
+            System.Enum.GetName(row.RowState.GetType(), row.RowState)
+      Console.WriteLine(vbTab & rowState)
+    Next
+
+    Dim x = 1
+    Dim y = 2
+    Dim z = 3
+
+    Dim exists = If(dt.Select($"Id = {x} And Id2 = {y} And Id3 = {z}").Length > 0, True, False)
+    'dt.Select().ToList().Exists(Function(a) a("Id") = x And a("Id2") = y And a("Id3") = z)
+
+    Console.WriteLine(exists)
+
+    'Dim ls = New List(Of String)
+
+    'Using myReader As New APCLocal.Select.test("DEV-APC1")
+    '  Do While myReader.Read
+    '    ls.Add(APCLocal.Select.test.EStrings.ProductionPlanGroupDescription)
+    '  Loop
+    'End Using
+
+    'Console.WriteLine(ls.Count)
 
     'Dim scores = New List(Of Integer)
 
