@@ -77,6 +77,7 @@
     <Compile Include="Events\ChainedEvents.cs" />
     <Compile Include="ExtensionHelper.cs" />
     <Compile Include="HackerRankChallenges\Algorithms.cs" />
+    <Compile Include="HackerRankChallenges\HourGlasses.cs" />
     <Compile Include="InheritanceExample.cs" />
     <Compile Include="Lambdas\LambdaEvents.cs" />
     <Compile Include="Lambdas\BasicLambdas.cs" />
