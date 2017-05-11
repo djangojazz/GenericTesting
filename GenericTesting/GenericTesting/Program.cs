@@ -85,18 +85,42 @@ namespace GenericTesting
     //  return new Converter<ChildPOC, ChildPOCAlter>((x) => { return new ChildPOCAlter(x.FirstName, x.LastName, x.ParentId); });
     //}
     
+    static bool?[] ReturnIt(string input)
+    {
+      bool?[] aBool = new bool?[8];
+
+      for (int i = 0; i <= input.Length - 1; i++)
+      {
+        switch (input[i])
+        {
+          case '0':
+            aBool[i] = false;
+            break;
+
+          case '1':
+            aBool[i] = true;
+            break;
+
+          case '.':
+            aBool[i] = null;
+            break;
+
+          default:
+            break;
+        }
+
+      }
+      return aBool;
+    }
+
     static void Main(string[] args)
     {
-      var poc = new POC(1, "Test");
-      var serializeIt = poc.SerializeToXml();
+      var input = "000.1100";
 
-      var poc2 = new POC2(1, "Test More");
-      var serializeIt2 = poc2.SerializeToXml();
+      var result = ReturnIt(input);
+      var result2 = input.Select(c => c == '.' ? (bool?)null : c == '1').ToArray();
 
-      var poc3 = new POC(1, "Test");
-      var serializeIt3 = poc.SerializeToXmlUpper();
-
-      var itt = "hello";
+      Console.WriteLine(result);
 
       //var someParents = new List<POC> { new POC(1, "A"), new POC(2, "B") };
       //var somechildren = new List<ChildPOC> { new ChildPOC(1, "Brett", "x"), new ChildPOC(1, "Emily", "X"), new ChildPOC(2, "John", "Y") };

@@ -21,11 +21,11 @@ Public Class FleetmonTesting
 
         Return vessels.ToList().Select(Function(x) New ShipDb With
                                              {
-                                              .MMSI = x.Element(NameOf(VesselModel.mmsinumber)).Value,
+                                              .MMSI = CInt(x.Element(NameOf(VesselModel.mmsinumber)).Value),
                                               .ShipName = x.Element(NameOf(VesselModel.name)).Value,
-                                              .Latitude = x.Element(NameOf(VesselModel.latitude)).Value,
-                                              .Longitude = x.Element(NameOf(VesselModel.longitude)).Value,
-                                              .ShipTypeId = [Enum].Parse(GetType(ShipType), x.Parent.Element("tags").Value)
+                                              .Latitude = CDbl(x.Element(NameOf(VesselModel.latitude)).Value),
+                                              .Longitude = CDbl(x.Element(NameOf(VesselModel.longitude)).Value),
+                                              .ShipTypeId = CInt([Enum].Parse(GetType(ShipType), x.Parent.Element("tags").Value))
                                               }).ToList()
       End Using
     Catch ex As Exception

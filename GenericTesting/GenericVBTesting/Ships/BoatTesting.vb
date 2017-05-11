@@ -122,9 +122,9 @@ Public Class BoatTesting
     While memNum.Count < count
       randomNum = rand.Next(102452151, 999452151)
       randomExt = rand.Next(1, 900000) / 1000000
-      randomName = rand.Next()
-      randomLat = rand.Next(30.000001, 55.000001)
-      randomLong = rand.Next(-142.000001, -115.000001)
+      randomName = CType(rand.Next(), String)
+      randomLat = rand.Next(CInt(30.000001), CInt(55.000001))
+      randomLong = rand.Next(CInt(-142.000001), CInt(-115.000001))
       randomLat += randomExt
       randomLong += randomExt
 

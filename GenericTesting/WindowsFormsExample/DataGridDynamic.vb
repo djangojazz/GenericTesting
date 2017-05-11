@@ -5,7 +5,7 @@ Imports System.Text.RegularExpressions
 Public Class DataGridDynamic
 
   Private _talker As SQLTalker = New SQLTalker(GetTesterDatabase)
-  Private _people As  DataTable = New DataTable
+  Private _people As DataTable = New DataTable
   Private _orders As List(Of Order) = New List(Of Order)
 
   Private Sub DataGridDynamic_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -44,8 +44,9 @@ Public Class DataGridDynamic
 
   Private Sub btnGetIt_Click(sender As Object, e As EventArgs) Handles btnGetIt.Click
     Dim s = String.Empty
-    For Each row As DataRow In _people?.Rows
-      s += $"OrderId: {row("OrderId").ToString} Person: {row("FirstName").ToString} {row("LastName").ToString}" + Environment.NewLine
+
+    For Each row As DataRow In _people.Rows
+      s += $"OrderId: {row("OrderId").ToString()} Person: {row("FirstName").ToString()} {row("LastName").ToString()}" + Environment.NewLine
     Next
 
     MessageBox.Show(s)

@@ -32,10 +32,13 @@ Module Module1
 
   Sub Main()
     Dim dt = CreateDataTableAndFillit()
+    Dim col = dt.Select("Id = 3").FirstOrDefault()
 
-    Dim dr = dt.Select("Id = 2").Select(Function(x) x("Val")).First()
+    Console.WriteLine(col("Val"))
 
-    Console.WriteLine(dr)
+    'col("Val") += "Brett"
+
+    'Console.WriteLine(col("Val"))
 
     Console.ReadLine()
   End Sub
