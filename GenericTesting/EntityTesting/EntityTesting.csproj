@@ -54,6 +54,12 @@
       <DependentUpon>Tester.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="tdCountry.cs">
+      <DependentUpon>Tester.tt</DependentUpon>
+    </Compile>
+    <Compile Include="teAddress.cs">
+      <DependentUpon>Tester.tt</DependentUpon>
+    </Compile>
     <Compile Include="teOrder.cs">
       <DependentUpon>Tester.tt</DependentUpon>
     </Compile>

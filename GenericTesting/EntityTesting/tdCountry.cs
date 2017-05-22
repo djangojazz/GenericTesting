@@ -12,21 +12,18 @@ namespace EntityTesting
     using System;
     using System.Collections.Generic;
     
-    public partial class tePerson
+    public partial class tdCountry
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tePerson()
+        public tdCountry()
         {
-            this.teOrder = new HashSet<teOrder>();
+            this.tePerson = new HashSet<tePerson>();
         }
     
-        public int PersonId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public Nullable<int> CountryId { get; set; }
+        public int CountryId { get; set; }
+        public string CountryName { get; set; }
     
-        public virtual tdCountry tdCountry { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<teOrder> teOrder { get; set; }
+        public virtual ICollection<tePerson> tePerson { get; set; }
     }
 }

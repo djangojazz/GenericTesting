@@ -10,7 +10,6 @@ Imports System.Threading
 Imports System.Threading.Tasks
 Imports System.Data.SqlClient
 Imports System.IO
-Imports GenericVBTesting.Data.Objects.Serialization
 
 Module Module1
 
@@ -35,10 +34,6 @@ Module Module1
     Dim col = dt.Select("Id = 3").FirstOrDefault()
 
     Console.WriteLine(col("Val"))
-
-    'col("Val") += "Brett"
-
-    'Console.WriteLine(col("Val"))
 
     Console.ReadLine()
   End Sub

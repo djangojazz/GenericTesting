@@ -88,6 +88,7 @@
     <Compile Include="Models\DemandLocationDb.cs" />
     <Compile Include="Models\DemandTrendInput.cs" />
     <Compile Include="Models\DemandTrendOutput.cs" />
+    <Compile Include="Models\DynamicSelector.cs" />
     <Compile Include="Models\ISerializedXMLString.cs" />
     <Compile Include="Models\models.cs" />
     <Compile Include="Models\Person.cs" />

@@ -28,6 +28,8 @@ namespace EntityTesting
         }
     
         public virtual DbSet<teOrder> teOrder { get; set; }
+        public virtual DbSet<tdCountry> tdCountry { get; set; }
+        public virtual DbSet<teAddress> teAddress { get; set; }
         public virtual DbSet<tePerson> tePerson { get; set; }
     
         public virtual ObjectResult<pDynamicGroupTest_Result> pDynamicGroupTest(string xml)

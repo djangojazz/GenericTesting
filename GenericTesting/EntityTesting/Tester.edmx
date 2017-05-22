@@ -5,6 +5,27 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Tester.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tdCountry">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="CountryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryName" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="teAddress">
+          <Key>
+            <PropertyRef Name="AddressId" />
+          </Key>
+          <Property Name="AddressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StreetAddress" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="StreetAddressExtended" Type="varchar" MaxLength="256" />
+          <Property Name="City" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="State" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="ZipCode" Type="int" Nullable="false" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+          <Property Name="GeographyPoint" Type="geography" StoreGeneratedPattern="Computed" />
+        </EntityType>
         <EntityType Name="teOrder">
           <Key>
             <PropertyRef Name="OrderId" />
@@ -20,6 +41,7 @@
           <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FirstName" Type="varchar" MaxLength="128" />
           <Property Name="LastName" Type="varchar" MaxLength="128" />
+          <Property Name="CountryId" Type="int" />
         </EntityType>
         <Association Name="FK_Order_Person_PersonID">
           <End Role="tePerson" Type="Self.tePerson" Multiplicity="1" />
@@ -33,15 +55,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tePerson_tdCountry">
+          <End Role="tdCountry" Type="Self.tdCountry" Multiplicity="0..1" />
+          <End Role="tePerson" Type="Self.tePerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tdCountry">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="tePerson">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="pDynamicGroupTest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Xml" Type="xml" Mode="In" />
         </Function>
         <EntityContainer Name="TesterStoreContainer">
+          <EntitySet Name="tdCountry" EntityType="Self.tdCountry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="teAddress" EntityType="Self.teAddress" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="teOrder" EntityType="Self.teOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tePerson" EntityType="Self.tePerson" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Order_Person_PersonID" Association="Self.FK_Order_Person_PersonID">
             <End Role="tePerson" EntitySet="tePerson" />
             <End Role="teOrder" EntitySet="teOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tePerson_tdCountry" Association="Self.FK_tePerson_tdCountry">
+            <End Role="tdCountry" EntitySet="tdCountry" />
+            <End Role="tePerson" EntitySet="tePerson" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -55,7 +95,52 @@
           <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PersonId" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tePerson" Relationship="Self.FK_Order_Person_PersonID" FromRole="teOrder" ToRole="tePerson" />
+          <NavigationProperty Name="tePerson" Relationship="Tester.FK_Order_Person_PersonID" FromRole="teOrder" ToRole="tePerson" />
+        </EntityType>
+        <EntityContainer Name="TesterEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="teOrder" EntityType="Self.teOrder" />
+          <FunctionImport Name="pDynamicGroupTest" ReturnType="Collection(Tester.pDynamicGroupTest_Result)">
+          <Parameter Name="Xml" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="tdCountry" EntityType="Tester.tdCountry" />
+          <EntitySet Name="teAddress" EntityType="Tester.teAddress" />
+          <EntitySet Name="tePerson" EntityType="Tester.tePerson" />
+          <AssociationSet Name="FK_tePerson_tdCountry" Association="Tester.FK_tePerson_tdCountry">
+            <End Role="tdCountry" EntitySet="tdCountry" />
+            <End Role="tePerson" EntitySet="tePerson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Person_PersonID" Association="Tester.FK_Order_Person_PersonID">
+            <End Role="tePerson" EntitySet="tePerson" />
+            <End Role="teOrder" EntitySet="teOrder" />
+          </AssociationSet>
+        </EntityContainer>
+        <ComplexType Name="pDynamicGroupTest_Result">
+          <Property Type="Int32" Name="CategoryId" Nullable="true" />
+          <Property Type="String" Name="GroupName" Nullable="true" MaxLength="4" />
+          <Property Type="DateTime" Name="GroupStart" Nullable="true" />
+          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="19" />
+        </ComplexType>
+        <EntityType Name="tdCountry">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="CountryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tePerson" Relationship="Tester.FK_tePerson_tdCountry" FromRole="tdCountry" ToRole="tePerson" />
+        </EntityType>
+        <EntityType Name="teAddress">
+          <Key>
+            <PropertyRef Name="AddressId" />
+          </Key>
+          <Property Name="AddressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StreetAddress" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="StreetAddressExtended" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="ZipCode" Type="Int32" Nullable="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <Property Name="GeographyPoint" Type="Geography" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="tePerson">
           <Key>
@@ -64,11 +149,25 @@
           <Property Name="PersonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FirstName" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="LastName" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="teOrder" Relationship="Self.FK_Order_Person_PersonID" FromRole="tePerson" ToRole="teOrder" />
+          <Property Name="CountryId" Type="Int32" />
+          <NavigationProperty Name="tdCountry" Relationship="Tester.FK_tePerson_tdCountry" FromRole="tePerson" ToRole="tdCountry" />
+          <NavigationProperty Name="teOrder" Relationship="Tester.FK_Order_Person_PersonID" FromRole="tePerson" ToRole="teOrder" />
         </EntityType>
+        <Association Name="FK_tePerson_tdCountry">
+          <End Type="Tester.tdCountry" Role="tdCountry" Multiplicity="0..1" />
+          <End Type="Tester.tePerson" Role="tePerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tdCountry">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="tePerson">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Order_Person_PersonID">
-          <End Role="tePerson" Type="Self.tePerson" Multiplicity="1" />
-          <End Role="teOrder" Type="Self.teOrder" Multiplicity="*" />
+          <End Type="Tester.tePerson" Role="tePerson" Multiplicity="1" />
+          <End Type="Tester.teOrder" Role="teOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tePerson">
               <PropertyRef Name="PersonId" />
@@ -78,23 +177,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TesterEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="teOrder" EntityType="Self.teOrder" />
-          <EntitySet Name="tePerson" EntityType="Self.tePerson" />
-          <AssociationSet Name="FK_Order_Person_PersonID" Association="Self.FK_Order_Person_PersonID">
-            <End Role="tePerson" EntitySet="tePerson" />
-            <End Role="teOrder" EntitySet="teOrder" />
-          </AssociationSet>
-          <FunctionImport Name="pDynamicGroupTest" ReturnType="Collection(Tester.pDynamicGroupTest_Result)">
-            <Parameter Name="Xml" Mode="In" Type="String" />
-          </FunctionImport>
-        </EntityContainer>
-        <ComplexType Name="pDynamicGroupTest_Result">
-          <Property Type="Int32" Name="CategoryId" Nullable="true" />
-          <Property Type="String" Name="GroupName" Nullable="true" MaxLength="4" />
-          <Property Type="DateTime" Name="GroupStart" Nullable="true" />
-          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="19" />
-        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -110,15 +192,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tePerson">
-            <EntityTypeMapping TypeName="Tester.tePerson">
-              <MappingFragment StoreEntitySet="tePerson">
-                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="pDynamicGroupTest" FunctionName="Tester.Store.pDynamicGroupTest">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Tester.pDynamicGroupTest_Result">
@@ -129,6 +202,39 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="tdCountry">
+            <EntityTypeMapping TypeName="Tester.tdCountry">
+              <MappingFragment StoreEntitySet="tdCountry">
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="teAddress">
+            <EntityTypeMapping TypeName="Tester.teAddress">
+              <MappingFragment StoreEntitySet="teAddress">
+                <ScalarProperty Name="GeographyPoint" ColumnName="GeographyPoint" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StreetAddressExtended" ColumnName="StreetAddressExtended" />
+                <ScalarProperty Name="StreetAddress" ColumnName="StreetAddress" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tePerson">
+            <EntityTypeMapping TypeName="Tester.tePerson">
+              <MappingFragment StoreEntitySet="tePerson">
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

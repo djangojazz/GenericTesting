@@ -80,89 +80,57 @@ namespace GenericTesting
 
   class Program
   {
-    //public static Converter<ChildPOC, ChildPOCAlter> ChildPOCOAlter()
-    //{
-    //  return new Converter<ChildPOC, ChildPOCAlter>((x) => { return new ChildPOCAlter(x.FirstName, x.LastName, x.ParentId); });
-    //}
-    
-    static bool?[] ReturnIt(string input)
+    public static Converter<ChildPOC, ChildPOCAlter> ChildPOCOAlter()
     {
-      bool?[] aBool = new bool?[8];
-
-      for (int i = 0; i <= input.Length - 1; i++)
-      {
-        switch (input[i])
-        {
-          case '0':
-            aBool[i] = false;
-            break;
-
-          case '1':
-            aBool[i] = true;
-            break;
-
-          case '.':
-            aBool[i] = null;
-            break;
-
-          default:
-            break;
-        }
-
-      }
-      return aBool;
+      return new Converter<ChildPOC, ChildPOCAlter>((x) => { return new ChildPOCAlter(x.FirstName, x.LastName, x.ParentId); });
     }
 
     static void Main(string[] args)
     {
-      var input = "000.1100";
+      //This could be an add in a repo
+      using (var context = new TesterEntities())
+      {
+        context.tdCountry.Add(new tdCountry { CountryName = "Canada" });
+        context.SaveChanges();
+      }
 
-      var result = ReturnIt(input);
-      var result2 = input.Select(c => c == '.' ? (bool?)null : c == '1').ToArray();
+      //This could be an update in a repo
+      using (var context = new TesterEntities())
+      {
+        var getNewCountry = context.tdCountry.SingleOrDefault(x => x.CountryName == "Canada");
+        var people = context.tePerson.ToList();
+        getNewCountry.tePerson = people;
+        context.SaveChanges();
+      }
 
-      Console.WriteLine(result);
+        //var demandTrend = new DemandTrendInput("1", 111, current, current.AddDays(5), TrendChoices.FiscalWeek, new List<int> { 1, 2, 3 });
+        //var demandTrend2 = new DemandTrendInput("2", 222, current, current.AddDays(5), TrendChoices.FiscalWeek, new List<int> { 4, 5, 6 });
 
-      //var someParents = new List<POC> { new POC(1, "A"), new POC(2, "B") };
-      //var somechildren = new List<ChildPOC> { new ChildPOC(1, "Brett", "x"), new ChildPOC(1, "Emily", "X"), new ChildPOC(2, "John", "Y") };
+        //var d = new SerializableDictionary<string, DemandTrendInput> { { "1", demandTrend }, { "2", demandTrend2 } };
 
-      //var relationships = someParents.Select(x => new
-      //{
-      //  Id = x.Id,
-      //  Name = x.Name,
-      //  Children = somechildren.Where(y => y.ParentId == x.Id).ToList().ConvertAll(ChildPOCOAlter())
-      //});
+        //var serialized = d.SerializeToXml();
+        //var deserialized = serialized.DeserializeXml<SerializableDictionary<string, DemandTrendInput>>();
+        ////var vals = deserialized.ToList();
+        ////var data = new List<DemandTrendInput>();
 
-      //var i = "Thing";
-      //var current = DateTime.Now.Date;
+        //foreach (var item in deserialized.ToList())
+        //{
+        //  item.Value.DemandTrendName = item.Key;
+        //  //data.Add(new DemandTrendInput(item.Key, item.Value.FIKey, item.Value.StartDate, item.Value.EndDate, (TrendChoices)Enum.Parse(typeof(TrendChoices), item.Value.Grouping), item.Value.DemandLocations));
+        //}
 
-      //var demandTrend = new DemandTrendInput("1", 111, current, current.AddDays(5), TrendChoices.FiscalWeek, new List<int> { 1, 2, 3 });
-      //var demandTrend2 = new DemandTrendInput("2", 222, current, current.AddDays(5), TrendChoices.FiscalWeek, new List<int> { 4, 5, 6 });
+        //deserialized.Values.ToList().ForEach(x => Console.WriteLine($"{x.DemandTrendName} {x.StartDate} {x.EndDate}"));
 
-      //var d = new SerializableDictionary<string, DemandTrendInput> { { "1", demandTrend }, { "2", demandTrend2 } };
+        //var change = serialized.Substring(1, 200);
 
-      //var serialized = d.SerializeToXml();
-      //var deserialized = serialized.DeserializeXml<SerializableDictionary<string, DemandTrendInput>>();
-      ////var vals = deserialized.ToList();
-      ////var data = new List<DemandTrendInput>();
+        //serialized.SaveXMLToAppResources(4, 1, 2, 744);
 
-      //foreach (var item in deserialized.ToList())
-      //{
-      //  item.Value.DemandTrendName = item.Key;
-      //  //data.Add(new DemandTrendInput(item.Key, item.Value.FIKey, item.Value.StartDate, item.Value.EndDate, (TrendChoices)Enum.Parse(typeof(TrendChoices), item.Value.Grouping), item.Value.DemandLocations));
-      //}
+        //var sqlTalker = new SQLTalker("DEV-ENTERPRISE", "AppResources", "sqluser", "pa55word");
+        //var data = sqlTalker.GetData("EXEC dbo.AppXmlRecords_Select");
 
-      //deserialized.Values.ToList().ForEach(x => Console.WriteLine($"{x.DemandTrendName} {x.StartDate} {x.EndDate}"));
+        //var items = serialized.DeserializeXml<SerializableDictionary<string, DemandTrendInput>>();      
 
-      //var change = serialized.Substring(1, 200);
-
-      //serialized.SaveXMLToAppResources(4, 1, 2, 744);
-
-      //var sqlTalker = new SQLTalker("DEV-ENTERPRISE", "AppResources", "sqluser", "pa55word");
-      //var data = sqlTalker.GetData("EXEC dbo.AppXmlRecords_Select");
-
-      //var items = serialized.DeserializeXml<SerializableDictionary<string, DemandTrendInput>>();      
-
-      Console.ReadLine();
+        Console.ReadLine();
     }
 
     

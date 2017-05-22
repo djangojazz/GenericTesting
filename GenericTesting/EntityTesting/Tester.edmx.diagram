@@ -6,8 +6,11 @@
     <edmx:Diagrams>
       <Diagram DiagramId="7217fcc7aeaf4a7eb06c1ec8517ad690" Name="Diagram1">
         <EntityTypeShape EntityType="Tester.teOrder" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Tester.tePerson" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
-        <AssociationConnector Association="Tester.FK_Order_Person_PersonID" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Tester.tdCountry" Width="1.5" PointX="0.75" PointY="2" />
+        <EntityTypeShape EntityType="Tester.teAddress" Width="1.5" PointX="3.375" PointY="3.75" />
+        <EntityTypeShape EntityType="Tester.tePerson" Width="1.5" PointX="0.75" PointY="4.75" />
+        <AssociationConnector Association="Tester.FK_tePerson_tdCountry" />
+        <AssociationConnector Association="Tester.FK_Order_Person_PersonID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
