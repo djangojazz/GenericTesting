@@ -127,5 +127,11 @@ namespace GenericTesting
       foreach (DictionaryEntry o in dictionary) { s += $"{o.Key.ToString()} {o.Value.ToString()} {Environment.NewLine}"; }
       return s;
     }
+
+    public static string DynamicSerializer<TypeOfDefinition>(this TypeOfDefinition typ)
+    {
+      if (typ.GetType() == typeof(POC)) { return (new Test<POC> { Id = 1, Thing = (POC)(object)typ }).SerializeToXml(); }
+      else { return (new Test<POC2> { Id = 1, Thing = (POC2)(object)typ }).SerializeToXml(); }
+    }
   }
 }

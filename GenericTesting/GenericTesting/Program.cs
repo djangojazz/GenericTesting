@@ -5,10 +5,10 @@ using System.Xml;
 namespace GenericTesting
 {
   [Serializable]
-  public class Test<T>
+  public class Test<TypeOfDefinition>
   {
     public int Id { get; set; }
-    public T Thing { get; set; }
+    public TypeOfDefinition Thing { get; set; }
   }
   
   [Serializable]
@@ -42,36 +42,8 @@ namespace GenericTesting
     }
   }
   
-
   class Program
   {
-    static string GetIt<T>(T typ)
-    {
-      if (typ.GetType() == typeof(POC))
-      {
-        var choice1 = new Test<POC> { Id = 1, Thing = (POC)(object)typ };
-        return choice1.SerializeToXml();
-      }
-      else
-      {
-        var choice1 = new Test<POC2> { Id = 1, Thing = (POC2)(object)typ };
-        return choice1.SerializeToXml();
-      }
-    }
-
-    //static string GetIt(object choice, Type type)
-    //{
-    //  if (type == typeof(POC))
-    //  {
-    //    var choice1 = new Test<POC> { Id = 1, Thing = (POC)choice };
-    //    return choice1.SerializeToXml();
-    //  }
-    //  else
-    //  {
-    //    var choice1 = new Test<POC2> { Id = 1, Thing = (POC2)choice };
-    //    return choice1.SerializeToXml();
-    //  }
-    //}
 
     static void Main(string[] args)
     {
@@ -87,10 +59,8 @@ namespace GenericTesting
       //problem area is when a serialization is inside another serialization
       var choice = poc1;
       string s = string.Empty;
-
-      var dy = GetIt(choice);
-        //GetIt(choice, choice.GetType());
-      Console.WriteLine(dy);
+      
+      Console.WriteLine(choice.DynamicSerializer());
 
       
       //var demandTrend = new DemandTrendInput("1", 111, current, current.AddDays(5), TrendChoices.FiscalWeek, new List<int> { 1, 2, 3 });
