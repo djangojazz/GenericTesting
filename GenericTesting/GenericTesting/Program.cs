@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Xml.Serialization;
 using System.Xml;
+using System.Xml.Linq;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace GenericTesting
 {
   [Serializable]
-  public class Test<TypeOfDefinition>
+  public class Test
   {
     public int Id { get; set; }
-    public TypeOfDefinition Thing { get; set; }
+    public string BadThing { get; set; }
   }
-  
+
   [Serializable]
-  public class POC
+  public class POC : BasePOC
   {
     public int Id { get; set; }
     public string Name { get; set; }
@@ -24,6 +27,13 @@ namespace GenericTesting
       Id = id;
       Name = name;
     }
+  }
+
+  [Serializable]
+  public class BasePOC
+  {
+    public int BaseId { get; set; }
+    public int BaseDesc { get; set; }
   }
 
   [Serializable]
@@ -41,28 +51,25 @@ namespace GenericTesting
       Extra = extra;
     }
   }
-  
+
+  [Serializable]
+  public class Holdr
+  {
+    public int Id { get; set; }
+    public List<POC> POCs { get; set; } = new List<POC>();
+  }
+
   class Program
   {
-
     static void Main(string[] args)
     {
-      var poc1 = new POC(1, "Brett");
-      var poc2 = new POC2(2, "Mark", "More Stuff");
+      var p = new POC(1, "Brett");
+      var ls = new Holdr();
+      ls.POCs.Add(p);
+      var xDoc = XDocument.Parse(ls.SerializeToXml());
+      var item = xDoc.Descendants("POC").Descendants("Id").First().Value;
+      Console.WriteLine(item);
 
-      var s1 = poc1.SerializeToXml();
-      var s2 = poc2.SerializeToXml();
-
-      //synthesizing a serialization
-      Console.WriteLine($"{s1}{Environment.NewLine}{s2}");
-
-      //problem area is when a serialization is inside another serialization
-      var choice = poc1;
-      string s = string.Empty;
-      
-      Console.WriteLine(choice.DynamicSerializer());
-
-      
       //var demandTrend = new DemandTrendInput("1", 111, current, current.AddDays(5), TrendChoices.FiscalWeek, new List<int> { 1, 2, 3 });
       //var demandTrend2 = new DemandTrendInput("2", 222, current, current.AddDays(5), TrendChoices.FiscalWeek, new List<int> { 4, 5, 6 });
 

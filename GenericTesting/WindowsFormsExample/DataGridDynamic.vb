@@ -7,16 +7,39 @@ Public Class DataGridDynamic
   Private _talker As SQLTalker = New SQLTalker(GetTesterDatabase)
   Private _people As DataTable = New DataTable
   Private _orders As List(Of Order) = New List(Of Order)
+  Private _countries As New List(Of Country)
+  Private _details As New List(Of ReceivingPlanDetail)
 
   Private Sub DataGridDynamic_Load(sender As Object, e As EventArgs) Handles MyBase.Load
     Try
+      Using myReader As New APCLocal.Select.Countries("DEV-APC1", 0)
+        Do While myReader.Read
+          _countries.Add(New Country() With {.CountryId = myReader.Int(APCLocal.Select.Countries.EInts.CountryID), .Country = myReader.Str(APCLocal.Select.Countries.EStrings.Name)})
+        Loop
+      End Using
+
+      Using myReader As New APCLocal.Select.ReceivingPlanDetailByProductionId("DEV-APC1", 441)
+        Do While myReader.Read
+          _details.Add(New ReceivingPlanDetail() With
+                         {
+                         .HailDetailId = myReader.Int(APCLocal.Select.ReceivingPlanDetailByProductionId.EInts.HailDetailID),
+                         .Weight = myReader.Dec(APCLocal.Select.ReceivingPlanDetailByProductionId.ENbr.HailPounds),
+                         .Harvested = myReader.Int(APCLocal.Select.ReceivingPlanDetailByProductionId.EInts.CountryHarvested),
+                         .Processed = myReader.Int(APCLocal.Select.ReceivingPlanDetailByProductionId.EInts.CountryProcessed),
+                         .CatchDate = myReader.Dte(APCLocal.Select.ReceivingPlanDetailByProductionId.EDates.CatchDate)
+                         })
+        Loop
+      End Using
+
+      Dim c = _countries
+      Dim d = _details
+
       _people = _talker.GetData("Select PersonId, FirstName, LastName, OrderId, OrderDesc from dbo.vPersonOrders")
       dgv.AutoGenerateColumns = False
       dgv.DataSource = _people
 
       _orders = DirectCast(DataConverter.ConvertTo(Of Order)(_talker.GetData("Select OrderId, PersonId, Description From dbo.teOrder")), List(Of Order))
 
-      Dim s = ""
       OrderId.DataSource = _orders
       OrderId.DisplayMember = "Description"
       OrderId.ValueMember = "OrderId"

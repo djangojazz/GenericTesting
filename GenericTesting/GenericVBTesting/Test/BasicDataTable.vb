@@ -2,15 +2,15 @@
 Imports System.Text
 
 Public Module BasicDataTable
-  Public Function CreateDataTableAndFillit() As DataTable
+  Public Function CreateDataTableAndFillit(startNum As Integer, endNum As Integer, label As String) As DataTable
     Dim dt As DataTable = New DataTable()
     dt.Columns.Add(New DataColumn("Id", GetType(Integer)))
     dt.Columns.Add(New DataColumn("Val", GetType(String)))
 
-    For i = 1 To 5
+    For i = startNum To endNum
       Dim dr As DataRow = dt.NewRow()
       dr("Id") = i
-      dr("Val") = $"Val {i}"
+      dr("Val") = $"{label} {i}"
       dt.Rows.Add(dr)
     Next
 

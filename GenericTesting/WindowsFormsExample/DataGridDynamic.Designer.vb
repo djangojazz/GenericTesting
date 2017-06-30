@@ -22,6 +22,7 @@ Partial Class DataGridDynamic
   'Do not modify it using the code editor.
   <System.Diagnostics.DebuggerStepThrough()> _
   Private Sub InitializeComponent()
+    Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
     Me.dgv = New System.Windows.Forms.DataGridView()
     Me.ds = New System.Data.DataSet()
     Me.tOrders = New System.Data.DataTable()
@@ -135,7 +136,13 @@ Partial Class DataGridDynamic
     '
     Me.OrderId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
     Me.OrderId.DataPropertyName = "OrderId"
+    DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
+    DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
+    Me.OrderId.DefaultCellStyle = DataGridViewCellStyle1
+    Me.OrderId.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox
+    Me.OrderId.DisplayStyleForCurrentCellOnly = True
     Me.OrderId.FillWeight = 30.0!
+    Me.OrderId.FlatStyle = System.Windows.Forms.FlatStyle.System
     Me.OrderId.HeaderText = "ORDER"
     Me.OrderId.Name = "OrderId"
     Me.OrderId.Resizable = System.Windows.Forms.DataGridViewTriState.[True]

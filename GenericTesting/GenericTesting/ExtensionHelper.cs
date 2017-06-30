@@ -128,10 +128,10 @@ namespace GenericTesting
       return s;
     }
 
-    public static string DynamicSerializer<TypeOfDefinition>(this TypeOfDefinition typ)
-    {
-      if (typ.GetType() == typeof(POC)) { return (new Test<POC> { Id = 1, Thing = (POC)(object)typ }).SerializeToXml(); }
-      else { return (new Test<POC2> { Id = 1, Thing = (POC2)(object)typ }).SerializeToXml(); }
-    }
+    //public static string DynamicSerializer(BTest typ)
+    //{
+    //  if (typ.Typ == TypeOfDef.POC) { return (new Test { Id = 1, Thing = (POC)typ }).SerializeToXml(); }
+    //  else { return (new Test { Id = 1, Thing = (POC2)typ }).SerializeToXml(); }
+    //}
   }
 }

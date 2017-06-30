@@ -64,7 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APCLocal\Connection.vb" />
+    <Compile Include="APCLocal\Select\ReceivingPlanDetailByProductionId.vb" />
     <Compile Include="APCLocal\Select\ProductFormatApplicableValueFromProductionOut.vb" />
+    <Compile Include="APCLocal\Select\Countries.vb" />
     <Compile Include="APCLocal\Select\test.vb" />
     <Compile Include="APCLocal\Select\Products.vb" />
     <Compile Include="APCLocal\Select\ProductFormats.vb" />

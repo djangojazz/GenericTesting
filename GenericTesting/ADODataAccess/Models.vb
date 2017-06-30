@@ -19,6 +19,19 @@ Public Class Order
   Public Property Description As String
 End Class
 
+Public Class Country
+  Public Property CountryId As Integer
+  Public Property Country As String
+End Class
+
+Public Class ReceivingPlanDetail
+  Public Property HailDetailId As Integer
+  Public Property Weight As Double
+  Public Property Harvested As Integer
+  Public Property Processed As Integer
+  Public Property CatchDate As DateTime
+End Class
+
 Public Class PersonOrder
   Public Property PersonID As Integer
   Public Property FirstName As String
