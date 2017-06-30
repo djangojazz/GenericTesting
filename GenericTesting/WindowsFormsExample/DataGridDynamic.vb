@@ -14,7 +14,11 @@ Public Class DataGridDynamic
     Try
       Using myReader As New APCLocal.Select.Countries("DEV-APC1", 0)
         Do While myReader.Read
-          _countries.Add(New Country() With {.CountryId = myReader.Int(APCLocal.Select.Countries.EInts.CountryID), .Country = myReader.Str(APCLocal.Select.Countries.EStrings.Name)})
+          Dim o As DataRow = data.Tables("tCountries").NewRow
+          o("CountryId") = myReader.Int(APCLocal.Select.Countries.EInts.CountryID)
+          o("Country") = myReader.Str(APCLocal.Select.Countries.EStrings.Name)
+          data.Tables("tCountries").Rows.Add(o)
+          '_countries.Add(New Country() With {.CountryId = myReader.Int(APCLocal.Select.Countries.EInts.CountryID), .Country = myReader.Str(APCLocal.Select.Countries.EStrings.Name)})
         Loop
       End Using
 
@@ -30,6 +34,8 @@ Public Class DataGridDynamic
         Loop
       End Using
 
+      dgvHail.AutoGenerateColumns = False
+      dgvHail.DataSource = data.Tables("tHail")
 
       _people = _talker.GetData("Select PersonId, FirstName, LastName, OrderId, OrderDesc from dbo.vPersonOrders")
       dgv.AutoGenerateColumns = False

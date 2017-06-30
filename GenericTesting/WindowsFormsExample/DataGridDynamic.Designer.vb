@@ -22,8 +22,8 @@ Partial Class DataGridDynamic
   'Do not modify it using the code editor.
   <System.Diagnostics.DebuggerStepThrough()> _
   Private Sub InitializeComponent()
-    Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-    Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+    Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+    Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
     Me.dgv = New System.Windows.Forms.DataGridView()
     Me.lTest = New System.Windows.Forms.Label()
     Me.tTest = New System.Windows.Forms.TextBox()
@@ -40,17 +40,23 @@ Partial Class DataGridDynamic
     Me.DataColumn3 = New System.Data.DataColumn()
     Me.DataColumn4 = New System.Data.DataColumn()
     Me.DataColumn5 = New System.Data.DataColumn()
+    Me.tCountries = New System.Data.DataTable()
+    Me.DataColumn6 = New System.Data.DataColumn()
+    Me.DataColumn7 = New System.Data.DataColumn()
     Me.DataGridViewComboBoxColumn1 = New System.Windows.Forms.DataGridViewComboBoxColumn()
+    Me.DataGridViewComboBoxColumn2 = New System.Windows.Forms.DataGridViewComboBoxColumn()
+    Me.DataGridViewComboBoxColumn3 = New System.Windows.Forms.DataGridViewComboBoxColumn()
     Me.OrderId = New System.Windows.Forms.DataGridViewComboBoxColumn()
     Me.HailDetailId = New System.Windows.Forms.DataGridViewTextBoxColumn()
-    Me.Weight = New System.Windows.Forms.DataGridViewTextBoxColumn()
-    Me.Harvested = New System.Windows.Forms.DataGridViewTextBoxColumn()
-    Me.Processed = New System.Windows.Forms.DataGridViewTextBoxColumn()
     Me.CatchDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.Harvested = New System.Windows.Forms.DataGridViewComboBoxColumn()
+    Me.Processed = New System.Windows.Forms.DataGridViewComboBoxColumn()
+    Me.Weight = New System.Windows.Forms.DataGridViewTextBoxColumn()
     CType(Me.dgv, System.ComponentModel.ISupportInitialize).BeginInit()
     CType(Me.dgvHail, System.ComponentModel.ISupportInitialize).BeginInit()
     CType(Me.data, System.ComponentModel.ISupportInitialize).BeginInit()
     CType(Me.tHail, System.ComponentModel.ISupportInitialize).BeginInit()
+    CType(Me.tCountries, System.ComponentModel.ISupportInitialize).BeginInit()
     Me.SuspendLayout()
     '
     'dgv
@@ -123,11 +129,8 @@ Partial Class DataGridDynamic
     '
     'dgvHail
     '
-    Me.dgvHail.AutoGenerateColumns = False
     Me.dgvHail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-    Me.dgvHail.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.HailDetailId, Me.Weight, Me.Harvested, Me.Processed, Me.CatchDate})
-    Me.dgvHail.DataMember = "tHail"
-    Me.dgvHail.DataSource = Me.data
+    Me.dgvHail.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.HailDetailId, Me.CatchDate, Me.Harvested, Me.Processed, Me.Weight})
     Me.dgvHail.Location = New System.Drawing.Point(13, 13)
     Me.dgvHail.Name = "dgvHail"
     Me.dgvHail.Size = New System.Drawing.Size(547, 177)
@@ -136,7 +139,7 @@ Partial Class DataGridDynamic
     'data
     '
     Me.data.DataSetName = "data"
-    Me.data.Tables.AddRange(New System.Data.DataTable() {Me.tHail})
+    Me.data.Tables.AddRange(New System.Data.DataTable() {Me.tHail, Me.tCountries})
     '
     'tHail
     '
@@ -168,13 +171,27 @@ Partial Class DataGridDynamic
     Me.DataColumn5.ColumnName = "CatchDate"
     Me.DataColumn5.DataType = GetType(Date)
     '
+    'tCountries
+    '
+    Me.tCountries.Columns.AddRange(New System.Data.DataColumn() {Me.DataColumn6, Me.DataColumn7})
+    Me.tCountries.TableName = "tCountries"
+    '
+    'DataColumn6
+    '
+    Me.DataColumn6.ColumnName = "CountryId"
+    Me.DataColumn6.DataType = GetType(Integer)
+    '
+    'DataColumn7
+    '
+    Me.DataColumn7.ColumnName = "Country"
+    '
     'DataGridViewComboBoxColumn1
     '
     Me.DataGridViewComboBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
     Me.DataGridViewComboBoxColumn1.DataPropertyName = "OrderId"
-    DataGridViewCellStyle8.BackColor = System.Drawing.Color.White
-    DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.White
-    Me.DataGridViewComboBoxColumn1.DefaultCellStyle = DataGridViewCellStyle8
+    DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
+    DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White
+    Me.DataGridViewComboBoxColumn1.DefaultCellStyle = DataGridViewCellStyle3
     Me.DataGridViewComboBoxColumn1.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox
     Me.DataGridViewComboBoxColumn1.DisplayStyleForCurrentCellOnly = True
     Me.DataGridViewComboBoxColumn1.FillWeight = 30.0!
@@ -184,13 +201,39 @@ Partial Class DataGridDynamic
     Me.DataGridViewComboBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
     Me.DataGridViewComboBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
     '
+    'DataGridViewComboBoxColumn2
+    '
+    Me.DataGridViewComboBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+    Me.DataGridViewComboBoxColumn2.DataPropertyName = "Harvested"
+    Me.DataGridViewComboBoxColumn2.DataSource = Me.data
+    Me.DataGridViewComboBoxColumn2.DisplayMember = "tCountries.Country"
+    Me.DataGridViewComboBoxColumn2.FillWeight = 10.0!
+    Me.DataGridViewComboBoxColumn2.HeaderText = "Harvested"
+    Me.DataGridViewComboBoxColumn2.Name = "DataGridViewComboBoxColumn2"
+    Me.DataGridViewComboBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+    Me.DataGridViewComboBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+    Me.DataGridViewComboBoxColumn2.ValueMember = "tCountries.CountryId"
+    '
+    'DataGridViewComboBoxColumn3
+    '
+    Me.DataGridViewComboBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+    Me.DataGridViewComboBoxColumn3.DataPropertyName = "Processed"
+    Me.DataGridViewComboBoxColumn3.DataSource = Me.data
+    Me.DataGridViewComboBoxColumn3.DisplayMember = "tCountries.CountryId"
+    Me.DataGridViewComboBoxColumn3.FillWeight = 10.0!
+    Me.DataGridViewComboBoxColumn3.HeaderText = "Processed"
+    Me.DataGridViewComboBoxColumn3.Name = "DataGridViewComboBoxColumn3"
+    Me.DataGridViewComboBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+    Me.DataGridViewComboBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+    Me.DataGridViewComboBoxColumn3.ValueMember = "tCountries.Country"
+    '
     'OrderId
     '
     Me.OrderId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
     Me.OrderId.DataPropertyName = "OrderId"
-    DataGridViewCellStyle7.BackColor = System.Drawing.Color.White
-    DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.White
-    Me.OrderId.DefaultCellStyle = DataGridViewCellStyle7
+    DataGridViewCellStyle4.BackColor = System.Drawing.Color.White
+    DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White
+    Me.OrderId.DefaultCellStyle = DataGridViewCellStyle4
     Me.OrderId.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox
     Me.OrderId.DisplayStyleForCurrentCellOnly = True
     Me.OrderId.FillWeight = 30.0!
@@ -202,33 +245,53 @@ Partial Class DataGridDynamic
     '
     'HailDetailId
     '
+    Me.HailDetailId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
     Me.HailDetailId.DataPropertyName = "HailDetailId"
+    Me.HailDetailId.FillWeight = 50.0!
     Me.HailDetailId.HeaderText = "Hail Detail Id"
     Me.HailDetailId.Name = "HailDetailId"
     '
-    'Weight
+    'CatchDate
     '
-    Me.Weight.DataPropertyName = "Weight"
-    Me.Weight.HeaderText = "Weight"
-    Me.Weight.Name = "Weight"
+    Me.CatchDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+    Me.CatchDate.DataPropertyName = "CatchDate"
+    Me.CatchDate.FillWeight = 10.0!
+    Me.CatchDate.HeaderText = "CatchDate"
+    Me.CatchDate.Name = "CatchDate"
     '
     'Harvested
     '
+    Me.Harvested.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
     Me.Harvested.DataPropertyName = "Harvested"
+    Me.Harvested.DataSource = Me.data
+    Me.Harvested.DisplayMember = "tCountries.Country"
+    Me.Harvested.FillWeight = 10.0!
     Me.Harvested.HeaderText = "Harvested"
     Me.Harvested.Name = "Harvested"
+    Me.Harvested.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+    Me.Harvested.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+    Me.Harvested.ValueMember = "tCountries.CountryId"
     '
     'Processed
     '
+    Me.Processed.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
     Me.Processed.DataPropertyName = "Processed"
+    Me.Processed.DataSource = Me.data
+    Me.Processed.DisplayMember = "tCountries.Country"
+    Me.Processed.FillWeight = 10.0!
     Me.Processed.HeaderText = "Processed"
     Me.Processed.Name = "Processed"
+    Me.Processed.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+    Me.Processed.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+    Me.Processed.ValueMember = "tCountries.CountryId"
     '
-    'CatchDate
+    'Weight
     '
-    Me.CatchDate.DataPropertyName = "CatchDate"
-    Me.CatchDate.HeaderText = "CatchDate"
-    Me.CatchDate.Name = "CatchDate"
+    Me.Weight.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+    Me.Weight.DataPropertyName = "Weight"
+    Me.Weight.FillWeight = 20.0!
+    Me.Weight.HeaderText = "Weight"
+    Me.Weight.Name = "Weight"
     '
     'DataGridDynamic
     '
@@ -247,6 +310,7 @@ Partial Class DataGridDynamic
     CType(Me.dgvHail, System.ComponentModel.ISupportInitialize).EndInit()
     CType(Me.data, System.ComponentModel.ISupportInitialize).EndInit()
     CType(Me.tHail, System.ComponentModel.ISupportInitialize).EndInit()
+    CType(Me.tCountries, System.ComponentModel.ISupportInitialize).EndInit()
     Me.ResumeLayout(False)
     Me.PerformLayout()
 
@@ -270,9 +334,14 @@ Partial Class DataGridDynamic
   Friend WithEvents DataColumn3 As DataColumn
   Friend WithEvents DataColumn4 As DataColumn
   Friend WithEvents DataColumn5 As DataColumn
+  Friend WithEvents tCountries As DataTable
+  Friend WithEvents DataColumn6 As DataColumn
+  Friend WithEvents DataColumn7 As DataColumn
+  Friend WithEvents DataGridViewComboBoxColumn2 As DataGridViewComboBoxColumn
+  Friend WithEvents DataGridViewComboBoxColumn3 As DataGridViewComboBoxColumn
   Friend WithEvents HailDetailId As DataGridViewTextBoxColumn
-  Friend WithEvents Weight As DataGridViewTextBoxColumn
-  Friend WithEvents Harvested As DataGridViewTextBoxColumn
-  Friend WithEvents Processed As DataGridViewTextBoxColumn
   Friend WithEvents CatchDate As DataGridViewTextBoxColumn
+  Friend WithEvents Harvested As DataGridViewComboBoxColumn
+  Friend WithEvents Processed As DataGridViewComboBoxColumn
+  Friend WithEvents Weight As DataGridViewTextBoxColumn
 End Class
