@@ -22,85 +22,50 @@ Partial Class DataGridDynamic
   'Do not modify it using the code editor.
   <System.Diagnostics.DebuggerStepThrough()> _
   Private Sub InitializeComponent()
-    Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+    Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+    Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
     Me.dgv = New System.Windows.Forms.DataGridView()
-    Me.ds = New System.Data.DataSet()
-    Me.tOrders = New System.Data.DataTable()
-    Me.DataColumn1 = New System.Data.DataColumn()
-    Me.DataColumn2 = New System.Data.DataColumn()
-    Me.tPeople = New System.Data.DataTable()
-    Me.DataColumn3 = New System.Data.DataColumn()
-    Me.DataColumn4 = New System.Data.DataColumn()
-    Me.DataColumn5 = New System.Data.DataColumn()
-    Me.DataColumn6 = New System.Data.DataColumn()
     Me.lTest = New System.Windows.Forms.Label()
     Me.tTest = New System.Windows.Forms.TextBox()
     Me.bDoIt = New System.Windows.Forms.Button()
     Me.btnGetIt = New System.Windows.Forms.Button()
-    Me.OrderId = New System.Windows.Forms.DataGridViewComboBoxColumn()
     Me.PersonId = New System.Windows.Forms.DataGridViewTextBoxColumn()
     Me.FirstName = New System.Windows.Forms.DataGridViewTextBoxColumn()
     Me.LastName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.dgvHail = New System.Windows.Forms.DataGridView()
+    Me.data = New System.Data.DataSet()
+    Me.tHail = New System.Data.DataTable()
+    Me.DataColumn1 = New System.Data.DataColumn()
+    Me.DataColumn2 = New System.Data.DataColumn()
+    Me.DataColumn3 = New System.Data.DataColumn()
+    Me.DataColumn4 = New System.Data.DataColumn()
+    Me.DataColumn5 = New System.Data.DataColumn()
+    Me.DataGridViewComboBoxColumn1 = New System.Windows.Forms.DataGridViewComboBoxColumn()
+    Me.OrderId = New System.Windows.Forms.DataGridViewComboBoxColumn()
+    Me.HailDetailId = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.Weight = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.Harvested = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.Processed = New System.Windows.Forms.DataGridViewTextBoxColumn()
+    Me.CatchDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
     CType(Me.dgv, System.ComponentModel.ISupportInitialize).BeginInit()
-    CType(Me.ds, System.ComponentModel.ISupportInitialize).BeginInit()
-    CType(Me.tOrders, System.ComponentModel.ISupportInitialize).BeginInit()
-    CType(Me.tPeople, System.ComponentModel.ISupportInitialize).BeginInit()
+    CType(Me.dgvHail, System.ComponentModel.ISupportInitialize).BeginInit()
+    CType(Me.data, System.ComponentModel.ISupportInitialize).BeginInit()
+    CType(Me.tHail, System.ComponentModel.ISupportInitialize).BeginInit()
     Me.SuspendLayout()
     '
     'dgv
     '
     Me.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
     Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.OrderId, Me.PersonId, Me.FirstName, Me.LastName})
-    Me.dgv.Location = New System.Drawing.Point(13, 13)
+    Me.dgv.Location = New System.Drawing.Point(12, 235)
     Me.dgv.Name = "dgv"
-    Me.dgv.Size = New System.Drawing.Size(523, 219)
+    Me.dgv.Size = New System.Drawing.Size(548, 83)
     Me.dgv.TabIndex = 0
-    '
-    'ds
-    '
-    Me.ds.DataSetName = "NewDataSet"
-    Me.ds.Tables.AddRange(New System.Data.DataTable() {Me.tOrders, Me.tPeople})
-    '
-    'tOrders
-    '
-    Me.tOrders.Columns.AddRange(New System.Data.DataColumn() {Me.DataColumn1, Me.DataColumn2})
-    Me.tOrders.TableName = "tOrders"
-    '
-    'DataColumn1
-    '
-    Me.DataColumn1.ColumnName = "OrderId"
-    Me.DataColumn1.DataType = GetType(Integer)
-    '
-    'DataColumn2
-    '
-    Me.DataColumn2.ColumnName = "Description"
-    '
-    'tPeople
-    '
-    Me.tPeople.Columns.AddRange(New System.Data.DataColumn() {Me.DataColumn3, Me.DataColumn4, Me.DataColumn5, Me.DataColumn6})
-    Me.tPeople.TableName = "tPeople"
-    '
-    'DataColumn3
-    '
-    Me.DataColumn3.ColumnName = "OrderId"
-    Me.DataColumn3.DataType = GetType(Integer)
-    '
-    'DataColumn4
-    '
-    Me.DataColumn4.ColumnName = "PersonId"
-    '
-    'DataColumn5
-    '
-    Me.DataColumn5.ColumnName = "FirstName"
-    '
-    'DataColumn6
-    '
-    Me.DataColumn6.ColumnName = "LastName"
     '
     'lTest
     '
     Me.lTest.AutoSize = True
-    Me.lTest.Location = New System.Drawing.Point(11, 248)
+    Me.lTest.Location = New System.Drawing.Point(11, 344)
     Me.lTest.Name = "lTest"
     Me.lTest.Size = New System.Drawing.Size(96, 13)
     Me.lTest.TabIndex = 1
@@ -108,7 +73,7 @@ Partial Class DataGridDynamic
     '
     'tTest
     '
-    Me.tTest.Location = New System.Drawing.Point(113, 241)
+    Me.tTest.Location = New System.Drawing.Point(113, 337)
     Me.tTest.Name = "tTest"
     Me.tTest.Size = New System.Drawing.Size(100, 20)
     Me.tTest.TabIndex = 2
@@ -116,7 +81,7 @@ Partial Class DataGridDynamic
     '
     'bDoIt
     '
-    Me.bDoIt.Location = New System.Drawing.Point(234, 239)
+    Me.bDoIt.Location = New System.Drawing.Point(234, 335)
     Me.bDoIt.Name = "bDoIt"
     Me.bDoIt.Size = New System.Drawing.Size(75, 23)
     Me.bDoIt.TabIndex = 3
@@ -125,28 +90,12 @@ Partial Class DataGridDynamic
     '
     'btnGetIt
     '
-    Me.btnGetIt.Location = New System.Drawing.Point(327, 238)
+    Me.btnGetIt.Location = New System.Drawing.Point(327, 334)
     Me.btnGetIt.Name = "btnGetIt"
     Me.btnGetIt.Size = New System.Drawing.Size(75, 23)
     Me.btnGetIt.TabIndex = 4
     Me.btnGetIt.Text = "GetIt"
     Me.btnGetIt.UseVisualStyleBackColor = True
-    '
-    'OrderId
-    '
-    Me.OrderId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-    Me.OrderId.DataPropertyName = "OrderId"
-    DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
-    DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
-    Me.OrderId.DefaultCellStyle = DataGridViewCellStyle1
-    Me.OrderId.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox
-    Me.OrderId.DisplayStyleForCurrentCellOnly = True
-    Me.OrderId.FillWeight = 30.0!
-    Me.OrderId.FlatStyle = System.Windows.Forms.FlatStyle.System
-    Me.OrderId.HeaderText = "ORDER"
-    Me.OrderId.Name = "OrderId"
-    Me.OrderId.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-    Me.OrderId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
     '
     'PersonId
     '
@@ -172,11 +121,121 @@ Partial Class DataGridDynamic
     Me.LastName.HeaderText = "LastName"
     Me.LastName.Name = "LastName"
     '
+    'dgvHail
+    '
+    Me.dgvHail.AutoGenerateColumns = False
+    Me.dgvHail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+    Me.dgvHail.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.HailDetailId, Me.Weight, Me.Harvested, Me.Processed, Me.CatchDate})
+    Me.dgvHail.DataMember = "tHail"
+    Me.dgvHail.DataSource = Me.data
+    Me.dgvHail.Location = New System.Drawing.Point(13, 13)
+    Me.dgvHail.Name = "dgvHail"
+    Me.dgvHail.Size = New System.Drawing.Size(547, 177)
+    Me.dgvHail.TabIndex = 5
+    '
+    'data
+    '
+    Me.data.DataSetName = "data"
+    Me.data.Tables.AddRange(New System.Data.DataTable() {Me.tHail})
+    '
+    'tHail
+    '
+    Me.tHail.Columns.AddRange(New System.Data.DataColumn() {Me.DataColumn1, Me.DataColumn2, Me.DataColumn3, Me.DataColumn4, Me.DataColumn5})
+    Me.tHail.TableName = "tHail"
+    '
+    'DataColumn1
+    '
+    Me.DataColumn1.ColumnName = "HailDetailId"
+    Me.DataColumn1.DataType = GetType(Integer)
+    '
+    'DataColumn2
+    '
+    Me.DataColumn2.ColumnName = "Weight"
+    Me.DataColumn2.DataType = GetType(Double)
+    '
+    'DataColumn3
+    '
+    Me.DataColumn3.ColumnName = "Harvested"
+    Me.DataColumn3.DataType = GetType(Integer)
+    '
+    'DataColumn4
+    '
+    Me.DataColumn4.ColumnName = "Processed"
+    Me.DataColumn4.DataType = GetType(Integer)
+    '
+    'DataColumn5
+    '
+    Me.DataColumn5.ColumnName = "CatchDate"
+    Me.DataColumn5.DataType = GetType(Date)
+    '
+    'DataGridViewComboBoxColumn1
+    '
+    Me.DataGridViewComboBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+    Me.DataGridViewComboBoxColumn1.DataPropertyName = "OrderId"
+    DataGridViewCellStyle8.BackColor = System.Drawing.Color.White
+    DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.White
+    Me.DataGridViewComboBoxColumn1.DefaultCellStyle = DataGridViewCellStyle8
+    Me.DataGridViewComboBoxColumn1.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox
+    Me.DataGridViewComboBoxColumn1.DisplayStyleForCurrentCellOnly = True
+    Me.DataGridViewComboBoxColumn1.FillWeight = 30.0!
+    Me.DataGridViewComboBoxColumn1.FlatStyle = System.Windows.Forms.FlatStyle.System
+    Me.DataGridViewComboBoxColumn1.HeaderText = "ORDER"
+    Me.DataGridViewComboBoxColumn1.Name = "DataGridViewComboBoxColumn1"
+    Me.DataGridViewComboBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+    Me.DataGridViewComboBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+    '
+    'OrderId
+    '
+    Me.OrderId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+    Me.OrderId.DataPropertyName = "OrderId"
+    DataGridViewCellStyle7.BackColor = System.Drawing.Color.White
+    DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.White
+    Me.OrderId.DefaultCellStyle = DataGridViewCellStyle7
+    Me.OrderId.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox
+    Me.OrderId.DisplayStyleForCurrentCellOnly = True
+    Me.OrderId.FillWeight = 30.0!
+    Me.OrderId.FlatStyle = System.Windows.Forms.FlatStyle.System
+    Me.OrderId.HeaderText = "ORDER"
+    Me.OrderId.Name = "OrderId"
+    Me.OrderId.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+    Me.OrderId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+    '
+    'HailDetailId
+    '
+    Me.HailDetailId.DataPropertyName = "HailDetailId"
+    Me.HailDetailId.HeaderText = "Hail Detail Id"
+    Me.HailDetailId.Name = "HailDetailId"
+    '
+    'Weight
+    '
+    Me.Weight.DataPropertyName = "Weight"
+    Me.Weight.HeaderText = "Weight"
+    Me.Weight.Name = "Weight"
+    '
+    'Harvested
+    '
+    Me.Harvested.DataPropertyName = "Harvested"
+    Me.Harvested.HeaderText = "Harvested"
+    Me.Harvested.Name = "Harvested"
+    '
+    'Processed
+    '
+    Me.Processed.DataPropertyName = "Processed"
+    Me.Processed.HeaderText = "Processed"
+    Me.Processed.Name = "Processed"
+    '
+    'CatchDate
+    '
+    Me.CatchDate.DataPropertyName = "CatchDate"
+    Me.CatchDate.HeaderText = "CatchDate"
+    Me.CatchDate.Name = "CatchDate"
+    '
     'DataGridDynamic
     '
     Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
     Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-    Me.ClientSize = New System.Drawing.Size(548, 273)
+    Me.ClientSize = New System.Drawing.Size(588, 427)
+    Me.Controls.Add(Me.dgvHail)
     Me.Controls.Add(Me.btnGetIt)
     Me.Controls.Add(Me.bDoIt)
     Me.Controls.Add(Me.tTest)
@@ -185,9 +244,9 @@ Partial Class DataGridDynamic
     Me.Name = "DataGridDynamic"
     Me.Text = "DataGridDynamic"
     CType(Me.dgv, System.ComponentModel.ISupportInitialize).EndInit()
-    CType(Me.ds, System.ComponentModel.ISupportInitialize).EndInit()
-    CType(Me.tOrders, System.ComponentModel.ISupportInitialize).EndInit()
-    CType(Me.tPeople, System.ComponentModel.ISupportInitialize).EndInit()
+    CType(Me.dgvHail, System.ComponentModel.ISupportInitialize).EndInit()
+    CType(Me.data, System.ComponentModel.ISupportInitialize).EndInit()
+    CType(Me.tHail, System.ComponentModel.ISupportInitialize).EndInit()
     Me.ResumeLayout(False)
     Me.PerformLayout()
 
@@ -195,20 +254,25 @@ Partial Class DataGridDynamic
 
   Friend WithEvents dgv As DataGridView
   Friend WithEvents lTest As Label
-  Friend WithEvents ds As DataSet
-  Friend WithEvents tOrders As DataTable
-  Friend WithEvents DataColumn1 As DataColumn
-  Friend WithEvents DataColumn2 As DataColumn
   Friend WithEvents tTest As TextBox
   Friend WithEvents bDoIt As Button
   Friend WithEvents btnGetIt As Button
-  Friend WithEvents tPeople As DataTable
-  Friend WithEvents DataColumn3 As DataColumn
-  Friend WithEvents DataColumn4 As DataColumn
-  Friend WithEvents DataColumn5 As DataColumn
-  Friend WithEvents DataColumn6 As DataColumn
   Friend WithEvents OrderId As DataGridViewComboBoxColumn
   Friend WithEvents PersonId As DataGridViewTextBoxColumn
   Friend WithEvents FirstName As DataGridViewTextBoxColumn
   Friend WithEvents LastName As DataGridViewTextBoxColumn
+  Friend WithEvents dgvHail As DataGridView
+  Friend WithEvents DataGridViewComboBoxColumn1 As DataGridViewComboBoxColumn
+  Friend WithEvents data As DataSet
+  Friend WithEvents tHail As DataTable
+  Friend WithEvents DataColumn1 As DataColumn
+  Friend WithEvents DataColumn2 As DataColumn
+  Friend WithEvents DataColumn3 As DataColumn
+  Friend WithEvents DataColumn4 As DataColumn
+  Friend WithEvents DataColumn5 As DataColumn
+  Friend WithEvents HailDetailId As DataGridViewTextBoxColumn
+  Friend WithEvents Weight As DataGridViewTextBoxColumn
+  Friend WithEvents Harvested As DataGridViewTextBoxColumn
+  Friend WithEvents Processed As DataGridViewTextBoxColumn
+  Friend WithEvents CatchDate As DataGridViewTextBoxColumn
 End Class

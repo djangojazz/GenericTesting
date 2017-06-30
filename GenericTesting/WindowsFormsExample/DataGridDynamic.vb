@@ -20,19 +20,16 @@ Public Class DataGridDynamic
 
       Using myReader As New APCLocal.Select.ReceivingPlanDetailByProductionId("DEV-APC1", 441)
         Do While myReader.Read
-          _details.Add(New ReceivingPlanDetail() With
-                         {
-                         .HailDetailId = myReader.Int(APCLocal.Select.ReceivingPlanDetailByProductionId.EInts.HailDetailID),
-                         .Weight = myReader.Dec(APCLocal.Select.ReceivingPlanDetailByProductionId.ENbr.HailPounds),
-                         .Harvested = myReader.Int(APCLocal.Select.ReceivingPlanDetailByProductionId.EInts.CountryHarvested),
-                         .Processed = myReader.Int(APCLocal.Select.ReceivingPlanDetailByProductionId.EInts.CountryProcessed),
-                         .CatchDate = myReader.Dte(APCLocal.Select.ReceivingPlanDetailByProductionId.EDates.CatchDate)
-                         })
+          Dim o As DataRow = data.Tables("tHail").NewRow
+          o("HailDetailId") = myReader.Int(APCLocal.Select.ReceivingPlanDetailByProductionId.EInts.HailDetailID)
+          o("Weight") = myReader.Dec(APCLocal.Select.ReceivingPlanDetailByProductionId.ENbr.HailPounds)
+          o("Harvested") = myReader.Int(APCLocal.Select.ReceivingPlanDetailByProductionId.EInts.CountryHarvested)
+          o("Processed") = myReader.Int(APCLocal.Select.ReceivingPlanDetailByProductionId.EInts.CountryProcessed)
+          o("CatchDate") = myReader.Dte(APCLocal.Select.ReceivingPlanDetailByProductionId.EDates.CatchDate)
+          data.Tables("tHail").Rows.Add(o)
         Loop
       End Using
 
-      Dim c = _countries
-      Dim d = _details
 
       _people = _talker.GetData("Select PersonId, FirstName, LastName, OrderId, OrderDesc from dbo.vPersonOrders")
       dgv.AutoGenerateColumns = False
