@@ -18,9 +18,13 @@ Public Class DataGridDynamic
           o("CountryId") = myReader.Int(APCLocal.Select.Countries.EInts.CountryID)
           o("Country") = myReader.Str(APCLocal.Select.Countries.EStrings.Name)
           data.Tables("tCountries").Rows.Add(o)
-          '_countries.Add(New Country() With {.CountryId = myReader.Int(APCLocal.Select.Countries.EInts.CountryID), .Country = myReader.Str(APCLocal.Select.Countries.EStrings.Name)})
         Loop
       End Using
+
+      Harvested.DataSource = data.Tables("tCountries")
+      Harvested.DisplayMember = "Country"
+      Harvested.ValueMember = "CountryId"
+      Harvested.DataPropertyName = "Harvested"
 
       Using myReader As New APCLocal.Select.ReceivingPlanDetailByProductionId("DEV-APC1", 441)
         Do While myReader.Read

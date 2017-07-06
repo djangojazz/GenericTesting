@@ -22,8 +22,8 @@ Partial Class DataGridDynamic
   'Do not modify it using the code editor.
   <System.Diagnostics.DebuggerStepThrough()> _
   Private Sub InitializeComponent()
-    Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-    Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+    Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+    Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
     Me.dgv = New System.Windows.Forms.DataGridView()
     Me.lTest = New System.Windows.Forms.Label()
     Me.tTest = New System.Windows.Forms.TextBox()
@@ -189,9 +189,9 @@ Partial Class DataGridDynamic
     '
     Me.DataGridViewComboBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
     Me.DataGridViewComboBoxColumn1.DataPropertyName = "OrderId"
-    DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
-    DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White
-    Me.DataGridViewComboBoxColumn1.DefaultCellStyle = DataGridViewCellStyle3
+    DataGridViewCellStyle5.BackColor = System.Drawing.Color.White
+    DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.White
+    Me.DataGridViewComboBoxColumn1.DefaultCellStyle = DataGridViewCellStyle5
     Me.DataGridViewComboBoxColumn1.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox
     Me.DataGridViewComboBoxColumn1.DisplayStyleForCurrentCellOnly = True
     Me.DataGridViewComboBoxColumn1.FillWeight = 30.0!
@@ -231,9 +231,9 @@ Partial Class DataGridDynamic
     '
     Me.OrderId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
     Me.OrderId.DataPropertyName = "OrderId"
-    DataGridViewCellStyle4.BackColor = System.Drawing.Color.White
-    DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White
-    Me.OrderId.DefaultCellStyle = DataGridViewCellStyle4
+    DataGridViewCellStyle6.BackColor = System.Drawing.Color.White
+    DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White
+    Me.OrderId.DefaultCellStyle = DataGridViewCellStyle6
     Me.OrderId.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox
     Me.OrderId.DisplayStyleForCurrentCellOnly = True
     Me.OrderId.FillWeight = 30.0!
@@ -263,14 +263,11 @@ Partial Class DataGridDynamic
     '
     Me.Harvested.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
     Me.Harvested.DataPropertyName = "Harvested"
-    Me.Harvested.DataSource = Me.data
-    Me.Harvested.DisplayMember = "tCountries.Country"
     Me.Harvested.FillWeight = 10.0!
     Me.Harvested.HeaderText = "Harvested"
     Me.Harvested.Name = "Harvested"
     Me.Harvested.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
     Me.Harvested.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-    Me.Harvested.ValueMember = "tCountries.CountryId"
     '
     'Processed
     '
