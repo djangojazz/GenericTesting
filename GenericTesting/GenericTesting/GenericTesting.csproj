@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppResources.cs" />
     <Compile Include="Business\SerializableDictionary.cs" />
     <Compile Include="CartesianHelper.cs" />
     <Compile Include="DataAccess\DatabaseAccess.cs" />
@@ -85,6 +86,8 @@
     <Compile Include="Models\Charting\PlotPoints.cs" />
     <Compile Include="Models\Charting\PlotTrend.cs" />
     <Compile Include="Models\DemandLocation.cs" />
+    <Compile Include="Models\TestDefinition.cs" />
+    <Compile Include="Models\TestDefinitionComponent.cs" />
     <Compile Include="Models\DemandLocationDb.cs" />
     <Compile Include="Models\DemandTrendInput.cs" />
     <Compile Include="Models\DemandTrendOutput.cs" />

@@ -1,4 +1,5 @@
 ﻿using CSharpDataAccess.Enterprise.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient; 
@@ -47,6 +48,28 @@ namespace GenericTesting.DataAccess.Enterprise
     {
       var items = RunQuery<DemandLocationDb>("vis.ListLocations");
       return items.ToList().Select(x => new DemandLocation(x.GDKEY, x.Company, x.Division, x.Branch, x.Name)).ToList();
+    }
+
+    public static List<TestDefinitionComponent> GetTestDefintionComponents(int testDefinitionId, DateTime versionUTC)
+    {
+      dynamic @params = new List<SqlParameter>
+      {
+        new SqlParameter("@TestDefinitionId", testDefinitionId),
+        new SqlParameter("@VersionUTC", versionUTC)
+      };
+      var items = RunQuery<TestDefinitionComponent>("qc.ListTestDefinitionComponents", @params);
+      return items;
+    }
+
+    public static List<TestDefinition2> GetTestDefintion2(int testDefinitionId, DateTime versionUTC)
+    {
+      dynamic @params = new List<SqlParameter>
+      {
+        new SqlParameter("@TestDefinitionId", testDefinitionId),
+        new SqlParameter("@VersionUTC", versionUTC)
+      };
+      var items = RunQuery<TestDefinition2>("qc.ListTestDefinitions2", @params);
+      return items;
     }
   }
 }
