@@ -101,6 +101,7 @@
     <Compile Include="TestInheritance\TestUC.xaml.cs">
       <DependentUpon>TestUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\TestEventRaisingVM.cs" />
     <Compile Include="Views\Animations.xaml.cs">
       <DependentUpon>Animations.xaml</DependentUpon>
     </Compile>
@@ -124,6 +125,9 @@
     </Compile>
     <Compile Include="Views\Styles.xaml.cs">
       <DependentUpon>Styles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestEventRaising.xaml.cs">
+      <DependentUpon>TestEventRaising.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -171,6 +175,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TestEventRaising.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

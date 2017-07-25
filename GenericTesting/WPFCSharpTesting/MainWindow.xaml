@@ -8,5 +8,5 @@
         xmlns:tst ="clr-namespace:WPFCSharpTesting.TestInheritance"
         mc:Ignorable="d"
         Title="Test WPF" Height="350" Width="525">
-  <tst:TestUC Test="{Binding Text}" />
+  <views:TestEventRaising />
 </Window>

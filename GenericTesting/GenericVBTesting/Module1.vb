@@ -30,22 +30,13 @@ Module Module1
   End Enum
 
   Sub Main()
-    Dim dt = CreateDataTableAndFillit(1, 3, "Test")
-    Dim dt2 = CreateDataTableAndFillit(1, 2, "More")
-    Dim t As New List(Of Tuple(Of Integer, Integer, Integer))
-    Dim newRow = dt.NewRow
-    newRow("Id") = 1
-    newRow("Val") = "Test 12"
-    dt.Rows.Add(newRow)
+    Dim xmlFile As XDocument
+    Dim fileLocation = "D:\\Test Code\\Test.xml"
+    Using sr = New StreamReader(fileLocation)
+      xmlFile = XDocument.Parse(sr.ReadToEnd())
+    End Using
 
-    Dim stuff = dt.Select().Select(Function(x) New With {Key .Id = CInt(x("Id")), .Val = CStr(x("Val"))}).ToList()
-    Dim stuff2 = dt2.Select().Select(Function(x) New With {Key .Id = CInt(x("Id")), .Val = CStr(x("Val"))}).ToList()
-
-    t = stuff.GroupBy(Function(x) x.Id).Select(Function(x) New Tuple(Of Integer, Integer, Integer)(x.Key, x.Count(Function(y) Not String.IsNullOrEmpty(y.Val)), 0)).ToList()
-
-    Dim combined = t.GroupJoin(stuff2, Function(x) x.Item1, Function(y) y.Id, Function(a, b) New With {.Id = a.Item1, .Val = a.Item2, .ValMore = b.FirstOrDefault()?.Val}).ToList()
-
-
+    Console.WriteLine(xmlFile.Root.Element("test").Value.ToString)
 
     Console.ReadLine()
   End Sub

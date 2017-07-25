@@ -13,7 +13,13 @@ namespace GenericTesting
   [Serializable]
   public class BasePOC
   {
-    
+    public BasePOC() { }
+
+    public BasePOC(int baseId)
+    {
+      BaseId = baseId;
+    }
+
     public virtual int BaseId { get; set; }
     public virtual bool ShouldSerializeBaseId() => false;
   }
@@ -21,13 +27,6 @@ namespace GenericTesting
   [Serializable]
   public class POC : BasePOC
   {
-    [XmlAttribute]
-    public int Id { get; set; }
-    [XmlAttribute]
-    public int Id2 { get; set; }
-
-    public override bool ShouldSerializeBaseId() => true;
-
     public POC() { }
 
     public POC(int id, int id2)
@@ -35,10 +34,17 @@ namespace GenericTesting
       Id = id;
       Id2 = id2;
     }
+
+    [XmlAttribute]
+    public int Id { get; set; }
+    [XmlAttribute]
+    public int Id2 { get; set; }
+
+    public override bool ShouldSerializeBaseId() => true;
   }
 
   [Serializable]
-  public class HoldTest 
+  public class HoldTest
   {
     public int HolderId { get; set; }
     public string Name { get; set; }
@@ -57,26 +63,71 @@ namespace GenericTesting
   }
 
 
+  public class BaseTest
+  {
+    public int BaseId { get; set; }
+    public DateTime Created { get; set; }
+
+    public BaseTest() { }
+
+    public BaseTest(int baseId, DateTime created)
+    {
+      BaseId = baseId;
+      Created = created;
+    }
+  }
+
+  public class X : BaseTest
+  {
+    public string Desc { get; set; }
+    public int Val { get; set; }
+
+    public X(string desc, int val, BaseTest baseValues)
+    {
+      Desc = desc;
+      Val = val;
+      BaseId = baseValues.BaseId;
+      Created = baseValues.Created;
+    }
+
+    public X(string desc, int val, int baseId, DateTime created) : base(baseId, created)
+    {
+      Desc = desc;
+      Val = val;
+    }
+  }
+  
+  
+  public class Book
+  {
+    public int TitleId { get; set; }
+    public string Title { get; set; }
+    public string Genre { get; set; }
+
+    public Book(int titleId, string title, string genre)
+    {
+      TitleId = titleId;
+      Title = title;
+      Genre = genre;
+    }
+  }
+
   class Program
   {
     static void Main(string[] args)
     {
-      var xml = "<root><a><b Id=\"100\">Text</b><b Id=\"200\">Some</b><b Id=\"300\">More</b></a></root>";
-      var xDoc = XDocument.Parse(xml);
-
-      var nodeA = xDoc.Root.Element("a");
-      var nodeB = nodeA.Element("b");
-      var attributeOfB = (int)nodeB.Attribute("Id");
-      var textOfB = (string)nodeB.Value;
-
-      //Simple
-      Console.WriteLine($"Xml as is {Environment.NewLine} {xDoc} {Environment.NewLine}{Environment.NewLine}Xml values I want{Environment.NewLine}  Attribute: {attributeOfB}{Environment.NewLine}  Text: {textOfB}");
-
-      //Node Series
-      string s = String.Empty;
-      nodeA.Descendants("b").ToList().ForEach(nodeB2 => s += $"Attribute:  {nodeB2.Attribute("Id")}  Text: {nodeB2.Value}{Environment.NewLine}");
-
-      Console.WriteLine(s);
+      var contextMock = new List<Book>
+      {
+        new Book(1, "Harry Potter and The Sorcerer's Stone", "Fiction"),
+        new Book(2, "Harry Potter and The Secret Chamber", "Fiction"),
+        new Book(3, "Dune", "Fiction"),
+        new Book(4, "The Lord of The Rings The Fellowship of the Ring", "Fiction"),
+        new Book(5, "The Lord of The Rings Return of the King", "Fiction"),
+        new Book(6, "A Brief History of Time", "NonFiction")
+      };
+      
+      var wrong = contextMock.Where(x => (new[]{ "harry potter", "the lord of the rings" }).Contains(x.Title.ToLower())).ToList();
+      var r = contextMock.Where(x => (new List<string> { "harry potter", "the lord of the rings" }).Any(y => x.Title.ToLower().Contains(y.ToLower()))).ToList();
 
       Console.ReadLine();
     }
