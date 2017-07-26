@@ -5,9 +5,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFCSharpTesting.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel>
-    <TextBox Height="50" Text="{Binding Parm}"/>
-    <TextBox Height="50" />
-  </StackPanel>
+             Height="300" Width="500">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <Label Content="Test" />
+    <TextBox Grid.Row="1" Height="50" Text="{Binding Parm}"/>
+    <TextBox Grid.Row="2" />
+  </Grid>
+    
+    
+  
 </UserControl>
+
+  

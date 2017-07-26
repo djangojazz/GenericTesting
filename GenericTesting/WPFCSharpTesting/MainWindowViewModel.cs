@@ -6,19 +6,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using WPFCSharpTesting.ViewModels;
+using WPFCSharpTesting.Views;
 
 namespace WPFCSharpTesting
 {
   public class MainWindowViewModel : INotifyPropertyChanged
   {
     private string _text;
-    TestEventRaisingVM testEventRaisingVM = new TestEventRaisingVM();
+    //TestEventRaisingVM TestVM { get; set; } = new TestEventRaisingVM("Test Input");
     public MainWindowViewModel()
     {
-      Text = "Brett";
-      testEventRaisingVM.OnParameterChange += TestEventRaisingVM_OnParameterChange;
+      Components.Add(new TestEventRaising("Test Input"));
+
+      //TestVM.PropertyChanged += TestEventRaisingVM_OnParameterChange;
 
       using (var context = new TesterEntities())
       {
@@ -28,12 +31,13 @@ namespace WPFCSharpTesting
       People = new ObservableCollection<tePerson>(_allPeople);
     }
 
-    public void TestEventRaisingVM_OnParameterChange(string parameter)
-    {
-      // Do something with the new parameter data here
-      MessageBox.Show($"Hello from the parent {parameter}");
-    }
+    ObservableCollection<UserControl> Components { get; } = new ObservableCollection<UserControl>();
 
+    private void TestEventRaisingVM_OnParameterChange(object sender, PropertyChangedEventArgs e)
+    {
+      MessageBox.Show("Hello from parent");
+    }
+    
     public string Text
     {
       get { return _text; }

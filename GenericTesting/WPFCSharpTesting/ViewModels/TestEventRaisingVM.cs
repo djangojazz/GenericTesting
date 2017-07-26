@@ -11,13 +11,9 @@ namespace WPFCSharpTesting.ViewModels
 {
   public class TestEventRaisingVM: INotifyPropertyChanged
   {
-    public delegate void ParameterChange(string parameter);
-    public ParameterChange OnParameterChange { get; set; }
-
-
-    public TestEventRaisingVM()
+    public TestEventRaisingVM(string input)
     {
-      Parm = "Test";
+      Parm = input;
     }
 
     private string _parm;
@@ -28,8 +24,8 @@ namespace WPFCSharpTesting.ViewModels
       set
       {
         _parm = value;
+        MessageBox.Show("Changed");
         OnPropertyChanged("Parm");
-        OnParameterChange?.Invoke(_parm);
       }
     }
 

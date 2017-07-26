@@ -22,10 +22,10 @@ namespace WPFCSharpTesting.Views
   /// </summary>
   public partial class TestEventRaising : UserControl
   {
-    public TestEventRaising()
+    public TestEventRaising(string input)
     {
       InitializeComponent();
-      DataContext = new TestEventRaisingVM();
+      DataContext = new TestEventRaisingVM(input);
     }
   }
 }

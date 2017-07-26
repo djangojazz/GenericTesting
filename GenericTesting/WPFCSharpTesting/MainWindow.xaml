@@ -8,5 +8,7 @@
         xmlns:tst ="clr-namespace:WPFCSharpTesting.TestInheritance"
         mc:Ignorable="d"
         Title="Test WPF" Height="350" Width="525">
-  <views:TestEventRaising />
+  <Grid>
+    <ItemsControl ItemsSource="{Binding Components}" />
+  </Grid>
 </Window>
