@@ -24,6 +24,15 @@ namespace GenericTesting
   }
 
   [Serializable]
+  public sealed class GenericHolder<T> where T : class
+  {
+    public GenericHolder() { }
+
+    [XmlElement("A", typeof(List<SubTest>))]
+    public T Value { get; set; }
+  }
+
+  [Serializable]
   public class Test
   {
     public Test() { }
@@ -31,13 +40,14 @@ namespace GenericTesting
     {
       TestId = testId;
       Name = name;
-      Subs = subs;
+      Shipments = new GenericHolder<List<SubTest>> { Value = subs }; ;
     }
 
     public int TestId { get; set; }
     public string Name { get; set; }
-    [XmlElement("Subs")]
-    public List<SubTest> Subs { get; set; }
+    
+    
+    public GenericHolder<List<SubTest>> Shipments { get; set; }
   }
   
   class Program
