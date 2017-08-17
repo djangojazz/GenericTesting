@@ -54,15 +54,14 @@ namespace GenericTesting
 
     private static HashSet<Type> ConstructedSerializers = new HashSet<Type>();
 
-    public static string SerializeToXml<T>(this T valueToSerialize)
+    public static string SerializeToXml<T>(this T valueToSerialize, string namespaceUsed = null)
     {
-      var ns = new XmlSerializerNamespaces(new XmlQualifiedName[] { new XmlQualifiedName(string.Empty, string.Empty) });
-      ns.Add("", "");
+      var ns = new XmlSerializerNamespaces(new XmlQualifiedName[] { new XmlQualifiedName(string.Empty, (namespaceUsed != null) ? namespaceUsed : string.Empty) });
       using (var sw = new StringWriter())
       {
         using (XmlWriter writer = XmlWriter.Create(sw, new XmlWriterSettings { OmitXmlDeclaration = true }))
         {
-          dynamic xmler = GetXmlSerializer(typeof(T));
+          dynamic xmler = new XmlSerializer(typeof(T));
           xmler.Serialize(writer, valueToSerialize, ns);
         }
 
@@ -128,10 +127,6 @@ namespace GenericTesting
       return s;
     }
 
-    //public static string DynamicSerializer(BTest typ)
-    //{
-    //  if (typ.Typ == TypeOfDef.POC) { return (new Test { Id = 1, Thing = (POC)typ }).SerializeToXml(); }
-    //  else { return (new Test { Id = 1, Thing = (POC2)typ }).SerializeToXml(); }
-    //}
+    public static T GetEnum<T>(this string input) => (T)Enum.Parse(typeof(T), input);
   }
 }
