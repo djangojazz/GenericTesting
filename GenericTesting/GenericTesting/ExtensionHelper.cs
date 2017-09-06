@@ -8,6 +8,7 @@ using GenericTesting.DataAccess;
 using System.Collections;
 using System.ComponentModel;
 using System.Linq;
+using System.Configuration;
 
 namespace GenericTesting
 {
@@ -128,5 +129,48 @@ namespace GenericTesting
     }
 
     public static T GetEnum<T>(this string input) => (T)Enum.Parse(typeof(T), input);
+
+    public static T GetAppSetting<T>(this string key)
+    {
+      decimal d = 0;
+      int i = 0;
+
+      var input = (ConfigurationManager.AppSettings[key] ?? "Not Found");
+      if (typeof(T) == typeof(int))
+      {
+        Int32.TryParse(input, out i);
+        return (T)(object)i;
+      }
+      else if (typeof(T) == typeof(decimal))
+      {
+        Decimal.TryParse(input, out d);
+        return (T)(object)d;
+      }
+      else if (typeof(T) == typeof(string))
+      {
+        return (T)(object)input;
+      }
+      
+      return (T)new object();
+    }
+
+    public static T GetEnumFromAppSetting<T>(this string key) where T : struct, IConvertible
+    {
+      if (!typeof(T).IsEnum)
+      {
+        throw new ArgumentException("T must be an enumerated type");
+      }
+
+      var value = key.GetAppSetting<string>();
+      
+      try
+      {
+        return value.GetEnum<T>();
+      }
+      catch (Exception)
+      {
+        throw new ArgumentException("Value used is not found in the enum of T");
+      }
+    }
   }
 }
