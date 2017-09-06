@@ -9,6 +9,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Linq;
 using System.Configuration;
+using System.Globalization;
 
 namespace GenericTesting
 {
@@ -169,8 +170,15 @@ namespace GenericTesting
       }
       catch (Exception)
       {
-        throw new ArgumentException("Value used is not found in the enum of T");
+        throw new InvalidDataException("Value used is not found in the enum of T");
       }
+    }
+
+    public static DateTime GetDateTimeFromDecimal(this string input, string format)
+    {
+      DateTime dt;
+      DateTime.TryParseExact(input, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
+      return dt;
     }
   }
 }
