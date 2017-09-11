@@ -71,22 +71,8 @@ namespace GenericTesting
   {
     static void Main(string[] args)
     {
-      DateTime d = new DateTime(2017, 9, 6);
-      //Cool what I would expect to show the day position with two digits and the month uses one if needed else it will go to two if needed.
-      Console.WriteLine(d.ToString("Mddyyyy"));
-
-      //I can parse out an int and see it is exactly as above.
-      int i = Int32.Parse(d.ToString("MMddyyyy"));
-      Console.WriteLine(i.ToString());
-      int i2 = Int32.Parse(d.ToString("yyyyMMdd"));
-      Console.WriteLine(i2.ToString());
-      
-      DateTime dt = $"0{i.ToString()}".GetDateTimeFromDecimal("MMddyyyy");
-      
-      //string[] formats = { "Mddyyyy", "MMddyyyy" };
-      //DateTime.TryParseExact(PadLeft(8, '0'), CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
-
-      Console.WriteLine(dt);
+      Setter usesSetup = new Setter(String.Empty);
+      Setter usesNone = new Setter();
 
 
       //Console.WriteLine(i);

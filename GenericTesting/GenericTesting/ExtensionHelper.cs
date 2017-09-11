@@ -174,7 +174,7 @@ namespace GenericTesting
       }
     }
 
-    public static DateTime GetDateTimeFromDecimal(this string input, string format)
+    public static DateTime GetDateTimeFromString(this string input, string format)
     {
       DateTime dt;
       DateTime.TryParseExact(input, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);

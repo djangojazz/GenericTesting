@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppResources.cs" />
+    <Compile Include="Base Setter.cs" />
     <Compile Include="Business\SerializableDictionary.cs" />
     <Compile Include="CartesianHelper.cs" />
     <Compile Include="DataAccess\DatabaseAccess.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="POCO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Setter.cs" />
     <Compile Include="StringBoxingAndUnboxingToADictionary.cs" />
     <Compile Include="Timers.cs" />
     <Compile Include="TimeZoneInfoHelpers.cs" />
