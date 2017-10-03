@@ -68,7 +68,15 @@ namespace GenericTesting
   {
     static void Main(string[] args)
     {
-      TPLExamples.TaskFactory.ReturnList();
+      var d = new Dictionary<double, double>
+      {
+        { 2, 3 },
+        { 3, 3 },
+        { 4, 2 }
+      };
+
+      //ParallelExamples.ParallelInvokeExample(d);
+      ParallelExamples.PlinqExample(d);
 
       Console.ReadLine();
     }

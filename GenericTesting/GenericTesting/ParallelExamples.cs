@@ -2,13 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace GenericTesting.TPLExamples
+namespace GenericTesting
 {
-  public static class TaskFactory
+  public static class ParallelExamples
   {
-    public static void ReturnList()
+    public static void PlinqExample(Dictionary<double, double> inputs) => inputs.AsParallel().ForAll(x => Console.WriteLine(DoPower(x.Key, x.Value)));
+
+    public static void ParallelInvokeExample(Dictionary<double, double> inputs)
+    {
+      try
+      {
+        ParallelOptions po = new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount };
+        var results = new List<double>();
+
+        inputs.ToList().ForEach(t =>
+        {
+          Parallel.Invoke(po, new Action(() => results.Add(DoPower(t.Key, t.Value))));
+        });
+
+        results.ForEach(x => Console.WriteLine(x));
+      }
+      catch (OperationCanceledException e) { Console.WriteLine(e.Message); }
+    }
+
+    public static void MSDNReturnArray()
     {
       Task<Double>[] taskArray = { Task<Double>.Factory.StartNew(() => DoComputation(1.0)),
                                      Task<Double>.Factory.StartNew(() => DoComputation(100.0)),
@@ -34,5 +54,7 @@ namespace GenericTesting.TPLExamples
 
       return sum;
     }
+
+    private static double DoPower(double input, double power) => Math.Pow(input, power);
   }
 }
