@@ -6,7 +6,7 @@
   using System.IO;
   using System.Text;
   
-    public class SQLTalker
+    public class SQLTalker : IDisposable
     {
       private string Server { get; set; }
       private string Database { get; set; }
@@ -319,5 +319,10 @@
 
         return sb.ToString();
       }
+
+    public void Dispose()
+    {
+      throw new NotImplementedException();
     }
+  }
 }

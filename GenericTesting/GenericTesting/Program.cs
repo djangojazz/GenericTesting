@@ -1,12 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.Xml;
-using System.Text.RegularExpressions;
-using System.Linq;
-using System.Xml.Linq;
-using System.Configuration;
-using System.Globalization;
+using System.Data.SqlClient;
 
 namespace GenericTesting
 {
@@ -71,11 +68,10 @@ namespace GenericTesting
   {
     static void Main(string[] args)
     {
-      Setter usesSetup = new Setter(String.Empty);
-      Setter usesNone = new Setter();
+      var dtd = "6.36224544E+17";
+      var dt = new DateTime(2017, 5, 1);
 
-
-      //Console.WriteLine(i);
+      Console.WriteLine(dtd);
       Console.ReadLine();
     }
   }
