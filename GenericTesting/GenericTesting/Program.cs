@@ -68,10 +68,8 @@ namespace GenericTesting
   {
     static void Main(string[] args)
     {
-      var dtd = "6.36224544E+17";
-      var dt = new DateTime(2017, 5, 1);
+      TPLExamples.TaskFactory.ReturnList();
 
-      Console.WriteLine(dtd);
       Console.ReadLine();
     }
   }

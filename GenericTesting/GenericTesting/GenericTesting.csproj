@@ -105,6 +105,7 @@
     <Compile Include="StringBoxingAndUnboxingToADictionary.cs" />
     <Compile Include="Timers.cs" />
     <Compile Include="TimeZoneInfoHelpers.cs" />
+    <Compile Include="TPLExamples\TaskFactory.cs" />
     <Compile Include="WCFProxy.cs" />
   </ItemGroup>
   <ItemGroup>
