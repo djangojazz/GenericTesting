@@ -75,8 +75,8 @@ namespace GenericTesting
         { 4, 2 }
       };
 
-      //ParallelExamples.ParallelInvokeExample(d);
-      ParallelExamples.PlinqExample(d);
+      ParallelExamples.ParallelInvokeExample(d);
+      //ParallelExamples.PlinqExample(d);
 
       Console.ReadLine();
     }
