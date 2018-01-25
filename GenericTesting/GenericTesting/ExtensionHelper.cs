@@ -180,5 +180,13 @@ namespace GenericTesting
       DateTime.TryParseExact(input, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
       return dt;
     }
-  }
+
+        public static void AddorUpdate<TKey, TValue>(this Dictionary<TKey, TValue> d, TKey key, TValue value) => d[key] = value;
+        
+        public static void AddOrUpdateItemInCollection<TKey, TValue>(this Dictionary<TKey, List<TValue>> d, TKey key, TValue value)
+        {
+            if (d.ContainsKey(key)) { d[key].Add(value); }
+            else { d[key] = new List<TValue> { value }; }
+        }
+    }
 }

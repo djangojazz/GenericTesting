@@ -20,12 +20,12 @@ namespace WPFCSharpTesting.ViewModels
 
     public string Parm
     {
-      get { return _parm; }
+      get => _parm;
       set
       {
         _parm = value;
         MessageBox.Show("Changed");
-        OnPropertyChanged("Parm");
+        OnPropertyChanged(nameof(Parm));
       }
     }
 

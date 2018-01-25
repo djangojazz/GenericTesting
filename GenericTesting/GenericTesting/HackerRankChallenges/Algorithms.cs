@@ -101,5 +101,84 @@ namespace GenericTesting.HackerRankChallenges
           GiveResultNonDegenerateTriangles(ls.OrderBy(x => x).Take(ls.Count - 1).ToList());
       }
     }
-  }
+
+        public static int[] BreakingRecords(int[] score)
+        {
+            int low = 0;
+            int high = 0;
+            int lowCount = 0;
+            int highCount = 0;
+
+            for (int i = 0; i < score.Length; i++)
+            {
+                if (i == 0)
+                {
+                    low = score[i];
+                    high = score[i];
+                    continue;
+                }
+
+                var currentScore = score[i];
+
+                if (currentScore > high)
+                {
+                    high = currentScore;
+                    highCount++;
+                }
+                if (currentScore < low)
+                {
+                    low = currentScore;
+                    lowCount++;
+                }
+            }
+
+            return new int[] { highCount, lowCount };
+        }
+
+        static int ChocolateSolve(int[] s, int d, int m)
+        {
+            int r = 0;
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (i + 1 >= m)
+                {
+                    int score = 0;
+                    var cCount = 0;
+                    while (cCount < m)
+                    {
+                        score += s[i - cCount];
+                        cCount++;
+                    }
+                    if (score == d) { r++; }
+                }
+            }
+            return r;
+        }
+
+        static int DivisibleSumPairs(int k, int[] ar)
+        {
+            int r = 0;
+            for (int i = 0; i < ar.Length; i++)
+            {
+                ar.Select((j, x) => new { ind = j, v = x })
+                   .Skip(i + 1)
+                   .ToList()
+                   .ForEach(x =>
+                   {
+                       var comb = ar[i] + x.v;
+                       r += (comb % k == 0) ? 1 : 0;
+                   });
+            }
+
+            return r;
+        }
+
+        static string Stones(int n, int a, int b)
+        {
+            int f = Math.Min(a, b) * (n - 1);
+            int d = Math.Abs(b - a);
+            return String.Join(" ", Enumerable.Range(0, n).Select(i => f + d * i).Distinct());
+        }
+    }
 }
