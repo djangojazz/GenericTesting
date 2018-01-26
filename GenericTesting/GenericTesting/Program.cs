@@ -15,20 +15,28 @@ namespace GenericTesting
     {
         public abstract class Piece
         {
+            public string Name { get; set; }
             public Point Location { get; set; }
-            public abstract bool Hit(Point pointOther);
+            public abstract bool CheckHit(Point pointOther);
         }
 
         public class Queen : Piece
         {
-            public override bool Hit(Point otherPieceLocation) => (Location.X == otherPieceLocation.X || Location.Y == otherPieceLocation.Y);
-            public Queen(Point location) => Location = location;
+            public override bool CheckHit(Point otherPieceLocation) =>
+                (Location.X == otherPieceLocation.X
+                    || Location.Y == otherPieceLocation.Y
+                    || Math.Abs(otherPieceLocation.Y - Location.Y) == Math.Abs(otherPieceLocation.X - Location.X));
+            public Queen(Point location, string name)
+            {
+                Location = location;
+                Name = name;
+            }
         }
 
         public static class Board
         {
-            public static List<Piece> Pieces { get; set; }
-            public static List<Point> AvailableLocations { get; set; }
+            public static List<Piece> Pieces { get; set; } = new List<Piece>();
+            public static List<Point> AvailableLocations { get; set; } = new List<Point>();
 
             static Board()
             {
@@ -40,17 +48,27 @@ namespace GenericTesting
                     }
                 }
             }
-
-            public static bool IsAHit(Piece a, Piece b) => a.Hit(b.Location);
-            public static void MovePieceIfHit(Piece piece) => piece.Location = AvailableLocations[AvailableLocations.FindIndex(x => x == piece.Location) + 1];
+            
+            public static void MovePieceIfHit(Piece piece)
+            {
+                var ind = AvailableLocations.FindIndex(x => x == piece.Location);
+                piece.Location = (ind != (AvailableLocations.Count - 1)) ? AvailableLocations[ind+1] : AvailableLocations[0];
+            }
         }
 
         static void Main(String[] args)
         {
-            var queen1 = new Queen(Board.AvailableLocations[0]);
-            var queen2 = new Queen(Board.AvailableLocations[1]);
+            Action<Queen> writeOutLocation = x => Console.WriteLine($"{x.Name}'s location X: {x.Location.X} Y: {x.Location.Y}");
             
-            
+            var q1 = new Queen(Board.AvailableLocations[0], "q1");
+            var q2 = new Queen(Board.AvailableLocations[8], "q2");
+            while(q2.CheckHit(q1.Location))
+            {
+                Board.MovePieceIfHit(q2);
+            }
+
+            writeOutLocation(q1);
+            writeOutLocation(q2);
 
             Console.ReadLine();
         }
