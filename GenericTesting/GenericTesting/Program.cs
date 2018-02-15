@@ -40,9 +40,9 @@ namespace GenericTesting
 
             static Board()
             {
-                for (int i = 1; i <= 3; i++)
+                for (int i = 1; i <= 4; i++)
                 {
-                    for (int j = 1; j <= 3; j++)
+                    for (int j = 1; j <= 4; j++)
                     {
                         AvailableLocations.Add(new Point(i, j));
                     }
@@ -58,17 +58,35 @@ namespace GenericTesting
 
         static void Main(String[] args)
         {
-            Action<Queen> writeOutLocation = x => Console.WriteLine($"{x.Name}'s location X: {x.Location.X} Y: {x.Location.Y}");
-            
-            var q1 = new Queen(Board.AvailableLocations[0], "q1");
-            var q2 = new Queen(Board.AvailableLocations[8], "q2");
-            while(q2.CheckHit(q1.Location))
+            int upperLimit = 3;
+            Dictionary<Point, bool> possibleHitCombos = new Dictionary<Point, bool>();
+            for (int i = 1; i < upperLimit; i++)
             {
-                Board.MovePieceIfHit(q2);
+                for (int j = i+1; j <= upperLimit; j++)
+                {
+                    possibleHitCombos.Add(new Point(i, j), false);  
+                }
             }
 
-            writeOutLocation(q1);
-            writeOutLocation(q2);
+            possibleHitCombos.ToList().ForEach(x => Console.WriteLine($"{x.Key.X} {x.Key.Y} {x.Value}"));
+
+            Action<Piece> writeOutLocation = x => Console.WriteLine($"{x.Name}'s location X: {x.Location.X} Y: {x.Location.Y}");
+
+            //for (int i = 1; i <= 3; i++)
+            //{
+            //    var q = new Queen(Board.AvailableLocations[i-1], $"q{i}");
+            //    Board.Pieces.Add(q);
+            //    if (i == 1) continue;
+            //    var p = Board.Pieces.Single(x => x.Name == $"q{i-1}");
+                
+            //    while (q.CheckHit(p.Location))
+            //    {
+            //        Board.MovePieceIfHit(q);
+            //    }
+            //}
+
+            Board.Pieces.ForEach(x => writeOutLocation(x));
+            
 
             Console.ReadLine();
         }
