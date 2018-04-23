@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Text.RegularExpressions;
 using System.Drawing;
+using System.Xml.Linq;
 
 namespace GenericTesting
 {
@@ -56,15 +57,15 @@ namespace GenericTesting
             }
         }
 
-        static void Main(String[] args)
+        private static void RunChessProgram()
         {
             int upperLimit = 3;
             Dictionary<Point, bool> possibleHitCombos = new Dictionary<Point, bool>();
             for (int i = 1; i < upperLimit; i++)
             {
-                for (int j = i+1; j <= upperLimit; j++)
+                for (int j = i + 1; j <= upperLimit; j++)
                 {
-                    possibleHitCombos.Add(new Point(i, j), false);  
+                    possibleHitCombos.Add(new Point(i, j), false);
                 }
             }
 
@@ -78,7 +79,7 @@ namespace GenericTesting
             //    Board.Pieces.Add(q);
             //    if (i == 1) continue;
             //    var p = Board.Pieces.Single(x => x.Name == $"q{i-1}");
-                
+
             //    while (q.CheckHit(p.Location))
             //    {
             //        Board.MovePieceIfHit(q);
@@ -86,6 +87,10 @@ namespace GenericTesting
             //}
 
             Board.Pieces.ForEach(x => writeOutLocation(x));
+        }
+
+        static void Main(String[] args)
+        {
             
 
             Console.ReadLine();
