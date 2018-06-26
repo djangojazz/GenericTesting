@@ -16,22 +16,24 @@ namespace WPFCSharpTesting
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         private string _text;
+        private DateTime _testDate;
         //TestEventRaisingVM TestVM { get; set; } = new TestEventRaisingVM("Test Input");
         public MainWindowViewModel()
         {
-            Clipboard.SetDataObject("Test");
-            var text = Clipboard.GetData(DataFormats.Text);
+            //Clipboard.SetDataObject("Test");
+            //var text = Clipboard.GetData(DataFormats.Text);
+            TestDate = new DateTime(2018, 4, 1, 13, 22, 11);
 
             Components.Add(new TestEventRaising("Test Input"));
 
             //TestVM.PropertyChanged += TestEventRaisingVM_OnParameterChange;
             
-            using (var context = new TesterEntities())
-            {
-                _allPeople = context.tePerson.ToList();
-            }
+            //using (var context = new TesterEntities())
+            //{
+            //    _allPeople = context.tePerson.ToList();
+            //}
 
-            People = new ObservableCollection<tePerson>(_allPeople);
+            //People = new ObservableCollection<tePerson>(_allPeople);
         }
 
         ObservableCollection<UserControl> Components { get; } = new ObservableCollection<UserControl>();
@@ -39,6 +41,16 @@ namespace WPFCSharpTesting
         private void TestEventRaisingVM_OnParameterChange(object sender, PropertyChangedEventArgs e)
         {
             MessageBox.Show("Hello from parent");
+        }
+
+        public DateTime TestDate
+        {
+            get => _testDate;
+            set
+            {
+                _testDate = value;
+                OnPropertyChanged(nameof(TestDate));
+            }
         }
 
         public string Text

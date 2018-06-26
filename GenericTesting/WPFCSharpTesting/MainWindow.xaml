@@ -9,6 +9,6 @@
         mc:Ignorable="d"
         Title="Test WPF" Height="350" Width="525">
   <Grid>
-    <ItemsControl ItemsSource="{Binding Components}" />
-  </Grid>
+        <TextBlock Text="{Binding TestDate, FallbackValue='', StringFormat='{}{0:HH:mm dd-MMM}', ConverterCulture='en-EN'}" />
+    </Grid>
 </Window>

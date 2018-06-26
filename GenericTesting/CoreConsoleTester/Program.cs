@@ -15,8 +15,10 @@ namespace CoreConsoleTester
 
         public static string CreateToken()
         {
+            var permissions = new List<string> { "Login", "ChangeUser", "MoreStuff" };
+
             //create the token
-            var claims = new[]
+            var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.FamilyName, "Default"),
                 new Claim(JwtRegisteredClaimNames.GivenName, "Default"),
@@ -24,10 +26,9 @@ namespace CoreConsoleTester
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.UniqueName, "Admin"),
                 new Claim(JwtRegisteredClaimNames.NameId, "111"),
-                new Claim(JwtRegisteredClaimNames.Prn, "Login"),
-                new Claim(JwtRegisteredClaimNames.Prn, "ChangeUsers"),
-                new Claim(JwtRegisteredClaimNames.Prn, "MoreStuff"),
             };
+            
+            permissions.ForEach(x => claims.Add(new Claim(JwtRegisteredClaimNames.Prn, x)));
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("RunRabb!tRunD!gThatHol3Forg3tTheSun"));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -64,26 +65,17 @@ namespace CoreConsoleTester
 
                 claims.ToList().ForEach(x => s += $"{x.Type} {x.Value} {Environment.NewLine}");
                 Console.WriteLine(s);
-
-                //int mod4 = base64String.Length % 4;
-                //if (mod4 > 0)
-                //{
-                //    base64String += new string('=', 4 - mod4);
-                //}
-
-                //var decoded = Convert.FromBase64String(base64String);
-
-                //var part = Encoding.UTF8.GetString(decoded);
-                //var jwt = JObject.Parse(part);
                 
-
-                //var company = jwt.SelectToken("family_name[0]").Value<string>();
-                //var department = jwt.SelectToken("family_name[1]").Value<string>();
-                //var application = jwt.SelectToken("given_name").Value<string>();
-                //var userName = jwt.SelectToken("unique_name").Value<string>();
-                //var userId = jwt.SelectToken("nameid").Value<string>();
-
-                //Console.WriteLine($"Company: {company}   Department: {department}   Application: {application} User: {userName}  UserId: {userId}");
+                Console.WriteLine();
+                var company = claims.SingleOrDefault(x => x.Type == "family_name")?.Value ?? string.Empty;
+                var department = claims.SingleOrDefault(x => x.Type == "given_name")?.Value ?? string.Empty;
+                var application = claims.SingleOrDefault(x => x.Type == "sub")?.Value ?? string.Empty;
+                var userName = claims.SingleOrDefault(x => x.Type == "unique_name")?.Value ?? string.Empty;
+                var userId = claims.SingleOrDefault(x => x.Type == "nameid")?.Value ?? string.Empty;
+                var permissions = claims.Where(x => x.Type == "prn").ToList();
+                
+                Console.WriteLine($"Company: {company}   Department: {department}   Application: {application} User: {userName}  UserId: {userId}");
+                permissions.ForEach(x => Console.WriteLine(x.Value));
             }
             catch (Exception ex)
             {

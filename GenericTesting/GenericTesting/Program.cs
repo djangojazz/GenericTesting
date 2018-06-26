@@ -8,12 +8,18 @@ using System.Data;
 using System.Text.RegularExpressions;
 using System.Drawing;
 using System.Xml.Linq;
+using System.Threading.Tasks;
+using System.Reflection;
+using System.Xml.Xsl;
+using System.IO;
 
 namespace GenericTesting
 {
     
     class Program
     {
+        static Assembly _assembly;
+
         public abstract class Piece
         {
             public string Name { get; set; }
@@ -33,6 +39,8 @@ namespace GenericTesting
                 Name = name;
             }
         }
+
+      
 
         public static class Board
         {
@@ -89,11 +97,68 @@ namespace GenericTesting
             Board.Pieces.ForEach(x => writeOutLocation(x));
         }
 
+        public class Part
+        {
+            public int Id { get; set; }
+            public string Val { get; set; }
+
+            public override string ToString() => $"{Id} {Val}";
+            public override bool Equals(object obj) => (obj as Part).Id == Id && (obj as Part).Val == Val;
+            public override int GetHashCode() => $"{Id} {Val}".GetHashCode();
+        }
+
+        private static string GetXSLTransformedData(string xslName, string xmlResponse)
+        {
+            using (var stream = _assembly.GetManifestResourceStream($"GenericTesting.{xslName}.xsl"))
+            using (var xmlReader = new XmlTextReader(stream))
+            {
+                var xslt = new XslCompiledTransform();
+                xslt.Load(xmlReader);
+                using (var stm = new MemoryStream())
+                {
+                    xslt.Transform(xmlResponse, null, stm);
+                    stm.Position = 0;
+                    using (var sr = new StreamReader(stm))
+                    {
+                        return sr.ReadToEnd();
+                    }
+                }
+            }
+        }
+
         static void Main(String[] args)
         {
-            
+            using (var stream = _assembly.GetManifestResourceStream($"GenericTesting.SegmentTerrainRptNew.xml"))
+            using (var reader = new StreamReader(stream))
+            {
+                var file = reader.ReadToEnd();
+                var result = GetXSLTransformedData("SegmentTerrainRpt", file);
+            }
 
-            Console.ReadLine();
+                //var listMain = new List<Part>
+                //{
+                //    new Part { Id = 1, Val = "A"},
+                //    new Part { Id = 2, Val = "B"},
+                //    new Part { Id = 3, Val = "C"},
+                //};
+
+                //var listPart = new List<Part>
+                //{
+                //    new Part { Val = "C"}
+                //};
+
+                //listMain.ForEach(Console.WriteLine);
+                //listPart.ForEach(Console.WriteLine);
+
+
+                //Console.WriteLine(!listMain.Where(x => listPart.Select(y => y.Val).Contains(x.Val)).Any());
+
+                //listMain.Where(x => listPart.Select(y => y.Val).Contains(x.Val)).ToList().ForEach(Console.WriteLine);
+
+                //.Select(x => new { x.Val }).Where(x => listPart.Select(y => new { y.Val }).Contains(x)).Any());
+
+
+                Console.ReadLine();
         }
     }
 }
