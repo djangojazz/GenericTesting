@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Xsl;
 using WPFCSharpTesting.ViewModels;
 using WPFCSharpTesting.Views;
 
@@ -17,23 +22,59 @@ namespace WPFCSharpTesting
     {
         private string _text;
         private DateTime _testDate;
+        private string _html;
+        private Assembly _assembly;
+
+        public string HTML
+        {
+            get => _html; 
+            set
+            {
+                _html = value;
+                OnPropertyChanged(nameof(HTML));
+            }
+        }
+
+        public ICommand PrintPreview { get; }
+
         //TestEventRaisingVM TestVM { get; set; } = new TestEventRaisingVM("Test Input");
         public MainWindowViewModel()
         {
+            _assembly = Assembly.GetAssembly(this.GetType());
             //Clipboard.SetDataObject("Test");
             //var text = Clipboard.GetData(DataFormats.Text);
             TestDate = new DateTime(2018, 4, 1, 13, 22, 11);
+            using (var stream = _assembly.GetManifestResourceStream($"WPFCSharpTesting.SegmentTerrainRptNew.xml"))
+            using (var reader = new StreamReader(stream))
+            {
+                var file = reader.ReadToEnd();
+                var xdoc = XDocument.Parse(file);
+                HTML = GetXSLTransformedData("SegmentTerrainRpt", xdoc);
+            }
 
-            Components.Add(new TestEventRaising("Test Input"));
+            PrintPreview = new DelegateCommand(x =>
+            {
+                MessageBox.Show("Hello");
+            });
+        }
 
-            //TestVM.PropertyChanged += TestEventRaisingVM_OnParameterChange;
-            
-            //using (var context = new TesterEntities())
-            //{
-            //    _allPeople = context.tePerson.ToList();
-            //}
-
-            //People = new ObservableCollection<tePerson>(_allPeople);
+        private string GetXSLTransformedData(string xslName, XDocument xmlResponse)
+        {
+            using (var stream = _assembly.GetManifestResourceStream($"WPFCSharpTesting.{xslName}.xsl"))
+            using (var xmlReader = new XmlTextReader(stream))
+            {
+                var xslt = new XslCompiledTransform();
+                xslt.Load(xmlReader);
+                using (var stm = new MemoryStream())
+                {
+                    xslt.Transform(xmlResponse.CreateReader(), null, stm);
+                    stm.Position = 0;
+                    using (var sr = new StreamReader(stm))
+                    {
+                        return sr.ReadToEnd();
+                    }
+                }
+            }
         }
 
         ObservableCollection<UserControl> Components { get; } = new ObservableCollection<UserControl>();

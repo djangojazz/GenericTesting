@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Reflection;
 using System.Xml.Xsl;
 using System.IO;
+using System.Net;
 
 namespace GenericTesting
 {
@@ -107,7 +108,7 @@ namespace GenericTesting
             public override int GetHashCode() => $"{Id} {Val}".GetHashCode();
         }
 
-        private static string GetXSLTransformedData(string xslName, string xmlResponse)
+        private static string GetXSLTransformedData(string xslName, XDocument xmlResponse)
         {
             using (var stream = _assembly.GetManifestResourceStream($"GenericTesting.{xslName}.xsl"))
             using (var xmlReader = new XmlTextReader(stream))
@@ -116,7 +117,7 @@ namespace GenericTesting
                 xslt.Load(xmlReader);
                 using (var stm = new MemoryStream())
                 {
-                    xslt.Transform(xmlResponse, null, stm);
+                    xslt.Transform(xmlResponse.CreateReader(), null, stm);
                     stm.Position = 0;
                     using (var sr = new StreamReader(stm))
                     {
@@ -128,37 +129,49 @@ namespace GenericTesting
 
         static void Main(String[] args)
         {
-            using (var stream = _assembly.GetManifestResourceStream($"GenericTesting.SegmentTerrainRptNew.xml"))
-            using (var reader = new StreamReader(stream))
+            Console.WriteLine("Running as {0}", Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE"));
+            using (HttpListener s = new HttpListener())
             {
-                var file = reader.ReadToEnd();
-                var result = GetXSLTransformedData("SegmentTerrainRpt", file);
+                s.Prefixes.Add("http://localhost:49154/vshub/418f29b9cebf4d6bae64d16162f56832/");
+                s.Start();
+                Console.WriteLine("Server started");
             }
 
-                //var listMain = new List<Part>
-                //{
-                //    new Part { Id = 1, Val = "A"},
-                //    new Part { Id = 2, Val = "B"},
-                //    new Part { Id = 3, Val = "C"},
-                //};
+            Console.WriteLine("Server stopped");
+            //// _assembly = Assembly.GetAssembly(this.GetType());
+            //_assembly = Assembly.GetAssembly(typeof(Program));
+            //using (var stream = _assembly.GetManifestResourceStream($"GenericTesting.SegmentTerrainRptNew.xml"))
+            //using (var reader = new StreamReader(stream))
+            //{
+            //    var file = reader.ReadToEnd();
+            //    var xdoc = XDocument.Parse(file);
+            //    var result = GetXSLTransformedData("SegmentTerrainRpt", xdoc);
+            //}
 
-                //var listPart = new List<Part>
-                //{
-                //    new Part { Val = "C"}
-                //};
+            //var listMain = new List<Part>
+            //{
+            //    new Part { Id = 1, Val = "A"},
+            //    new Part { Id = 2, Val = "B"},
+            //    new Part { Id = 3, Val = "C"},
+            //};
 
-                //listMain.ForEach(Console.WriteLine);
-                //listPart.ForEach(Console.WriteLine);
+            //var listPart = new List<Part>
+            //{
+            //    new Part { Val = "C"}
+            //};
+
+            //listMain.ForEach(Console.WriteLine);
+            //listPart.ForEach(Console.WriteLine);
 
 
-                //Console.WriteLine(!listMain.Where(x => listPart.Select(y => y.Val).Contains(x.Val)).Any());
+            //Console.WriteLine(!listMain.Where(x => listPart.Select(y => y.Val).Contains(x.Val)).Any());
 
-                //listMain.Where(x => listPart.Select(y => y.Val).Contains(x.Val)).ToList().ForEach(Console.WriteLine);
+            //listMain.Where(x => listPart.Select(y => y.Val).Contains(x.Val)).ToList().ForEach(Console.WriteLine);
 
-                //.Select(x => new { x.Val }).Where(x => listPart.Select(y => new { y.Val }).Contains(x)).Any());
+            //.Select(x => new { x.Val }).Where(x => listPart.Select(y => new { y.Val }).Contains(x)).Any());
 
 
-                Console.ReadLine();
+            Console.ReadLine();
         }
     }
 }

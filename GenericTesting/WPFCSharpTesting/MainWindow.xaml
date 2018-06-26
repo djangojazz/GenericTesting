@@ -9,6 +9,16 @@
         mc:Ignorable="d"
         Title="Test WPF" Height="350" Width="525">
   <Grid>
-        <TextBlock Text="{Binding TestDate, FallbackValue='', StringFormat='{}{0:HH:mm dd-MMM}', ConverterCulture='en-EN'}" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <!--<TextBlock Text="{Binding TestDate, FallbackValue='', StringFormat='{}{0:HH:mm dd-MMM}', ConverterCulture='en-EN'}" />-->
+        <Button Grid.Column="1" Height="25" Content="Print Preview" Command="{Binding PrintPreview}" />
+        <WebBrowser Grid.Row="1" Grid.ColumnSpan="2" local:WebBrowserUtility.Html="{Binding HTML}" />
     </Grid>
 </Window>

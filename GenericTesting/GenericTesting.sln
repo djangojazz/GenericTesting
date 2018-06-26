@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericTesting", "GenericTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityTesting", "EntityTesting\EntityTesting.csproj", "{9F179A93-C352-4320-A1B5-7FE1B4A516B0}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VB_MVVM_Tester", "VB_MVVM_Tester\VB_MVVM_Tester.vbproj", "{1D899537-DFD0-4180-A121-6BF4AEE4CC01}"
-EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "GenericVBTesting", "GenericVBTesting\GenericVBTesting.vbproj", "{4B06306A-F1F6-4A9F-9F21-5863F8A93C46}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFCSharpTesting", "WPFCSharpTesting\WPFCSharpTesting.csproj", "{665035E6-2D0A-4D9E-8621-416F5CAF4C20}"
@@ -39,7 +37,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericsTests", "GenericsTe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreConsoleTester", "CoreConsoleTester\CoreConsoleTester.csproj", "{27B8C115-88AF-4744-9086-A1C7A17AA4A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Try", "Try\Try.csproj", "{1A901D63-4468-4ACE-A607-9B7F4254804C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Try", "Try\Try.csproj", "{1A901D63-4468-4ACE-A607-9B7F4254804C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,10 +53,6 @@ Global
 		{9F179A93-C352-4320-A1B5-7FE1B4A516B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F179A93-C352-4320-A1B5-7FE1B4A516B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F179A93-C352-4320-A1B5-7FE1B4A516B0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1D899537-DFD0-4180-A121-6BF4AEE4CC01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1D899537-DFD0-4180-A121-6BF4AEE4CC01}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1D899537-DFD0-4180-A121-6BF4AEE4CC01}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1D899537-DFD0-4180-A121-6BF4AEE4CC01}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4B06306A-F1F6-4A9F-9F21-5863F8A93C46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4B06306A-F1F6-4A9F-9F21-5863F8A93C46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B06306A-F1F6-4A9F-9F21-5863F8A93C46}.Release|Any CPU.ActiveCfg = Release|Any CPU

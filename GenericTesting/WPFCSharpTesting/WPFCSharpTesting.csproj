@@ -133,6 +133,7 @@
     <Compile Include="Views\TestEventRaising.xaml.cs">
       <DependentUpon>TestEventRaising.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WebBrowserUtility.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -224,6 +225,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="SegmentTerrainRpt.xsl" />
+    <EmbeddedResource Include="SegmentTerrainRptNew.xml" />
     <Content Include="Tester.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Tester.Context.cs</LastGenOutput>
