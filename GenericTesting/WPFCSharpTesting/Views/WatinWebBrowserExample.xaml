@@ -6,6 +6,13 @@
              xmlns:local="clr-namespace:WPFCSharpTesting.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ContextMenu x:Key="MnuCustom" StaysOpen="True">
+            <MenuItem Header="Print" Command="{Binding PrintPreview}"></MenuItem>
+            <MenuItem Header="Custom 1"></MenuItem>
+            <MenuItem Header="Custom 3"></MenuItem>
+        </ContextMenu>
+    </UserControl.Resources>
     <Grid>
         <WebBrowser x:Name="Wb" />
     </Grid>

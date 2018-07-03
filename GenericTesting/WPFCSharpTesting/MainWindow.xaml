@@ -8,13 +8,6 @@
         xmlns:tst ="clr-namespace:WPFCSharpTesting.TestInheritance"
         mc:Ignorable="d"
         Title="Test WPF" Height="350" Width="525">
-    <Window.Resources>
-        <ContextMenu x:Key="MnuCustom" StaysOpen="True">
-            <MenuItem Header="Print" Command="{Binding PrintPreview}"></MenuItem>
-            <MenuItem Header="Custom 1"></MenuItem>
-            <MenuItem Header="Custom 3"></MenuItem>
-        </ContextMenu>
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
