@@ -41,8 +41,7 @@ namespace WPFCSharpTesting.Views
 
         public void WbShowContextMenu()
         {
-            ContextMenu cm = FindResource("MnuCustom") as ContextMenu;
-            if (cm == null) return;
+            if (!(FindResource("MnuCustom") is ContextMenu cm)) return;
             cm.PlacementTarget = Wb;
             cm.IsOpen = true;
         }

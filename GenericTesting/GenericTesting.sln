@@ -5,15 +5,11 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericTesting", "GenericTesting\GenericTesting.csproj", "{5DF8C118-ADA7-4C49-BAF2-964F4F6D2C1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityTesting", "EntityTesting\EntityTesting.csproj", "{9F179A93-C352-4320-A1B5-7FE1B4A516B0}"
-EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "GenericVBTesting", "GenericVBTesting\GenericVBTesting.vbproj", "{4B06306A-F1F6-4A9F-9F21-5863F8A93C46}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFCSharpTesting", "WPFCSharpTesting\WPFCSharpTesting.csproj", "{665035E6-2D0A-4D9E-8621-416F5CAF4C20}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PathPlayland", "PathPlayland\PathPlayland.vbproj", "{0E2F99FE-479F-4698-8EC8-C26A643B5D5D}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ADODataAccess", "ADODataAccess\ADODataAccess.vbproj", "{381ECF47-AE91-4337-B457-DF62C15AEAE9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asynchronous C_Sharp 5.0", "Asynchronous C_Sharp 5.0\Asynchronous C_Sharp 5.0.csproj", "{5AC94E9E-FA36-47DF-9E69-8A14EA61D614}"
 EndProject
@@ -47,10 +43,6 @@ Global
 		{5DF8C118-ADA7-4C49-BAF2-964F4F6D2C1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DF8C118-ADA7-4C49-BAF2-964F4F6D2C1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DF8C118-ADA7-4C49-BAF2-964F4F6D2C1A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9F179A93-C352-4320-A1B5-7FE1B4A516B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F179A93-C352-4320-A1B5-7FE1B4A516B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F179A93-C352-4320-A1B5-7FE1B4A516B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F179A93-C352-4320-A1B5-7FE1B4A516B0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4B06306A-F1F6-4A9F-9F21-5863F8A93C46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4B06306A-F1F6-4A9F-9F21-5863F8A93C46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B06306A-F1F6-4A9F-9F21-5863F8A93C46}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,10 +55,6 @@ Global
 		{0E2F99FE-479F-4698-8EC8-C26A643B5D5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E2F99FE-479F-4698-8EC8-C26A643B5D5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E2F99FE-479F-4698-8EC8-C26A643B5D5D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{381ECF47-AE91-4337-B457-DF62C15AEAE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{381ECF47-AE91-4337-B457-DF62C15AEAE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{381ECF47-AE91-4337-B457-DF62C15AEAE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{381ECF47-AE91-4337-B457-DF62C15AEAE9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5AC94E9E-FA36-47DF-9E69-8A14EA61D614}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5AC94E9E-FA36-47DF-9E69-8A14EA61D614}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AC94E9E-FA36-47DF-9E69-8A14EA61D614}.Release|Any CPU.ActiveCfg = Release|Any CPU

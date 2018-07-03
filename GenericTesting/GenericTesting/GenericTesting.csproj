@@ -118,12 +118,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EntityTesting\EntityTesting.csproj">
-      <Project>{9f179a93-c352-4320-a1b5-7fe1b4a516b0}</Project>
-      <Name>EntityTesting</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="TPLExamples\" />
   </ItemGroup>
   <ItemGroup>
