@@ -5,16 +5,12 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Xsl;
-using WPFCSharpTesting.ViewModels;
-using WPFCSharpTesting.Views;
 
 namespace WPFCSharpTesting
 {
@@ -49,14 +45,63 @@ namespace WPFCSharpTesting
             {
                 var file = reader.ReadToEnd();
                 var xdoc = XDocument.Parse(file);
-                HTML = GetXSLTransformedData("SegmentTerrainRpt", xdoc);
+                HTML = $"<htm><head><style>h3 {{color: red; }}</style></head><body><h3>ERROR!<h3></body></htm>";
+                //GetXSLTransformedData("SegmentTerrainRpt", xdoc);
             }
 
             PrintPreview = new DelegateCommand(x =>
             {
-                MessageBox.Show("Hello");
+                var wb = new System.Windows.Forms.WebBrowser { DocumentText = _html };
+                wb.DocumentCompleted += ((sender, args) =>
+                {
+                    wb.ShowPrintDialog();
+                    wb.Dispose();
+                });
             });
         }
+
+        //private void PrintHelpPage()
+        //{
+        //    // Create a WebBrowser instance. 
+        //    WebBrowser webBrowserForPrinting = new WebBrowser();
+
+        //    // Add an event handler that prints the document after it loads.
+        //    webBrowserForPrinting.DocumentCompleted +=
+        //        new WebBrowserDocumentCompletedEventHandler(PrintDocument);
+
+        //    // Set the Url property to load the document.
+        //    webBrowserForPrinting.Url = new Uri(@"\\myshare\help.html");
+        //}
+
+        //private void PrintDocument(object sender,
+        //    WebBrowserDocumentCompletedEventArgs e)
+        //{
+        //    // Print the document now that it is fully loaded.
+        //    ((WebBrowser)sender).Print();
+
+        //    // Dispose the WebBrowser now that the task is complete. 
+        //    ((WebBrowser)sender).Dispose();
+        //}
+
+        //public void ShowPrintPreviewDialog(object o)
+        //{
+        //    _host = o as System.Windows.Forms.Integration.WindowsFormsHost;
+        //    _wb = new WebBrowser();
+        //    _wb.DocumentCompleted += wb_DocumentCompletedForPreview;
+        //    TurnFooterOff();
+        //    if (_textOnly)
+        //        _wb.DocumentText = _planText;
+        //    else
+        //        _wb.Url = new Uri(_uri);
+        //}
+
+        //private void wb_DocumentCompletedForPreview(object sender, WebBrowserDocumentCompletedEventArgs e)
+        //{
+        //    _host.Child = _wb;
+        //    _wb.ShowPrintPreviewDialog();
+        //    _host.Child = null;
+        //    _host = null;
+        //}
 
         private string GetXSLTransformedData(string xslName, XDocument xmlResponse)
         {
