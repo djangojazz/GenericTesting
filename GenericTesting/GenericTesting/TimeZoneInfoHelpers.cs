@@ -95,21 +95,20 @@ namespace GenericTesting
       var timezones = TimeZoneInfo.GetSystemTimeZones();
       var utc = TimeZoneInfo.FindSystemTimeZoneById("UTC");
       var pst = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
-      var est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
 
-      var dtString = "2016-03-13T01:00:00";
-      var dtString2 = "2016-03-14T01:00:00";
+      var dtString = "2018-03-9T01:00:00";
+      var dtString2 = "2018-03-11T03:00:00";
 
-      var dtUTC = utc.ConvertDateToTimeZoneFromUTCElseDefaultUTCNow<DateTimeOffset>(dtString);
-      var dtPST = pst.ConvertDateToTimeZoneFromUTCElseDefaultUTCNow<DateTimeOffset>(dtString);
-      var dtEST = est.ConvertDateToTimeZoneFromUTCElseDefaultUTCNow<DateTimeOffset>(dtString);
-      var dtUTC2 = utc.ConvertDateToTimeZoneFromUTCElseDefaultUTCNow<DateTimeOffset>(dtString2);
-      var dtPST2 = pst.ConvertDateToTimeZoneFromUTCElseDefaultUTCNow<DateTimeOffset>(dtString2);
-      var dtEST2 = est.ConvertDateToTimeZoneFromUTCElseDefaultUTCNow<DateTimeOffset>(dtString2);
+      var dtUTC = utc.ConvertDateFromTimeZoneToUTCElseDefaultUTCNow<DateTime>(dtString);
+      var dtPST = TimeZoneInfo.ConvertTimeToUtc(DateTime.SpecifyKind(dtUTC, DateTimeKind.Unspecified), TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time"));
+
+        //var dtPST = pst.ConvertDateFromTimeZoneToUTCElseDefaultUTCNow<DateTime>(dtString);
+        var dtUTC2 = utc.ConvertDateFromTimeZoneToUTCElseDefaultUTCNow<DateTime>(dtString2);
+      var dtPST2 = TimeZoneInfo.ConvertTimeToUtc(DateTime.SpecifyKind(dtUTC2, DateTimeKind.Unspecified), TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time"));
       var nl = Environment.NewLine;
 
-      Console.WriteLine($"utc: {dtUTC}{nl}est:{dtEST}{nl}pst:{dtPST}");
-      Console.WriteLine($"utc: {dtUTC2}{nl}est:{dtEST2}{nl}pst:{dtPST2}");
+      Console.WriteLine($"utc: {dtUTC}{nl}pst:{dtPST}");
+      Console.WriteLine($"utc: {dtUTC2}{nl}pst:{dtPST2}");
     }
   }
 }
