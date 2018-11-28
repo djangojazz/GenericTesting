@@ -128,7 +128,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setter.cs" />
     <Compile Include="StringBoxingAndUnboxingToADictionary.cs" />
-    <Compile Include="ThrowawayChild.cs" />
     <Compile Include="Timers.cs" />
     <Compile Include="TimeZoneInfoHelpers.cs" />
     <Compile Include="ParallelExamples.cs" />

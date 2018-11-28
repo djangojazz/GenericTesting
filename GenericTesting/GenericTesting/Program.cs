@@ -34,7 +34,6 @@ namespace GenericTesting
                 DateTimeUTDC = TimeZoneInfo.ConvertTimeToUtc(DateTime.SpecifyKind(pstDate, DateTimeKind.Unspecified), TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time"));
             }
             
-
             public override string ToString() => $"{Id} {Val} {DateTimeUTDC}";
             public override bool Equals(object obj) => (obj as Part).Id == Id && (obj as Part).Val == Val;
             public override int GetHashCode() => $"{Id} {Val}".GetHashCode();
@@ -42,24 +41,37 @@ namespace GenericTesting
         
         static void Main(String[] args)
         {
-            var ls = new List<Color>
+            var p = POCOTesting.GetListings<POCO>(10);
+            var h = new List<Holder>();
+            var l = new List<Lookup>();
+
+            Action hdr = () => 
             {
-               Color.FromArgb(42, 69, 89),
-               Color.FromArgb(25, 35, 6),
-               Color.FromArgb(39, 24, 44),
-               Color.FromArgb(104, 73, 42),
-               Color.FromArgb(30, 86, 79)
+                p.WriteUpListCount();
+                h.WriteUpListCount();
+                Console.WriteLine($"******* Lookup ******");
+                Console.WriteLine();
+                l.ForEach(x => Console.WriteLine($"{x.POCOId} {x.HolderId}"));
             };
 
-            var newListing = ls.CreateColorsFromBaseColors(4);
-
-            newListing.ForEach(color =>
+            Action<int> inc = x =>
             {
-                Console.WriteLine($"Color: {color.R} { color.G} {color.B} {color.Name}");
-            });
+                var r = p.UpdateHolderListFromPocoList(l, x);
+                h.AddRange(r.holder);
+                l.AddRange(r.lookup);
+            };
+
+            hdr();
+            inc(3);
+            hdr();
+            inc(3);
+            hdr();
+            inc(4);
+            hdr();
 
 
             Console.ReadLine();
         }
+        
     }
 }
