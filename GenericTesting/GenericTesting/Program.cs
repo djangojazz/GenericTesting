@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Xml.Xsl;
 using System.IO;
 using System.Net;
+using System.Text;
 
 namespace GenericTesting
 {
@@ -39,35 +40,57 @@ namespace GenericTesting
             public override int GetHashCode() => $"{Id} {Val}".GetHashCode();
         }
         
+        private static string ReturnDesc(int i)
+        {
+            var array = "abcdefghijklmnopqrstuvwxyz".ToArray();
+            var sb = new StringBuilder();
+            
+            if (i >= 26)
+            {
+               sb.Append(array[(i / 26) -1]);
+               i -= (i / 26) * 26;
+            }
+            
+            sb.Append(array[i]);
+
+            return sb.ToString();
+        }
+
         static void Main(String[] args)
         {
-            var p = POCOTesting.GetListings<POCO>(10);
-            var h = new List<Holder>();
-            var l = new List<Lookup>();
-
-            Action hdr = () => 
+            //var p = POCOTesting.GetListings<POCO>(27);
+            //var h = new List<Holder>();
+            //var l = new List<Lookup>();
+            
+            for (int i = 1; i <= 330; i++)
             {
-                p.WriteUpListCount();
-                h.WriteUpListCount();
-                Console.WriteLine($"******* Lookup ******");
-                Console.WriteLine();
-                l.ForEach(x => Console.WriteLine($"{x.POCOId} {x.HolderId}"));
-            };
+                //Console.WriteLine($"{i % 26} {i / 26}");
+                Console.WriteLine(ReturnDesc(i));
+            }
 
-            Action<int> inc = x =>
-            {
-                var r = p.UpdateHolderListFromPocoList(l, x);
-                h.AddRange(r.holder);
-                l.AddRange(r.lookup);
-            };
+            //Action hdr = () => 
+            //{
+            //    p.WriteUpListCount();
+            //    h.WriteUpListCount();
+            //    Console.WriteLine($"******* Lookup ******");
+            //    Console.WriteLine();
+            //    l.ForEach(x => Console.WriteLine($"{x.POCOId} {x.HolderId}"));
+            //};
 
-            hdr();
-            inc(3);
-            hdr();
-            inc(3);
-            hdr();
-            inc(4);
-            hdr();
+            //Action<int> inc = x =>
+            //{
+            //    var r = p.UpdateHolderListFromPocoList(l, x);
+            //    h.AddRange(r.holder);
+            //    l.AddRange(r.lookup);
+            //};
+
+            //hdr();
+            //inc(3);
+            //hdr();
+            //inc(3);
+            //hdr();
+            //inc(4);
+            //hdr();
 
 
             Console.ReadLine();
