@@ -95,6 +95,10 @@ namespace GenericTesting
             };
 
             var node = d.GetNodesFromDictionary(start);
+            var nodesMinusAGroup = node.SubNodes.Where(x => x.Group == null).ToList();
+            nodesMinusAGroup.ForEach(x => node.SubNodes.Remove(x));
+            node.SubNodes.Add(new RecursiveTesting.Node { Group = "Main", SubNodes = nodesMinusAGroup });
+
             Console.WriteLine(node);
 
             Console.ReadLine();

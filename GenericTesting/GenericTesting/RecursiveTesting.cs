@@ -10,10 +10,6 @@ namespace GenericTesting
     {
         public class Node
         {
-            public Node() {}
-            public Node(string group) : this(group, null, null) { }
-            public Node(string group, string name, string url) => (Group, Name, Url) = (group, name, url);
-
             public string Group { get; set; }
             public string Name { get; set; }
             public string Url { get; set; }
@@ -21,26 +17,31 @@ namespace GenericTesting
             public List<Node> SubNodes { get; set; } = new List<Node>();
         }
 
-        public static void UpdateNodeStructure(Node node, string Name, string Url, string Sub)
+        public static void UpdateNodeStructure(Node node, string name, string url, string sub)
         {
-            var firstSlash = Sub.IndexOf('/');
-            if (!(firstSlash > 0))
-                (node.Name, node.Url) = (Name, Url);
+            var firstSlash = sub.IndexOf('/');
+
+            if (firstSlash == -1)
+                node.SubNodes.Add(new Node { Name = name, Url = url});
             else
             {
-                var groupOnNode = Sub.Substring(0, firstSlash);
-                var nameAfterGroup = Sub.Substring(firstSlash, Sub.Length - firstSlash);
-                var groupIfExists = node.SubNodes.SingleOrDefault(x => String.Compare(x.Group, groupOnNode, false) == 0);
+                var slashCount = sub.ToCharArray().Where(x => x == '/').Count();
+                var groupOnNode = sub.Substring(0, firstSlash);
+                var nameAfterGroup = sub.Substring(firstSlash + 1, sub.Length - firstSlash - 1);
+                var groupIfExists = node.SubNodes.FirstOrDefault(x => String.Compare(x.Group, groupOnNode, false) == 0);
 
                 if (groupIfExists != null)
                 {
-                    UpdateNodeStructure(groupIfExists, Name, Url, nameAfterGroup);
-                }   
+                    //if (slashCount == 1)
+                    //    node.SubNodes.Add(new Node(groupOnNode, Name, Url));
+                    //else
+                        UpdateNodeStructure(groupIfExists, name, url, nameAfterGroup);
+                }
                 else
                 {
-                    var newNode = new Node(groupOnNode, null, null);
-                    node.SubNodes.Add(newNode);
-                    UpdateNodeStructure(newNode, Name, Url, nameAfterGroup);
+                    var newNode = new Node { Group = groupOnNode };
+                node.SubNodes.Add(newNode);
+                UpdateNodeStructure(newNode, name, url, nameAfterGroup);
                 }
             }
         }
@@ -48,7 +49,7 @@ namespace GenericTesting
         public static Node GetNodesFromDictionary(this Dictionary<string, string> dictionary, string startPoint)
         {
             var startLen = startPoint.Length;
-            var main = new Node(null, null, null);
+            var main = new Node();
             dictionary.Select(x => (Name: x.Key, Url: x.Value, Sub: x.Value.Substring(startLen, x.Value.Length - startLen)))
             .ToList()
             .ForEach(x => UpdateNodeStructure(main, x.Name, x.Url, x.Sub));
