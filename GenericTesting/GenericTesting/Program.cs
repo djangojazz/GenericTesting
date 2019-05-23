@@ -14,6 +14,7 @@ using System.Xml.Xsl;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Net.Http;
 
 namespace GenericTesting
 {
@@ -56,42 +57,45 @@ namespace GenericTesting
             return sb.ToString();
         }
 
+        public class Hold
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+        }
+
+        public static (int Id, string Name) ReturnNamedTuple(int id, string name) => (id, name);
+        public static List<(int Id, string Name)> ReturnNamedTuplesFromHolder(List<Hold> holds) => holds.Select(x => (x.Id, x.Name)).ToList();
+
+        public static void DoSomethingWithNamedTuplesInput(List<(int id, string name)> inputs) => inputs.ForEach(x => Console.WriteLine($"Doing work with {x.id} for {x.name}"));
+
+        private static List<(int id, string name)> DeDeduper(List<(int id, string name)> list)
+        {
+            list.GroupBy(x => x.name).ToDictionary(x => x.Key, x => x.Count()).OrderByDescending(x => x.Value).Where(x => x.Value >= 2).ToList()
+           .ForEach(x =>
+           {
+               Console.WriteLine($"duplicate of {x} to remove.");
+               list.Remove(list.Last(y => y.name == x.Key));
+           });
+
+           return list;
+        }
+
+        
         static void Main(String[] args)
         {
-            //var p = POCOTesting.GetListings<POCO>(27);
-            //var h = new List<Holder>();
-            //var l = new List<Lookup>();
-            
-            for (int i = 1; i <= 330; i++)
+            var start = "https://localhost/admin/";
+
+            var d = new Dictionary<string, string>
             {
-                //Console.WriteLine($"{i % 26} {i / 26}");
-                Console.WriteLine(ReturnDesc(i));
-            }
+                { "CourseEnrollmentTotalsReport", $"{start}university/reporting/ClassEnrollmentTotals.aspx" },
+                { "CoursePaymentReport", $"{start}university/reporting/CoursePayment.aspx" },
+                { "ScheduleResources", $"{start}ResourceManagement" },
+                { "BadgeManagement", $"{start}Badge" },
+                { "AggregatedQuizResults", $"{start}university/reporting/AggregatedTestResults.aspx" }
+            };
 
-            //Action hdr = () => 
-            //{
-            //    p.WriteUpListCount();
-            //    h.WriteUpListCount();
-            //    Console.WriteLine($"******* Lookup ******");
-            //    Console.WriteLine();
-            //    l.ForEach(x => Console.WriteLine($"{x.POCOId} {x.HolderId}"));
-            //};
-
-            //Action<int> inc = x =>
-            //{
-            //    var r = p.UpdateHolderListFromPocoList(l, x);
-            //    h.AddRange(r.holder);
-            //    l.AddRange(r.lookup);
-            //};
-
-            //hdr();
-            //inc(3);
-            //hdr();
-            //inc(3);
-            //hdr();
-            //inc(4);
-            //hdr();
-
+            var node = d.GetNodesFromDictionary(start);
+            Console.WriteLine(node);
 
             Console.ReadLine();
         }
