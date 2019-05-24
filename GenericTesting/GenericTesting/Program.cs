@@ -15,6 +15,8 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Net.Http;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace GenericTesting
 {
@@ -94,12 +96,12 @@ namespace GenericTesting
                 { "AggregatedQuizResults", $"{start}university/reporting/AggregatedTestResults.aspx" }
             };
 
-            var node = d.GetNodesFromDictionary(start);
-            var nodesMinusAGroup = node.SubNodes.Where(x => x.Group == null).ToList();
-            nodesMinusAGroup.ForEach(x => node.SubNodes.Remove(x));
-            node.SubNodes.Add(new RecursiveTesting.Node { Group = "Main", SubNodes = nodesMinusAGroup });
+            var node = d.GetNodesFromDictionary();
 
-            Console.WriteLine(node);
+            var json = RecursiveTesting.CreateRecursiveJsonFromNode(node);
+                //JsonConvert.SerializeObject(node, Newtonsoft.Json.Formatting.Indented, new Newtonsoft.Json.JsonSerializerSettings { NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore });
+
+            Console.WriteLine(json);
 
             Console.ReadLine();
         }
