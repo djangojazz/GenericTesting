@@ -96,7 +96,7 @@ namespace GenericTesting
                 { "AggregatedQuizResults", $"{start}university/reporting/AggregatedTestResults.aspx" }
             };
 
-            var node = d.GetNodesFromDictionary();
+            var node = d.GetNodesFromDictionary(new RecursiveTesting.OptionsForHeirarchy());
 
             var json = RecursiveTesting.CreateRecursiveJsonFromNode(node);
                 //JsonConvert.SerializeObject(node, Newtonsoft.Json.Formatting.Indented, new Newtonsoft.Json.JsonSerializerSettings { NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore });

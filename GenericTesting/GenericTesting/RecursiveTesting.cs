@@ -57,9 +57,7 @@ namespace GenericTesting
         /// </summary>
         public class OptionsForHeirarchy
         {
-            public OptionsForHeirarchy(): this("https://localhost/admin/") {}
-
-            public OptionsForHeirarchy(string startPoint, bool removeExcess = true, bool alphaOrderNodes = true, string reseatRootToName = "Main", char heirarchySeparator = '/') => 
+            public OptionsForHeirarchy(string startPoint = "https://localhost/admin/", bool removeExcess = true, bool alphaOrderNodes = true, string reseatRootToName = "Main", char heirarchySeparator = '/') => 
                 (StartPoint, RemoveExcess, AlphaOrderNodes, ReseatRootToName, HeirarchySeparator) = (startPoint, removeExcess, alphaOrderNodes, reseatRootToName, heirarchySeparator);
 
             public string StartPoint { get; set; }
