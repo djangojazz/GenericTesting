@@ -57,7 +57,7 @@ namespace GenericTesting
         /// </summary>
         public class OptionsForHeirarchy
         {
-            public OptionsForHeirarchy(string startPoint = "https://localhost/admin/", bool removeExcess = true, bool alphaOrderNodes = true, string reseatRootToName = "Main", char heirarchySeparator = '/') => 
+            public OptionsForHeirarchy(string startPoint = "admin/", bool removeExcess = true, bool alphaOrderNodes = true, string reseatRootToName = "Main", char heirarchySeparator = '/') => 
                 (StartPoint, RemoveExcess, AlphaOrderNodes, ReseatRootToName, HeirarchySeparator) = (startPoint, removeExcess, alphaOrderNodes, reseatRootToName, heirarchySeparator);
 
             public string StartPoint { get; set; }
@@ -82,7 +82,7 @@ namespace GenericTesting
             var startLen = options.StartPoint.Length;
             var node = new Node();
 
-            dictionary.Select(x => (Name: x.Key, Url: x.Value, Sub: x.Value.Substring(startLen, x.Value.Length - startLen)))
+            dictionary.Select(x => new { Name = x.Key, Url = x.Value, Sub = x.Value.Substring(x.Value.IndexOf(options.StartPoint) + startLen, x.Value.Length - (x.Value.IndexOf(options.StartPoint) + startLen)) })
             .ToList()
             .ForEach(x => UpdateNodeStructure(node, x.Name, x.Url, x.Sub, options.HeirarchySeparator));
 

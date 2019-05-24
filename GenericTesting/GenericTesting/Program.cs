@@ -86,21 +86,32 @@ namespace GenericTesting
         static void Main(String[] args)
         {
             var start = "https://localhost/admin/";
+            var start2 = "http://localhost/admin/";
 
             var d = new Dictionary<string, string>
             {
                 { "CourseEnrollmentTotalsReport", $"{start}university/reporting/ClassEnrollmentTotals.aspx" },
-                { "CoursePaymentReport", $"{start}university/reporting/CoursePayment.aspx" },
+                { "CoursePaymentReport", $"{start2}university/reporting/CoursePayment.aspx" },
                 { "ScheduleResources", $"{start}ResourceManagement" },
                 { "BadgeManagement", $"{start}Badge" },
                 { "AggregatedQuizResults", $"{start}university/reporting/AggregatedTestResults.aspx" }
             };
 
-            var node = d.GetNodesFromDictionary(new RecursiveTesting.OptionsForHeirarchy());
+            //var startPoint = "admin/";
+            //var startLen = startPoint.Length;
+
+            //var val1 = d["CourseEnrollmentTotalsReport"];
+            //var val2 = d["CoursePaymentReport"];
+
+            //var var1 = val1.Substring(val1.IndexOf(startPoint) + startLen, val1.Length - (val1.IndexOf(startPoint) + startLen) );
+            //var var2 = val2.Substring(val2.IndexOf(startPoint) + startLen, d["CoursePaymentReport"].Length - (val2.IndexOf(startPoint) + startLen));
+            //Console.WriteLine(var1);
+            //Console.WriteLine(var2);
+
+            var node = d.GetNodesFromDictionary();
 
             var json = RecursiveTesting.CreateRecursiveJsonFromNode(node);
-                //JsonConvert.SerializeObject(node, Newtonsoft.Json.Formatting.Indented, new Newtonsoft.Json.JsonSerializerSettings { NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore });
-
+            
             Console.WriteLine(json);
 
             Console.ReadLine();
