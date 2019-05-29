@@ -18,7 +18,7 @@ namespace GenericTesting
             public List<Node> SubNodes { get; set; } = new List<Node>();
         }
 
-        
+
         public static string CreateRecursiveJsonFromNode(this Node node, StringBuilder sb = null)
         {
             if (sb == null)
@@ -26,10 +26,10 @@ namespace GenericTesting
 
             var nodeToWorkOn = node.SubNodes.FirstOrDefault();
 
-            if(nodeToWorkOn != null)
+            if (nodeToWorkOn != null)
             {
                 var itemsToWorkOn = nodeToWorkOn.SubNodes.Where(x => x.Name != null);
-                if (itemsToWorkOn != null)
+                if (itemsToWorkOn.Any())
                 {
                     sb.Append($"\"{nodeToWorkOn.Group}\": [{Environment.NewLine}");
                     sb.Append(String.Join($",{Environment.NewLine}", itemsToWorkOn.Select(x => $"{{\"{x.Name}\": \"{x.Value}\"}}")));
@@ -38,10 +38,7 @@ namespace GenericTesting
                     CreateRecursiveJsonFromNode(node, sb);
                 }
                 else
-                {
-                    node.SubNodes.Remove(nodeToWorkOn);
-                    CreateRecursiveJsonFromNode(node);
-                }
+                    CreateRecursiveJsonFromNode(nodeToWorkOn, sb);
             }
 
             return $"{sb.ToString().Substring(0, sb.Length - 3)}{Environment.NewLine}}}";
@@ -57,8 +54,14 @@ namespace GenericTesting
         /// </summary>
         public class OptionsForHeirarchy
         {
-            public OptionsForHeirarchy(string startPoint = "admin/", bool removeExcess = true, bool alphaOrderNodes = true, string reseatRootToName = "Main", char heirarchySeparator = '/') => 
-                (StartPoint, RemoveExcess, AlphaOrderNodes, ReseatRootToName, HeirarchySeparator) = (startPoint, removeExcess, alphaOrderNodes, reseatRootToName, heirarchySeparator);
+            public OptionsForHeirarchy(string startPoint = "localhost/", bool removeExcess = true, bool alphaOrderNodes = true, string reseatRootToName = "Main", char heirarchySeparator = '/')
+            {
+                StartPoint = startPoint;
+                RemoveExcess = removeExcess;
+                AlphaOrderNodes = alphaOrderNodes;
+                ReseatRootToName = reseatRootToName;
+                HeirarchySeparator = heirarchySeparator;
+            }
 
             public string StartPoint { get; set; }
             public bool RemoveExcess { get; set; }
@@ -80,56 +83,61 @@ namespace GenericTesting
                 options = new OptionsForHeirarchy();
 
             var startLen = options.StartPoint.Length;
-            var node = new Node();
+            var mainNode = new Node();
 
-            dictionary.Select(x => new { Name = x.Key, Url = x.Value, Sub = x.Value.Substring(x.Value.IndexOf(options.StartPoint) + startLen, x.Value.Length - (x.Value.IndexOf(options.StartPoint) + startLen)) })
+            dictionary.Select(x => new { Name = x.Key, Url = x.Value, Sub = x.Value.Substring(x.Value.IndexOf(options.StartPoint, StringComparison.InvariantCultureIgnoreCase) + startLen, x.Value.Length - (x.Value.IndexOf(options.StartPoint, StringComparison.InvariantCultureIgnoreCase) + startLen)) })
+            .Select(x => new { x.Name, x.Url, Sub = x.Sub.ToCharArray().Last() == '/' ? x.Sub.Substring(0, x.Sub.Length - 1) : x.Sub })
             .ToList()
-            .ForEach(x => UpdateNodeStructure(node, x.Name, x.Url, x.Sub, options.HeirarchySeparator));
+            .ForEach(x => UpdateNodeStructure(mainNode, x.Name, x.Url, x.Sub, options.HeirarchySeparator));
 
             if (options.RemoveExcess)
+                RemoveExcessFromNode(mainNode);
+
+            if (!string.IsNullOrEmpty(options.ReseatRootToName))
             {
-                var excessNodes = node.SubNodes.Where(x => x.Group != null && x.SubNodes.FirstOrDefault()?.Group != null).ToList();
-                excessNodes.ForEach(x =>
-                {
-                    node.SubNodes.Remove(x);
-                    node.SubNodes.AddRange(x.SubNodes);
-                });
+                var nodesMinusAGroup = mainNode.SubNodes.Where(x => x.Group == null).ToList();
+                nodesMinusAGroup.ForEach(x => mainNode.SubNodes.Remove(x));
+                mainNode.SubNodes.Add(new Node { Group = options.ReseatRootToName, SubNodes = nodesMinusAGroup });
             }
 
-            if(!string.IsNullOrEmpty(options.ReseatRootToName))
-            {
-                var nodesMinusAGroup = node.SubNodes.Where(x => x.Group == null).ToList();
-                nodesMinusAGroup.ForEach(x => node.SubNodes.Remove(x));
-                node.SubNodes.Add(new Node { Group = options.ReseatRootToName, SubNodes = nodesMinusAGroup });
-            }
+            if (options.AlphaOrderNodes)
+                mainNode.SubNodes = mainNode.SubNodes.OrderBy(x => x.Group).ToList();
 
-            if(options.AlphaOrderNodes)
-                node.SubNodes = node.SubNodes.OrderBy(x => x.Group).ToList();
-
-            return node;
+            return mainNode;
         }
 
-        private static void UpdateNodeStructure(Node node, string name, string url, string sub, char heirarchySeperater)
+        private static void UpdateNodeStructure(Node node, string name, string url, string sub, char hierarchySeparator)
         {
-            var firstSlash = sub.IndexOf(heirarchySeperater);
+            var firstSlash = sub.IndexOf(hierarchySeparator);
 
             if (firstSlash == -1)
                 node.SubNodes.Add(new Node { Name = name, Value = url });
             else
             {
-                var groupOnNode = sub.Substring(0, firstSlash);
+                var groupOnNode = $"{sub.Substring(0, 1).ToUpper()}{sub.Substring(1, firstSlash - 1).ToLower()}";
                 var nameAfterGroup = sub.Substring(firstSlash + 1, sub.Length - firstSlash - 1);
                 var groupIfExists = node.SubNodes.FirstOrDefault(x => String.Compare(x.Group, groupOnNode, false) == 0);
 
                 if (groupIfExists != null)
-                    UpdateNodeStructure(groupIfExists, name, url, nameAfterGroup, heirarchySeperater);
+                    UpdateNodeStructure(groupIfExists, name, url, nameAfterGroup, hierarchySeparator);
                 else
                 {
                     var newNode = new Node { Group = groupOnNode };
                     node.SubNodes.Add(newNode);
-                    UpdateNodeStructure(newNode, name, url, nameAfterGroup, heirarchySeperater);
+                    UpdateNodeStructure(newNode, name, url, nameAfterGroup, hierarchySeparator);
                 }
             }
+        }
+
+        private static void RemoveExcessFromNode(Node node)
+        {
+            var excessNodes = node.SubNodes.Where(x => x.Group != null && x.SubNodes.FirstOrDefault()?.Group != null).ToList();
+            excessNodes.ForEach(x =>
+            {
+                node.SubNodes.Remove(x);
+                node.SubNodes.AddRange(x.SubNodes);
+                RemoveExcessFromNode(x);
+            });
         }
     }
 }

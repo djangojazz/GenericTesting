@@ -90,12 +90,99 @@ namespace GenericTesting
 
             var d = new Dictionary<string, string>
             {
-                { "CourseEnrollmentTotalsReport", $"{start}university/reporting/ClassEnrollmentTotals.aspx" },
-                { "CoursePaymentReport", $"{start2}university/reporting/CoursePayment.aspx" },
-                { "ScheduleResources", $"{start}ResourceManagement" },
-                { "BadgeManagement", $"{start}Badge" },
-                { "AggregatedQuizResults", $"{start}university/reporting/AggregatedTestResults.aspx" }
+                {"CourseEnrollmentTotalsReport", "https://localhost/admin/university/reporting/ClassEnrollmentTotals.aspx"},
+                {"CoursePaymentReport", "https://localhost/admin/university/reporting/CoursePayment.aspx"},
+                {"ScheduleResources", "https://localhost/admin/ResourceManagement/"},
+                {"BadgeManagement", "https://localhost/admin/Badge"},
+                {"AggregatedQuizResults", "http://localhost/admin/university/reporting/AggregatedTestResults.aspx"},
+                {"GradeBook", "http://localhost/admin/university/reporting/GradeBookUniversityList.aspx"},
+                {"CompletedCourseHoursReport", "http://localhost/admin/university/reporting/CourseHoursByGroup.aspx"},
+                {"mLiveViewershipReport", "http://localhost/admin/university/reporting/mLiveViewership.aspx"},
+                {"UserBbReport", "http://localhost/admin/university/reporting/BlueBucksByGroup_PLNEW.aspx"},
+                {"UniBbReport", "http://localhost/admin/university/reporting/BlueBucksUniversity.aspx"},
+                {"PromoHistoryReport", "http://localhost/admin/university/reporting/promoHistory.aspx"},
+                {"Transcript", "http://localhost/admin/university/reporting/UniversityList.aspx"},
+                {"TrainingTrackProgress", "http://localhost/admin/university/reporting/TrainingTrackProgress.aspx"},
+                {"NewUsersReport", "http://localhost/admin/statistics/NewUsers.aspx"},
+                {"BadgeReport", "http://localhost/admin/university/reporting/BadgeReport.aspx"},
+                {"ScheduledCoursesReport", "http://localhost/admin/University/Reporting/ScheduledCoursesReport"},
+                {"BtManagementIndex", "http://localhost/admin/BlueVoltManagement/default.aspx"},
+                {"AdminClientBluetechManagement", "http://localhost/admin/BlueVoltManagement/home"},
+                {"AccountingReports", "http://localhost/admin/accountmanagement/AccountingReports.aspx"},
+                {"AccountingReports_PL", "http://localhost/admin/accountmanagement/AccountingReports_PL.aspx"},
+                {"OnlineTransactionReport", "http://localhost/admin/accountmanagement/OnlineTransactionReport.aspx"},
+                {"OnlineTransactionReport_PLNEW", "http://localhost/admin/accountmanagement/OnlineTransactionReport_PLNEW.aspx"},
+                {"AwardBbManually", "http://localhost/admin/accountmanagement/bluebucks/default.aspx"},
+                {"UserAdminViewer", "http://localhost/admin/group/UserAdminView.aspx"},
+                {"StudentEmail", "https://localhost/admin/university/reporting/CourseEmailer.aspx?CourseInstanceID="},
+                {"HistoricalRecord", "https://localhost/admin/university/CourseManagement/HistoricImport/HistoricalCoursesImport.aspx"},
+                {"UploadCourseFiles", "https://localhost/admin/university/UploadCourses"},
+                {"QuestionBank", "https://localhost/admin/university/CourseManagement/QuestionBankEditor.aspx"},
+                {"ScheduledReportsList", "https://localhost/admin/university/Reporting/ScheduledReportsList"},
+                {"MyReportList", "https://localhost/admin/university/Reporting/MyReportList"},
+                {"UploadUsers", "http://localhost/admin/group/uploadusers/uploaduser.aspx"},
+                {"EditGroups", "http://localhost/admin/group/Groups.aspx"},
+                {"EditGroupRoles", "http://localhost/admin/group/GroupMembers.aspx"},
+                {"EditGroupLevelBlueBucks", "http://localhost/admin/group/GroupLevelBlueBucks.aspx"},
+                {"EditUniRoles", "http://localhost/admin/group/UniversityRoleAssignment.aspx"},
+                {"EditCourseRoles", "http://localhost/admin/group/ClassRolesAssignment.aspx"},
+                {"AutoEnrollmentView", "http://localhost/admin/university/CourseManagement/AutoEnrollmentView.aspx"},
+                {"GroupHierarchyReport", "http://localhost/admin/university/reporting/GroupHierarchyReport.aspx"},
+                {"PortalBlueBucksRedemptions", "http://localhost/admin/university/reporting/PortalBlueBucksRedemptions.aspx"},
+                {"UniversityUserInvitations", "http://localhost/admin/group/UniversityUserInvitations.aspx"},
+                {"SignUpWhitelist", "http://localhost/admin/university/SignUpWhitelistEdit.aspx"},
+                {"CourseAgeReport", "http://localhost/admin/University/Reporting/CourseAgeReport"},
+                {"CourseSeatTimeReport", "http://localhost/admin/university/reporting/CourseSeatTimeReport.aspx"},
+                {"CoursePromotions", "http://localhost/admin/University/CourseManagement/coursePromotions.aspx"},
+                {"UniversityLibaraySettings", "http://localhost/admin/university/CourseManagement/UniversityLibaraySettings.aspx"},
+                {"RolesReport", "http://localhost/admin/group/RolesReport.aspx"},
+                {"EditCourses", "http://localhost/admin/university/CourseManagement/Editor.aspx"},
+                {"CoursesAddEdit", "https://localhost/admin/university/CourseList.aspx?Reset=True"},
+                {"EditCategories", "http://localhost/admin/university/CourseManagement/CategoryAdminView.aspx"},
+                {"CourseFamilyView", "http://localhost/admin/university/CourseManagement/CourseFamilyView.aspx"},
+                {"CourseLibrary", "https://localhost/admin/university/CourseManagement/CourseLibrary.aspx"},
+                {"SharedCourseDashboard", "http://localhost/admin/university/CourseManagement/SharedCourseDashboard.aspx"},
+                {"ShareCourseAcrossUniversities", "http://localhost/admin/university/CourseManagement/ShareCourseAcrossUniversities.aspx"},
+                {"CourseSchedules", "http://localhost/admin/university/CourseManagement/CourseSchedules"},
+                {"InvoicingReport", "http://localhost/admin/accountmanagement/InvoicingReport.aspx"},
+                {"BBSummaryAgingReport", "http://localhost/admin/University/Reporting/BBSummaryAgingReport"},
+                {"BBDetailAgingReport", "http://localhost/admin/University/Reporting/BBDetailAgingReport"},
+                {"CourseCompletionBBReport", "http://localhost/admin/University/Reporting/CourseCompletionBBReport"},
+                {"EditTrainingTracks", "http://localhost/Administration/home.aspx"},
+                {"ExternalCourseConsumerCourseList", "http://localhost/admin/ExternalCourseConsumer"},
+                {"ExternalUserManagement", "http://localhost/admin/ExternalCourseConsumer/UserManagement"},
+                {"ExternalCompanySettings", "http://localhost/admin/ExternalCourseConsumer/CompanySettings"},
+                {"AllowRetakes", "http://localhost/admin/university/StudentManagement/UniversityList.aspx"},
+                {"GradeEssay", "http://localhost/admin/university/StudentManagement/GradeEssayBrowse.aspx"},
+                {"ApproveActivity", "http://localhost/admin/university/StudentManagement/ApproveActivity.aspx"},
+                {"PendingEnrollments", "http://localhost/admin/enrollment/listPendingEnrollments"},
+                {"Announcements", "https://localhost/admin/university/StudentManagement/AnnouncementList.aspx"},
+                {"EmailManagement", "https://localhost/admin/university/reporting/EmailBounceBlocklist.aspx"},
+                {"TrainingCalendar", "http://localhost/admin/university/CourseManagement/TrainingCalendar/"},
+                {"ManualPass", "http://localhost/admin/university/StudentManagement/OfflineUniversityList.aspx"},
+                {"TrackOfflineCourses", "http://localhost/admin/university/StudentManagement/OfflineCourseTracking.aspx"},
+                {"CourseListEnrollment", "http://localhost/admin/university/StudentManagement/CourseEnrollmentManagement.aspx"},
+                {"CourseEnrollmentType", "http://localhost/admin/university/StudentManagement/CourseEnrollmentType.aspx"},
+                {"ReverseCoursePurchase", "http://localhost/admin/university/StudentManagement/ReverseCoursePurchase.aspx"},
+                {"ReferralsEarnings", "http://localhost/admin/university/reporting/UniversityReferralEarnings.aspx"},
+                {"UniSettingsView", "http://localhost/admin/university/UniversitySettingsView.aspx"},
+                {"UniSettingsMessages", "http://localhost/admin/university/UniversityMessages.aspx"},
+                {"UniSettingsProperties", "http://localhost/admin/university/UniversitySettingsProperties.aspx"},
+                {"UniSettingsBTAdmin", "http://localhost/admin/university/UniversitySettingsBTAdminView.aspx"},
+                {"ProfileFields", "http://localhost/admin/university/UniversitySettings/ProfileFields"},
+                {"UniCertificateUpload", "http://localhost/admin/university/UniversityCertificateUpload.aspx"},
+                {"PromoViewer", "https://localhost/admin/university/PromoViewer.aspx"},
+                {"UniDash", "http://localhost/admin/university/Dashboard.aspx"},
+                {"CourseHierarchyReport", "http://localhost/admin/university/Reporting/CourseHierarchyReport.aspx"},
+                {"AuditLog", "http://localhost/admin/university/Reporting/AuditLog.aspx"},
+                {"FileDownloadHistory", "http://localhost/admin/university/reporting/FileDownloadHistory.aspx"},
+                {"OSMarketplace", "http://localhost/admin/university/courseManagement/OSMarketplace.aspx"},
+                {"GroupCourseEditorWhiteList", "http://localhost/admin/group/GroupCourseEditorPermissions"}
             };
+
+            var t1 = "HelloThere";
+            var t2 = "IAmForYou";
+            
 
             //var startPoint = "admin/";
             //var startLen = startPoint.Length;
@@ -108,14 +195,38 @@ namespace GenericTesting
             //Console.WriteLine(var1);
             //Console.WriteLine(var2);
 
-            var node = d.GetNodesFromDictionary();
+            //var node = d.GetNodesFromDictionary();
 
-            var json = RecursiveTesting.CreateRecursiveJsonFromNode(node);
-            
-            Console.WriteLine(json);
+            //var json = RecursiveTesting.CreateRecursiveJsonFromNode(node);
+
+            //Console.WriteLine(json);
 
             Console.ReadLine();
         }
-        
+
+        private static string GetSectionsSeparatedByCaps(string input)
+        {
+            var matches = Regex.Matches(input, "[A-Z]");
+            int previous = 0;
+            StringBuilder sb = new StringBuilder();
+
+
+            for (int i = 0; i < matches.Count; i++)
+            {
+                if (i == matches.Count - 1)
+                    break;
+
+                var currentIndex = matches[i].Index;
+
+                if (currentIndex == 0)
+                    continue;
+
+                sb.Append($"{input.Substring(previous, currentIndex - previous)} ");
+            }
+
+            return sb.ToString();
+
+        }
+
     }
 }
