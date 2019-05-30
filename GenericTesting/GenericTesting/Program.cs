@@ -161,7 +161,7 @@ namespace GenericTesting
                 //{"TrainingCalendar", "http://localhost/admin/university/CourseManagement/TrainingCalendar/"},
                 //{"ManualPass", "http://localhost/admin/university/StudentManagement/OfflineUniversityList.aspx"},
                 //{"TrackOfflineCourses", "http://localhost/admin/university/StudentManagement/OfflineCourseTracking.aspx"},
-                {"CourseListEnrollment", "http://localhost/admin/university/StudentManagement/CourseEnrollmentManagement.aspx"},
+                //{"CourseListEnrollment", "http://localhost/admin/university/StudentManagement/CourseEnrollmentManagement.aspx"},
                 //{"CourseEnrollmentType", "http://localhost/admin/university/StudentManagement/CourseEnrollmentType.aspx"},
                 //{"ReverseCoursePurchase", "http://localhost/admin/university/StudentManagement/ReverseCoursePurchase.aspx"},
                 //{"ReferralsEarnings", "http://localhost/admin/university/reporting/UniversityReferralEarnings.aspx"},
