@@ -31,14 +31,33 @@ namespace GenericTesting
                 var itemsToWorkOn = nodeToWorkOn.SubNodes.Where(x => x.Name != null);
                 if (itemsToWorkOn.Any())
                 {
+                    var lastClosingElement = sb.ToString().ToCharArray().Reverse().Skip(2).Take(3).ToList();
                     sb.Append($"\"{nodeToWorkOn.Group}\": [{Environment.NewLine}");
                     sb.Append(String.Join($",{Environment.NewLine}", itemsToWorkOn.Select(x => $"{{\"{x.Name}\": \"{x.Value}\"}}")));
+                    
+                    if (lastClosingElement.Count == 3 && lastClosingElement[0] == '[' && lastClosingElement[2] == ':')
+                        sb.Append("]");
+                    
                     sb.Append($"{Environment.NewLine}],{Environment.NewLine}");
+
                     node.SubNodes.Remove(nodeToWorkOn);
                     CreateRecursiveJsonFromNode(node, sb);
                 }
                 else
-                    CreateRecursiveJsonFromNode(nodeToWorkOn, sb);
+                {
+                    if (!nodeToWorkOn.SubNodes.Any())
+                    {
+                        node.SubNodes.Remove(nodeToWorkOn);
+                        CreateRecursiveJsonFromNode(node, sb);
+                    }
+                    else
+                    {
+                        sb.Append($"\"{nodeToWorkOn.Group}\": [{Environment.NewLine}");
+                        CreateRecursiveJsonFromNode(nodeToWorkOn, sb);
+                    }
+                }
+                
+                    
             }
 
             return $"{sb.ToString().Substring(0, sb.Length - 3)}{Environment.NewLine}}}";
@@ -114,8 +133,8 @@ namespace GenericTesting
                 node.SubNodes.Add(new Node { Name = name, Value = url });
             else
             {
-                var groupOnNode = $"{sub.Substring(0, 1).ToUpper()}{sub.Substring(1, firstSlash - 1).ToLower()}";
-                var nameAfterGroup = sub.Substring(firstSlash + 1, sub.Length - firstSlash - 1);
+                var groupOnNode = $"{sub.Substring(0, 1).ToUpper()}{sub.Substring(1, firstSlash - 1).ToLower()}".GetSectionsSeparatedByCaps();
+                var nameAfterGroup = sub.Substring(firstSlash + 1, sub.Length - firstSlash - 1); //.GetSectionsSeparatedByCaps();
                 var groupIfExists = node.SubNodes.FirstOrDefault(x => String.Compare(x.Group, groupOnNode, false) == 0);
 
                 if (groupIfExists != null)

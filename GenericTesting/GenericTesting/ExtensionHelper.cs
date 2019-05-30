@@ -10,6 +10,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Configuration;
 using System.Globalization;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace GenericTesting
 {
@@ -201,6 +203,27 @@ namespace GenericTesting
         {
             var toAdd = originatingList.Where(x => !d.Any(y => y.POCOId == x.Id)).Take(count).Select(x => (PocoId: x.Id, Desc: x.Desc, HolderId: x.Id + 100));
             return (new List<Lookup>(toAdd.Select(x => new Lookup(x.PocoId, x.HolderId))), new List<Holder>(toAdd.Select(x => new Holder(x.HolderId, x.Desc))));
+        }
+
+        public static string GetSectionsSeparatedByCaps(this string input)
+        {
+            var matches = Regex.Matches(input, "[A-Z]");
+            StringBuilder sb = new StringBuilder();
+
+            if (matches.Count == 0)
+                return $"{input.Substring(0, 1).ToUpper()}{input.Substring(1, input.Length - 1).ToLower()}";
+
+            if (matches.Count == 1 && matches[0].Index != 0)
+                return $"{input.Substring(0, 1).ToUpper()}{input.Substring(1, matches[0].Index - 1).ToLower()} {input.Substring(matches[0].Index, input.Length - matches[0].Index)}";
+
+            for (int i = 0; i < matches.Count; i++)
+                if (i == matches.Count - 1)
+                    sb.Append(input.Substring(matches[i].Index, input.Length - matches[i].Index));
+                else
+                    sb.Append($"{input.Substring(matches[i].Index, matches[i + 1].Index - matches[i].Index)} ");
+            
+
+            return sb.ToString();
         }
     }
 
