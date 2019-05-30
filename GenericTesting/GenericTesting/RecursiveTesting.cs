@@ -19,7 +19,7 @@ namespace GenericTesting
         }
 
 
-        public static string CreateRecursiveJsonFromNode(this Node node, StringBuilder sb = null)
+        public static string CreateRecursiveJsonFromNode(this Node node, StringBuilder sb = null, bool hasParent = false)
         {
             if (sb == null)
                 sb = new StringBuilder($"{{{Environment.NewLine}");
@@ -31,17 +31,24 @@ namespace GenericTesting
                 var itemsToWorkOn = nodeToWorkOn.SubNodes.Where(x => x.Name != null);
                 if (itemsToWorkOn.Any())
                 {
-                    var lastClosingElement = sb.ToString().ToCharArray().Reverse().Skip(2).Take(3).ToList();
+                    //var lastClosingElement = sb.ToString().ToCharArray().Reverse().Skip(2).Take(3).ToList();
                     sb.Append($"\"{nodeToWorkOn.Group}\": [{Environment.NewLine}");
                     sb.Append(String.Join($",{Environment.NewLine}", itemsToWorkOn.Select(x => $"{{\"{x.Name}\": \"{x.Value}\"}}")));
                     
-                    if (lastClosingElement.Count == 3 && lastClosingElement[0] == '[' && lastClosingElement[2] == ':')
-                        sb.Append("]");
+                    //if (lastClosingElement.Count == 3 && lastClosingElement[0] == '[' && lastClosingElement[2] == ':')
+                    //    sb.Append($"{Environment.NewLine}]");
                     
                     sb.Append($"{Environment.NewLine}],{Environment.NewLine}");
 
                     node.SubNodes.Remove(nodeToWorkOn);
-                    CreateRecursiveJsonFromNode(node, sb);
+
+                    if(hasParent && !node.SubNodes.Any())
+                    {
+                        sb.Remove(sb.Length - 3, 3);
+                        sb.Append($"{Environment.NewLine}],{Environment.NewLine}");
+                    }
+                    
+                    CreateRecursiveJsonFromNode(node, sb, hasParent);
                 }
                 else
                 {
@@ -53,7 +60,7 @@ namespace GenericTesting
                     else
                     {
                         sb.Append($"\"{nodeToWorkOn.Group}\": [{Environment.NewLine}");
-                        CreateRecursiveJsonFromNode(nodeToWorkOn, sb);
+                        CreateRecursiveJsonFromNode(nodeToWorkOn, sb, true);
                     }
                 }
                 
