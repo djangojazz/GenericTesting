@@ -181,9 +181,12 @@ namespace GenericTesting
             };
 
             var t1 = "HelloThere";
-            var t2 = "IAmForYou";
+            var t2 = "forYou";
+            var t3 = "hello";
             
-
+            Console.WriteLine(GetSectionsSeparatedByCaps(t1));
+            Console.WriteLine(GetSectionsSeparatedByCaps(t2));
+            Console.WriteLine(GetSectionsSeparatedByCaps(t3));
             //var startPoint = "admin/";
             //var startLen = startPoint.Length;
 
@@ -207,25 +210,23 @@ namespace GenericTesting
         private static string GetSectionsSeparatedByCaps(string input)
         {
             var matches = Regex.Matches(input, "[A-Z]");
-            int previous = 0;
             StringBuilder sb = new StringBuilder();
 
+            if(matches.Count == 0)
+                return $"{input.Substring(0, 1).ToUpper()}{input.Substring(1, input.Length - 1).ToLower()}";
+
+            if(matches.Count == 1 && matches[0].Index != 0)
+                return $"{input.Substring(0, 1).ToUpper()}{input.Substring(1, matches[0].Index - 1).ToLower()} {input.Substring(matches[0].Index, input.Length - matches[0].Index)}";
 
             for (int i = 0; i < matches.Count; i++)
             {
                 if (i == matches.Count - 1)
-                    break;
-
-                var currentIndex = matches[i].Index;
-
-                if (currentIndex == 0)
-                    continue;
-
-                sb.Append($"{input.Substring(previous, currentIndex - previous)} ");
+                    sb.Append(input.Substring(matches[i].Index, input.Length - matches[i].Index));
+                else
+                    sb.Append($"{input.Substring(matches[i].Index, matches[i + 1].Index - matches[i].Index)} ");
             }
 
             return sb.ToString();
-
         }
 
     }
