@@ -24,11 +24,13 @@ namespace GenericTesting
             if (sb == null)
                 sb = new StringBuilder($"{{{Environment.NewLine}");
 
-            Action<string, List<Node>, StringBuilder> UpdateStringBuilder = (group, itemsToWorkOn, stb) =>
+            Action<string, List<Node>, StringBuilder, bool> UpdateStringBuilder = (group, itemsToWorkOn, stb, updateHeader) =>
             {
-                stb.Append($"\"{group}\": [{Environment.NewLine}");
+                if(updateHeader)
+                    stb.Append($"\"{group}\": [{Environment.NewLine}");
                 stb.Append(string.Join($",{Environment.NewLine}", itemsToWorkOn.Select(x => $"{{\"{x.Name}\": \"{x.Value}\"}}")));
-                stb.Append($"{Environment.NewLine}],{Environment.NewLine}");
+                if(updateHeader)
+                    stb.Append($"{Environment.NewLine}],{Environment.NewLine}");
             };
 
             var nodeToWorkOn = node.SubNodes.FirstOrDefault();
@@ -48,29 +50,50 @@ namespace GenericTesting
                 //GroupsFirst
                 if(groupsToWorkOn.Any())
                 {
-                    sb.Append($"\"{nodeToWorkOn.Group}\": [<{nodeToWorkOn.Group}>]");
-                    CreateRecursiveJsonFromNode(nodeToWorkOn, sb, nodeToWorkOn, new StringBuilder());
+                    sb.Append($"\"{nodeToWorkOn.Group}\": [{Environment.NewLine}<{nodeToWorkOn.Group}>{Environment.NewLine}]");
+                    CreateRecursiveJsonFromNode(nodeToWorkOn, sb, node, new StringBuilder());
                 }
-                
-                //Items to write
-                if (itemsToWorkOn.Any())
+                else
                 {
-                    if(parent != null)
+                    //Items to write
+                    if (itemsToWorkOn.Any())
                     {
-                        UpdateStringBuilder(nodeToWorkOn.Group, itemsToWorkOn, sb2);
-                        node.SubNodes.Remove(nodeToWorkOn);
-                        CreateRecursiveJsonFromNode(parent, sb, null, sb2);
+                        if (parent != null)
+                        {
+                            UpdateStringBuilder(nodeToWorkOn.Group, itemsToWorkOn, sb2, true);
+                            node.SubNodes.Remove(nodeToWorkOn);
+                            CreateRecursiveJsonFromNode(parent, sb, null, sb2);
+                        }
+                        else
+                        {
+                            if (sb2 != null)
+                            {
+                                UpdateStringBuilder(nodeToWorkOn.Group, itemsToWorkOn, sb2, false);
+                                node.SubNodes.Remove(nodeToWorkOn);
+
+                                //Finish up and merge sb2 with sb for child groups
+                                if (!node.SubNodes.Any())
+                                {
+                                    sb.Replace($"<{nodeToWorkOn.Group}>", sb2.ToString());
+                                    CreateRecursiveJsonFromNode(node, sb);
+                                }
+                                else
+                                {
+                                    CreateRecursiveJsonFromNode(node, sb, null, sb2);
+                                }
+                            }
+                            else
+                            {
+                                UpdateStringBuilder(nodeToWorkOn.Group, itemsToWorkOn, sb, true);
+                                itemsToWorkOn.ForEach(x => nodeToWorkOn.SubNodes.Remove(x));
+                                CreateRecursiveJsonFromNode(node, sb, parent);
+                            }
+                        }
+
                     }
-                    else
-                    {
-                        UpdateStringBuilder(nodeToWorkOn.Group, itemsToWorkOn, sb);
-                        itemsToWorkOn.ForEach(x => nodeToWorkOn.SubNodes.Remove(x));
-                        CreateRecursiveJsonFromNode(node, sb, parent);
-                    }
-                    
                 }
                 
-                    
+                
             }
 
             return $"{sb.ToString()}{Environment.NewLine}}}";
