@@ -191,11 +191,14 @@ namespace GenericTesting
             //Console.WriteLine(var1);
             //Console.WriteLine(var2);
 
-            var node = d.GetNodesFromDictionary(new RecursiveTesting.OptionsForHeirarchy(reseatRootToName: string.Empty));
+            var dac = new DacPacService();
+            dac.CreateDatabaseFromDacPac(@"Data Source=.;Initial Catalog=BlueVoltLogs2;Integrated Security=true", @"E:\temp\05312019BVLogs.dacpac", "BlueVoltLogs2");
 
-            var json = RecursiveTesting.CreateRecursiveJsonFromNode(node);
+            //var node = d.GetNodesFromDictionary(new RecursiveTesting.OptionsForHeirarchy(reseatRootToName: string.Empty));
 
-            Console.WriteLine(json);
+            //var json = RecursiveTesting.CreateRecursiveJsonFromNode(node);
+
+            //Console.WriteLine(json);
 
             Console.ReadLine();
         }
