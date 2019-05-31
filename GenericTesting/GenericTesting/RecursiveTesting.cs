@@ -19,10 +19,17 @@ namespace GenericTesting
         }
 
 
-        public static string CreateRecursiveJsonFromNode(this Node node, StringBuilder sb = null, bool hasParent = false, Node parent = null)
+        public static string CreateRecursiveJsonFromNode(this Node node, StringBuilder sb = null, Node parent = null, StringBuilder sb2 = null)
         {
             if (sb == null)
                 sb = new StringBuilder($"{{{Environment.NewLine}");
+
+            Action<string, List<Node>, StringBuilder> UpdateStringBuilder = (group, itemsToWorkOn, stb) =>
+            {
+                stb.Append($"\"{group}\": [{Environment.NewLine}");
+                stb.Append(string.Join($",{Environment.NewLine}", itemsToWorkOn.Select(x => $"{{\"{x.Name}\": \"{x.Value}\"}}")));
+                stb.Append($"{Environment.NewLine}],{Environment.NewLine}");
+            };
 
             var nodeToWorkOn = node.SubNodes.FirstOrDefault();
 
@@ -31,7 +38,7 @@ namespace GenericTesting
                 var itemsToWorkOn = nodeToWorkOn.SubNodes.Where(x => x.Name != null).ToList();
                 var groupsToWorkOn = nodeToWorkOn.SubNodes.Where(x => x.Group != null).ToList();
 
-                //BlankGroup
+                //BlankGroup remove and reset back
                 if (!groupsToWorkOn.Any() && !itemsToWorkOn.Any())
                 {
                     node.SubNodes.Remove(nodeToWorkOn);
@@ -41,42 +48,32 @@ namespace GenericTesting
                 //GroupsFirst
                 if(groupsToWorkOn.Any())
                 {
-                    if (!nodeToWorkOn.SubNodes.Any())
-                    {
-                        node.SubNodes.Remove(nodeToWorkOn);
-                        CreateRecursiveJsonFromNode(node, sb);
-                    }
-                    else
-                    {
-                        sb.Append($"\"{nodeToWorkOn.Group}\": [{Environment.NewLine}");
-                        CreateRecursiveJsonFromNode(nodeToWorkOn, sb, true);
-                    }
+                    sb.Append($"\"{nodeToWorkOn.Group}\": [<{nodeToWorkOn.Group}>]");
+                    CreateRecursiveJsonFromNode(nodeToWorkOn, sb, nodeToWorkOn, new StringBuilder());
                 }
                 
                 //Items to write
                 if (itemsToWorkOn.Any())
                 {
-                    sb.Append($"\"{nodeToWorkOn.Group}\": [{Environment.NewLine}");
-                    sb.Append(String.Join($",{Environment.NewLine}", itemsToWorkOn.Select(x => $"{{\"{x.Name}\": \"{x.Value}\"}}")));
-                    sb.Append($"{Environment.NewLine}],{Environment.NewLine}");
-
-                    //This is not working
-                    //node.SubNodes.Remove(nodeToWorkOn);
-                    itemsToWorkOn.ForEach(x => nodeToWorkOn.SubNodes.Remove(x));
-
-                    if(hasParent && !node.SubNodes.Any())
+                    if(parent != null)
                     {
-                        sb.Remove(sb.Length - 3, 3);
-                        sb.Append($"{Environment.NewLine}],{Environment.NewLine}");
+                        UpdateStringBuilder(nodeToWorkOn.Group, itemsToWorkOn, sb2);
+                        node.SubNodes.Remove(nodeToWorkOn);
+                        CreateRecursiveJsonFromNode(parent, sb, null, sb2);
+                    }
+                    else
+                    {
+                        UpdateStringBuilder(nodeToWorkOn.Group, itemsToWorkOn, sb);
+                        itemsToWorkOn.ForEach(x => nodeToWorkOn.SubNodes.Remove(x));
+                        CreateRecursiveJsonFromNode(node, sb, parent);
                     }
                     
-                    CreateRecursiveJsonFromNode(node, sb, hasParent);
                 }
                 
                     
             }
 
-            return $"{sb.ToString().Substring(0, sb.Length - 3)}{Environment.NewLine}}}";
+            return $"{sb.ToString()}{Environment.NewLine}}}";
         }
 
         /// <summary>

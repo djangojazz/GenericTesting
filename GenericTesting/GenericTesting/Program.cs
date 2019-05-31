@@ -191,7 +191,7 @@ namespace GenericTesting
             //Console.WriteLine(var1);
             //Console.WriteLine(var2);
 
-            var node = d.GetNodesFromDictionary();
+            var node = d.GetNodesFromDictionary(new RecursiveTesting.OptionsForHeirarchy(reseatRootToName: string.Empty));
 
             var json = RecursiveTesting.CreateRecursiveJsonFromNode(node);
 
