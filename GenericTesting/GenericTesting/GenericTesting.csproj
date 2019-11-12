@@ -98,6 +98,7 @@
     <Compile Include="CartesianHelper.cs" />
     <Compile Include="ChessProblem.cs" />
     <Compile Include="ColorPaletteCreator.cs" />
+    <Compile Include="DacPacService.cs" />
     <Compile Include="DataAccess\DatabaseAccess.cs" />
     <Compile Include="DataAccess\DataConverter.cs" />
     <Compile Include="DataAccess\Enterprise\Selects.cs" />
