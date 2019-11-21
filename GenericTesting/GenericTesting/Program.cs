@@ -17,6 +17,7 @@ using System.Text;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using GenericTesting.Imaging;
 
 namespace GenericTesting
 {
@@ -25,16 +26,10 @@ namespace GenericTesting
     {
         static void Main(String[] args)
         {
-            var encoder = new ImageProcessor.Plugins.WebP.Imaging.Formats.WebPFormat();
-            var fileName = "Testing.jpg";
-            var outFileName = "Testing.webp";
-            File.Delete(outFileName);
-
-            using (Stream BitmapStream = File.Open(fileName, FileMode.Open))
-            {
-                Image img = Image.FromStream(BitmapStream);
-                encoder.Save(new FileStream(outFileName, FileMode.Create), img, 1);
-            }
+            var thing = new WebPImager();
+            thing.GenerateWebP();
+            thing.Runner();
+            Console.ReadLine();
         }
     }
 }

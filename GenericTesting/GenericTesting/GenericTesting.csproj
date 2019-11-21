@@ -98,7 +98,6 @@
     <Compile Include="CartesianHelper.cs" />
     <Compile Include="ChessProblem.cs" />
     <Compile Include="ColorPaletteCreator.cs" />
-    <Compile Include="DacPacService.cs" />
     <Compile Include="DataAccess\DatabaseAccess.cs" />
     <Compile Include="DataAccess\DataConverter.cs" />
     <Compile Include="DataAccess\Enterprise\Selects.cs" />
@@ -115,6 +114,7 @@
     <Compile Include="ExtensionHelper.cs" />
     <Compile Include="HackerRankChallenges\Algorithms.cs" />
     <Compile Include="HackerRankChallenges\HourGlasses.cs" />
+    <Compile Include="WebPImager.cs" />
     <Compile Include="InheritanceExample.cs" />
     <Compile Include="Lambdas\LambdaEvents.cs" />
     <Compile Include="Lambdas\BasicLambdas.cs" />
