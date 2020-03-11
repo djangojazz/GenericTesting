@@ -6,7 +6,7 @@ namespace Core31
     {
         static void Main(string[] args)
         {
-            TranslatorHelper.GetFilesInDirectory("E:\\Translate");
+            TranslatorHelper.GetFilesInDirectory("E:\\Translate2");
 
             Console.ReadLine();
         }
