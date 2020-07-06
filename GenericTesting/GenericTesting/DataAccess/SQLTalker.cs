@@ -15,7 +15,7 @@
       public string Cnx { get; set; }
 
       // default values of the library is set to local database that has a test database.
-      public SQLTalker(string server = "(local)", string database = "Tester", string user = null, string password = null)
+      public SQLTalker(string server = ".", string database = "BlueVoltDatabase", string user = null, string password = null)
       {
         Server = server;
         Database = database;
@@ -322,7 +322,7 @@
 
     public void Dispose()
     {
-      throw new NotImplementedException();
+            Cnx = null; 
     }
   }
 }

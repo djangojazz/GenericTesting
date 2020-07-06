@@ -101,6 +101,7 @@
     <Compile Include="DataAccess\DatabaseAccess.cs" />
     <Compile Include="DataAccess\DataConverter.cs" />
     <Compile Include="DataAccess\Enterprise\Selects.cs" />
+    <Compile Include="DataAccess\ExampleRunner.cs" />
     <Compile Include="DataAccess\SQLTalker.cs" />
     <Compile Include="Delegates\AnnonymousDelegates.cs" />
     <Compile Include="Delegates\BasicDelegates.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="ExtensionHelper.cs" />
     <Compile Include="HackerRankChallenges\Algorithms.cs" />
     <Compile Include="HackerRankChallenges\HourGlasses.cs" />
+    <Compile Include="Models\Group.cs" />
     <Compile Include="WebPImager.cs" />
     <Compile Include="InheritanceExample.cs" />
     <Compile Include="Lambdas\LambdaEvents.cs" />

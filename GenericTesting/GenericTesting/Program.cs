@@ -18,6 +18,7 @@ using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using GenericTesting.Imaging;
+using GenericTesting.DataAccess;
 
 namespace GenericTesting
 {
@@ -26,9 +27,8 @@ namespace GenericTesting
     {
         static void Main(String[] args)
         {
-            var thing = new WebPImager();
-            thing.GenerateWebP();
-            thing.Runner();
+            var data = ExampleRunner.GetGroupsFromUser(1126043);
+            data.ToList().ForEach(x => Console.WriteLine($"{x.GroupId} {x.GlobalGroupName}"));
             Console.ReadLine();
         }
     }
