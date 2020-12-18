@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace ConstructorCreator
 {
@@ -8,30 +9,34 @@ namespace ConstructorCreator
     {
         static void Main(string[] args)
         {
-            var location = @"C:\AyaGit\Applications\Aya.Core.Api\Aya.Core.DTO\AyaNova\BizDev\FacilityClientOverviewDto.cs";
-            string s = string.Empty;
+            //Make or check directory
+            var target = new DirectoryInfo("C:\\Temp");
+            if (!target.Exists)
+                target.Create();
+            else
+                Console.WriteLine("Already exists");
 
-            using (var sr = new StreamReader(location))
+            var source = new DirectoryInfo(@"C:\AyaGit\Applications\Aya.Core.Api\Aya.Core.DTO\AyaNova\BizDev");
+            var files = source.GetFiles("*.cs", SearchOption.AllDirectories).ToList();
+            files.AsParallel().ForAll(f =>
             {
-                s = sr.ReadToEnd();
-            }
+                using (var sr = new StreamReader(f.FullName))
+                {
+                    string s = string.Empty;
+                    s = sr.ReadToEnd();
+                    var c = new ConstructorObject(s);
+                    c.MakeAFile(target.FullName);
+                }
+            });
 
-            var lines = s.Split(Environment.NewLine);
+            //var location = @"C:\AyaGit\Applications\Aya.Core.Api\Aya.Core.DTO\AyaNova\BizDev\FacilityClientOverviewDto.cs";
+            //string s = string.Empty;
 
-            var hdr = lines.FirstOrDefault(x => x.Contains("public class"));
-            hdr = hdr.Substring(hdr.IndexOf("class"));
-            hdr = hdr.Substring(hdr.IndexOf(' '));
+            
 
-            var props = lines
-                .Where(x => x.Contains("get;"))
-                .Take(5)
-                .Select((x, i) => new { Ind = i+1, Strings = x.Substring(x.IndexOf("public")).Split(" ")})
-                .Select(x => new Line(x.Ind, x.Strings[2], x.Strings[1]))
-                .ToList();
+            
 
-            var c = new ConstructorObject(hdr, props);
-            Console.WriteLine(c.Name);
-            c.Lines.ForEach(x => Console.WriteLine($"{x.Id} {x.Name} {x.Type}"));
+            
         }
     }
 }
