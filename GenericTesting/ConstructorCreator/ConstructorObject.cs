@@ -15,8 +15,6 @@ namespace ConstructorCreator
         public string SignatureStrings { get; set; }
         public string CamelStrings { get; set; }
 
-        
-
         public ConstructorObject(string input)
         {
             var lines = input.Split(Environment.NewLine);
@@ -28,13 +26,15 @@ namespace ConstructorCreator
             }
             
 
-            var hdr = lines.FirstOrDefault(x => x.Contains("public class"));
+            var hdr = lines.FirstOrDefault(x => x.Contains("class"));
             hdr = hdr.Substring(hdr.IndexOf("class"));
             Name = hdr.Substring(hdr.IndexOf(' ')).Trim();
+            if (Name.Contains(":"))
+                Name = Name.Substring(0, Name.IndexOf(":")).Trim();
 
             Lines = lines
                 .Where(x => x.Contains("get;"))
-                .Select((x, i) => new { Ind = i + 1, Strings = x.Substring(x.IndexOf("public")).Split(" ") })
+                .Select((x, i) => new { Ind = i + 1, Strings = x.Replace(" virtual", string.Empty).Substring(x.IndexOf("public")).Split(" ") })
                 .Select(x => new Line(x.Ind, x.Strings[2].Trim(), GetUpdatedName(x.Strings[2].Trim()), x.Strings[1].Trim()))
                 .ToList();
 
