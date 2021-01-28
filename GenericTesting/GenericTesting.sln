@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core22Test", "Core22Test\Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core31", "Core31\Core31.csproj", "{0ED8E3D5-9100-48E8-9D7C-BAAB9B10F727}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstructorCreator", "ConstructorCreator\ConstructorCreator.csproj", "{74DAA27B-11B9-4A5B-99A1-8A495A63FF9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConstructorCreator", "ConstructorCreator\ConstructorCreator.csproj", "{74DAA27B-11B9-4A5B-99A1-8A495A63FF9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

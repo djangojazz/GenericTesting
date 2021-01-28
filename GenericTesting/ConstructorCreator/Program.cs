@@ -33,11 +33,8 @@ namespace ConstructorCreator
         static void Main(string[] args)
         {
             //Make or check directory
-            //var target = DirectoryHelper.MakeOrCreateDirectory(@"C:\Temp");
-            var item = new POCO(1, "Abc", DateTime.Now);
-            var item2 = new POCO(2, "Def", DateTime.Now.AddDays(2));
-            var items = new List<POCO> { item, item2 };
-            items.Select(x => ReflectorConverter.Converter<POCO, POCO2>(x)).ToList().ForEach(Console.WriteLine);
+            var target = DirectoryHelper.MakeOrCreateDirectory(@"C:\Temp");
+            DirectoryHelper.CreateConstruction(@"C:\AyaGit\Applications\Aya.Core.Api\Aya.Core.DAL\Entities\Tables\Timecard\PayType.cs", target.FullName);
 
             //var output = ReflectorConverter.Converter<POCO, POCO2>(item);
             //Console.WriteLine(output);

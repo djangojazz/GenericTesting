@@ -59,18 +59,18 @@ namespace ConstructorCreator
             return target;
         }
 
-        internal static void CreateConstruction(string location, FileInfo target)
+        internal static void CreateConstruction(string location, string target)
         {
             using (var sr = new StreamReader(location))
             {
                 string s = string.Empty;
                 s = sr.ReadToEnd();
                 var c = new ConstructorObject(s);
-                c.MakeAFile(target.FullName);
+                c.MakeAFile(target);
             }
         }
 
-        internal static void CreateConstruction(DirectoryInfo source, FileInfo target)
+        internal static void CreateConstruction(DirectoryInfo source, string target)
         {
             var files = source.GetFiles("*.cs", SearchOption.AllDirectories).ToList();
             files.AsParallel().ForAll(f =>
@@ -80,7 +80,7 @@ namespace ConstructorCreator
                     string s = string.Empty;
                     s = sr.ReadToEnd();
                     var c = new ConstructorObject(s);
-                    c.MakeAFile(target.FullName);
+                    c.MakeAFile(target);
                 }
             });
         }

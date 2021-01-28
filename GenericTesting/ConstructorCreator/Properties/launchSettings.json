@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ConstructorCreator": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\AyaGit\\Applications\\Aya.Core.Api\\Aya.Core.DTO\\Models\\Nurses\\ApplicationFeatureDto.cs"
+    }
+  }
+}
