@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CSVToJson": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Alina Strike\\02.24.21 Allina Strike - Non-Clinical Info.csv\" true"
+    }
+  }
+}
