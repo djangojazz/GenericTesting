@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace WPFTest
     public class MainViewModel : INotifyPropertyChanged
     {
         string _textEntry;
+        private int _currentId = 0;
 
         public MainViewModel() 
         {
@@ -28,6 +30,8 @@ namespace WPFTest
             }
         }
 
+        public ObservableCollection<DataReceived> DataItems { get; } = new ObservableCollection<DataReceived>();
+
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged(String info)
         {
@@ -38,7 +42,9 @@ namespace WPFTest
         {
             get => new RelayCommand(param =>
             {
-                TextEntry = $"Changed to {DateTime.Now.ToString()}";
+                _currentId++;
+                var dt = DateTime.Now;
+                DataItems.Add(new DataReceived { Id = _currentId, Name = _textEntry, Description = dt.ToString() });
             });
         }
     }

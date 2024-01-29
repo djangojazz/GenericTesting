@@ -13,6 +13,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Border Grid.Row="0" >
             <TextBox Text="{Binding TextEntry, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
@@ -21,5 +22,13 @@
         <Border Grid.Row="1" Width="100" HorizontalAlignment="Left" >
             <Button Command="{Binding Path=SearchCommand}">Search</Button>
         </Border>
+
+        <DataGrid Grid.Row="2" ItemsSource="{Binding DataItems}" VerticalAlignment="Top">
+            <!--<DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
+            </DataGrid.Columns>-->
+        </DataGrid>
     </Grid>
 </Window>
