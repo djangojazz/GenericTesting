@@ -35,7 +35,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConstructorCreator", "Const
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSVToJson", "CSVToJson\CSVToJson.csproj", "{D7B423D1-5D91-4D7E-864A-02F36F744FB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NET6Console", "NET6Console\NET6Console.csproj", "{08E9C4C0-5ABC-4A8A-8DA0-4CC23152BF64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NET6Console", "NET6Console\NET6Console.csproj", "{08E9C4C0-5ABC-4A8A-8DA0-4CC23152BF64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFTest", "WPFTest\WPFTest.csproj", "{D88F458E-CB8F-4FF6-BE86-F5DC0793CE34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -173,6 +175,14 @@ Global
 		{08E9C4C0-5ABC-4A8A-8DA0-4CC23152BF64}.Release|Any CPU.Build.0 = Release|Any CPU
 		{08E9C4C0-5ABC-4A8A-8DA0-4CC23152BF64}.Release|x64.ActiveCfg = Release|Any CPU
 		{08E9C4C0-5ABC-4A8A-8DA0-4CC23152BF64}.Release|x64.Build.0 = Release|Any CPU
+		{D88F458E-CB8F-4FF6-BE86-F5DC0793CE34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D88F458E-CB8F-4FF6-BE86-F5DC0793CE34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D88F458E-CB8F-4FF6-BE86-F5DC0793CE34}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D88F458E-CB8F-4FF6-BE86-F5DC0793CE34}.Debug|x64.Build.0 = Debug|Any CPU
+		{D88F458E-CB8F-4FF6-BE86-F5DC0793CE34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D88F458E-CB8F-4FF6-BE86-F5DC0793CE34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D88F458E-CB8F-4FF6-BE86-F5DC0793CE34}.Release|x64.ActiveCfg = Release|Any CPU
+		{D88F458E-CB8F-4FF6-BE86-F5DC0793CE34}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
