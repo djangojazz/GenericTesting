@@ -13,17 +13,31 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" >
-            <TextBox Text="{Binding TextEntry, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0">
+            FirstName
+        </Label>
+        <Label Grid.Row="0" Grid.Column="1">
+            LastName
+        </Label>
+        <Border Grid.Row="1" Grid.Column="0" >
+            <TextBox Text="{Binding FirstName, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
+        </Border>
+        <Border Grid.Row="1" Grid.Column="1" >
+            <TextBox Text="{Binding LastName, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
         </Border>
 
-        <Border Grid.Row="1" Width="100" HorizontalAlignment="Left" >
+        <Border Grid.Row="2" Width="100" HorizontalAlignment="Left" >
             <Button Command="{Binding Path=SearchCommand}">Search</Button>
         </Border>
 
-        <DataGrid Grid.Row="2" ItemsSource="{Binding DataItems}" VerticalAlignment="Top">
+        <DataGrid Grid.Row="3" ItemsSource="{Binding DataItems}" VerticalAlignment="Top">
             <!--<DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
