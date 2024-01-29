@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace WPFTest
 {
@@ -30,6 +32,14 @@ namespace WPFTest
         private void OnPropertyChanged(String info)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
+        }
+
+        public ICommand SearchCommand
+        {
+            get => new RelayCommand(param =>
+            {
+                TextEntry = $"Changed to {DateTime.Now.ToString()}";
+            });
         }
     }
 }

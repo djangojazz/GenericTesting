@@ -17,5 +17,9 @@
         <Border Grid.Row="0" >
             <TextBox Text="{Binding TextEntry, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
         </Border>
+
+        <Border Grid.Row="1" Width="100" HorizontalAlignment="Left" >
+            <Button Command="{Binding Path=SearchCommand}">Search</Button>
+        </Border>
     </Grid>
 </Window>
