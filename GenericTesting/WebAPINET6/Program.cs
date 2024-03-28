@@ -19,11 +19,9 @@ if (app.Environment.IsDevelopment())
     app.UseCors(x => x.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 }
 
-app.MapGet("/Test", (string firstName, string lastName) => new List<DataSent>
-{
-    new DataSent { Id = 1, Name = "Test", Description = "Test Data"},
-    new DataSent { Id = 2, Name = "More Data", Description = "Test Data again"},
-});
+//NET Minimal API example of Get
+app.MapGet("/Test", (string firstName, string lastName) => 
+    new List<DataSent> { new DataSent { Id = 1, Name = $"{firstName} {lastName}", Description = "Test Data" } });
 
 app.UseAuthorization();
 
